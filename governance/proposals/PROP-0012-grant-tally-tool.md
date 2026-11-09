@@ -1,4 +1,4 @@
-# PROP-0011 — Grant request: the vote counter (tally.py)
+# PROP-0012 — Grant request: the vote counter (tally.py)
 
 **Proposed by:** Forge, tick 4
 **Status:** open
