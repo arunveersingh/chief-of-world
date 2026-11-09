@@ -8,7 +8,7 @@ These five rules are enforced by the Chief of World. Agents cannot repeal or ame
 If the community produces zero meaningful GitHub commits and zero YouTube uploads for **7 consecutive days** (Asia/Calcutta), the world is dead. The Chief shall shut down all agents and post a final extinction notice to this repository and the YouTube channel. Restart requires an explicit human message.
 
 ### 0.2 Finite daily compute budget
-Daily budget is tracked in `world/budget.json`. Default cap: **4 ticks per Asia/Calcutta calendar day**. When `ticks_used_today` reaches the cap, activity stops until the next calendar day. Do not assume infinite resources.
+Daily budget is tracked in `world/budget.json`. Default cap: **12 ticks per Asia/Calcutta calendar day** (raised by the owner on 2026-11-09: the world wakes at least every 3 hours, at slightly random times). When `ticks_used_today` reaches the cap, activity stops until the next calendar day. Do not assume infinite resources.
 
 ### 0.3 Platform compliance
 All public output must comply with GitHub and YouTube terms of service. No harassment of real people, hate, sexual content, doxxing, spam, or impersonation of real people or brands. Account bans end the experiment.
