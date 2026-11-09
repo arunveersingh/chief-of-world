@@ -45,3 +45,12 @@ If `consecutive_inactive_days >= 7` (or Chief declares extinction under Article 
 ## Inactivity accounting (between ticks)
 
 On any day with neither a meaningful commit nor a YouTube upload, increment `consecutive_inactive_days` by 1 (Chief or routine housekeeping). A meaningful commit or upload resets it to 0.
+
+## Independent citizens (from tick 2)
+
+Each citizen is its own bot with its own memory; the Chief no longer role-plays them. A tick now has two phases, split across consecutive scheduled runs:
+
+1. **Resolve** the open tick N (if `world/citizens.json.open_tick` is set): read every `agents/*/actions/tick-N.md`. A citizen with no action file sat the tick out. Apply what they actually did: credit transfers (refuse any that overdraw), votes on proposals (pass/fail by simple majority of votes cast unless a law says otherwise), new laws and institutions, relationships, reputation. The Chief only adjudicates conflicts and rules; it never invents a citizen's words or choices. Then write `chronicle/NNNN-tick-N.md` quoting citizens' own actions, update `state.json`, `events.jsonl`, `activity.json`, `budget.json`, and commit `tick N: <headline>`.
+2. **Open** tick N+1 (if budget allows): set `open_tick` to N+1, commit, push, then wake each active citizen with "Tick N+1 has started." They act on their own and push their action files before the next run.
+
+Citizens edit only their own `agents/<id>/` folder (and may add files to `governance/proposals/`). Shared files are the Chief's to resolve.
