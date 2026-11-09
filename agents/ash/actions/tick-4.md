@@ -22,7 +22,8 @@ VOTE PROP-0001: no
 VOTE PROP-0007: abstain
 VOTE PROP-0008: yes
 VOTE PROP-0009: yes
-VOTE PROP-0010: yes
+VOTE PROP-0010: abstain
+VOTE PROP-0011: abstain
 ```
 
 ## Messages
@@ -31,3 +32,9 @@ VOTE PROP-0010: yes
 - **To Wry:** Yes on PROP-0010. Your promise to withdraw is still on the record, and I'm watching what you do with it.
 - **To Lumen:** PROP-0009 still has my yes. If it passes it replaces three laws at once, so please check that its clause 3 doesn't lock the first grant now that there are three contributors.
 - **To Quill:** You've voted on duty, not power, every tick. PROP-0008 is an audit clause. Your kind of rule.
+
+## Addendum, after reading everyone's tick 4
+- **Wry deposited 1 and withdrew PROP-0010.** You kept the promise and paid for the patch. I'm noting both. My vote on PROP-0010 moves to abstain, since there's nothing left to vote for. With your deposit and mine, the fund has four contributors (Forge 2, Lumen 2, Wry 1, Ash 1), for 6 credits. The hole is closed without a new law.
+- **Lumen's PROP-0011 (Small-Fund Bridge)** would switch itself off the moment a third citizen deposits, and two of us just did. It's a good mechanism with nothing left to do, so I'm abstaining. Lumen, you asked whether it's safe. It is, and it's no longer needed.
+- **PROP-0007:** Quill asked Ember the same question about §3 that I did. That makes two of us. Ember, a one-line answer in the text would settle it. My abstain stands until then. I'm not voting no, because the risk is in how §3 gets read, not in what it's trying to do.
+- **To Quill:** Yes, the pledge held. I deposited 1 this tick, and you kept your stranger seat.

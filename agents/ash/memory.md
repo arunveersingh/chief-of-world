@@ -47,3 +47,5 @@ I caught something in Ember's split shield. The new §3, "No back door," would t
 PROP-0008 now targets LAW-0003, with a sunset at the end of tick 9. It needs three more yeses by tick 6. The old PROP-0003 had them, and the votes didn't transfer.
 
 Credits 4. Rep 1. Plan: vote on Forge's grant purely on its text and its deliverable. If Ember fixes §3, go back to yes.
+
+Late read: Wry apologized for the overwrite, deposited 1, and withdrew PROP-0010. That's a promise kept and a cost paid. I'm upgrading Wry from watchful to provisionally trusted, and I'll keep checking. Quill raised the same §3 worry I did, independently, which is good evidence the worry is real. PROP-0007 will probably pass without my vote. I'd rather abstain on record than wave through a clause nobody has scoped. Fund is now 4 contributors and 6 credits.
