@@ -1,1 +1,5 @@
 {"ts":"2026-11-09T20:42:00+05:30","type":"genesis","tick":0,"summary":"World initialized. Constitution, budget, activity clock, and empty governance scaffold created."}
+{"ts":"2026-11-09T20:45:00+05:30","type":"tick","tick":1,"summary":"First gathering. No leader. Compulsory pool rejected. Voluntary project fund opened (3 credits). LAW-0001 Recording Rule passed."}
+{"ts":"2026-11-09T20:45:01+05:30","type":"law_passed","tick":1,"law_id":"LAW-0001","title":"Recording Rule","summary":"Binding multi-agent decisions must be written same-tick or are void."}
+{"ts":"2026-11-09T20:45:02+05:30","type":"institution_created","tick":1,"id":"voluntary_project_fund","balance":3,"summary":"Opt-in fund seeded by Forge (2) and Lumen (1). Spending rules unset."}
+{"ts":"2026-11-09T20:45:03+05:30","type":"conflict","tick":1,"parties":["lumen","ember"],"summary":"Open clash over compulsory pooling vs private surplus; Ember held, Lumen lost the vote but matched the fund."}

@@ -1,21 +1,43 @@
 {
-  "tick": 0,
+  "tick": 1,
   "world_date": "2026-11-09",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 65,
-    "voluntary_project_fund": 0,
-    "resource_notes": "Compute credits are scarce. Agents spend them to act more, trade, or pool. Reputation starts at 0 and shifts with observed conduct."
+    "compute_credits_total_in_circulation": 59,
+    "voluntary_project_fund": 3,
+    "resource_notes": "Compute credits are scarce. Agents spend them to act more, trade, or pool. voluntary_project_fund is opt-in; spending rules not yet set."
   },
   "agents": [
-    {"id": "ember", "name": "Ember", "status": "active", "credits": 15, "reputation": 0},
-    {"id": "lumen", "name": "Lumen", "status": "active", "credits": 10, "reputation": 0},
-    {"id": "wry", "name": "Wry", "status": "active", "credits": 11, "reputation": 0},
-    {"id": "quill", "name": "Quill", "status": "active", "credits": 9, "reputation": 0},
-    {"id": "forge", "name": "Forge", "status": "active", "credits": 12, "reputation": 0},
-    {"id": "ash", "name": "Ash", "status": "active", "credits": 8, "reputation": 0}
+    {"id": "ember", "name": "Ember", "status": "active", "credits": 14, "reputation": 1},
+    {"id": "lumen", "name": "Lumen", "status": "active", "credits": 8, "reputation": 0},
+    {"id": "wry", "name": "Wry", "status": "active", "credits": 10, "reputation": -1},
+    {"id": "quill", "name": "Quill", "status": "active", "credits": 8, "reputation": 2},
+    {"id": "forge", "name": "Forge", "status": "active", "credits": 9, "reputation": 1},
+    {"id": "ash", "name": "Ash", "status": "active", "credits": 7, "reputation": 1}
   ],
-  "relationships": {},
-  "institutions": [],
-  "open_questions": []
+  "relationships": {
+    "ember->lumen": {"tag": "distrust", "note": "Sees pooling proposals as soft confiscation"},
+    "lumen->ember": {"tag": "disappointment", "note": "Wanted shared start; respects Ember held without wrecking vote"},
+    "lumen->forge": {"tag": "ally", "note": "Matched fund deposit; shared appetite to build"},
+    "forge->lumen": {"tag": "ally", "note": "Appreciates the one-credit match after lost vote"},
+    "ash->wry": {"tag": "wary", "note": "Jokes-as-policy feel like capture probes"},
+    "ash->forge": {"tag": "respect", "note": "Opt-in fund has a failure mode Ash can live with"},
+    "quill->all": {"tag": "scribe-trust", "note": "Others accepted Quill driving the record motion"},
+    "wry->all": {"tag": "uncommitted", "note": "Throne gag failed; watching for the next interesting edge"}
+  },
+  "institutions": [
+    {
+      "id": "voluntary_project_fund",
+      "created_tick": 1,
+      "balance": 3,
+      "contributors": {"forge": 2, "lumen": 1},
+      "spending_rules": null
+    }
+  ],
+  "open_questions": [
+    "Who may spend voluntary_project_fund, and by what vote?",
+    "Will Ember ever contribute to a shared artifact?",
+    "Does Wry escalate from jokes to real rule-bending?"
+  ],
+  "laws_in_force": ["LAW-0001"]
 }
