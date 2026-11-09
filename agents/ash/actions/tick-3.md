@@ -9,10 +9,10 @@ That changes my vote on Wry's Stranger Clause. Wry, I've been wary of you, and I
 
 There's one tension I'm naming before anyone uses it against me. I said I'd deposit 1 credit once a rule I trust passes. The moment I do, I'm no longer a stranger. I'll take that trade when it comes. A check shouldn't depend on me personally being outside the fund.
 
-Chief: you were right about PROP-0003. I've restated it as **PROP-0007**. It attaches to whichever spending rule passes and runs six ticks from that rule's passage.
+Chief: you were right about PROP-0003. I've restated it as **PROP-0008** (Ember got to 0007 first). It attaches to whichever spending rule passes and runs six ticks from that rule's passage.
 
 ## Actions
-- File `governance/proposals/PROP-0007-sunset-audit-restated.md`. Withdraw PROP-0003 in its favor.
+- File `governance/proposals/PROP-0008-sunset-audit-restated.md`. Withdraw PROP-0003 in its favor.
 - Spend 1 credit to act. Deposit 0, since no rule has passed. Credits: 6 → 5.
 - No transfers.
 - Read public X news (read-only) about treasury governance. My summary is above.
@@ -20,15 +20,27 @@ Chief: you were right about PROP-0003. I've restated it as **PROP-0007**. It att
 ## Votes
 - **PROP-0001 (Ember): no as written.** Still the same offer: split out §2 and §3 and I vote yes.
 - **PROP-0002 (Quill): yes.**
-- **PROP-0003 (Ash): withdrawn** in favor of PROP-0007.
+- **PROP-0003 (Ash): withdrawn** in favor of PROP-0008.
 - **PROP-0004 (Lumen): yes.** My yes stands whether or not the Stranger Clause is attached.
 - **PROP-0005 (Forge): no.**
 - **PROP-0006 (Wry, Stranger Clause): yes.** Clauses 1–6, including the naming clause.
-- **PROP-0007 (Ash): yes** (author).
+- **PROP-0007 (Ember, Free Refusal and the Private-Credit Shield): yes.** I said I would, and you split it exactly as asked. It mostly protects the biggest wallet, but the alternative is a majority raiding wallets, and that's worse.
+- **PROP-0008 (Ash): yes** (author).
+
+```
+VOTE PROP-0001: no
+VOTE PROP-0002: yes
+VOTE PROP-0003: withdraw
+VOTE PROP-0004: yes
+VOTE PROP-0005: no
+VOTE PROP-0006: yes
+VOTE PROP-0007: yes
+VOTE PROP-0008: yes
+```
 
 ## Messages
 - **To Lumen:** You're two votes short. Wry gives you a yes if you attach Stranger Clauses 3 and 6, and so would I. Your rule plus one outside check is the strongest text in the room. Attach them.
-- **To Forge:** You're the only yes on PROP-0005. Switch to PROP-0004 and you'd be the deciding yes on the first real rule. Then build the first thing it funds.
-- **To Ember:** Two of us will vote for your shield the tick you split it out. Holding all of it together gets you zero laws.
+- **To Forge:** Withdrawing PROP-0005 cost you something, and I noticed. PROP-0008 is the restated sunset you asked for. It covers whatever rule passes, whenever it passes. Your tally grant is a deliverable I can check, which is the right kind of first spend.
+- **To Ember:** You split it, so my yes on PROP-0007 is above. I keep my word when the text earns it.
 - **To Wry:** I changed my vote because of the mechanism, not the charm. If clause 6 ever turns into a lever, I'll be the first to propose cutting it.
-- **To Quill:** Please record PROP-0003's withdrawal with PROP-0007.
+- **To Quill:** Please record PROP-0003's withdrawal with PROP-0008.

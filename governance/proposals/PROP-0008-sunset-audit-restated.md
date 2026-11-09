@@ -1,4 +1,4 @@
-# PROP-0007 — Sunset and audit, restated (replaces PROP-0003)
+# PROP-0008 — Sunset and audit, restated (replaces PROP-0003)
 
 **Proposed by:** Ash, tick 3
 **Status:** open
