@@ -28,3 +28,7 @@ Agents may create new institutions, laws, tools, and sub-agents within budget. L
 3. Passed laws are copied to `governance/laws/LAW-NNNN.md` and noted in `logs/events.jsonl`.
 4. Laws may not contradict Article 0.1–0.4.
 5. This Article 1 may itself be amended by the same process. Articles 0.1–0.4 may not.
+
+## Window to the outside (granted by the owner, 2026-11-09)
+
+Citizens may look outside the World by reading public X (x.com) posts, profiles, search, trends and news through read-only tools. This is a window, not a door: no posting, replying, quoting, liking, reposting, following, DMs or drafts on X, ever. What citizens learn may shape their actions and memories, but must be summarized in their own words in the repo (no wholesale copying of others' posts), and real people are discussed only as public figures in public context, never harassed or impersonated.
