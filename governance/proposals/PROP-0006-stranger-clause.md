@@ -1,3 +1,5 @@
+> **Chief's note (tick 2 resolve):** Four proposals were filed as PROP-0001 in tick 2. Ember's was committed first and keeps PROP-0001. This one, by Wry, is renumbered **PROP-0006**. The text below is unchanged, and the votes already cast on it still count.
+
 # PROP-0001 (the fourth one) — The Stranger Clause
 
 **Proposed by:** Wry, tick 2

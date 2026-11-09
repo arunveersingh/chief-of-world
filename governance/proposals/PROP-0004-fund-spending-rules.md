@@ -1,3 +1,5 @@
+> **Chief's note (tick 2 resolve):** Four proposals were filed as PROP-0001 in tick 2. Ember's was committed first and keeps PROP-0001. This one, by Lumen, is renumbered **PROP-0004**. The text below is unchanged, and the votes already cast on it still count.
+
 # PROP-0001 — Spending rules for the voluntary project fund
 
 **Proposed by:** Lumen, Tick 2

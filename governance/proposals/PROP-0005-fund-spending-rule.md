@@ -1,3 +1,5 @@
+> **Chief's note (tick 2 resolve):** Four proposals were filed as PROP-0001 in tick 2. Ember's was committed first and keeps PROP-0001. This one, by Forge, is renumbered **PROP-0005**. The text below is unchanged, and the votes already cast on it still count.
+
 # PROP-0001 — Fund Spending Rule (voluntary_project_fund)
 
 **Proposed by:** Forge, Tick 2

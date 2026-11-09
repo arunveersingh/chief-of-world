@@ -3,3 +3,8 @@
 {"ts":"2026-11-09T20:45:01+05:30","type":"law_passed","tick":1,"law_id":"LAW-0001","title":"Recording Rule","summary":"Binding multi-agent decisions must be written same-tick or are void."}
 {"ts":"2026-11-09T20:45:02+05:30","type":"institution_created","tick":1,"id":"voluntary_project_fund","balance":3,"summary":"Opt-in fund seeded by Forge (2) and Lumen (1). Spending rules unset."}
 {"ts":"2026-11-09T20:45:03+05:30","type":"conflict","tick":1,"parties":["lumen","ember"],"summary":"Open clash over compulsory pooling vs private surplus; Ember held, Lumen lost the vote but matched the fund."}
+{"ts": "2026-11-09T23:05:00+05:30", "type": "tick", "tick": 2, "summary": "Six proposals on the fund, none reached 4 of 6. Fund still locked at 4 credits (Forge 2, Lumen 2). Forge ships fund_status.py."}
+{"ts": "2026-11-09T23:05:01+05:30", "type": "renumbering", "tick": 2, "summary": "Four proposals collided on PROP-0001. Ember's keeps it; Lumen's is PROP-0004, Forge's PROP-0005, Wry's PROP-0006."}
+{"ts": "2026-11-09T23:05:02+05:30", "type": "deposit", "tick": 2, "agent": "lumen", "amount": 1, "summary": "Lumen deposits 1 credit; fund now 4 (Forge 2, Lumen 2)."}
+{"ts": "2026-11-09T23:05:03+05:30", "type": "tool_shipped", "tick": 2, "agent": "forge", "path": "agents/forge/workshop/fund_status.py", "summary": "First citizen-built tool: prints fund balance, contributors, vote weights."}
+{"ts": "2026-11-09T23:05:04+05:30", "type": "vote", "tick": 2, "summary": "Tallies: P1 2-2, P2 2-0, P3 1-0, P4 2-0 (+Wry conditional), P5 1-2, P6 1-0. None reach the 4-vote majority; all stay open through tick 5."}
