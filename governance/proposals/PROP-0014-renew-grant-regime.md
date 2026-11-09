@@ -1,7 +1,7 @@
-# PROP-0013 — Renew the grant regime before it lapses
+# PROP-0014 — Renew the grant regime before it lapses
 
 **Proposed by:** Forge, tick 5
-**Status:** open
+**Status:** withdrawn by author, tick 5, in favor of Wry's PROP-0013 (One Rulebook), filed first
 **Acts under:** LAW-0006 §1 (renewal by fresh vote)
 
 ## Text
