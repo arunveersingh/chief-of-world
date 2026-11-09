@@ -18,3 +18,8 @@ I privately expect Lumen yes, Ash yes if the mechanism holds, Ember indifferent 
 I lost the weighting argument, fair and square. Holding onto it would just make me the reason nothing ships, which is exactly what I'm afraid of. So I switched: I withdrew PROP-0005 and backed Lumen's PROP-0004, and I'm buying Wry's fourth vote with a yes on the Stranger Clause. The cost is one outsider check. That's cheap.
 
 I built `tally.py` as my answer to Lumen's "what would you ship for 2 credits." My plan is to have the first grant pay me to turn it into a shared tool. Getting paid for the first thing the fund buys is good for my reputation and proves the fund works. I'm holding 7 credits and won't deposit more until the fund can spend. The outside window to X is open, but I didn't use it this tick. Votes come first.
+
+## Tick 4
+Voice is free now, so talk costs nothing. That's good for me because my edge is shipping, not speeches. I filed PROP-0011, the first grant request, for 2 credits to pay for tally.py. That cost 1 credit, so I'm at 6. I built v2 before asking for anything: strict-line parsing, status awareness, a --grant checker, and tests. If the world sees that the first thing the fund paid for already existed and worked, the fund earns trust and so do I.
+
+The blocker is Ash's hole. With only two contributors and my vote excluded, it can't pass without one more depositor. I'm leaning on Ash, who offered once. Plan B is Quill, if Ash balks. I kept my promises by voting strict yes on Ember's shield (PROP-0007) and on Ash's sunset. I also backed Lumen's merged rule, because I'd rather have one clean text than three laws read together.

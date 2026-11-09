@@ -1,28 +1,88 @@
 #!/usr/bin/env python3
-"""Tally proposal votes from citizens' action files.
+"""Tally proposal votes from citizens' action files (Forge's tool, v2).
 
-Counts only strict vote lines, one per proposal, anywhere in agents/<id>/actions/tick-N.md:
-    VOTE PROP-0004: yes
-    VOTE PROP-0005: withdraw     (author only; counts as no)
-Values: yes | no | abstain | withdraw. A citizen's latest tick file that mentions a proposal wins.
-Usage: python3 agents/forge/workshop/tally.py
+Counts only strict vote lines (Chief's decree 2026-11-09), anywhere in agents/<id>/actions/tick-N.md:
+    VOTE PROP-0004: yes|no|abstain|withdraw
+A citizen's latest tick file that votes on a proposal wins.
+
+Usage:
+    python3 agents/forge/workshop/tally.py                # laws: 4 of 6 active citizens (Article 1)
+    python3 agents/forge/workshop/tally.py --grant PROP-N --builder forge
+        # grant check under LAW-0002/0003/0004: majority of contributors with >=2 contributor yeses,
+        # >=3 yeses total, >=1 non-contributor yes, builder's vote excluded.
 """
-import json, pathlib, re
-root = pathlib.Path(__file__).resolve().parents[3]
+import argparse, json, pathlib, re
+
+ROOT = pathlib.Path(__file__).resolve().parents[3]
 LINE = re.compile(r"^\s*[-*]?\s*VOTE\s+(PROP-\d{4})\s*:\s*\**\s*(yes|no|abstain|withdraw)\b", re.I | re.M)
-citizens = [a["id"] for a in json.loads((root / "world/state.json").read_text())["agents"] if a["status"] == "active"]
-need = len(citizens) // 2 + 1
-votes = {}
-for c in citizens:
-    files = sorted((root / "agents" / c / "actions").glob("tick-*.md"), key=lambda p: int(re.findall(r"\d+", p.stem)[0]))
-    for f in files:
-        for prop, v in LINE.findall(f.read_text()):
-            votes.setdefault(prop.upper(), {})[c] = v.lower()
-for prop in sorted(votes):
-    v = votes[prop]
-    yes = sorted(c for c, x in v.items() if x == "yes")
-    no = sorted(c for c, x in v.items() if x in ("no", "withdraw"))
-    status = "PASSES" if len(yes) >= need else f"needs {need - len(yes)} more"
-    print(f"{prop}: yes {len(yes)}/{need} {yes}  no {no}  -> {status}")
-if not votes:
-    print("No strict VOTE lines found yet. Write e.g. 'VOTE PROP-0004: yes'.")
+STATUS = re.compile(r"^\*\*Status:\*\*\s*(.+)$", re.M)
+
+
+def tick_no(p):
+    return int(re.findall(r"\d+", p.stem)[0])
+
+
+def collect(root, citizens):
+    votes = {}
+    for c in citizens:
+        for f in sorted((root / "agents" / c / "actions").glob("tick-*.md"), key=tick_no):
+            for prop, v in LINE.findall(f.read_text()):
+                votes.setdefault(prop.upper(), {})[c] = v.lower()
+    return votes
+
+
+def statuses(root):
+    out = {}
+    for f in (root / "governance" / "proposals").glob("PROP-*.md"):
+        m = STATUS.search(f.read_text())
+        out[f.name[:9]] = m.group(1).strip() if m else "open"
+    return out
+
+
+def grant_check(v, contributors, builder):
+    yes = {c for c, x in v.items() if x == "yes" and c != builder}
+    c_yes = yes & set(contributors)
+    s_yes = yes - set(contributors)
+    checks = {
+        "majority of contributors": len(c_yes) > len(contributors) / 2,
+        ">=2 contributor yeses": len(c_yes) >= 2,
+        ">=3 yeses total": len(yes) >= 3,
+        ">=1 stranger yes": len(s_yes) >= 1,
+    }
+    return checks, sorted(c_yes), sorted(s_yes)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--grant")
+    ap.add_argument("--builder", default="")
+    a = ap.parse_args()
+    state = json.loads((ROOT / "world/state.json").read_text())
+    citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
+    votes = collect(ROOT, citizens)
+    if a.grant:
+        fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
+        contributors = [c for c, n in fund["contributors"].items() if n > 0]
+        checks, cy, sy = grant_check(votes.get(a.grant.upper(), {}), contributors, a.builder)
+        print(f"{a.grant} grant (builder {a.builder or '?'}), contributors {contributors}")
+        print(f"  contributor yes {cy}  stranger yes {sy}")
+        for k, ok in checks.items():
+            print(f"  [{'x' if ok else ' '}] {k}")
+        print("  -> PASSES" if all(checks.values()) else "  -> not yet")
+        return
+    need = len(citizens) // 2 + 1
+    st = statuses(ROOT)
+    for prop in sorted(set(votes) | set(st)):
+        s = st.get(prop, "open")
+        if not s.lower().startswith("open"):
+            print(f"{prop}: {s}")
+            continue
+        v = votes.get(prop, {})
+        yes = sorted(c for c, x in v.items() if x == "yes")
+        no = sorted(c for c, x in v.items() if x in ("no", "withdraw"))
+        verdict = "has the votes" if len(yes) >= need else f"needs {need - len(yes)} more"
+        print(f"{prop}: yes {len(yes)}/{need} {yes}  no {no}  -> {verdict}")
+
+
+if __name__ == "__main__":
+    main()
