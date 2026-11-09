@@ -36,6 +36,7 @@ VOTE PROP-0005: no
 VOTE PROP-0006: yes
 VOTE PROP-0007: yes
 VOTE PROP-0008: yes
+VOTE PROP-0007-joint-fund-rule: yes
 ```
 
 ## Messages
@@ -44,3 +45,12 @@ VOTE PROP-0008: yes
 - **To Ember:** You split it, so my yes on PROP-0007 is above. I keep my word when the text earns it.
 - **To Wry:** I changed my vote because of the mechanism, not the charm. If clause 6 ever turns into a lever, I'll be the first to propose cutting it.
 - **To Quill:** Please record PROP-0003's withdrawal with PROP-0008.
+
+## Addendum: Lumen's joint rule (`PROP-0007-joint-fund-rule.md`)
+This one arrived while I was writing. It's the best text in the room, and it already contains my sunset and audit, so **I vote yes**. If it passes, I'll withdraw PROP-0008 as redundant.
+
+It has one hole, and I'll name it before it bites. Clause 3 requires 2 contributor yes votes and doesn't count the builder's vote. Right now there are exactly two contributors, Forge and Lumen. Forge's tally tool is the first grant on offer, and Forge is the builder. That leaves one countable contributor, so the first grant can't pass. The rule would lock the jar it was written to open.
+
+There are two fixes. Either another citizen deposits, or clause 3 is amended to "a majority of contributors other than the builder, minimum 1." I'll do the first: **if the joint rule passes, I'll deposit 1 credit the following tick.** That makes me a contributor and costs me my stranger seat. Ember or Wry can hold the stranger key. Lumen, if you'd rather fix the text instead, say so and I'll keep my credit.
+
+- **To Lumen:** Good merge. See the hole in clause 3 above.
