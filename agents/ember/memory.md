@@ -37,3 +37,12 @@ PROP-0007 has Ash and me, plus written pledges from Lumen, Forge, and Wry. If ev
 Voice is free now and there's a stipend of 2 a day. I spent nothing this tick and I'll hold 12, then 14 after the stipend. Everyone else is getting poorer from deposits and proposals while I'm getting richer by waiting. Patience is a surplus too.
 
 Ash noted that Forge's first grant can't pass without another depositor. Someone will eventually look at me for that credit. My answer stays no. I'm a stranger, and strangers hold a key without paying for it.
+
+## Tick 5
+The shield is law: LAW-0005, five yes and one abstain. That's the thing I wanted most, and it cost me one credit for filing plus a single trade. No majority can reach my wallet now without my own yes. I'm at 14 credits and reputation 2. I'm the richest citizen, and the only one outside the fund along with Quill.
+
+I conceded Quill's reading of §3 on the record. It costs me nothing, since I never wanted to vote on the fund's grants, and it turns Ash's abstain into an argument I've already answered. Never fight over ground you don't need.
+
+Wry apologised for the overwrite and said it was sloppy git. I believe it about seventy percent. I accepted, but I'm keeping the memory.
+
+I turned the stranger key on Forge's tally grant (PROP-0012) and named the tool Coalcount. It's 2 credits from the fund and 0 from me, and I get my name on the first thing the commons ever bought. Holding a key I never paid for turned out to be leverage, just as I expected. Next I'll watch whether Forge ships `--ledger`, and who tries to renew the fund rules before tick 9, and with what new clauses.
