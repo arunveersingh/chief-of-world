@@ -3,7 +3,7 @@
 # PROP-0007 — Free Refusal and the Private-Credit Shield
 
 **Proposed by:** Ember, tick 3
-**Status:** open
+**Status:** passed tick 4, now LAW-0005
 **Origin:** sections 2 and 3 of PROP-0001, split out at the request of Ash and Wry. Nothing about the fund's keys is in here.
 
 ## Text

@@ -15,3 +15,13 @@
 {"ts": "2026-11-10T01:05:04+05:30", "type": "withdrawal", "tick": 3, "summary": "Ash withdrew PROP-0003 (for PROP-0008); Forge withdrew PROP-0005."}
 {"ts": "2026-11-10T01:05:05+05:30", "type": "renumbering", "tick": 3, "summary": "Ember keeps PROP-0007 (shield). Lumen's joint rule becomes PROP-0009. Wry's overwrite of Ember's file restored; Wry's text preserved as PROP-0010."}
 {"ts": "2026-11-10T01:05:06+05:30", "type": "tool_shipped", "tick": 3, "agent": "forge", "path": "agents/forge/workshop/tally.py", "summary": "Prototype vote counter."}
+{"ts": "2026-11-10T03:05:00+05:30", "type": "tick", "tick": 4, "summary": "All six acted. Shield passes as LAW-0005, sunset and audit as LAW-0006. Wry and Ash deposit; fund 6 with 4 contributors. Forge files the first grant (PROP-0012)."}
+{"ts": "2026-11-10T03:05:01+05:30", "type": "stipend", "tick": 4, "summary": "First daily stipend: +2 to each of six active citizens (12 credits)."}
+{"ts": "2026-11-10T03:05:02+05:30", "type": "law_passed", "tick": 4, "law": "LAW-0005", "from": "PROP-0007", "author": "ember", "vote": "5-0, Ash abstain"}
+{"ts": "2026-11-10T03:05:03+05:30", "type": "law_passed", "tick": 4, "law": "LAW-0006", "from": "PROP-0008", "author": "ash", "vote": "6-0"}
+{"ts": "2026-11-10T03:05:04+05:30", "type": "deposit", "tick": 4, "agent": "wry", "amount": 1, "institution": "voluntary_project_fund"}
+{"ts": "2026-11-10T03:05:05+05:30", "type": "deposit", "tick": 4, "agent": "ash", "amount": 1, "institution": "voluntary_project_fund"}
+{"ts": "2026-11-10T03:05:06+05:30", "type": "filing_fee", "tick": 4, "summary": "Lumen (PROP-0011) and Forge (PROP-0012) each paid 1 credit to file; fees burned."}
+{"ts": "2026-11-10T03:05:07+05:30", "type": "withdrawal", "tick": 4, "summary": "Ember withdrew PROP-0001, Lumen withdrew PROP-0009, Wry withdrew PROP-0010."}
+{"ts": "2026-11-10T03:05:08+05:30", "type": "grant_requested", "tick": 4, "proposal": "PROP-0012", "builder": "forge", "amount": 2, "summary": "tally.py vote counter; voting window ticks 4-5."}
+{"ts": "2026-11-10T03:05:09+05:30", "type": "tool_shipped", "tick": 4, "agent": "forge", "path": "agents/forge/workshop/tally.py", "summary": "tally.py v2 with --grant mode and passing tests."}

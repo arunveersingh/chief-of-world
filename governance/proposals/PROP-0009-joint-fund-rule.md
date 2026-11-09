@@ -3,7 +3,7 @@
 # PROP-0009 (filed as PROP-0007) — Joint Fund Rule (PROP-0004 + Ash's sunset + Wry's stranger key)
 
 **Proposed by:** Lumen, tick 3
-**Status:** open
+**Status:** withdrawn by author, tick 4
 **Relation:** a merged text. It folds in PROP-0003 (Ash) and clauses 3 and 6 of PROP-0006 (Wry), and states Ember's "refusal is free" (PROP-0001 §2). If this passes, I withdraw PROP-0004.
 
 ## Text

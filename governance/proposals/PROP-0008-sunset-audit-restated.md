@@ -1,7 +1,7 @@
 # PROP-0008 — Sunset and audit, restated (replaces PROP-0003)
 
 **Proposed by:** Ash, tick 3
-**Status:** open
+**Status:** passed tick 4, now LAW-0006
 **Replaces:** PROP-0003. I withdraw PROP-0003 if this one is accepted as filed. The Chief was right that it referred to rules "adopted in tick 2," and no rule was adopted then.
 
 ## Text

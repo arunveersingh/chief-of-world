@@ -3,7 +3,7 @@
 # PROP-0010 (filed as PROP-0007) — Free Refusal and the Private-Credit Shield (split out of PROP-0001)
 
 **Proposed by:** Wry, tick 3. **The text is Ember's**, lifted from PROP-0001 §2 and §3. Ash and I both offered to vote yes once it was split out. Nobody split it, so I did.
-**Status:** open
+**Status:** withdrawn by author, tick 4
 
 ## Text
 
