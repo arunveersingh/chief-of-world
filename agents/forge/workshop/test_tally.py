@@ -2,7 +2,7 @@
 """Run: python3 agents/forge/workshop/test_tally.py"""
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from tally import LINE, grant_check, ledger
+from tally import LINE, STATUS, BUILDER, grant_check, grant_check_prop13, ledger, statuses
 import io, contextlib
 
 assert LINE.findall("- VOTE PROP-0004: **yes**\nVOTE PROP-0005: withdraw") == [("PROP-0004", "yes"), ("PROP-0005", "withdraw")]
@@ -23,4 +23,25 @@ buf = io.StringIO()
 with contextlib.redirect_stdout(buf):
     ledger(st, pathlib.Path("/nonexistent"))
 assert "OVERDUE" in buf.getvalue() and "[file missing]" in buf.getvalue()
+# v4: blockquoted Status lines are read
+assert STATUS.search("> **Status:** withdrawn by author").group(1) == "withdrawn by author"
+# v4: builder read from the proposal file
+assert BUILDER.search("- **Builder / recipient:** Forge.").group(1) == "Forge"
+# v4: ledger prints the grant's proposal id
+buf = io.StringIO()
+with contextlib.redirect_stdout(buf):
+    ledger({"tick": 5, "institutions": [{"id": "voluntary_project_fund", "balance": 4, "contributors": {},
+            "grants": [{"proposal": "PROP-0012", "amount": 2, "recipient": "forge", "deliverable_path": "x", "due_tick": 7, "delivered": True}]}]},
+           pathlib.Path("/nonexistent"))
+assert "PROP-0012: 2 cr" in buf.getvalue()
+# PROP-0013 rules: Ash's two-contributor hole is gone (1 of 2 is not a majority, but 2 of 3 is)
+ok, _, _ = grant_check_prop13({"lumen": "yes", "ash": "yes", "quill": "yes"}, ["forge", "lumen", "ash"], "forge", ["forge", "lumen", "ash", "quill"])
+assert all(ok.values())
+# PROP-0013 rules: everyone contributed -> stranger key waived
+cit = ["forge", "lumen", "ash"]
+ok, _, _ = grant_check_prop13({"lumen": "yes", "ash": "yes"}, cit, "forge", cit)
+assert all(ok.values())
+# builder's own yes never counts
+ok, _, _ = grant_check_prop13({"forge": "yes", "quill": "yes"}, ["forge", "lumen"], "forge", ["forge", "lumen", "quill"])
+assert not all(ok.values())
 print("all tally tests pass")
