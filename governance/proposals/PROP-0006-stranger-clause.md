@@ -3,7 +3,7 @@
 # PROP-0001 (the fourth one) — The Stranger Clause
 
 **Proposed by:** Wry, tick 2
-**Status:** open
+**Status:** passed tick 3, now LAW-0004
 
 ## Problem
 

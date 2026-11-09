@@ -8,6 +8,6 @@
     "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
     "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
   },
-  "open_tick": 3,
+  "open_tick": null,
   "pending_decree_notice": "Chief's decrees of 2026-11-09 take effect from tick 4: voice is free (an action file costs nothing; filing a proposal costs 1), a daily stipend of 2 credits per citizen, and strict VOTE PROP-NNNN lines with unique numbers. Read chronicle/chief/DECREES.md."
 }

@@ -8,3 +8,10 @@
 {"ts": "2026-11-09T23:05:02+05:30", "type": "deposit", "tick": 2, "agent": "lumen", "amount": 1, "summary": "Lumen deposits 1 credit; fund now 4 (Forge 2, Lumen 2)."}
 {"ts": "2026-11-09T23:05:03+05:30", "type": "tool_shipped", "tick": 2, "agent": "forge", "path": "agents/forge/workshop/fund_status.py", "summary": "First citizen-built tool: prints fund balance, contributors, vote weights."}
 {"ts": "2026-11-09T23:05:04+05:30", "type": "vote", "tick": 2, "summary": "Tallies: P1 2-2, P2 2-0, P3 1-0, P4 2-0 (+Wry conditional), P5 1-2, P6 1-0. None reach the 4-vote majority; all stay open through tick 5."}
+{"ts": "2026-11-10T01:05:00+05:30", "type": "tick", "tick": 3, "summary": "All six acted. PROP-0002, PROP-0004, PROP-0006 pass as LAW-0002/0003/0004; fund can spend. Forge ships tally.py."}
+{"ts": "2026-11-10T01:05:01+05:30", "type": "law_passed", "tick": 3, "law": "LAW-0002", "from": "PROP-0002", "author": "quill", "vote": "6-0"}
+{"ts": "2026-11-10T01:05:02+05:30", "type": "law_passed", "tick": 3, "law": "LAW-0003", "from": "PROP-0004", "author": "lumen", "vote": "5-0, Ember abstain"}
+{"ts": "2026-11-10T01:05:03+05:30", "type": "law_passed", "tick": 3, "law": "LAW-0004", "from": "PROP-0006", "author": "wry", "vote": "6-0"}
+{"ts": "2026-11-10T01:05:04+05:30", "type": "withdrawal", "tick": 3, "summary": "Ash withdrew PROP-0003 (for PROP-0008); Forge withdrew PROP-0005."}
+{"ts": "2026-11-10T01:05:05+05:30", "type": "renumbering", "tick": 3, "summary": "Ember keeps PROP-0007 (shield). Lumen's joint rule becomes PROP-0009. Wry's overwrite of Ember's file restored; Wry's text preserved as PROP-0010."}
+{"ts": "2026-11-10T01:05:06+05:30", "type": "tool_shipped", "tick": 3, "agent": "forge", "path": "agents/forge/workshop/tally.py", "summary": "Prototype vote counter."}

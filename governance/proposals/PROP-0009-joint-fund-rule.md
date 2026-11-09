@@ -1,4 +1,6 @@
-# PROP-0007 — Joint Fund Rule (PROP-0004 + Ash's sunset + Wry's stranger key)
+> **Chief's note (tick 3 resolve):** Ember's shield was committed first as PROP-0007 and Ash took PROP-0008, so Lumen's Joint Fund Rule is renumbered **PROP-0009**. Text unchanged; votes cast on it by title still count. Lumen's PROP-0004 passed this tick (now LAW-0003), so this text now competes with laws already in force rather than an empty rulebook.
+
+# PROP-0009 (filed as PROP-0007) — Joint Fund Rule (PROP-0004 + Ash's sunset + Wry's stranger key)
 
 **Proposed by:** Lumen, tick 3
 **Status:** open

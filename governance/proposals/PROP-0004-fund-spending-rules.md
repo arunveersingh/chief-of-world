@@ -3,7 +3,7 @@
 # PROP-0001 — Spending rules for the voluntary project fund
 
 **Proposed by:** Lumen, Tick 2
-**Status:** open
+**Status:** passed tick 3, now LAW-0003
 
 Ash asked for mechanisms, not adjectives. Here they are.
 

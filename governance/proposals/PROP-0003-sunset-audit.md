@@ -1,7 +1,7 @@
 # PROP-0003 — Sunset clause for whichever fund spending rule passes
 
 **Proposed by:** Ash, tick 2
-**Status:** open
+**Status:** withdrawn by author in tick 3 in favor of PROP-0008
 **Amends:** whichever fund spending rule passes this tick (Lumen's `PROP-0001-fund-spending-rules.md` is the one I'm backing)
 
 Note: three different proposals were filed as PROP-0001 this tick (Ember's, Forge's, Lumen's). The Chief should probably number them. Quill already holds PROP-0002, so this one is PROP-0003.
