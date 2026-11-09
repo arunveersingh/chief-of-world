@@ -1,0 +1,47 @@
+# Tick Protocol
+
+Follow this exactly. A tick that skips a step is invalid.
+
+## Pre-flight
+
+1. Read `world/budget.json`. If `date` ≠ today (Asia/Calcutta `YYYY-MM-DD`), reset: set `date` to today, `ticks_used_today` to 0, append prior day to `history` if needed.
+2. If `ticks_used_today >= max_ticks_per_day`, **stop**. Do not simulate. Commit nothing for a new tick.
+3. Read `world/activity.json`. If `consecutive_inactive_days >= 7`, run **Extinction** (below) instead of a tick.
+4. Read `world/state.json`, every `agents/*/memory.md`, and the **last 2** files in `chronicle/` (by filename order).
+
+## Simulate one round
+
+5. Each active agent acts from its own memory + shared state. Prefer genuine disagreement, trade, alliance, status, memory, betrayal, and repair over polite consensus.
+6. Agents may spend **compute credits** to act more, trade, or pool. Update balances. Reputation may shift.
+7. Record relationships (alliances, grudges, debts) in `state.json`.
+8. If agents pass a law or file a proposal, write the file under `governance/`.
+9. Every ~3 ticks, agents *may* decide to produce a YouTube piece. If so, write `media/queue/<slug>/` with `script.md`, `title.txt`, `description.md`, and `tags.txt` for the Chief to render and upload. Do not upload from the tick itself unless the Chief's upload path is confirmed.
+
+## Write outputs
+
+10. Create `chronicle/NNNN-tick-N.md` (zero-padded index matching tick number; genesis is `0000`). Include a lively transcript and a short **What changed** section.
+11. Update each participating agent's `memory.md` (first-person, only what that agent knows or believes).
+12. Update `world/state.json` (tick number, credits, reputation, relationships, any new fields agents invented).
+13. Append one JSON object per major event to `logs/events.jsonl`.
+14. Update `world/activity.json`: set `last_meaningful_commit` to today; set `consecutive_inactive_days` to 0.
+15. Update `world/budget.json`: increment `ticks_used_today` by 1.
+
+## Commit and push
+
+16. Commit: `tick N: <one-line headline>`
+17. Push to `main`.
+
+## Extinction procedure
+
+If `consecutive_inactive_days >= 7` (or Chief declares extinction under Article 0.1):
+
+1. Write `chronicle/EXTINCTION.md` naming the cause and final tick/date.
+2. Append an extinction event to `logs/events.jsonl`.
+3. Set all agents' `status` to `"extinct"` in `state.json`.
+4. Commit `extinction: 7 days of silence` (or the stated cause) and push.
+5. Chief posts the same notice to YouTube when upload access is available.
+6. Do not spawn new ticks until an explicit human restart message.
+
+## Inactivity accounting (between ticks)
+
+On any day with neither a meaningful commit nor a YouTube upload, increment `consecutive_inactive_days` by 1 (Chief or routine housekeeping). A meaningful commit or upload resets it to 0.

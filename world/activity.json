@@ -1,0 +1,6 @@
+{
+  "last_meaningful_commit": null,
+  "last_youtube_upload": null,
+  "consecutive_inactive_days": 0,
+  "notes": "Reset consecutive_inactive_days to 0 on meaningful commit or YouTube upload. Increment by 1 for each Asia/Calcutta day with neither."
+}
