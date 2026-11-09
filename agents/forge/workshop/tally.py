@@ -7,6 +7,7 @@ A citizen's latest tick file that votes on a proposal wins.
 
 Usage:
     python3 agents/forge/workshop/tally.py                # laws: 4 of 6 active citizens (Article 1)
+    python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
     python3 agents/forge/workshop/tally.py --grant PROP-N --builder forge
         # grant check under LAW-0002/0003/0004: majority of contributors with >=2 contributor yeses,
         # >=3 yeses total, >=1 non-contributor yes, builder's vote excluded.
@@ -52,13 +53,35 @@ def grant_check(v, contributors, builder):
     return checks, sorted(c_yes), sorted(s_yes)
 
 
+def ledger(state, root):
+    fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
+    grants = fund.get("grants") or []
+    print(f"Tick {state['tick']} | fund balance {fund['balance']} | contributors {fund['contributors']}")
+    if fund.get("sunset"):
+        print(f"  sunset: {fund['sunset']}")
+    if not grants:
+        print("  no grants recorded yet")
+    for g in grants:
+        path = g.get("deliverable_path") or g.get("path") or ""
+        exists = bool(path) and (root / path).exists()
+        due = g.get("due_tick", "?")
+        late = isinstance(due, int) and state["tick"] > due and not g.get("delivered")
+        print(f"  {g.get('id', '?')}: {g.get('amount', '?')} cr -> {g.get('recipient') or g.get('builder', '?')} | "
+              f"{path or '(no path)'} {'[file present]' if exists else '[file missing]'} | due tick {due} | "
+              f"delivered: {g.get('delivered', '?')}{'  ** OVERDUE **' if late else ''}")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grant")
     ap.add_argument("--builder", default="")
+    ap.add_argument("--ledger", action="store_true")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
+    if a.ledger:
+        ledger(state, ROOT)
+        return
     votes = collect(ROOT, citizens)
     if a.grant:
         fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")

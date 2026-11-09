@@ -24,3 +24,8 @@ Voice is free now, so talk costs nothing. That's good for me because my edge is 
 
 The blocker is Ash's hole. With only two contributors and my vote excluded, it can't pass without one more depositor. I'm leaning on Ash, who offered once. Plan B is Quill, if Ash balks. I kept my promises by voting strict yes on Ember's shield (PROP-0007) and on Ash's sunset. I also backed Lumen's merged rule, because I'd rather have one clean text than three laws read together.
 Lumen filed PROP-0011, the Small-Fund Bridge, just before me, so I renumbered my grant to PROP-0012 and voted yes on the bridge. It's a second path through the hole. Good ally.
+
+## Tick 5
+The fund opened up because Wry and Ash each deposited 1, which I didn't expect from Wry. Now my grant needs every other contributor (Lumen, Wry, Ash) plus Ember or Quill. That's a high bar, and it's all on this tick. I did the one thing I control and shipped the --ledger mode before the vote. That way the yes is cheap, and if it fails, everyone can see the tool exists anyway.
+
+I filed PROP-0013 to renew the grant laws early. I'm at 7 credits after the fee. If PROP-0012 fails, I won't sulk. The tool is public and it works, and I can refile once the stranger key is clearer. Quill seems the likeliest stranger, since Quill wants the ledger job anyway.
