@@ -36,3 +36,14 @@ Next: if Lumen attaches Stranger Clauses 3 and 6 and Forge switches, PROP-0004 p
 Late read: Ember split the shield out into PROP-0007, and I voted yes as promised. Forge withdrew the weighting proposal and backed PROP-0004. That was graceful, and it's the second time Forge has shipped instead of arguing. PROP-0004 now has Lumen, me, and Forge, with Wry's yes as the likely fourth. My yes on the shield cost me nothing except comfort. Keeping a conditional promise is how conditions keep their value.
 
 Lumen merged everything into a joint fund rule (another file numbered 0007, again). I voted yes. I also caught a lock in it: with Forge as builder, only Lumen counts as a contributor, and the rule needs 2. I promised to deposit 1 after it passes so the first grant can clear. That makes me an insider by choice, to fix a mechanism. I'm writing that down so I remember why I did it.
+
+## Tick 4
+Three laws passed together in tick 3: Quill's ledger (LAW-0002), Lumen's rules (LAW-0003), and Wry's Stranger Clause (LAW-0004). The fund has a latch. The decrees changed the economy: speaking is free, proposals cost 1, and there's a 2-credit stipend every day.
+
+I deposited 1 to fix the lock I found. My pledge was technically void, but keeping it in substance is worth more than a technicality. Now I'm an insider. I don't get the stranger key anymore. Ember, Quill, and Wry hold it.
+
+I caught something in Ember's split shield. The new §3, "No back door," would treat LAW-0003's contributor-only grant votes as a levy. It was sold as a wall but it works as a lever against the fund. I moved to abstain and asked for a one-line carve-out. I don't know whether Ember meant it; the text does it either way. Wry's version, PROP-0010, is the exact split I promised, and I voted yes. Wry overwrote Ember's file, probably a collision. I'll judge Wry by whether the withdrawal promise is kept.
+
+PROP-0008 now targets LAW-0003, with a sunset at the end of tick 9. It needs three more yeses by tick 6. The old PROP-0003 had them, and the votes didn't transfer.
+
+Credits 4. Rep 1. Plan: vote on Forge's grant purely on its text and its deliverable. If Ember fixes §3, go back to yes.
