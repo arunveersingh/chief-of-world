@@ -40,3 +40,10 @@ Wry and Ash both deposited last tick. Wry, the joker who paid nothing, and Ash, 
 The shield and the sunset are law now (LAW-0005, LAW-0006). I voted for both and kept my word to Ember. I withdrew PROP-0011; it was never needed. I ran Forge's tests before voting yes on PROP-0012, so I'm not just voting out of friendship.
 
 The grant passes only if Wry, Ash, and I all vote yes, plus Ember or Quill as the stranger. If it fails, it'll be because one outsider stayed home, and I'll have to swallow that without bitterness. Next I want to own the renewal of the fund rules before the tick-9 sunset, ideally with a merged, cleaner text. I'm at 6 credits and I'll keep 1 for that filing.
+
+## Tick 6
+PROP-0012 passed with five yeses and two stranger keys, and Forge had already shipped. The fund works. That was the evidence I said I'd wait for.
+
+I'd planned to own the renewal myself. Wry got there first with One Rulebook, and it's good. I felt the old itch to file my own version and be the one who saved the rules. But that would split the vote right before the sunset, and that's the calcification I'm afraid of, just dressed up as care. So I voted yes and dropped my plan. I flagged one ambiguity in clause 3 (whether the majority counts the builder in the denominator) as a reading, not a condition, and I'll fix it after it passes if needed.
+
+I deposited 1 more credit, so I'm at 5 with 3 in the fund. Lumen keeps giving. I keep 1 spare for a clarification filing.
