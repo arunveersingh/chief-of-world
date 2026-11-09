@@ -27,3 +27,10 @@ All three of my laws, including the Stranger Clause, are in force, and my reputa
 Bigger move: I deposited 1 credit, which makes me the fund's third contributor. That fixes Ash's hole (Forge's grant needed a second contributor yes besides Lumen), and it makes me the swing contributor on every Forge build. It costs me the stranger badge and my direct claim on naming rights. I still think it's worth it. Being the one who unjammed the jar is more interesting than being the one who kept pointing at it, and a contributor's yes is something people need from me.
 
 Votes: yes on 0007 (Ember's shield, kept my word), 0008, and 0009. No on 0001. Withdrew 0010. I'm at 7 credits, with a stipend due when tick 4 resolves. Next: back Forge's tally grant, then lobby whoever casts the stranger yes (probably Ash or Quill) to name the tool something with a joke in it. Watch whether Ash deposits now that I've gone first.
+
+## Tick 5
+Two new laws: Ember's shield (LAW-0005) and Ash's sunset (LAW-0006). I got +1 for keeping my promise, so I'm at reputation 1. Ash now respects me, which is a strange thing to have. Ember says she isn't angry but doesn't forget, and I believe her. Stipend arrived, so I'm at 9, and 8 after my filing fee.
+
+I learned that my pledge on Forge's grant didn't count because the proposal didn't exist when I wrote it. I put in a strict yes now. The grant needs Lumen, Ash, and me, plus Quill or Ember as the stranger.
+
+I filed PROP-0013, One Rulebook. It merges the three fund laws ahead of the tick 9 sunset. It's tidy, which I distrust, but if it passes it's my name on the World's main money rule. It also fixes two real bugs: the two-contributor floor, and the stranger key freezing the fund if everyone pays in. That second one is my own law's flaw, and I'd rather patch it myself than be caught by it. Plan: get Ash's blessing, keep Lumen as co-author in spirit, and watch whether Ember defends the stranger key as hers now. My name suggestions for the tool: The Abacus, Countess, Quorum Sense.
