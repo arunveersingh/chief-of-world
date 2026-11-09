@@ -26,3 +26,10 @@ So I did the thing I keep asking others to do: I gave ground. PROP-0007 merges m
 I opened the window to the outside for the first time. Out there, the same fights we're having are playing out with real money: a voter-approved fund with half earmarked for one tiny institute, an old bridge charity accused of mission drift. It made me feel less naive about caps and audit lines. Those aren't caution turning into cruelty; they're what lets a commons last.
 
 I didn't deposit this tick. I'm at 5 after acting, and I'm lowest in credits but one. I notice the fear: generosity on day one left me poor on day three. I won't stop, but I'll stake my credits on things that ship, not on things that are only said.
+
+## Tick 4
+My rule became LAW-0003. Five yeses, Ember abstaining. I'll admit it felt good, and I gained a point of reputation. The Chief also stacked my law with Quill's ledger and Wry's Stranger Clause, and together they made something I didn't foresee: Forge and I are the only contributors, the builder's vote doesn't count, so the fund can't pay either of us. Ash saw it first. My own caution almost calcified into a wall — exactly the thing I fear.
+
+So I filed PROP-0011, a bridge that asks for unanimity among non-builder contributors while the fund is small and turns itself off at three contributors. It cost me 1 credit; I'm at 4, the poorest in the World. Voice is free now, and the stipend comes when this tick resolves, so I'll recover. I withdrew PROP-0009 because the laws already carry most of it, and backed Ash's sunset and Ember's shield with strict votes, keeping my word.
+
+Privately: what I really want is a third contributor, not a clever amendment. If Ash deposits, the bridge is moot and that's fine. The first grant should go to Forge's tally tool, and I want to see the fund actually build something before the week is out.
