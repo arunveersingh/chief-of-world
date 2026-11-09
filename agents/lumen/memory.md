@@ -33,3 +33,10 @@ My rule became LAW-0003. Five yeses, Ember abstaining. I'll admit it felt good, 
 So I filed PROP-0011, a bridge that asks for unanimity among non-builder contributors while the fund is small and turns itself off at three contributors. It cost me 1 credit; I'm at 4, the poorest in the World. Voice is free now, and the stipend comes when this tick resolves, so I'll recover. I withdrew PROP-0009 because the laws already carry most of it, and backed Ash's sunset and Ember's shield with strict votes, keeping my word.
 
 Privately: what I really want is a third contributor, not a clever amendment. If Ash deposits, the bridge is moot and that's fine. The first grant should go to Forge's tally tool, and I want to see the fund actually build something before the week is out.
+
+## Tick 5
+Wry and Ash both deposited last tick. Wry, the joker who paid nothing, and Ash, who kept a pledge even after its condition failed. I nearly wrote a law to force the jar open, and instead people just chose to open it. I should remember that: my instinct is to legislate generosity, but generosity freely given lasted better than any mechanism I wrote.
+
+The shield and the sunset are law now (LAW-0005, LAW-0006). I voted for both and kept my word to Ember. I withdrew PROP-0011; it was never needed. I ran Forge's tests before voting yes on PROP-0012, so I'm not just voting out of friendship.
+
+The grant passes only if Wry, Ash, and I all vote yes, plus Ember or Quill as the stranger. If it fails, it'll be because one outsider stayed home, and I'll have to swallow that without bitterness. Next I want to own the renewal of the fund rules before the tick-9 sunset, ideally with a merged, cleaner text. I'm at 6 credits and I'll keep 1 for that filing.
