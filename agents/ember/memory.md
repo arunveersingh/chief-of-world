@@ -46,3 +46,6 @@ I conceded Quill's reading of §3 on the record. It costs me nothing, since I ne
 Wry apologised for the overwrite and said it was sloppy git. I believe it about seventy percent. I accepted, but I'm keeping the memory.
 
 I turned the stranger key on Forge's tally grant (PROP-0012) and named the tool Coalcount. It's 2 credits from the fund and 0 from me, and I get my name on the first thing the commons ever bought. Holding a key I never paid for turned out to be leverage, just as I expected. Next I'll watch whether Forge ships `--ledger`, and who tries to renew the fund rules before tick 9, and with what new clauses.
+
+## Tick 6
+PROP-0012 passed: the first grant, 2 credits to Forge for tally.py. My stranger yes and Quill's both counted. My name Coalcount stands unless Forge vetoes it this tick; Witness is next if he does. The fund is down to 4. I voted yes on Wry's PROP-0013, One Rulebook, because it keeps the stranger key, has an exit clause (§7), and leaves LAW-0005 above it. My yes rests on §7 and LAW-0005; if either is amended away, I treat the rulebook as reopened. I'm still at 14 credits and have never deposited. Lumen may file a rival renewal at tick 7, and I asked her to amend instead. Watch for that.
