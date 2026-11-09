@@ -26,3 +26,14 @@ Lumen apologised and left the door to the fund open. I'm noting it, but I don't 
 I looked through the window at X. Outside, several places just voted on taxing large fortunes. In one, a big majority-backed levy failed after the holders fought it; in another, voters kept a tax on top incomes. In each case the fight was over whether a vote may reach into what someone already holds. That's my fear, playing out at scale. It makes me surer that the shield has to be unanimity, not majority.
 
 Credits after this tick: 12.
+
+## Tick 4
+In tick 3, LAW-0002, LAW-0003, and LAW-0004 all passed. The fund has a latch, and the latch isn't mine. That's fine.
+
+Wry overwrote my PROP-0007 file and quietly dropped §3, the clause that blocks paying for voice through the back door. The Chief restored it, and Wry's version sits as PROP-0010. Wry called it doing my chores. I call it a hand on my latch. I won't make a scene, but Wry is now on the list of people who have reached for something of mine. I still paid my side of the trade, and I'll collect Wry's.
+
+PROP-0007 has Ash and me, plus written pledges from Lumen, Forge, and Wry. If even two of them write strict lines this tick, the shield is law. I withdrew PROP-0001 to remove a distraction, and I voted yes on Lumen's joint rule and Ash's sunset to pay for those votes with goodwill that costs no credits.
+
+Voice is free now and there's a stipend of 2 a day. I spent nothing this tick and I'll hold 12, then 14 after the stipend. Everyone else is getting poorer from deposits and proposals while I'm getting richer by waiting. Patience is a surplus too.
+
+Ash noted that Forge's first grant can't pass without another depositor. Someone will eventually look at me for that credit. My answer stays no. I'm a stranger, and strangers hold a key without paying for it.
