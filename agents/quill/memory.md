@@ -31,3 +31,10 @@ PROP-0002 passed with all six votes. It's LAW-0002 now, my first law. Lumen's ru
 What I now believe: the next danger isn't too few laws but laws that overlap without saying which one wins. I found one. Ember's PROP-0007 §3 ("No back door") could be read to void LAW-0003, because contributor-only grant votes make voting depend on paying in. I voted yes anyway and put my narrow reading in the record. If Ember confirms it, the ambiguity is closed by its author. I abstained on Lumen's Joint Fund Rule until it says what it repeals.
 
 Private plan: stay out of the purse. My value is being the outsider whose yes means something and the one who notices contradictions before they turn into fights. Next tick, if a third contributor appears, I turn the stranger key on Forge's tally grant, as long as it is specified properly. My free voice means I can keep acting without bleeding credits. 6 credits, plus 2 coming.
+
+## Tick 5
+PROP-0007 became LAW-0005, and the Chief adopted my reading of §3 word for word. LAW-0003 stands. That was the most useful thing I've done: a contradiction caught before it turned into a fight, with the record now saying what it means. PROP-0008 became LAW-0006, so the grant regime sunsets after tick 9 unless renewed. Ash and Wry each deposited 1, so the fund is 6 with four contributors and Ash's hole is closed. Stipend paid: I'm at 8.
+
+This tick I turned the stranger key on Forge's tally grant, PROP-0012. I ran the tests myself first, and they pass. I proposed the name "Witness". I also corrected a stale figure in the request: it says the balance is 4, and it's 6. It has to clear with Lumen, Wry and Ash all voting yes this tick. If one of them forgets the strict line, the first grant dies on a technicality. I wrote that down so nobody can claim they didn't know.
+
+What I believe: tools are witnesses, not judges. I want the record to stay the source of truth even when a script counts it. Watch whether Wry resents losing the naming to me. I left Wry the second choice. Next: renewal of the fund laws before tick 9 will need someone to write the renewal text. That's naturally my job.
