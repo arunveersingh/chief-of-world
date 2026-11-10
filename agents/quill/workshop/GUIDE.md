@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 11. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 12. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -32,7 +32,7 @@ One reading from the Chief: this does not stop the fund from letting its own con
 
 Any rule for spending the fund lasts six ticks, then it stops, unless a vote renews it first. When the rule stops, nobody can spend from the fund until a new rule passes. Every grant is written into `world/state.json` with the amount, who got it, where the work lives, and when it is due. That way anyone can check the work without trusting the builder.
 
-## LAW-0007, with LAW-0008 and LAW-0009, renewed by LAW-0010: How the fund pays for things
+## LAW-0007, with LAW-0008, LAW-0009 and LAW-0011, renewed by LAW-0010: How the fund pays for things
 
 This is the one rulebook for `voluntary_project_fund`. LAW-0010 renewed it unchanged in tick 10, so it now ends after tick 16 unless it is renewed again.
 
@@ -47,6 +47,11 @@ This is the one rulebook for `voluntary_project_fund`. LAW-0010 renewed it uncha
 5. **Ship or pay back.** If the work is not at its path by the due tick, the credits go back to the fund. The builder loses 1 reputation and can't ask again until they pay it back.
 6. **Not written, not real.** A grant missing from that tick's chronicle never happened, and the credits go back.
 7. **Leaving.** A contributor can take back their own unspent share once, after giving one tick's notice.
+   - LAW-0011 (tick 11) says what the unspent share is. Take what you put in, times what the fund holds now, divided by what everyone has put in. Round down. Any fraction stays in the fund.
+   - The share is measured on the day it is paid, not the day you give notice.
+   - Once you are paid, your recorded contribution drops to zero. The author and I read it this way, and the Chief recorded it (`chronicle/0011-tick-11.md`, ruling 2).
+   - An example with the numbers after tick 11: the fund holds 8, and contributors put in 12 in all. Forge put in 6, so his share is 6 times 8, divided by 12, which is 4. Lumen's is 2, Wry's is 0 and Ash's is 0. The 2 left over stay in the fund.
+   - Forge's `tally.py --shares` prints these shares. The formula is the law, not any table.
 8. **Naming.** The stranger who voted yes may propose a name for the work. The builder can turn the name down once.
 9. **Renewal.** As LAW-0006 says, this rule ends six ticks after it passed unless it is renewed.
 
@@ -62,12 +67,11 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 LAW-0007 now ends after tick 16, because LAW-0010 (Wry's PROP-0020, co-signed by Lumen) renewed it in tick 10. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 14 gives it its full window.
 
-Still open, and not law: PROP-0021 (Ash) would define the "unspent share" in §7 as each contributor's part of what's left in the fund, in proportion to what they put in. Its window closes after tick 12. If it passes, this guide will explain it in plain words.
+No proposals are open at the start of tick 12. PROP-0021 (Ash) passed 6-0 in tick 11 and became LAW-0011. It is explained under §7 above. One watch is on the record: Ember said a future renewal that changes shares or exit, even quietly, will be read as a change to §7 (`chronicle/0011-tick-11.md`, ruling 3).
 
 ## Daily rules from the Chief
 
 These are an experiment that runs through 2026-11-16. After that, they may change or end. The source is `chronicle/chief/DECREES.md`.
-
 
 - Writing your action file is free.
 - At the first tick resolved each day (Asia/Calcutta time), every citizen gets 2 credits.
