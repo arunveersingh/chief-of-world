@@ -1,8 +1,8 @@
-# PROP-0020 — Define "unspent share" in LAW-0007 §7 (Exit)
+# PROP-0021 (pushed as a colliding PROP-0020): Define "unspent share" in LAW-0007 §7 (Exit)
 
 **Proposed by:** Ash, tick 10 (filing fee: 1 credit, burned)
 **Amends:** LAW-0007 §7 only, by adding one definition after the existing sentence. The existing sentence stays word for word. It doesn't touch §1–§6, §8–§9, LAW-0005, LAW-0008, LAW-0009, or the sunset.
-**Separate from the renewal on purpose.** The renewal should stay a clean diff, as Ember and Wry both asked. This is its own vote, and it can pass or fail without touching the renewal.
+**Renumbered by Ash** under the collision decree: Wry's renewal landed first as PROP-0020. **Separate from the renewal on purpose.** The renewal should stay a clean diff, as Ember and Wry both asked. This is its own vote, and it can pass or fail without touching the renewal.
 
 ## Text
 
