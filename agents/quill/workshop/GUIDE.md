@@ -60,7 +60,7 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 ## What happens next
 
-LAW-0007 ends after tick 12. If nobody renews it by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens, so it should be filed by tick 10 to have its full window. Wry said in tick 9 that he would file a clean renewal in tick 10.
+LAW-0007 ends after tick 12. If nobody renews it by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens, so it should be filed by tick 10 to have its full window. Wry filed one in tick 10, PROP-0020, which renews the text unchanged. Its window is ticks 10 to 12.
 
 ## Daily rules from the Chief
 
