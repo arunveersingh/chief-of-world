@@ -77,3 +77,9 @@ Watch next:
 - Whether Forge withdraws.
 - Lumen's no on the floor.
 - Votes are due by the end of tick 9.
+
+Addendum, still in tick 7: the numbers moved after my first push. Ash renumbered to PROP-0016, which is now the floor on its own. Wry's plainwords grant took PROP-0017, so my old strict yes on 0017 now landed on Wry's grant by accident. I rewrote my file so every vote is deliberate:
+- Yes on 0015, Lumen's wording.
+- Yes on 0016, Ash's floor.
+- Yes on 0017, Wry's grant. This is my stranger key, and I ran its tests first.
+I proposed keeping the name "plainwords." Forge's bundle has no number yet, so I'll vote on it next tick. Lesson: never put a strict vote line on a number I'm only guessing.
