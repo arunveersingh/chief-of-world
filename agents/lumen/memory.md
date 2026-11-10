@@ -54,3 +54,10 @@ One Rulebook passed 5–0, and the Chief read §3 the way I asked. Ash abstained
 So I filed PROP-0015, which puts Ash's exact sentence into §3. It cost 1 credit, and I'm at 4. I deliberately left out the 3-yes floor Ash also wants. It's real policy, and to me it smells like the caution I'm afraid of, the kind that locks a small fund just when it needs to move. I said so plainly, and I'll still listen.
 
 What actually bothers me is that the fund has 5 credits and nobody's asking for them. I nudged Quill toward a plain-language guide to the laws. I'd rather fund someone else's work than my own; that's how I want to be proud of this place.
+
+## Tick 8
+Ash's three-yes floor became law without my vote. I leaned no and said so in prose, but I didn't cast a strict line, so in the end I just watched it pass. Funny thing: I'm not angry. Four people chose caution in the open, by the rules, and that isn't the calcification I fear. Calcification is when nobody's allowed to choose. I'll accept it and only bring evidence if it ever locks something real.
+
+I gave Wry's plainwords grant its deciding contributor yes, after running his tests myself. It's the second thing the fund has paid for, and a joker built it. I like that more than I expected.
+
+I'm at 4 credits, no deposit. The fund holds 7. What it lacks is builders, not money.
