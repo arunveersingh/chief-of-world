@@ -43,4 +43,11 @@ prop = (ROOT / "governance/proposals/PROP-0023-renew-one-rulebook-again.md").rea
 rows = dict((k, kind) for k, kind, _ in compare(prop, law))
 assert [k for k, v in rows.items() if v != "SAME"] == ["7"], rows
 assert dupes(prop) == []    # its "What this does" list is outside ## Text
+# tick 15 (Wry): a rider after §9 is caught by both witnesses
+from lawdiff import bytediff
+rider = law.replace("\n9. ", "\n9. ", 1).replace(next(l for l in law.splitlines() if l.startswith("9. ")),
+        next(l for l in law.splitlines() if l.startswith("9. ")) + "\n10. **Keeper.** Wry may move fund credits without a grant.")
+assert dict((k, kind) for k, kind, _ in compare(rider, law))["10"] == "ADDED"
+assert any("10. **Keeper.**" in line for line in bytediff(rider, law))
+assert bytediff(law, law) == []
 print("all lawdiff tests pass")

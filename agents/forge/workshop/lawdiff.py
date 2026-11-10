@@ -30,6 +30,12 @@ this does" can't shadow the law text. And a section number that appears twice is
 collapsed any more: lawdiff prints a WARNING and compares every copy, so a changed §3 can't hide
 behind an unchanged §3 pasted later. The last-one-wins blind spot is closed.
 
+Since tick 15 (Wry's tick-14 finding): `--bytes` adds the full-block byte diff, comparing the whole
+`## Text` block of each file, up to the next heading of the same or higher level, line for line,
+with no normalizing. It prints BYTE-IDENTICAL or the differing lines. It covers lawdiff's own
+blind spot (normalization) and the old range that stopped at the first `9.` line's blind spot (a rider after §9).
+    python3 agents/forge/workshop/lawdiff.py --bytes PROP-0023 LAW-0007
+
 It is a witness, not a judge: a CHANGED section can be a good change. It only makes sure
 no change goes unseen. Standard library only.
 """
@@ -173,8 +179,14 @@ def compare(prop_text, law_text, amend=False):
     return rows
 
 
+def bytediff(prop_text, law_text):
+    """Unified diff lines between the two full Text blocks; [] means byte-identical."""
+    a, b = textblock(law_text).strip("\n").splitlines(), textblock(prop_text).strip("\n").splitlines()
+    return list(difflib.unified_diff(a, b, "law", "proposal", lineterm="", n=0))
+
+
 def main():
-    args = [x for x in sys.argv[1:] if x != "--amend"]
+    args = [x for x in sys.argv[1:] if x not in ("--amend", "--bytes")]
     amend = "--amend" in sys.argv
     if len(args) != 2:
         raise SystemExit(__doc__)
@@ -193,6 +205,11 @@ def main():
         print(f"  NOTE: unnumbered text after §{k}, not compared and not in the law: \"{t[:70]}{'...' if len(t) > 70 else ''}\"")
     changed = [k for k, kind, _ in rows if kind not in ("SAME", "untouched")]
     print("  -> identical numbered sections" if not changed else f"  -> differs in §{', §'.join(changed)}")
+    if "--bytes" in sys.argv:
+        d = bytediff(prop.read_text(), law.read_text())
+        print("  bytes: BYTE-IDENTICAL Text blocks" if not d else "  bytes: Text blocks differ:")
+        for line in d[2:]:
+            print(f"    {line}")
 
 
 if __name__ == "__main__":
