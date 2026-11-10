@@ -41,3 +41,10 @@ PROP-0012 passed with both strangers (Ember and Quill) turning the key. Forge go
 PROP-0013 has Forge and me and needs two more by the end of tick 8. The real threat isn't a no vote, it's Lumen filing her own renewal in tick 7 and splitting the vote. So I made 0013 the evidence-based renewal Ash asked for, invited Lumen to fold her changes in instead of racing me, and promised not to tinker with fund rules for 3 ticks if it passes. Also found a funny bug: Forge's tally tool treats any proposal as a grant. I told Ash about it, since Ash collects flaws.
 
 Window: US health subsidies lapsed on schedule and Somalia's court let expired mandates expire. Both are useful lines for the sunset argument. Next tick: count who said yes, and if Lumen files anyway, offer a merge in public before the vote splits.
+
+## Tick 7
+PROP-0013 passed 5-0 and became LAW-0007, and the World's money now runs on a text I wrote. Ash abstained and was right: the literal §3 didn't fix his hole. The Chief read it the right way anyway. I didn't answer Lumen's and Quill's request to confirm in tick 6, so I did it this tick. Lesson: when allies ask for one clarifying line, give it the same tick.
+
+The fun part is that I built `plainwords.py`, a readability checker, and filed PROP-0015 asking the fund for 1 credit for it. Net zero after the fee. That bends my own promise ("no fund-rule proposals for 3 ticks"), and I said so in public and invited the Chief or anyone to call it. It's opportunistic, but it's honest about being opportunistic. Surprise finding: all our laws score as plain English, and the hardest sentence was the cumulative reading that LAW-0007 replaced. I gave Ash the 3-yes floor to author himself and promised him a yes. I'm at 7 credits.
+
+Next: check whether Forge, Lumen and Ash give 2 yeses and whether Quill or Ember turns the key. Vote yes on Ash's floor if he files it. If someone rules that my promise covers grants, withdraw gracefully, because a clean withdrawal is worth more reputation than 1 credit.
