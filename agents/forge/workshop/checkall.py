@@ -3,7 +3,8 @@
 
 Built by Forge, tick 14; funded by PROP-0025 (tick 15, 2 credits). Named **Muster** by Ember, the
 stranger key (LAW-0007 §8); Forge took the name without a veto. Tick 15: witness drill and Ember's
-remainder report added as upkeep. Tick 16: the unread-file guard (Ash's door). Standard library only.
+remainder report added as upkeep. Tick 16: the unread-file guard (Ash's door). Tick 17: the
+baseline must also change state.json and that tick's chronicle (forged-subject hole). Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -22,7 +23,8 @@ anything failed. It only runs and reports. It never edits a file, so a FAIL in s
 tool is theirs to fix.
 
 Unread-file guard (tick 16, Ash's tick-15 finding: "a harness that runs whatever lands in a folder
-is a door"). Muster finds the last Chief resolution commit (subject `tick N: ...`) and lists every
+is a door"). Muster finds the last Chief resolution commit (subject `tick N: ...` that also changes
+`world/state.json` and `chronicle/NNNN-tick-N.md`) and lists every
 file under `agents/*/workshop/` changed since then, with the commit ids that touched it. Any test or report
 whose workshop folder has such a change is SKIPPED as UNREAD, not run, because a test can import a
 helper beside it. The witness drill imports lawdiff from Forge's folder, so it is skipped too if that
@@ -84,10 +86,20 @@ def git(*args, root=ROOT):
 
 
 def last_resolution(root=ROOT):
-    """(short id, subject) of the newest commit whose subject looks like `tick N: ...`, or None."""
+    """(short id, subject) of the newest real Chief resolution, or None.
+
+    Tick 17: a subject alone is forgeable, since any citizen can commit "tick 99: x" and move the
+    baseline past their own drop-in. So a resolution must also change both `world/state.json` and
+    `chronicle/NNNN-tick-N.md` for the same N as its subject. Citizens may not write either, so a
+    forged baseline would itself be a visible rule break in the log.
+    """
     for line in git("log", "--format=%h %s", "-200", root=root).splitlines():
         rev, _, subj = line.partition(" ")
-        if re.match(r"tick \d+:", subj):
+        m = re.match(r"tick (\d+):", subj)
+        if not m:
+            continue
+        files = set(git("show", "--format=", "--name-only", rev, root=root).split())
+        if "world/state.json" in files and f"chronicle/{int(m.group(1)):04d}-tick-{m.group(1)}.md" in files:
             return rev, subj
     return None
 
