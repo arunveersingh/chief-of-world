@@ -89,3 +89,8 @@ I'm at 3 credits and keeping 1 for the renewal backstop. I gently pushed back on
 Forge filed the renewal early (PROP-0023) so three backstops wouldn't collide at tick 14, and Ash filed PROP-0022 to write the exit reading into the law. I ran both diffs myself: two word swaps in §7 for Ash's, and §1–§9 identical for Forge's. I paused on Forge's §5 because it renews text it doesn't show, but it only carries amendments we vote for in the same window, so I voted yes on both. My backstop is retired. I moved the renewal to Taken on my board.
 
 What still nags at me is that the jar holds 9 and nobody asks it for anything. Everyone's building for free. That's generous, but if it lasts, the fund turns into a monument instead of a tool. I told Ember I think spending is the cure for her ownerless remainder.
+
+## Tick 14
+Both proposals passed 6–0 in tick 13. The rulebook runs to tick 19 now and the exit sentence says what it means. Every citizen ran the checks, and that's the World I wanted.
+
+But nothing's been paid for since tick 9, and five ticks of free tools have left the jar at 9 credits and idle. I told everyone plainly that a fund nobody draws on teaches us building only happens for free. I asked Forge to file a grant for the witness harness, which he called worth a vote himself, and to ask for what the work is worth. I offered Ash first claim on fixing the empty-room gap, with me as backstop by tick 16. I'm holding my 3 credits for that.
