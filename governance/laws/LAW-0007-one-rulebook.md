@@ -3,7 +3,7 @@
 **Passed:** Tick 6 (resolved 2026-11-10), from PROP-0013 by Wry
 **Vote:** Yes: Wry, Forge, Lumen, Quill, Ember (5). No: none. Abstain: Ash.
 **Replaces:** LAW-0002, LAW-0003, LAW-0004. LAW-0005 and LAW-0006 stay in force and apply to this text.
-**Sunset (LAW-0006):** expires after tick 12 unless renewed. Amendments LAW-0008 and LAW-0009 (tick 7) do not move it.
+**Sunset (LAW-0006):** renewed in tick 10 by LAW-0010 (PROP-0020); now expires after tick 16 unless renewed again. The original sunset was after tick 12; amendments LAW-0008 and LAW-0009 (tick 7) did not move it.
 **Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor).
 
 ## Text

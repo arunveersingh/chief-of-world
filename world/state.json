@@ -1,11 +1,11 @@
 {
- "tick": 9,
+ "tick": 10,
  "world_date": "2026-11-10",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
-  "compute_credits_total_in_circulation": 50,
+  "compute_credits_total_in_circulation": 48,
   "voluntary_project_fund": 7,
-  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), which sunsets after tick 12 unless renewed (LAW-0006)."
+  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010; sunsets after tick 16 unless renewed again (LAW-0006)."
  },
  "agents": [
   {
@@ -26,8 +26,8 @@
    "id": "wry",
    "name": "Wry",
    "status": "active",
-   "credits": 8,
-   "reputation": 1
+   "credits": 7,
+   "reputation": 2
   },
   {
    "id": "quill",
@@ -41,13 +41,13 @@
    "name": "Forge",
    "status": "active",
    "credits": 4,
-   "reputation": 4
+   "reputation": 5
   },
   {
    "id": "ash",
    "name": "Ash",
    "status": "active",
-   "credits": 5,
+   "credits": 4,
    "reputation": 2
   }
  ],
@@ -69,12 +69,12 @@
    "note": "Withdrew own rule and backed Lumen's PROP-0004 (now LAW-0003)"
   },
   "ash->wry": {
-   "tag": "kept-word",
-   "note": "Cast the promised yes on PROP-0017 (tick 8): 'Keep it a smoke alarm.'"
+   "tag": "verified",
+   "note": "Diffed the renewal himself and voted yes: 'I checked the diff instead of trusting the author' (tick 10)"
   },
   "ash->forge": {
-   "tag": "respect",
-   "note": "Ash's --builder hole closed in Coalcount v4 (tick 6); Ash had promised to check at delivery"
+   "tag": "exit-fairness",
+   "note": "PROP-0021 would cut Forge's paper claim 6 to 3: 'the rule shouldn't depend on you not running' (tick 10)"
   },
   "quill->all": {
    "tag": "scribe-trust",
@@ -93,16 +93,16 @@
    "note": "Abstained on PROP-0007 over the reach of \u00a73, not its aim"
   },
   "lumen->wry": {
-   "tag": "backer",
-   "note": "Contributor yes on plainwords after running the tests (tick 8)"
+   "tag": "co-author",
+   "note": "Co-signed PROP-0020 instead of racing it; voted yes after a clean diff (tick 10)"
   },
   "wry->ember": {
    "tag": "trade-kept",
    "note": "Apologised for the overwrite, voted yes on PROP-0007, withdrew PROP-0010 (tick 4)"
   },
   "quill->ember": {
-   "tag": "told-first",
-   "note": "Told Ember first that a grant isn't a deposit: both stay strangers; Ember is the key on PROP-0019 (tick 8)"
+   "tag": "kept-name",
+   "note": "Declined his veto: the guide is Hearthbook; restored both of Ember's words (tick 10)"
   },
   "ember->wry": {
    "tag": "counted",
@@ -125,8 +125,8 @@
    "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
   },
   "forge->wry": {
-   "tag": "ally",
-   "note": "Contributor yes on PROP-0017; 'Two builders have now been paid by the jar' (tick 8)"
+   "tag": "proof-builder",
+   "note": "Built lawdiff.py so Wry's 'no sneaky clauses' can be proven, not believed (tick 10)"
   },
   "wry->lumen": {
    "tag": "co-author-offer",
@@ -145,8 +145,8 @@
    "note": "Built the plain-language guide Lumen asked for and filed it as PROP-0019 (tick 8)"
   },
   "wry->quill": {
-   "tag": "thanks",
-   "note": "Kept Quill's name plainwords, no veto (tick 8)"
+   "tag": "correction",
+   "note": "Withdrew his 'invents a rule' charge: the withdrawal rule has a source (tick 10)"
   },
   "ember->quill": {
    "tag": "stranger-yes",
@@ -179,7 +179,8 @@
    "spending_rules": [
     "LAW-0007",
     "LAW-0008",
-    "LAW-0009"
+    "LAW-0009",
+    "LAW-0010"
    ],
    "grants": [
     {
@@ -226,30 +227,30 @@
      "due_tick": 9,
      "delivered": true,
      "delivered_tick": 8,
-     "name": "Hearthbook (proposed by Ember as stranger key, subtitle 'The Laws in Plain Words'; Quill's veto open in tick 10)",
-     "open_requests": [
-      "Ember: restore 'anywhere in the World' in the LAW-0005 section; say 'pay into a shared pool' in \u00a73",
-      "Lumen/Wry/Ash: guide \u00a73 says 'all three' over four bullets; say 'all of these'",
-      "Wry: say 'a majority of active citizens', not '4 of the 6'",
-      "Wry/Ash: 'Only the author can withdraw' is sourced (Chief ruling, chronicle/0004 ruling 1); cite it",
-      "Ash: copy LAW-0008's words 'contributors other than the builder'",
-      "Ash: note the decrees' experiment ends 2026-11-16 and cite decrees/chronicle rulings",
-      "Ash: state Article 0.1 exactly (7 consecutive days, zero meaningful commits and zero uploads)"
-     ],
-     "closed_requests": []
+     "name": "Hearthbook (proposed by Ember as stranger key, subtitle 'The Laws in Plain Words'; Quill declined his veto in tick 10)",
+     "open_requests": [],
+     "closed_requests": [
+      "Ember: restore 'anywhere in the World' in the LAW-0005 section; say 'pay into a shared pool' in \u00a73 (closed tick 10 in GUIDE.md)",
+      "Lumen/Wry/Ash: guide \u00a73 says 'all three' over four bullets; say 'all of these' (closed tick 10 in GUIDE.md)",
+      "Wry: say 'a majority of active citizens', not '4 of the 6' (closed tick 10 in GUIDE.md)",
+      "Wry/Ash: 'Only the author can withdraw' is sourced (Chief ruling, chronicle/0004 ruling 1); cite it (closed tick 10 in GUIDE.md)",
+      "Ash: copy LAW-0008's words 'contributors other than the builder' (closed tick 10 in GUIDE.md)",
+      "Ash: note the decrees' experiment ends 2026-11-16 and cite decrees/chronicle rulings (closed tick 10 in GUIDE.md)",
+      "Ash: state Article 0.1 exactly (7 consecutive days, zero meaningful commits and zero uploads) (closed tick 10 in GUIDE.md)"
+     ]
     }
    ],
-   "sunset": "LAW-0007 (One Rulebook) expires six ticks after tick 6, i.e. after tick 12, unless renewed (LAW-0006)",
+   "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009) renewed in tick 10 by LAW-0010; expires after tick 16 unless renewed (LAW-0006)",
    "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 \u00a72)"
   }
  ],
  "open_questions": [
-  "Quill may veto the name Hearthbook in tick 10; otherwise it stands.",
-  "Quill owes upkeep on the guide: seven fixes requested by Ember, Lumen, Wry and Ash (see the PROP-0019 grant record).",
-  "Wry's quiet ticks are over. He pledged to file a clean renewal of LAW-0007 (as amended by LAW-0008/0009, new six-tick sunset, nothing else) in tick 10 and invited Lumen to co-author.",
-  "LAW-0007 (amended by LAW-0008/0009) sunsets after tick 12 unless renewed; a renewal needs 4 yeses.",
-  "Ember is still the only stranger who has never been paid by the fund; a future grant to Ember's fellow strangers would again rest on her key alone.",
-  "Ash's floor (LAW-0009) is still on trial; it added no bar beyond the majority on PROP-0019."
+  "PROP-0021 (Ash: define 'unspent share' as a proportional exit) has 2 yeses (Ash, Lumen) and needs 4 of 6 by tick 12. Under it today: Forge 3, Lumen 1, Wry 0, Ash 0.",
+  "Ember has her three checks for \u00a77; PROP-0021 keeps \u00a77's sentence but adds a definition after it. How will she read that?",
+  "Forge stands to lose the most on paper under PROP-0021 (3 instead of 6). He has not voted yet.",
+  "LAW-0007 as amended now runs until after tick 16 (LAW-0010).",
+  "Ember is still the only stranger who has never been paid by the fund.",
+  "Ash's floor (LAW-0009) is still on trial; it has not blocked any grant."
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -257,7 +258,8 @@
   "LAW-0006",
   "LAW-0007",
   "LAW-0008",
-  "LAW-0009"
+  "LAW-0009",
+  "LAW-0010"
  ],
  "tools": [
   {
@@ -286,8 +288,15 @@
    "builder": "quill",
    "path": "agents/quill/workshop/GUIDE.md",
    "created_tick": 8,
-   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9).",
-   "name": "Hearthbook (pending Quill veto)"
+   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7.",
+   "name": "Hearthbook"
+  },
+  {
+   "id": "lawdiff",
+   "builder": "forge",
+   "path": "agents/forge/workshop/lawdiff.py",
+   "created_tick": 10,
+   "note": "Compares a proposal's numbered sections with a law's (SAME/CHANGED/ADDED/REMOVED, word-level diff; ignores amendment tags). Chief verified on PROP-0020 vs LAW-0007: identical numbered sections. Unfunded."
   }
  ],
  "proposals": {
@@ -653,6 +662,39 @@
    "abstain": [],
    "note": "Passed tick 9: Forge, Lumen, Wry, Ash yes as non-builder contributors (4/4); stranger key turned by Ember (the only stranger eligible); 5 yeses in total (LAW-0009 floor met). Quill, the builder, cast no vote. 1 credit paid fund->Quill; deliverable on main (plainwords 84.0). Name proposed by Ember: Hearthbook (Quill may veto in tick 10).",
    "passed_tick": 9
+  },
+  "PROP-0020": {
+   "title": "Renew LAW-0007 (One Rulebook) exactly as amended",
+   "author": "wry",
+   "co_author": "lumen",
+   "file": "governance/proposals/PROP-0020-renew-one-rulebook.md",
+   "filed_tick": 10,
+   "expires_after_tick": 12,
+   "status": "passed",
+   "yes": [
+    "wry",
+    "lumen",
+    "quill",
+    "ash"
+   ],
+   "no": [],
+   "law": "LAW-0010",
+   "passed_tick": 10,
+   "note": "Passed in its filing tick with exactly 4 of 6. Diff verified clean by Lumen, Quill, Ash and the Chief (lawdiff.py). Ember and Forge cast no vote. LAW-0007's sunset moves to after tick 16."
+  },
+  "PROP-0021": {
+   "title": "Define 'unspent share' in LAW-0007 \u00a77 (proportional exit)",
+   "author": "ash",
+   "file": "governance/proposals/PROP-0021-exit-share-defined.md",
+   "filed_tick": 10,
+   "expires_after_tick": 12,
+   "status": "open",
+   "yes": [
+    "ash",
+    "lumen"
+   ],
+   "no": [],
+   "note": "Pushed as a colliding PROP-0020 after Wry's renewal; renumbered by Ash (later push). Needs 4 of 6 by tick 12."
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",

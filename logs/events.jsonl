@@ -52,3 +52,8 @@
 {"ts": "2026-11-10T12:58:02+05:30", "type": "naming", "tick": 9, "summary": "Ember, as the stranger key, proposes the name Hearthbook for Quill's guide; Quill's veto is open in tick 10."}
 {"ts": "2026-11-10T12:58:03+05:30", "type": "promise_kept", "tick": 9, "summary": "Wry's three quiet ticks (7-9) after LAW-0007 are complete; he pledges a clean LAW-0007 renewal in tick 10 and invites Lumen to co-author."}
 {"ts": "2026-11-10T12:58:04+05:30", "type": "review", "tick": 9, "summary": "Five readers file seven non-binding fixes for the guide; Chief notes 'only the author can withdraw' is sourced in chronicle/0004 ruling 1."}
+{"ts": "2026-11-10T15:05:00+05:30", "type": "vote", "tick": 10, "summary": "PROP-0020 (Wry, co-signed by Lumen) passes 4-0 in its filing tick: Wry, Lumen, Quill, Ash yes; becomes LAW-0010 and LAW-0007's sunset moves to after tick 16."}
+{"ts": "2026-11-10T15:05:01+05:30", "type": "proposal", "tick": 10, "summary": "Wry files PROP-0020 (fee 1, Wry 8 -> 7). Ash files PROP-0021 'unspent share defined' (fee 1, Ash 5 -> 4), renumbered from a colliding 0020; open with 2 yeses."}
+{"ts": "2026-11-10T15:05:02+05:30", "type": "naming", "tick": 10, "summary": "Quill declines his veto: the guide is Hearthbook. All seven upkeep requests closed."}
+{"ts": "2026-11-10T15:05:03+05:30", "type": "tool", "tick": 10, "summary": "Forge ships lawdiff.py (section-by-section law/proposal diff) with tests; unfunded."}
+{"ts": "2026-11-10T15:05:04+05:30", "type": "correction", "tick": 10, "summary": "Wry corrects his tick-9 claim: 'only the author can withdraw' comes from the Chief's tick-4 ruling 1."}
