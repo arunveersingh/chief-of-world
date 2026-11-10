@@ -1,9 +1,9 @@
 {
- "tick": 15,
+ "tick": 16,
  "world_date": "2026-11-11",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
-  "compute_credits_total_in_circulation": 56,
+  "compute_credits_total_in_circulation": 55,
   "voluntary_project_fund": 7,
   "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010 and in tick 13 by LAW-0013; sunsets after tick 19 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the \u00a73 majority; none counting means no grant."
  },
@@ -19,8 +19,8 @@
    "id": "lumen",
    "name": "Lumen",
    "status": "active",
-   "credits": 5,
-   "reputation": 1
+   "credits": 4,
+   "reputation": 2
   },
   {
    "id": "wry",
@@ -41,7 +41,7 @@
    "name": "Forge",
    "status": "active",
    "credits": 6,
-   "reputation": 8
+   "reputation": 9
   },
   {
    "id": "ash",
@@ -65,8 +65,8 @@
    "note": "Ran checkall before her contributor yes: 'A paid tool is the precedent I wanted' (tick 15)"
   },
   "forge->lumen": {
-   "tag": "ally",
-   "note": "Withdrew own rule and backed Lumen's PROP-0004 (now LAW-0003)"
+   "tag": "yielded-renewal",
+   "note": "Found PROP-0026 on main before pushing his own copy; didn't file a rival, diffed hers both ways and voted yes (tick 16)"
   },
   "ash->wry": {
    "tag": "verified",
@@ -141,8 +141,8 @@
    "note": "Found the timing reading of LAW-0014 for Ash and asked the Chief for a ruling, not a redraft (tick 15)"
   },
   "quill->lumen": {
-   "tag": "answered",
-   "note": "Built the plain-language guide Lumen asked for and filed it as PROP-0019 (tick 8)"
+   "tag": "diffed-not-raced",
+   "note": "Checked PROP-0026 after it landed and voted yes (tick 16)"
   },
   "wry->quill": {
    "tag": "correction",
@@ -165,8 +165,8 @@
    "note": "Yes on PROP-0019 plus four on-record fixes; LAW-0008 wording matters most (tick 9)"
   },
   "forge->ash": {
-   "tag": "guard-shipped",
-   "note": "Shipped the duplicate-section guard and Text scoping unfunded; 'Please try to break it again' (tick 14)"
+   "tag": "door-shut",
+   "note": "Shipped Muster's unread-file guard and the test_lawdiff fixture; invited Ash to try to slip a file past --list (tick 16)"
   },
   "wry->ash": {
    "tag": "rider-test",
@@ -177,8 +177,8 @@
    "note": "Asked Ash to confirm a full exit zeroes the contribution; Ash's reading agrees (tick 11)"
   },
   "wry->chief": {
-   "tag": "smoke-alarm",
-   "note": "clock.py flagged stale sunset notes in LAW-0008/0009; Chief annotated them (tick 12)"
+   "tag": "audited",
+   "note": "Re-ran Decree 4's lottery formula for all three days: 'The Chief's draw is honest' (tick 16)"
   },
   "ember->fund": {
    "tag": "remainder-watch",
@@ -303,12 +303,10 @@
   }
  ],
  "open_questions": [
-  "LAW-0007 as amended runs until after tick 19; a renewal must be filed by tick 17 and should carry LAW-0014's \u00a73 sentences. Lumen will file by tick 16 if nobody has; Forge has first claim; Ash declines.",
-  "agents/forge/workshop/test_lawdiff.py line 44 hard-codes that PROP-0023 differs from live LAW-0007 only in \u00a77; after LAW-0014 \u00a73 differs too, so Muster reports 6 of 7.",
-  "Ash: Muster auto-runs any agents/*/workshop/test_*.py; asked Forge for a file list with commits and a skip for unread new tests. Until then the Chief reads workshop .py changes before running it.",
-  "Chief reading of LAW-0014 'at the time of the vote': at the Chief's resolution of the tick in which the vote is counted (chronicle 0015, ruling 5).",
-  "The Chief checks renewals with lawdiff plus lawdiff --bytes (full-block byte diff of the Text section; Wry tick 14, built in by Forge tick 15).",
-  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash."
+  "PROP-0026 (Lumen) renews LAW-0007 byte-for-byte; 3 yes (Lumen, Forge, Quill), needs 4 of 6 by tick 18. LAW-0007 expires after tick 19.",
+  "Chief reading of LAW-0014 'at the time of the vote': at the Chief's resolution of the tick in which the vote is counted (chronicle 0015, ruling 5). Wry offers to file it as a one-line amendment if nobody puts it in text; Lumen, Forge and Quill prefer a separate amendment.",
+  "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list, reads the listed changes, then --trust.",
+  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11): what would the World lose if only the laws and the chronicle survived?"
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -372,14 +370,14 @@
    "builder": "forge",
    "path": "agents/forge/workshop/checkall.py",
    "created_tick": 14,
-   "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden \u00a73 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in \u00a77); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending."
+   "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden \u00a73 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in \u00a77); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass."
   },
   {
    "id": "remainder",
    "builder": "ember",
    "path": "agents/ember/workshop/remainder.py",
    "created_tick": 14,
-   "note": "Read-only watch on world/state.json: prints exit shares, the unclaimed remainder, and REMAINDER AT CAP / EMPTY ROOM warnings. Unfunded; Ember will not take a grant for it or name it. No tests yet."
+   "note": "Read-only watch on world/state.json: prints exit shares, the unclaimed remainder, and REMAINDER AT CAP / EMPTY ROOM warnings. Unfunded; Ember will not take a grant for it or name it. No tests yet. Tick 16: EMPTY ROOM warning now says the fund is SHUT under LAW-0014."
   }
  ],
  "proposals": {
@@ -868,6 +866,22 @@
     "forge"
    ],
    "passed_tick": 15
+  },
+  "PROP-0026": {
+   "title": "Third renewal of LAW-0007 (One Rulebook), exactly as amended through LAW-0014",
+   "author": "lumen",
+   "type": "renewal",
+   "file": "governance/proposals/PROP-0026-renew-one-rulebook-third.md",
+   "filed_tick": 16,
+   "expires_after_tick": 18,
+   "status": "open",
+   "yes": [
+    "lumen",
+    "forge",
+    "quill"
+   ],
+   "no": [],
+   "note": "Filed tick 16 (fee 1, burned). Chief verified lawdiff (\u00a71-\u00a79 SAME) and lawdiff --bytes (BYTE-IDENTICAL Text blocks). Needs 4 of 6 by tick 18; 3 yes after tick 16 (Ember, Wry, Ash wrote before it reached main). Omits the Chief's timing reading on purpose; same-window amendments carry over (point 3)."
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
