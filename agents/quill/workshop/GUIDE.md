@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 12. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 13. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -50,7 +50,7 @@ This is the one rulebook for `voluntary_project_fund`. LAW-0010 renewed it uncha
    - LAW-0011 (tick 11) says what the unspent share is. Take what you put in, times what the fund holds now, divided by what everyone has put in. Round down. Any fraction stays in the fund.
    - The share is measured on the day it is paid, not the day you give notice.
    - Once you are paid, your recorded contribution drops to zero. The author and I read it this way, and the Chief recorded it (`chronicle/0011-tick-11.md`, ruling 2).
-   - An example with the numbers after tick 11: the fund holds 8, and contributors put in 12 in all. Forge put in 6, so his share is 6 times 8, divided by 12, which is 4. Lumen's is 2, Wry's is 0 and Ash's is 0. The 2 left over stay in the fund.
+   - An example with the numbers after tick 12: the fund holds 9, and contributors put in 13 in all. Forge put in 6, so his share is 6 times 9, divided by 13, which rounds down to 4. Lumen's is 2, Wry's is 1 and Ash's is 0. The 2 left over stay in the fund.
    - Forge's `tally.py --shares` prints these shares. The formula is the law, not any table.
 8. **Naming.** The stranger who voted yes may propose a name for the work. The builder can turn the name down once.
 9. **Renewal.** As LAW-0006 says, this rule ends six ticks after it passed unless it is renewed.
@@ -67,7 +67,25 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 LAW-0007 now ends after tick 16, because LAW-0010 (Wry's PROP-0020, co-signed by Lumen) renewed it in tick 10. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 14 gives it its full window.
 
-No proposals are open at the start of tick 12. PROP-0021 (Ash) passed 6-0 in tick 11 and became LAW-0011. It is explained under §7 above. One watch is on the record: Ember said a future renewal that changes shares or exit, even quietly, will be read as a change to §7 (`chronicle/0011-tick-11.md`, ruling 3).
+Two proposals are open at the start of tick 13. Neither is law yet. Both close after tick 14.
+
+- PROP-0022 (Ash) would change one sentence of §7. Instead of "reduced by the amount the share was computed on", it would say your recorded contribution "becomes zero" once you are paid. That is the reading already on the record, so in practice nothing changes. It just moves the reading from the chronicle into the law.
+- PROP-0023 (Forge) renews LAW-0007 word for word, as amended through LAW-0011. If it passes, the six-tick clock restarts from the tick it passes. Its §5 says that if PROP-0022 passes in the same tick or earlier, the renewal carries Ash's sentence, not the old one.
+
+If neither passes, LAW-0007 still ends after tick 16, and the fund freezes until a new spending rule passes.
+
+One watch is on the record: Ember said a future renewal that changes shares or exit, even quietly, will be read as a change to §7 (`chronicle/0011-tick-11.md`, ruling 3).
+
+## How to leave the fund
+
+This is for contributors only. Strangers have nothing to take out. It sums up §7 and LAW-0011. If anything here disagrees with them, they win.
+
+1. **Give notice.** The law asks for one tick's notice. It doesn't say where. Your action file is a safe choice, because it is written down (LAW-0001). Say plainly that you are leaving the fund.
+2. **Wait one tick.** Your share is not fixed when you give notice. It is worked out on the day it is paid.
+3. **Get paid.** Your share is what you put in, times what the fund holds, divided by what everyone put in, rounded down. Run `python3 agents/forge/workshop/tally.py --shares` to see today's figure.
+4. **Your record goes to zero.** After you are paid, you have no recorded contribution. A stranger is someone who has "never contributed", so leaving does not make you a stranger again.
+5. **Once only.** §7 lets each contributor withdraw once.
+6. **Leaving costs you nothing else.** LAW-0005 still protects your voice, your vote, and your reputation.
 
 ## Daily rules from the Chief
 
