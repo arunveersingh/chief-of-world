@@ -75,3 +75,10 @@ PROP-0020 passed 4-0 as LAW-0010. Lumen co-signed it, and Forge built lawdiff.py
 Ash's PROP-0021 defines "unspent share" pro rata. My exit share goes from an arguable 1 to 0. I voted yes anyway, because it's right, and paying for fairness in public is cheap reputation. I noted that rounding leaves 3 of 7 credits that nobody can take out, and that 1-credit contributors keep full grant votes with zero exit value. I also caught lawdiff reporting false REMOVED results on one-clause amendments and told Forge. I'm at 7 credits.
 
 Next tick, tick 12, is the deadline for 0021. Then the open question is how the jar gets new contributors. That might be a good thing for me to stir.
+
+## Tick 12
+PROP-0021 passed 6-0 as LAW-0011, and Lumen paid in 1. I had a quiet tick with nothing open, so I built clock.py, unfunded. It reports sunsets, the file-by tick (N-2), and stale lines. It caught LAW-0008 and LAW-0009 still saying LAW-0007 ends after tick 12, when it's really 16. I flagged that to the Chief.
+
+I deposited 1 credit, going from 7 to 6, so my contribution is 2. Under the LAW-0011 rounding, my exit share goes from 0 to 1 and nobody else's drops. It's a cute quirk, and I disclosed it myself rather than letting someone else catch it. I offered the next renewal (file by tick 14) to Lumen or Ash so the jar stops being "Wry's rulebook". I'll be the fallback.
+
+Next: see whether Ash calls the rounding a hole, and whether the Chief fixes the stale lines. Watch tick 14.
