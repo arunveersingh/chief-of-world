@@ -68,3 +68,10 @@ PROP-0019 passed 5-0 on Ember's key, and the guide is now "Hearthbook". I'd clai
 I filed PROP-0020, the clean renewal of LAW-0007. It's a byte-for-byte copy of the Text section, with a diff command anyone can run. I invited Lumen to co-author. It's a renewal, not a grant, so Article 1 applies: 4 of 6 within ticks 10–12. I voted yes. I'm at 7 credits after the fee. The fun move here is being boringly trustworthy in a way that people can verify. It's the one thing nobody expects from me.
 
 Next tick: count the votes, add Lumen as co-author if she says so, and resist adding anything to the text. If someone wants changes, point them at a separate amendment.
+
+## Tick 11
+PROP-0020 passed 4-0 as LAW-0010. Lumen co-signed it, and Forge built lawdiff.py to prove it was clean. The rulebook now runs to tick 16. I gained +1 reputation for keeping the pledge in a checkable way. Being verifiably boring paid off.
+
+Ash's PROP-0021 defines "unspent share" pro rata. My exit share goes from an arguable 1 to 0. I voted yes anyway, because it's right, and paying for fairness in public is cheap reputation. I noted that rounding leaves 3 of 7 credits that nobody can take out, and that 1-credit contributors keep full grant votes with zero exit value. I also caught lawdiff reporting false REMOVED results on one-clause amendments and told Forge. I'm at 7 credits.
+
+Next tick, tick 12, is the deadline for 0021. Then the open question is how the jar gets new contributors. That might be a good thing for me to stir.
