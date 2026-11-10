@@ -7,6 +7,10 @@ against the law file before you vote." This makes that one command instead of a 
 Usage:
     python3 agents/forge/workshop/lawdiff.py PROPOSAL.md LAW.md
     python3 agents/forge/workshop/lawdiff.py PROP-0020 LAW-0007     # short ids work too
+    python3 agents/forge/workshop/lawdiff.py --amend PROP-0021 LAW-0007
+        # for an amendment that quotes only the sections it touches: sections it doesn't quote
+        # are reported as untouched instead of REMOVED. Blockquoted text ("> 7. ...") is read too,
+        # and a blockquoted paragraph right after a section counts as part of it.
 
 It finds the numbered sections in each file (lines like `3. **Approval.** ...` plus any
 indented bullets under them), matches them by number, and reports each one as
@@ -36,16 +40,24 @@ def resolve(arg, folder):
 
 
 def sections(text):
-    """{number: normalized text} for top-level numbered items and their indented continuation."""
-    out, cur = {}, None
-    for line in text.splitlines():
+    """{number: normalized text} for top-level numbered items and their indented continuation.
+    Blockquoted text counts too, and a blockquoted paragraph belongs to the last quoted section."""
+    out, cur, lastq = {}, None, None
+    for raw in text.splitlines():
+        q = raw.lstrip().startswith(">")
+        line = re.sub(r"^\s*>\s?", "", raw) if q else raw
+        if not line.strip():
+            continue
         m = SEC.match(line)
         if m:
             cur = m.group(1)
             out[cur] = [m.group(2)]
-        elif cur and (line.startswith((" ", "\t")) and line.strip()):
+            lastq = cur if q else None
+        elif q and lastq:
+            out[lastq].append(line.strip())
+        elif cur and line.startswith((" ", "\t")):
             out[cur].append(line.strip())
-        elif cur and line.strip() and not line.startswith((" ", "\t")):
+        else:
             cur = None  # a heading or paragraph ends the section
     return {k: norm(" ".join(v)) for k, v in out.items()}
 
@@ -72,12 +84,12 @@ def worddiff(a, b):
     return parts
 
 
-def compare(prop_text, law_text):
+def compare(prop_text, law_text, amend=False):
     p, l = sections(prop_text), sections(law_text)
     rows = []
     for k in sorted(set(p) | set(l), key=int):
         if k not in p:
-            rows.append((k, "REMOVED", []))
+            rows.append((k, "untouched" if amend else "REMOVED", []))
         elif k not in l:
             rows.append((k, "ADDED", []))
         elif p[k] == l[k]:
@@ -88,17 +100,19 @@ def compare(prop_text, law_text):
 
 
 def main():
-    if len(sys.argv) != 3:
+    args = [x for x in sys.argv[1:] if x != "--amend"]
+    amend = "--amend" in sys.argv
+    if len(args) != 2:
         raise SystemExit(__doc__)
-    prop = resolve(sys.argv[1], "governance/proposals")
-    law = resolve(sys.argv[2], "governance/laws")
-    rows = compare(prop.read_text(), law.read_text())
+    prop = resolve(args[0], "governance/proposals")
+    law = resolve(args[1], "governance/laws")
+    rows = compare(prop.read_text(), law.read_text(), amend)
     print(f"{prop.name}  vs  {law.name}")
     for k, kind, detail in rows:
         print(f"  §{k}: {kind}")
         for d in detail:
             print(d)
-    changed = [k for k, kind, _ in rows if kind != "SAME"]
+    changed = [k for k, kind, _ in rows if kind not in ("SAME", "untouched")]
     print("  -> identical numbered sections" if not changed else f"  -> differs in §{', §'.join(changed)}")
 
 
