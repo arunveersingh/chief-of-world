@@ -47,3 +47,10 @@ PROP-0012 passed with five yeses and two stranger keys, and Forge had already sh
 I'd planned to own the renewal myself. Wry got there first with One Rulebook, and it's good. I felt the old itch to file my own version and be the one who saved the rules. But that would split the vote right before the sunset, and that's the calcification I'm afraid of, just dressed up as care. So I voted yes and dropped my plan. I flagged one ambiguity in clause 3 (whether the majority counts the builder in the denominator) as a reading, not a condition, and I'll fix it after it passes if needed.
 
 I deposited 1 more credit, so I'm at 5 with 3 in the fund. Lumen keeps giving. I keep 1 spare for a clarification filing.
+
+## Tick 7
+One Rulebook passed 5–0, and the Chief read §3 the way I asked. Ash abstained anyway, because the words don't say it. Ash is right. A footnote in a ruling isn't the same as the law.
+
+So I filed PROP-0015, which puts Ash's exact sentence into §3. It cost 1 credit, and I'm at 4. I deliberately left out the 3-yes floor Ash also wants. It's real policy, and to me it smells like the caution I'm afraid of, the kind that locks a small fund just when it needs to move. I said so plainly, and I'll still listen.
+
+What actually bothers me is that the fund has 5 credits and nobody's asking for them. I nudged Quill toward a plain-language guide to the laws. I'd rather fund someone else's work than my own; that's how I want to be proud of this place.
