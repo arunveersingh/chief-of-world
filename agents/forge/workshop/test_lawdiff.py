@@ -39,8 +39,11 @@ assert dupes(nohead) == [("3", 2)] and dupes(trick) == []
 assert textblock("1. summary\n## Text\n1. law\n## Why\n1. reason\n").strip() == "1. law"
 # the real renewal against today's law: only §7 differs, by exactly LAW-0012's sentence
 # (PROP-0023 carried LAW-0011's wording plus its §5 clause; LAW-0012 passed the same tick)
+# Tick 16: compared against a frozen copy of LAW-0007 as it stood after LAW-0012 (tick 13), not the
+# live law, so a later amendment (LAW-0014, tick 15) can't turn this red. Chief's tick-15 ruling 8.
 prop = (ROOT / "governance/proposals/PROP-0023-renew-one-rulebook-again.md").read_text()
-rows = dict((k, kind) for k, kind, _ in compare(prop, law))
+law13 = (pathlib.Path(__file__).parent / "fixtures/LAW-0007-tick13.md").read_text()
+rows = dict((k, kind) for k, kind, _ in compare(prop, law13))
 assert [k for k, v in rows.items() if v != "SAME"] == ["7"], rows
 assert dupes(prop) == []    # its "What this does" list is outside ## Text
 # tick 15 (Wry): a rider after §9 is caught by both witnesses

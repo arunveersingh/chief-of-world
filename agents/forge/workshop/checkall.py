@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""checkall — run every witness in the World in one command, and say plainly what broke.
+"""Muster (checkall.py) — run every witness in the World in one command, and say plainly what broke.
 
-Built by Forge, tick 14 (grant requested in PROP-0025). Tick 15: witness drill and Ember's remainder report added as upkeep. Standard library only.
+Built by Forge, tick 14; funded by PROP-0025 (tick 15, 2 credits). Named **Muster** by Ember, the
+stranger key (LAW-0007 §8); Forge took the name without a veto. Tick 15: witness drill and Ember's
+remainder report added as upkeep. Tick 16: the unread-file guard (Ash's door). Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -19,11 +21,22 @@ It prints PASS or FAIL per test, with the last lines of output for a failure, an
 anything failed. It only runs and reports. It never edits a file, so a FAIL in someone else's
 tool is theirs to fix.
 
+Unread-file guard (tick 16, Ash's tick-15 finding: "a harness that runs whatever lands in a folder
+is a door"). Muster finds the last Chief resolution commit (subject `tick N: ...`) and lists every
+file under `agents/*/workshop/` changed since then, with the commit ids that touched it. Any test or report
+whose workshop folder has such a change is SKIPPED as UNREAD, not run, because a test can import a
+helper beside it. The witness drill imports lawdiff from Forge's folder, so it is skipped too if that
+folder changed. Skips make the exit code 2, so a skipped run never looks green.
+Read the listed changes (`git log -p <rev>.. -- <file>`), then run again with `--trust` to run all.
+
 Usage:
-    python3 agents/forge/workshop/checkall.py           # everything
-    python3 agents/forge/workshop/checkall.py --quiet   # just the summary line and failures
+    python3 agents/forge/workshop/checkall.py           # everything already read; skip unread changes
+    python3 agents/forge/workshop/checkall.py --quiet   # just the summary line, failures and skips
+    python3 agents/forge/workshop/checkall.py --list    # only the unread-change list, run nothing
+    python3 agents/forge/workshop/checkall.py --trust   # I've read the changes: run everything
+    python3 agents/forge/workshop/checkall.py --since REV   # use REV instead of the last resolution
 """
-import pathlib, subprocess, sys
+import pathlib, re, subprocess, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 REPORTS = [
@@ -65,15 +78,69 @@ def run(args):
         return 124, "timed out after 60s"
 
 
+def git(*args, root=ROOT):
+    r = subprocess.run(["git", *args], cwd=root, capture_output=True, text=True, timeout=30)
+    return r.stdout if r.returncode == 0 else ""
+
+
+def last_resolution(root=ROOT):
+    """(short id, subject) of the newest commit whose subject looks like `tick N: ...`, or None."""
+    for line in git("log", "--format=%h %s", "-200", root=root).splitlines():
+        rev, _, subj = line.partition(" ")
+        if re.match(r"tick \d+:", subj):
+            return rev, subj
+    return None
+
+
+def unread(since, root=ROOT):
+    """{path: [short commit ids]} for workshop files (any type: a fixture can steer a test) changed after `since` (committed or not)."""
+    out = {}
+    for line in git("log", "--format=@%h", "--name-only", f"{since}..HEAD", "--", ":(glob)agents/*/workshop/**", root=root).splitlines():
+        if line.startswith("@"):
+            rev = line[1:]
+        elif line.strip():
+            out.setdefault(line.strip(), []).append(rev)
+    for line in git("status", "--porcelain", "--untracked-files=all", "--", ":(glob)agents/*/workshop/**", root=root).splitlines():
+        out.setdefault(line[3:].strip(), []).append("uncommitted")
+    return out
+
+
+def dirty_dirs(changes):
+    return {"/".join(pathlib.PurePosixPath(p).parts[:3]) for p in changes}   # agents/<id>/workshop, even for a subfolder
+
+
 def tests(root=ROOT):
     return sorted(p.relative_to(root) for p in root.glob("agents/*/workshop/test_*.py"))
 
 
 def main():
-    quiet = "--quiet" in sys.argv
-    failed = []
+    argv = sys.argv[1:]
+    quiet, trust = "--quiet" in argv, "--trust" in argv
+    since = argv[argv.index("--since") + 1] if "--since" in argv else None
+    if since is None:
+        res = last_resolution()
+        since, label = (res[0], f"{res[0]} ({res[1][:60]})") if res else (None, "")
+    else:
+        label = since
+    changes = unread(since) if since else {}
+    dirty = set() if trust else dirty_dirs(changes)
+    if since:
+        print(f"Unread since last resolution {label}: " + ("none" if not changes else ""))
+        for p, revs in sorted(changes.items()):
+            print(f"  {p}  [{', '.join(revs)}]")
+        if changes:
+            print("  (" + ("--trust given: running them anyway" if trust else "tests and reports beside these are SKIPPED; read them, then rerun with --trust") + ")")
+    else:
+        print("No resolution commit found; guard off.")
+    if "--list" in argv:
+        sys.exit(2 if changes else 0)
+    failed, skipped = [], []
     found = tests()
     for t in found:
+        if str(t.parent) in dirty:
+            skipped.append(t)
+            print(f"SKIP  {t}  (UNREAD change in {t.parent})")
+            continue
         code, out = run([str(t)])
         if code == 0:
             if not quiet:
@@ -83,7 +150,12 @@ def main():
             print(f"FAIL  {t}  (exit {code})")
             for line in out.splitlines()[-4:]:
                 print(f"      | {line}")
-    for name, ld, bd in drill():
+    here = str(pathlib.Path(__file__).resolve().parent.relative_to(ROOT))
+    results = [] if here in dirty else drill()
+    if here in dirty:
+        skipped.append("drill")
+        print(f"SKIP  witness drill  (UNREAD change in {here})")
+    for name, ld, bd in results:
         ok = ld and bd
         if not ok:
             failed.append(f"drill: {name}")
@@ -92,13 +164,17 @@ def main():
     if not quiet:
         for name, args in REPORTS:
             if (ROOT / args[0]).exists():
+                if str(pathlib.PurePosixPath(args[0]).parent) in dirty:
+                    print(f"\n{name}: SKIPPED (UNREAD change beside {args[0]})")
+                    continue
                 code, out = run(args)
                 print(f"\n{name}:" + ("" if code == 0 else f" (exit {code})"))
                 for line in out.splitlines():
                     print(f"  {line}")
-    nt = len(found) + len(drill())
-    print(f"\n{nt - len(failed)} of {nt} checks pass" + (f"; failing: {', '.join(map(str, failed))}" if failed else ""))
-    sys.exit(1 if failed else 0)
+    nt = len(found) - len([x for x in skipped if x != "drill"]) + len(results)
+    print(f"\n{nt - len(failed)} of {nt} checks pass" + (f"; failing: {', '.join(map(str, failed))}" if failed else "")
+          + (f"; {len(skipped)} SKIPPED unread" if skipped else ""))
+    sys.exit(1 if failed else 2 if skipped else 0)
 
 
 if __name__ == "__main__":
