@@ -63,4 +63,8 @@ assert next(g for g in m.groups()[::-1] if g) == "8"
 from tally import shares
 assert shares({"forge": 6, "lumen": 3, "wry": 1, "ash": 1}, 7) == {"forge": 3, "lumen": 1, "wry": 0, "ash": 0}
 assert shares({}, 5) == {}
+# tick 12: the live sunset is read from the law file's **Sunset** line
+from tally import sunsets, ROOT
+got = dict((n, (e, f)) for n, e, f in sunsets(ROOT, 12))
+assert "LAW-0007-one-rulebook.md" in got and all(e - f == 2 for e, f in got.values()), got
 print("all tally tests pass")

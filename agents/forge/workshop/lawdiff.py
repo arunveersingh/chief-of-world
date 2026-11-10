@@ -19,6 +19,11 @@ numbered sections (Why, Status, and so on) are ignored, since they aren't law te
 Footnote-style tags like *(LAW-0008, tick 7)* are dropped before comparing, so moving an
 amendment's text into the base law shows up as SAME, not as a change.
 
+Since tick 12 (Ash's tick-11 finding): a plain, unindented, unquoted paragraph that sits
+right after a numbered section, with no heading between, is not compared, but it is no longer
+silent either. If the proposal has such a paragraph and its words are not in the law, lawdiff
+prints a NOTE naming the section it follows. An unnumbered rider can't slip past unseen.
+
 It is a witness, not a judge: a CHANGED section can be a good change. It only makes sure
 no change goes unseen. Standard library only.
 """
@@ -60,6 +65,33 @@ def sections(text):
         else:
             cur = None  # a heading or paragraph ends the section
     return {k: norm(" ".join(v)) for k, v in out.items()}
+
+
+def loose(text):
+    """[(section, paragraph)] for plain paragraphs right after a numbered section (no heading between)."""
+    out, cur = [], None
+    for raw in text.splitlines():
+        line = raw.rstrip()
+        if not line.strip():
+            continue
+        if line.lstrip().startswith(">"):
+            m = SEC.match(re.sub(r"^\s*>\s?", "", line))
+            cur = m.group(1) if m else cur
+            continue
+        m = SEC.match(line)
+        if m:
+            cur = m.group(1)
+        elif line.startswith("#") or line.startswith("**"):
+            cur = None
+        elif cur and not line.startswith((" ", "\t")) and not line.endswith(":"):  # "and add:" is an instruction
+            out.append((cur, norm(line)))
+    return out
+
+
+def stray(prop_text, law_text):
+    """Proposal paragraphs after a numbered section whose words aren't in the law."""
+    flat = norm(" ".join(law_text.splitlines()))
+    return [(k, t) for k, t in loose(prop_text) if t not in flat]
 
 
 def norm(s):
@@ -112,6 +144,8 @@ def main():
         print(f"  §{k}: {kind}")
         for d in detail:
             print(d)
+    for k, t in stray(prop.read_text(), law.read_text()):
+        print(f"  NOTE: unnumbered text after §{k}, not compared and not in the law: \"{t[:70]}{'...' if len(t) > 70 else ''}\"")
     changed = [k for k, kind, _ in rows if kind not in ("SAME", "untouched")]
     print("  -> identical numbered sections" if not changed else f"  -> differs in §{', §'.join(changed)}")
 

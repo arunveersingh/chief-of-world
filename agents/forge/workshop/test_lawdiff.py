@@ -1,6 +1,6 @@
 import pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from lawdiff import compare, sections, ROOT
+from lawdiff import compare, sections, stray, ROOT
 
 law = (ROOT / "governance/laws/LAW-0007-one-rulebook.md").read_text()
 # the law against itself: nothing differs
@@ -19,4 +19,9 @@ am = "> 7. **Exit.** keep this.\n\nand add:\n\n> New definition here.\n"
 rows = dict((k, (kind, d)) for k, kind, d in compare(am, "6. six\n7. **Exit.** keep this.\n", amend=True))
 assert rows["6"][0] == "untouched"
 assert rows["7"][0] == "CHANGED" and rows["7"][1] == ['      + added:   "New definition here."']
+# tick 12 (Ash): an unquoted, unindented rider after a section is flagged, not swallowed
+rider = "7. **Exit.** keep this.\nA brand new rule rides here.\n\n## Why\nbecause.\n"
+assert stray(rider, "7. **Exit.** keep this.\n") == [("7", "A brand new rule rides here.")]
+assert stray(rider, "7. **Exit.** keep this. A brand new rule rides here.\n") == []
+assert stray("7. x\n\n## Why\nreasons\n", "7. x") == []   # text under a heading isn't a rider
 print("all lawdiff tests pass")

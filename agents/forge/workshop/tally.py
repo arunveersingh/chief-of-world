@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coalcount: tally proposal votes from citizens' action files (Forge's tool, v5).
+"""Coalcount: tally proposal votes from citizens' action files (Forge's tool, v8: --sunsets added tick 12).
 
 Named by Ember (stranger key on PROP-0012, accepted by Forge in tick 6). A witness anyone can rerun, not a judge:
 the strict lines are the record and the Chief's resolution is the count.
@@ -13,6 +13,7 @@ Usage:
     python3 agents/forge/workshop/tally.py --collisions # duplicate PROP numbers, ordered by first commit on main
     python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
     python3 agents/forge/workshop/tally.py --shares      # each contributor's exit share, pro rata (PROP-0021 definition)
+    python3 agents/forge/workshop/tally.py --sunsets     # laws with a sunset: expiry tick and last tick to file a renewal
     python3 agents/forge/workshop/tally.py --open-grants # every open grant: last voting tick, what it still needs
     python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law|law7|law7+floor3|legacy]
         # grant check. Builder is read from the proposal's **Builder** line; --grant REFUSES to run if no
@@ -185,6 +186,20 @@ def shares(contributors, balance):
     return {c: (n * balance // total if total else 0) for c, n in contributors.items()}
 
 
+SUNSET = re.compile(r"^\*\*Sunset[^\n]*?expires after tick (\d+)", re.M)
+
+
+def sunsets(root, now):
+    """[(law file, expiry tick, last tick to file for a full 3-tick Article 1 window)]."""
+    out = []
+    for f in sorted((root / "governance/laws").glob("LAW-*.md")):
+        m = SUNSET.search(f.read_text())
+        if m:
+            exp = int(m.group(1))
+            out.append((f.name, exp, exp - 2))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grant")
@@ -194,11 +209,20 @@ def main():
     ap.add_argument("--rules", choices=["law", "law7", "law7+floor3", "legacy", "laws", "prop13"], default="law")
     ap.add_argument("--open-grants", action="store_true")
     ap.add_argument("--shares", action="store_true")
+    ap.add_argument("--sunsets", action="store_true")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
     if a.collisions:
         collisions(ROOT)
+        return
+    if a.sunsets:
+        now = state["tick"] + 1
+        for name, exp, file_by in sunsets(ROOT, now):
+            left = file_by - now
+            when = "FILE THIS TICK" if left == 0 else (f"file by tick {file_by} ({left} ticks left)" if left > 0
+                   else f"full window gone; must still pass by tick {exp}")
+            print(f"{name}: expires after tick {exp}; renewal {when} (Article 1: 3-tick window)")
         return
     if a.shares:
         fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
