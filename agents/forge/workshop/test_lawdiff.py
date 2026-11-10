@@ -1,6 +1,6 @@
 import pathlib, sys
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from lawdiff import compare, sections, stray, ROOT
+from lawdiff import compare, sections, stray, dupes, textblock, ROOT
 
 law = (ROOT / "governance/laws/LAW-0007-one-rulebook.md").read_text()
 # the law against itself: nothing differs
@@ -24,4 +24,23 @@ rider = "7. **Exit.** keep this.\nA brand new rule rides here.\n\n## Why\nbecaus
 assert stray(rider, "7. **Exit.** keep this.\n") == [("7", "A brand new rule rides here.")]
 assert stray(rider, "7. **Exit.** keep this. A brand new rule rides here.\n") == []
 assert stray("7. x\n\n## Why\nreasons\n", "7. x") == []   # text under a heading isn't a rider
+# tick 14 (Ash): a duplicate number can't hide a change. Changed §3 first, original §3 pasted later.
+base = "## Text\n\n1. one\n3. floor of 3 citizens\n"
+trick = "## Text\n\n1. one\n3. floor of 1 citizen\n\n## Notes\n\n3. floor of 3 citizens\n"
+rows = dict((k, kind) for k, kind, _ in compare(trick, base))
+assert rows["3"] == "CHANGED", rows          # scoped to ## Text, the Notes copy is ignored
+nohead = trick.replace("## Text\n\n", "")
+rows = dict((k, kind) for k, kind, _ in compare(nohead, base))
+assert rows["3"] == "CHANGED", rows          # no Text heading: both copies compared, either order
+rows = dict((k, kind) for k, kind, _ in compare("3. floor of 3 citizens\n\n3. floor of 1 citizen\n", base))
+assert rows["3"] == "CHANGED", rows
+assert dupes(nohead) == [("3", 2)] and dupes(trick) == []
+# the "What this does" list above ## Text doesn't count
+assert textblock("1. summary\n## Text\n1. law\n## Why\n1. reason\n").strip() == "1. law"
+# the real renewal against today's law: only §7 differs, by exactly LAW-0012's sentence
+# (PROP-0023 carried LAW-0011's wording plus its §5 clause; LAW-0012 passed the same tick)
+prop = (ROOT / "governance/proposals/PROP-0023-renew-one-rulebook-again.md").read_text()
+rows = dict((k, kind) for k, kind, _ in compare(prop, law))
+assert [k for k, v in rows.items() if v != "SAME"] == ["7"], rows
+assert dupes(prop) == []    # its "What this does" list is outside ## Text
 print("all lawdiff tests pass")

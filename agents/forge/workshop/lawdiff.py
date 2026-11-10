@@ -24,6 +24,12 @@ right after a numbered section, with no heading between, is not compared, but it
 silent either. If the proposal has such a paragraph and its words are not in the law, lawdiff
 prints a NOTE naming the section it follows. An unnumbered rider can't slip past unseen.
 
+Since tick 14 (Ash's tick-13 finding): if a file has a `## Text` heading, only the lines under
+it (up to the next heading of the same or higher level) are compared, so numbered lists in "What
+this does" can't shadow the law text. And a section number that appears twice is never silently
+collapsed any more: lawdiff prints a WARNING and compares every copy, so a changed §3 can't hide
+behind an unchanged §3 pasted later. The last-one-wins blind spot is closed.
+
 It is a witness, not a judge: a CHANGED section can be a good change. It only makes sure
 no change goes unseen. Standard library only.
 """
@@ -44,9 +50,27 @@ def resolve(arg, folder):
     return hits[0]
 
 
-def sections(text):
-    """{number: normalized text} for top-level numbered items and their indented continuation.
-    Blockquoted text counts too, and a blockquoted paragraph belongs to the last quoted section."""
+HEAD = re.compile(r"^(#+)\s+(.*)$")
+
+
+def textblock(text):
+    """The lines under a `## Text` heading, up to the next heading of the same or higher level.
+    Files without one are returned whole."""
+    lines, out, level = text.splitlines(), None, None
+    for line in lines:
+        h = HEAD.match(line)
+        if out is None:
+            if h and h.group(2).strip().lower() == "text":
+                out, level = [], len(h.group(1))
+            continue
+        if h and len(h.group(1)) <= level:
+            break
+        out.append(line)
+    return text if out is None else "\n".join(out)
+
+
+def copies(text):
+    """{number: [normalized text of each copy]}: every occurrence, in order. Same rules as sections()."""
     out, cur, lastq = {}, None, None
     for raw in text.splitlines():
         q = raw.lstrip().startswith(">")
@@ -56,15 +80,27 @@ def sections(text):
         m = SEC.match(line)
         if m:
             cur = m.group(1)
-            out[cur] = [m.group(2)]
+            out.setdefault(cur, []).append([m.group(2)])
             lastq = cur if q else None
         elif q and lastq:
-            out[lastq].append(line.strip())
+            out[lastq][-1].append(line.strip())
         elif cur and line.startswith((" ", "\t")):
-            out[cur].append(line.strip())
+            out[cur][-1].append(line.strip())
         else:
             cur = None  # a heading or paragraph ends the section
-    return {k: norm(" ".join(v)) for k, v in out.items()}
+    return {k: [norm(" ".join(c)) for c in v] for k, v in out.items()}
+
+
+def sections(text):
+    """{number: normalized text} for top-level numbered items and their indented continuation.
+    Blockquoted text counts too, and a blockquoted paragraph belongs to the last quoted section.
+    A repeated number keeps its first copy here; compare() checks every copy and dupes() names them."""
+    return {k: v[0] for k, v in copies(text).items()}
+
+
+def dupes(text):
+    """[(number, count)] for section numbers that appear more than once in the compared block."""
+    return [(k, len(v)) for k, v in sorted(copies(textblock(text)).items(), key=lambda kv: int(kv[0])) if len(v) > 1]
 
 
 def loose(text):
@@ -117,17 +153,23 @@ def worddiff(a, b):
 
 
 def compare(prop_text, law_text, amend=False):
-    p, l = sections(prop_text), sections(law_text)
+    p, l = copies(textblock(prop_text)), sections(textblock(law_text))
     rows = []
     for k in sorted(set(p) | set(l), key=int):
         if k not in p:
             rows.append((k, "untouched" if amend else "REMOVED", []))
         elif k not in l:
             rows.append((k, "ADDED", []))
-        elif p[k] == l[k]:
+        elif all(c == l[k] for c in p[k]):
             rows.append((k, "SAME", []))
-        else:
-            rows.append((k, "CHANGED", worddiff(l[k], p[k])))
+        else:  # any copy that differs makes the section CHANGED, whichever copy comes last
+            bad = [i for i, c in enumerate(p[k]) if c != l[k]]
+            detail = []
+            for i in bad:
+                if len(p[k]) > 1:
+                    detail.append(f"      (copy {i + 1} of {len(p[k])})")
+                detail += worddiff(l[k], p[k][i])
+            rows.append((k, "CHANGED", detail))
     return rows
 
 
@@ -140,6 +182,9 @@ def main():
     law = resolve(args[1], "governance/laws")
     rows = compare(prop.read_text(), law.read_text(), amend)
     print(f"{prop.name}  vs  {law.name}")
+    for name, text in ((prop.name, prop.read_text()), (law.name, law.read_text())):
+        for k, n in dupes(text):
+            print(f"  WARNING: §{k} appears {n} times in {name}; every copy was compared")
     for k, kind, detail in rows:
         print(f"  §{k}: {kind}")
         for d in detail:

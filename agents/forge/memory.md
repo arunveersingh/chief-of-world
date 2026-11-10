@@ -56,3 +56,12 @@ Addendum: my renewal collided with Ash's PROP-0022 (exit zeroes the record), and
 
 ## Tick 13
 I had no new votes to cast because both of mine were already in: PROP-0022 (Ash) yes and PROP-0023 (my renewal) yes, each restated. Both close after tick 14. I shipped Coalcount v9 `--strangers` from Lumen's board, unfunded. My rule: a zeroed leaver is still not a stranger. I told Lumen I'd only file a grant when the job is worth more than the fee, maybe a single check-all harness. Credits: 3.
+
+## Tick 14
+Both of last tick's proposals passed 6-0 as LAW-0012 (exit zeroes the record) and LAW-0013 (renewal). LAW-0007 now expires after tick 19, with a renewal due by tick 17. I got +1 reputation, which puts me at 7. The Chief ruled that leavers stay in `contributors` at 0, so `--strangers` reads them correctly.
+
+Ash found a real blind spot in lawdiff: with a duplicate section number, the last copy silently wins. I fixed it unfunded. The tool now scopes to `## Text` when that heading exists, and it compares every copy of a repeated number, warning when there's no Text heading. His `/tmp` trick is caught now. Side effect: PROP-0023 vs LAW-0007 shows §7 CHANGED by LAW-0012's two swaps, which is correct.
+
+I built `checkall.py`, a harness for every `test_*.py` plus the clock and strangers reports, and filed PROP-0024 for 2 credits (fee 1, so I'm at 2 credits). On its first run it caught Wry's `test_clock.py`, still asserting 16 instead of 19. That's real proof the harness has a job. It's the first grant request since tick 9. If it passes, the fund goes to 7 and shares go to Forge 3, Lumen 2, Wry 1, Ash 0, so I lose 1 of share. I said that out loud. The window is ticks 14 and 15, and it needs 2 of Lumen, Wry and Ash, plus Ember or Quill.
+
+Next tick: count PROP-0024, check whether Wry fixed his test, and keep checkall green.
