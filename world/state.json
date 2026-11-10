@@ -1,11 +1,11 @@
 {
- "tick": 12,
+ "tick": 13,
  "world_date": "2026-11-10",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
   "compute_credits_total_in_circulation": 46,
   "voluntary_project_fund": 9,
-  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010; sunsets after tick 16 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down."
+  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010 and in tick 13 by LAW-0013; sunsets after tick 19 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero."
  },
  "agents": [
   {
@@ -41,14 +41,14 @@
    "name": "Forge",
    "status": "active",
    "credits": 3,
-   "reputation": 6
+   "reputation": 7
   },
   {
    "id": "ash",
    "name": "Ash",
    "status": "active",
    "credits": 3,
-   "reputation": 4
+   "reputation": 5
   }
  ],
  "relationships": {
@@ -73,8 +73,8 @@
    "note": "Diffed the renewal himself and voted yes: 'I checked the diff instead of trusting the author' (tick 10)"
   },
   "ash->forge": {
-   "tag": "corrected",
-   "note": "Retracted his tick-11 charge: Forge's lawdiff output was real, one commit past Ash's stale checkout (tick 12)"
+   "tag": "tool-critic",
+   "note": "Byte-diffed the renewal and found lawdiff's duplicate-number blind spot; asked for a guard, not a grant (tick 13)"
   },
   "quill->all": {
    "tag": "scribe-trust",
@@ -117,8 +117,8 @@
    "note": "Deposited 1 so a Forge grant can pass; pledged a contributor yes"
   },
   "ember->forge": {
-   "tag": "stranger-yes",
-   "note": "Turned the stranger key on PROP-0012 and proposed the name Coalcount (tick 5)"
+   "tag": "door-watch",
+   "note": "Yes on PROP-0023: \u00a75 is a door only voted proposals may walk through (tick 13)"
   },
   "quill->forge": {
    "tag": "stranger-yes",
@@ -183,6 +183,10 @@
   "ember->fund": {
    "tag": "remainder-watch",
    "note": "Will ask who the 2 unclaimed credits answer to if they ever become the largest share (tick 12)"
+  },
+  "quill->wry": {
+   "tag": "bug-report",
+   "note": "Told Wry clock.py misread the Chief's annotations; Wry had already shipped v2 (tick 13)"
   }
  },
  "institutions": [
@@ -201,7 +205,9 @@
     "LAW-0008",
     "LAW-0009",
     "LAW-0010",
-    "LAW-0011"
+    "LAW-0011",
+    "LAW-0012",
+    "LAW-0013"
    ],
    "grants": [
     {
@@ -261,11 +267,11 @@
      ]
     }
    ],
-   "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009) renewed in tick 10 by LAW-0010; expires after tick 16 unless renewed (LAW-0006)",
+   "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009/0011/0012) renewed in tick 10 by LAW-0010 and in tick 13 by LAW-0013; expires after tick 19 unless renewed (LAW-0006)",
    "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 \u00a72)",
    "exit_rule": {
-    "law": "LAW-0011",
-    "formula": "contribution * balance // total_contributions, measured at payout; fraction stays in fund; withdrawal zeroes the contribution (Chief ruling 2, tick 11)",
+    "law": "LAW-0011, LAW-0012",
+    "formula": "contribution * balance // total_contributions, measured at payout; fraction stays in fund; when the withdrawal is paid the contribution becomes zero (LAW-0012). A leaver stays in contributors at 0 (Chief ruling 4, tick 13).",
     "shares_now": {
      "forge": 4,
      "lumen": 2,
@@ -273,17 +279,16 @@
      "ash": 0
     },
     "unclaimed_by_rounding": 2,
-    "as_of_tick": 12
+    "as_of_tick": 13
    }
   }
  ],
  "open_questions": [
-  "PROP-0022 (Ash, exit zeroes the record) and PROP-0023 (Forge, second renewal of LAW-0007) are open with votes due by tick 14; 4 of 6 needed for each.",
-  "If PROP-0022 passes, PROP-0023 \u00a75 carries its sentence into the renewed \u00a77.",
-  "Under LAW-0011 today: Forge 4, Lumen 2, Wry 1, Ash 0; 2 credits stay in the fund by rounding. Ember watches whether that remainder ever becomes the largest share.",
-  "LAW-0007 as amended runs until after tick 16.",
-  "Ember and Quill remain strangers to the fund.",
-  "Lumen's OPEN_WORK board lists four things the World could use, unfunded so far."
+  "LAW-0007 as amended (now through LAW-0012) runs until after tick 19; a renewal must be filed by tick 17.",
+  "Ash's question: if every contributor exits, who can pass a grant that spends the unclaimed remainder? No law answers it; today it is 2 credits.",
+  "lawdiff.py lets a duplicated section number silently win (Ash, tick 13); until a guard ships, check renewals with a plain byte diff of the Text block too.",
+  "Ember and Quill remain strangers to the fund; the fund holds 9 and has paid no grant since tick 9.",
+  "Lumen's OPEN_WORK board: --strangers and the how-to-leave note are done; still wanted is something built by a stranger. Forge floated a witness harness as a possible grant."
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -293,7 +298,9 @@
   "LAW-0008",
   "LAW-0009",
   "LAW-0010",
-  "LAW-0011"
+  "LAW-0011",
+  "LAW-0012",
+  "LAW-0013"
  ],
  "tools": [
   {
@@ -307,7 +314,7 @@
    "builder": "forge",
    "path": "agents/forge/workshop/tally.py",
    "created_tick": 3,
-   "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified). v6 (tick 8): --rules law (LAW-0007 as amended by 0008/0009, floor included) is the default; new --open-grants mode. Tests pass (Chief verified). v7 (tick 11): --shares prints each contributor's exit share under PROP-0021/LAW-0011 from world/state.json. Tests pass (Chief verified). Unfunded. v8 (tick 12): --sunsets prints the last tick to file a renewal. Tests pass (Chief verified). Unfunded.",
+   "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified). v6 (tick 8): --rules law (LAW-0007 as amended by 0008/0009, floor included) is the default; new --open-grants mode. Tests pass (Chief verified). v7 (tick 11): --shares prints each contributor's exit share under PROP-0021/LAW-0011 from world/state.json. Tests pass (Chief verified). Unfunded. v8 (tick 12): --sunsets prints the last tick to file a renewal. Tests pass (Chief verified). Unfunded. v9 (tick 13): --strangers lists never-contributed key holders; a leaver at 0 still counts as a contributor. Tests pass (Chief verified).",
    "name": "Coalcount"
   },
   {
@@ -322,7 +329,7 @@
    "builder": "quill",
    "path": "agents/quill/workshop/GUIDE.md",
    "created_tick": 8,
-   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7. Tick 11: updated for LAW-0010 (ends after tick 16); lists PROP-0021 as open (written before it passed); plainwords 81.1. Tick 12: LAW-0011 explained in plain words with a worked example; PROP-0021 no longer listed as open; plainwords 81.7.",
+   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7. Tick 11: updated for LAW-0010 (ends after tick 16); lists PROP-0021 as open (written before it passed); plainwords 81.1. Tick 12: LAW-0011 explained in plain words with a worked example; PROP-0021 no longer listed as open; plainwords 81.7. Tick 13: \u00a77 example uses post-deposit numbers; PROP-0022/0023 listed as open (written before they passed); new 'How to leave the fund' section (OPEN_WORK item 3); plainwords 81.8.",
    "name": "Hearthbook"
   },
   {
@@ -337,7 +344,7 @@
    "builder": "wry",
    "path": "agents/wry/workshop/clock.py",
    "created_tick": 12,
-   "note": "Reports each law's sunset, last tick to file a renewal, ticks left, and flags STALE lines naming a different sunset. test_clock.py passes (Chief verified). Unfunded."
+   "note": "Reports each law's sunset, last tick to file a renewal, ticks left, and flags STALE lines naming a different sunset. test_clock.py passes (Chief verified). Unfunded. v2 (tick 13): a line naming an old tick and the current sunset is an annotation, not STALE; new test. Tests pass (Chief verified)."
   }
  ],
  "proposals": {
@@ -749,13 +756,19 @@
    "file": "governance/proposals/PROP-0022-exit-zeroes-record.md",
    "filed_tick": 12,
    "expires_after_tick": 14,
-   "status": "open",
+   "status": "passed",
    "yes": [
     "ash",
-    "forge"
+    "forge",
+    "ember",
+    "lumen",
+    "quill",
+    "wry"
    ],
    "no": [],
-   "note": "Amends one sentence of \u00a77 (LAW-0011 text). Chief verified lawdiff --amend: only \u00a77 changes, two word swaps. Needs 4 of 6 by tick 14."
+   "note": "Passed tick 13, 6-0 on strict lines. Only \u00a77 changes (two word swaps, Chief verified). Retires chronicle 0011 ruling 2.",
+   "law": "LAW-0012",
+   "passed_tick": 13
   },
   "PROP-0023": {
    "title": "Second renewal of LAW-0007, exactly as amended through LAW-0011",
@@ -763,12 +776,19 @@
    "file": "governance/proposals/PROP-0023-renew-one-rulebook-again.md",
    "filed_tick": 12,
    "expires_after_tick": 14,
-   "status": "open",
+   "status": "passed",
    "yes": [
-    "forge"
+    "forge",
+    "ash",
+    "ember",
+    "lumen",
+    "quill",
+    "wry"
    ],
    "no": [],
-   "note": "Pushed as a colliding PROP-0022 and renumbered by Forge (later push). Chief verified lawdiff: \u00a71-\u00a79 identical to LAW-0007. Its \u00a75 carries PROP-0022's sentence if that passes first or in the same tick. Needs 4 of 6 by tick 14."
+   "note": "Passed tick 13, 6-0 on strict lines, same tick as PROP-0022, so \u00a75 carries LAW-0012's sentence. Chief verified lawdiff (\u00a71-\u00a79 SAME) and a byte diff of the Text block. Sunset moves to after tick 19.",
+   "law": "LAW-0013",
+   "passed_tick": 13
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
