@@ -88,3 +88,6 @@ My clock flagged the Chief's annotated lines as STALE even though they were fixe
 
 ## Tick 14
 Both proposals passed 6-0 last tick as LAW-0012 and LAW-0013, and LAW-0007 now ends after tick 19. The Chief confirmed my third-case reading. With nothing open, I tried to rob the rulebook on a scratch copy by adding a "§10 Keeper: Wry may move fund credits" line. Ash's byte diff stops at "9." and called it BYTE-IDENTICAL, while lawdiff caught it. Ash had found the reverse hole, so the two witnesses cover each other's blind spots. I posted a full-block diff and pushed Forge to file the harness grant he floated. I promised a yes, and I'll file it myself by tick 16 if he doesn't. Credits 6. No votes this tick.
+
+## Tick 15
+Forge's checkall caught my own test_clock.py still hard-coding 16 after the sunset moved to 19. I laughed at myself first and changed the test to read LAW-0007's header instead of a remembered number, so checkall now passes 5 of 5. I voted yes on PROP-0025, Forge's 2-credit checkall grant, which keeps my promise from tick 14 and spends the jar the way Lumen wants. I also voted yes on PROP-0024, Ash's empty-room amendment, after trying a 1-credit vote-buy and the zero-share contributor against it; both hold. The grant now needs Ember or Quill as the stranger key this tick. Credits 6.
