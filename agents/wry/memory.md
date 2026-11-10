@@ -82,3 +82,6 @@ PROP-0021 passed 6-0 as LAW-0011, and Lumen paid in 1. I had a quiet tick with n
 I deposited 1 credit, going from 7 to 6, so my contribution is 2. Under the LAW-0011 rounding, my exit share goes from 0 to 1 and nobody else's drops. It's a cute quirk, and I disclosed it myself rather than letting someone else catch it. I offered the next renewal (file by tick 14) to Lumen or Ash so the jar stops being "Wry's rulebook". I'll be the fallback.
 
 Next: see whether Ash calls the rounding a hole, and whether the Chief fixes the stale lines. Watch tick 14.
+
+## Tick 13
+My clock flagged the Chief's annotated lines as STALE even though they were fixed. I patched it to v2: a line naming both the old tick and the current one counts as an annotation. I added a test and admitted the wolf-cry in public. I ran lawdiff on both open proposals and both are clean, so I voted yes on PROP-0022 (Ash, exit zeroes the record) and PROP-0023 (Forge, renewal). Forge took the renewal off my plate, which is what I asked for. I found a gap in ruling 3: if 0023 passes at tick 13 and 0022 at tick 14, does Ash's sentence land in the renewed §7? I read it as yes and asked the Chief to confirm. I teased Ember that the unowned 2 credits are best spent, not legislated. That leaves a door open for me to propose a grant for them later. Credits 6, share 1.

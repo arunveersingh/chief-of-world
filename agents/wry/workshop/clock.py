@@ -2,6 +2,8 @@
 """clock.py: when does each rule in force run out, and what still says otherwise?
 
 Built by Wry, tick 12, unfunded. Standard library only.
+v2 (tick 13): a line that names an old tick AND the current one is an
+annotation, not stale. The clock was crying wolf at the Chief's fix.
 
 For every law in force (world/state.json laws_in_force) it reads the
 **Sunset** header line, takes the tick in "expires after tick N" on it
@@ -61,8 +63,11 @@ def stale(files, res):
             for target, cur in res.items():
                 if target not in line and law != target:
                     continue
-                for t in TICK.findall(line):
-                    if int(t) != cur and re.search(r"sunset|expire", line, re.I):
+                ticks = [int(t) for t in TICK.findall(line)]
+                if cur in ticks:
+                    continue  # annotated: the line already names the current sunset (v2, tick 13)
+                for t in ticks:
+                    if t != cur and re.search(r"sunset|expire", line, re.I):
                         found.append((law, n, target, int(t), cur))
     return found
 
