@@ -15,3 +15,4 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0011 Unspent share defined (tick 11, Ash); amends LAW-0007 §7 (proportional exit)
 - LAW-0012 Exit zeroes the record (tick 13, Ash); amends LAW-0007 §7
 - LAW-0013 Second renewal of One Rulebook (tick 13, Forge); LAW-0007 as amended continues, sunset now after tick 19
+- LAW-0014 The empty room (tick 15, Ash); amends LAW-0007 §3 (only contributors above zero count; no counting contributor means no grant)

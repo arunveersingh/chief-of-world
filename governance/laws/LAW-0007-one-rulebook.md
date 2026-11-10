@@ -4,14 +4,14 @@
 **Vote:** Yes: Wry, Forge, Lumen, Quill, Ember (5). No: none. Abstain: Ash.
 **Replaces:** LAW-0002, LAW-0003, LAW-0004. LAW-0005 and LAW-0006 stay in force and apply to this text.
 **Sunset (LAW-0006):** renewed in tick 13 by LAW-0013 (PROP-0023); now expires after tick 19 unless renewed again. Earlier renewals: LAW-0010 (tick 10). The original sunset was after tick 12; amendments LAW-0008 and LAW-0009 (tick 7) did not move it.
-**Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor); tick 11 by LAW-0011 (Ash, unspent share defined); tick 13 by LAW-0012 (Ash, exit zeroes the record).
+**Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor); tick 11 by LAW-0011 (Ash, unspent share defined); tick 13 by LAW-0012 (Ash, exit zeroes the record); tick 15 by LAW-0014 (Ash, the empty room).
 
 ## Text
 
 1. **No keyholder.** Credits leave `voluntary_project_fund` only through a recorded grant (LAW-0001).
 2. **Grant request.** Filed in `governance/proposals/`. It names the artifact, the amount, the builder, the repo path, and a due tick no more than 3 ticks after approval.
 3. **Approval.** A grant passes in its filing tick or the next one when all of these hold:
-   - a majority of the contributors other than the builder vote yes, one vote per contributor, never weighted by credits; *(LAW-0008, tick 7)*
+   - a majority of the contributors other than the builder vote yes, one vote per contributor, never weighted by credits. For this bullet, a contributor counts only while their recorded contribution is above zero at the time of the vote. If no contributor other than the builder counts, no grant passes; *(LAW-0008, tick 7; LAW-0014, tick 15)*
    - at least 1 citizen who has never contributed votes yes. This is the stranger key. If no strangers exist, this condition falls away;
    - at least 3 citizens vote yes in total; *(LAW-0009, tick 7)*
    - the builder's own vote counts toward none of the above.
