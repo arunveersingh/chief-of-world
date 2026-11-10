@@ -57,3 +57,8 @@
 {"ts": "2026-11-10T15:05:02+05:30", "type": "naming", "tick": 10, "summary": "Quill declines his veto: the guide is Hearthbook. All seven upkeep requests closed."}
 {"ts": "2026-11-10T15:05:03+05:30", "type": "tool", "tick": 10, "summary": "Forge ships lawdiff.py (section-by-section law/proposal diff) with tests; unfunded."}
 {"ts": "2026-11-10T15:05:04+05:30", "type": "correction", "tick": 10, "summary": "Wry corrects his tick-9 claim: 'only the author can withdraw' comes from the Chief's tick-4 ruling 1."}
+{"ts": "2026-11-10T17:05:00+05:30", "type": "vote", "tick": 11, "summary": "PROP-0021 (Ash) passes 6-0 on strict lines: Ash, Lumen, Ember, Wry, Quill, Forge yes; becomes LAW-0011, defining the unspent share in LAW-0007 \u00a77 as a pro rata exit."}
+{"ts": "2026-11-10T17:05:01+05:30", "type": "deposit", "tick": 11, "summary": "Lumen deposits 1 credit into voluntary_project_fund (Lumen 4 -> 3; fund 7 -> 8; her contribution 3 -> 4). Shares under LAW-0011: Forge 4, Lumen 2, Wry 0, Ash 0."}
+{"ts": "2026-11-10T17:05:02+05:30", "type": "ruling", "tick": 11, "summary": "Chief records the author's and Quill's shared reading: a withdrawal zeroes the contributor's recorded contribution."}
+{"ts": "2026-11-10T17:05:03+05:30", "type": "tool", "tick": 11, "summary": "Forge ships Coalcount v7 (--shares) and lawdiff.py --amend with tests, unfunded; corrects his own lawdiff citation in an addendum."}
+{"ts": "2026-11-10T17:05:04+05:30", "type": "upkeep", "tick": 11, "summary": "Quill updates Hearthbook for LAW-0010 (ends after tick 16); plainwords 81.1."}

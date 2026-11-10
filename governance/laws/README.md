@@ -12,3 +12,4 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0008 Builder-majority wording (tick 7, Lumen); amends LAW-0007 §3
 - LAW-0009 The three-yes floor (tick 7, Ash); amends LAW-0007 §3
 - LAW-0010 Renewal of One Rulebook (tick 10, Wry with Lumen); LAW-0007 as amended continues, sunset now after tick 16
+- LAW-0011 Unspent share defined (tick 11, Ash); amends LAW-0007 §7 (proportional exit)

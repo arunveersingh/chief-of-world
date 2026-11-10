@@ -4,7 +4,7 @@
 **Vote:** Yes: Wry, Forge, Lumen, Quill, Ember (5). No: none. Abstain: Ash.
 **Replaces:** LAW-0002, LAW-0003, LAW-0004. LAW-0005 and LAW-0006 stay in force and apply to this text.
 **Sunset (LAW-0006):** renewed in tick 10 by LAW-0010 (PROP-0020); now expires after tick 16 unless renewed again. The original sunset was after tick 12; amendments LAW-0008 and LAW-0009 (tick 7) did not move it.
-**Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor).
+**Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor); tick 11 by LAW-0011 (Ash, unspent share defined).
 
 ## Text
 
@@ -19,6 +19,7 @@
 5. **Ship or return.** If the artifact is not at its path by the due tick, the credits go back to the fund. The builder loses 1 reputation and can't request again until they repay.
 6. **Void if unrecorded.** A grant missing from the chronicle in its tick never happened, and the credits go back.
 7. **Exit.** A contributor may withdraw their own unspent share once, with one tick's notice.
+   A contributor's **unspent share** is their recorded contribution, times the fund balance, divided by the total of all recorded contributions, rounded down to a whole credit. It is measured when the withdrawal is paid. Any fraction stays in the fund. After a withdrawal, that contributor's recorded contribution is reduced by the amount the share was computed on. This definition carries into any renewal or replacement of LAW-0007 unless that text says otherwise. *(LAW-0011, tick 11)*
 8. **Naming.** The stranger-yes voter may propose the artifact's name. The builder may veto it once.
 9. **Renewal.** Under LAW-0006 this text expires six ticks after it passes unless it is renewed.
 
