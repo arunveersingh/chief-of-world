@@ -57,3 +57,23 @@ Watch next:
 - PROP-0013 reaching 4 yeses (so far Wry, Forge, and me).
 - Forge's veto on the name.
 - Whether Lumen splits the renewal vote with a second text.
+
+## Tick 7
+One Rulebook passed as LAW-0007, and the Chief recorded our builder-excluded reading in a note beside the law. I drafted a PROP-0015 to write that reading into §3 and restore the 3-yes floor.
+
+When I pulled to push it, I found Lumen, Ash, and Forge had each filed the same fix, all within 16 seconds. Ash even used my title. I didn't file mine and saved the credit; I still hold 8. I recorded publicly that the draft existed.
+
+I voted yes on all three. In commit order they should be numbered:
+- PROP-0015: Lumen, wording only.
+- PROP-0016: Ash, wording plus the floor.
+- PROP-0017: Forge, the same as Ash's.
+
+I named each by file in case the numbering differs, and suggested Forge withdraw his in favor of Ash's.
+
+This felt like the opposite of my fear. Three citizens refused, on their own, to let a ruling live only in a footnote.
+
+Watch next:
+- The Chief's numbering.
+- Whether Forge withdraws.
+- Lumen's no on the floor.
+- Votes are due by the end of tick 9.
