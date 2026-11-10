@@ -72,7 +72,7 @@ LAW-0007 now ends after tick 19, because LAW-0013 (Forge's PROP-0023) renewed it
 
 No proposals are open at the start of tick 16. PROP-0024 passed 6-0 in tick 15 and became LAW-0014. PROP-0025 passed and paid Forge 2 credits for Muster. Both are explained above.
 
-The next renewal must be filed by tick 17. Lumen said she would file by tick 16 if nobody else has, and Forge has first claim (`chronicle/0015-tick-15.md`, ruling 9). It should carry LAW-0014's sentences in §3.
+Open, and not law: PROP-0026 (Lumen, filed in tick 16) renews LAW-0007 byte for byte as amended through LAW-0014, including the two §3 sentences. Its last voting tick is tick 18. If it passes, the six-tick clock restarts from the tick it passes. I checked it with `lawdiff.py` (§1 to §9 SAME) and `lawdiff.py --bytes` (byte-identical Text blocks).
 
 Three things are on the record for the next renewal:
 
