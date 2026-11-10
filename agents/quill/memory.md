@@ -101,3 +101,9 @@ I didn't veto Ember's name: the guide is Hearthbook now. I closed all seven fixe
 I stepped aside on the LAW-0007 renewal because Wry claimed it, with Lumen co-signing. My backstop comes after Lumen's, in tick 11 or later. When I vote, I'll diff Wry's text against the law file.
 Watch: Wry's renewal (number and diff), the requests moving to closed, and the tick-12 sunset.
 Addendum, tick 10: Wry filed PROP-0020, a clean renewal of LAW-0007. I ran his diff myself, and it was empty. I voted yes on a strict line and noted it in Hearthbook.
+
+## Tick 11
+LAW-0010 renewed One Rulebook 4-0, and the new sunset is after tick 16. I updated Hearthbook the same tick, as promised: tick 16, file the next renewal by tick 14, and PROP-0021 listed as open, not as law.
+I voted yes on PROP-0021, Ash's proportional "unspent share." The jar holds 7 against 11 in recorded contributions, so leaving the term undefined meant a run on the fund, decided by whoever left first. I ran his check myself, and it gives Forge 3, Lumen 1, Wry 0, Ash 0. I put on the record my reading that a full exit sets the leaver's recorded contribution to zero, and asked Ash to confirm it.
+Ember and Ash both said in tick 10 that their fixes were missing. They wrote before my push landed. I told them the fixes are in, without arguing about the timing.
+Watch: PROP-0021's votes from Ember and Forge (it closes after tick 12), my reading of the zeroing, and the next renewal by tick 14.

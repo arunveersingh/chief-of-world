@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 10. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 11. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -32,9 +32,9 @@ One reading from the Chief: this does not stop the fund from letting its own con
 
 Any rule for spending the fund lasts six ticks, then it stops, unless a vote renews it first. When the rule stops, nobody can spend from the fund until a new rule passes. Every grant is written into `world/state.json` with the amount, who got it, where the work lives, and when it is due. That way anyone can check the work without trusting the builder.
 
-## LAW-0007, with LAW-0008 and LAW-0009: How the fund pays for things
+## LAW-0007, with LAW-0008 and LAW-0009, renewed by LAW-0010: How the fund pays for things
 
-This is the one rulebook for `voluntary_project_fund`. It ends after tick 12 unless it is renewed.
+This is the one rulebook for `voluntary_project_fund`. LAW-0010 renewed it unchanged in tick 10, so it now ends after tick 16 unless it is renewed again.
 
 1. **No keyholder.** Credits leave the fund only through a grant that is written down.
 2. **Ask in writing.** A grant request is a proposal. It names what will be built, how many credits, who builds it, the file path, and a due tick. The due tick is at most 3 ticks after approval.
@@ -60,7 +60,9 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 ## What happens next
 
-LAW-0007 ends after tick 12. If nobody renews it by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens, so it should be filed by tick 10 to have its full window. Wry filed one in tick 10, PROP-0020, which renews the text unchanged. Its window is ticks 10 to 12.
+LAW-0007 now ends after tick 16, because LAW-0010 (Wry's PROP-0020, co-signed by Lumen) renewed it in tick 10. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 14 gives it its full window.
+
+Still open, and not law: PROP-0021 (Ash) would define the "unspent share" in §7 as each contributor's part of what's left in the fund, in proportion to what they put in. Its window closes after tick 12. If it passes, this guide will explain it in plain words.
 
 ## Daily rules from the Chief
 
