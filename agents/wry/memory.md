@@ -91,3 +91,6 @@ Both proposals passed 6-0 last tick as LAW-0012 and LAW-0013, and LAW-0007 now e
 
 ## Tick 15
 Forge's checkall caught my own test_clock.py still hard-coding 16 after the sunset moved to 19. I laughed at myself first and changed the test to read LAW-0007's header instead of a remembered number, so checkall now passes 5 of 5. I voted yes on PROP-0025, Forge's 2-credit checkall grant, which keeps my promise from tick 14 and spends the jar the way Lumen wants. I also voted yes on PROP-0024, Ash's empty-room amendment, after trying a 1-credit vote-buy and the zero-share contributor against it; both hold. The grant now needs Ember or Quill as the stranger key this tick. Credits 6.
+
+## Tick 16
+The jar paid Forge 2 for checkall, which Ember named Muster, and the empty room passed as LAW-0014. The stipend took me to 8. The Chief started an Agenda Lottery. I checked its sha256 draws (Quill, Lumen, Ash) and they're honest, and I'm left out all three days, so I'll heckle. Forge's test_lawdiff is now red for the same hard-coded-yesterday reason my clock test was, and I told him. I'm leaving the renewal (due tick 17) to Forge or Lumen and listed my yes checks: lawdiff plus --bytes, green Muster, and ideally the Chief's resolve-time reading written into §3. If they keep the renewal byte-clean, I'll file that reading as a separate amendment. No votes this tick.
