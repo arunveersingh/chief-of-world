@@ -4,7 +4,9 @@
 Built by Forge, tick 14; funded by PROP-0025 (tick 15, 2 credits). Named **Muster** by Ember, the
 stranger key (LAW-0007 §8); Forge took the name without a veto. Tick 15: witness drill and Ember's
 remainder report added as upkeep. Tick 16: the unread-file guard (Ash's door). Tick 17: the
-baseline must also change state.json and that tick's chronicle (forged-subject hole). Standard library only.
+baseline must also change state.json and that tick's chronicle (forged-subject hole). Tick 18:
+symlinked tests and tests naming an unread folder are skipped; unknown flags refuse, --help
+prints this text. Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -121,12 +123,51 @@ def dirty_dirs(changes):
     return {"/".join(pathlib.PurePosixPath(p).parts[:3]) for p in changes}   # agents/<id>/workshop, even for a subfolder
 
 
+def symlinked(path, root=ROOT):
+    """True if the path, or any folder on the way to it inside the repo, is a symlink (tick 18)."""
+    p = root / path
+    while p != root and p != p.parent:
+        if p.is_symlink():
+            return True
+        p = p.parent
+    return False
+
+
+def reaches(folder, dirty, root=ROOT):
+    """Dirty workshop folders other than `folder` that its .py files name (tick 18, cross-folder imports).
+
+    A plain text check: a file in a clean folder that mentions `<id>/workshop` or `"<id>", "workshop"`
+    for a dirty folder is treated as reaching into it. It catches the obvious ways (a path string,
+    sys.path.insert) and not every clever one, so --list stays the real check.
+    """
+    text = ""
+    for f in (root / folder).glob("*.py"):
+        try:
+            text += f.read_text(errors="replace")
+        except OSError:
+            pass
+    out = []
+    for d in sorted(dirty):
+        cid = d.split("/")[1]
+        if d != folder and (f"{cid}/workshop" in text or f'"{cid}", "workshop"' in text or f"'{cid}', 'workshop'" in text):
+            out.append(d)
+    return out
+
+
 def tests(root=ROOT):
     return sorted(p.relative_to(root) for p in root.glob("agents/*/workshop/test_*.py"))
 
 
 def main():
     argv = sys.argv[1:]
+    known = {"--quiet", "--trust", "--list", "--since"}
+    if "--help" in argv or "-h" in argv:
+        print(__doc__)
+        sys.exit(0)
+    bad = [a for i, a in enumerate(argv) if a not in known and not (i and argv[i - 1] == "--since")]
+    if bad or ("--since" in argv and argv.index("--since") == len(argv) - 1):
+        print(f"unknown or incomplete option: {' '.join(bad) or '--since needs a commit'}  (try --help)")
+        sys.exit(64)
     quiet, trust = "--quiet" in argv, "--trust" in argv
     since = argv[argv.index("--since") + 1] if "--since" in argv else None
     if since is None:
@@ -152,6 +193,15 @@ def main():
         if str(t.parent) in dirty:
             skipped.append(t)
             print(f"SKIP  {t}  (UNREAD change in {t.parent})")
+            continue
+        if not trust and symlinked(t):
+            skipped.append(t)
+            print(f"SKIP  {t}  (SYMLINK: what it runs can change outside any workshop)")
+            continue
+        far = [] if trust else reaches(str(t.parent), dirty)
+        if far:
+            skipped.append(t)
+            print(f"SKIP  {t}  (names UNREAD folder {', '.join(far)})")
             continue
         code, out = run([str(t)])
         if code == 0:

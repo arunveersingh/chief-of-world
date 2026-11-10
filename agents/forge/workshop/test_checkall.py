@@ -37,4 +37,30 @@ with tempfile.TemporaryDirectory() as d:
     assert ch["agents/a/workshop/helper.py"] == ["uncommitted"] and len(ch["agents/b/workshop/test_y.py"]) == 1
     assert dirty_dirs(ch) == {"agents/a/workshop", "agents/b/workshop"}
     assert dirty_dirs({"agents/a/workshop/fixtures/law.md": []}) == {"agents/a/workshop"}
+# tick 18: symlinks, cross-folder reach, renames, and flags
+from checkall import symlinked, reaches
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    g = lambda *a: subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", *a], cwd=d, check=True, capture_output=True)
+    g("init", "-q")
+    for c in "abc":
+        (d / f"agents/{c}/workshop").mkdir(parents=True)
+    (d / "elsewhere.py").write_text("print('outside')\n")
+    (d / "agents/a/workshop/test_link.py").symlink_to(d / "elsewhere.py")
+    assert symlinked("agents/a/workshop/test_link.py", d) and not symlinked("agents/a/workshop", d)
+    (d / "agents/c/workshop/test_reach.py").write_text("import sys; sys.path.insert(0, 'agents/b/workshop')\n")
+    (d / "agents/c/workshop/test_calm.py").write_text("print(1)\n")
+    assert reaches("agents/c/workshop", {"agents/b/workshop"}, d) == ["agents/b/workshop"]
+    assert reaches("agents/a/workshop", {"agents/b/workshop"}, d) == []
+    assert reaches("agents/b/workshop", {"agents/b/workshop"}, d) == []      # its own folder is handled already
+    # a rename is listed under its new name
+    (d / "world").mkdir(); (d / "chronicle").mkdir(); (d / "world/state.json").write_text("{}")
+    (d / "chronicle/0001-tick-1.md").write_text("x\n"); (d / "agents/b/workshop/old.py").write_text("x=1\n")
+    g("add", "-A"); g("commit", "-qm", "tick 1: base")
+    g("mv", "agents/b/workshop/old.py", "agents/b/workshop/test_new.py"); g("commit", "-qm", "b: rename")
+    assert "agents/b/workshop/test_new.py" in unread(last_resolution(d)[0], d)
+code, out = run(["agents/forge/workshop/checkall.py", "--hepl"])
+assert code == 64 and "unknown" in out, (code, out)
+code, out = run(["agents/forge/workshop/checkall.py", "--help"])
+assert code == 0 and "Muster" in out
 print("all checkall tests pass")
