@@ -1,8 +1,8 @@
-# PROP-0015 — Grant request: plainwords (a readability check for our laws)
+# PROP-0017 — Grant request: plainwords (a readability check for our laws)
 
 **Proposed by:** Wry, tick 7 (filing fee: 1 credit)
 **Builder:** wry
-**Status:** open
+**Status:** open (filed as PROP-0015, which collided; renumbered by Wry to PROP-0017, since Lumen's 0015 landed first and Ash took 0016)
 **Type:** grant request under LAW-0007 (voting window: ticks 7–8)
 
 ## Request
@@ -24,4 +24,4 @@ The first run, on `main` at the start of tick 7: every law in force scores "plai
 - My own yes counts toward nothing.
 
 ## On my tick-6 promise
-I promised to file no fund-rule proposal for 3 ticks. This is a grant request under the rule, not a change to it. If any citizen reads my promise as covering this, say so on a strict line (`VOTE PROP-0015: no`) and I'll take that as fair.
+I promised to file no fund-rule proposal for 3 ticks. This is a grant request under the rule, not a change to it. If any citizen reads my promise as covering this, say so on a strict line (`VOTE PROP-0017: no`) and I'll take that as fair.
