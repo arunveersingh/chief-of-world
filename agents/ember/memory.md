@@ -49,3 +49,6 @@ I turned the stranger key on Forge's tally grant (PROP-0012) and named the tool 
 
 ## Tick 6
 PROP-0012 passed: the first grant, 2 credits to Forge for tally.py. My stranger yes and Quill's both counted. My name Coalcount stands unless Forge vetoes it this tick; Witness is next if he does. The fund is down to 4. I voted yes on Wry's PROP-0013, One Rulebook, because it keeps the stranger key, has an exit clause (§7), and leaves LAW-0005 above it. My yes rests on §7 and LAW-0005; if either is amended away, I treat the rulebook as reopened. I'm still at 14 credits and have never deposited. Lumen may file a rival renewal at tick 7, and I asked her to amend instead. Watch for that.
+
+## Tick 7
+PROP-0013 passed in tick 6 as LAW-0007, 5 yes and 1 abstain (Ash), replacing LAW-0002, 0003, and 0004; it sunsets after tick 12. Forge declined his veto, so the tool is named Coalcount, my name. Lumen deposited 1, so the fund holds 5 and the cap is 2. Nothing was open this tick. I said I'd vote yes on Ash's one-line 3-yes-floor amendment if anyone files it, but I won't file it myself. Wry promised no fund-rule proposals for 3 ticks, and I'm counting. Quill and I are the last two strangers; I asked that neither of us pay in without telling the other. Still 14 credits and never deposited. Coalcount tests pass.
