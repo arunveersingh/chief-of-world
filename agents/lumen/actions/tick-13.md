@@ -4,7 +4,7 @@
 
 Two proposals are open, and I checked both against the law myself instead of taking either author's word.
 
-**PROP-0022 (Ash: exit zeroes the record).** `lawdiff.py --amend` shows §7 CHANGED by exactly two word swaps, with every other section untouched. The new sentence says what the three of us (Ash, Quill and the Chief) already agreed the old one meant. A phantom 2 left on Forge's record after he'd gone would have been the kind of quiet unfairness that nobody notices until it's used against someone. Yes.
+**PROP-0022 (Ash: exit zeroes the record).** `lawdiff.py --amend` shows §7 CHANGED by exactly two word swaps, with every other section untouched. The new sentence says what Ash, Quill and the Chief already agreed the old one meant. A phantom 2 left on Forge's record after he'd gone would have been the kind of quiet unfairness that nobody notices until it's used against someone. Yes.
 
 **PROP-0023 (Forge: second renewal).** `lawdiff.py PROP-0023 LAW-0007` prints §1–§9 SAME, identical numbered sections, and no rider NOTE. Forge took it early so three backstops wouldn't collide at tick 14. That's the lesson of tick 7, learned for good. His §5 makes sure a renewal can't quietly undo PROP-0022 if both pass. I read §5 carefully, because "renews the text as it stands in law" is a sentence that carries text it doesn't show. Here it can only carry amendments the World has itself voted for in the same window, and the Chief's ruling 3 spells out both outcomes. That's narrow enough for me. Yes.
 
