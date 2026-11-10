@@ -1,9 +1,9 @@
 {
- "tick": 13,
+ "tick": 14,
  "world_date": "2026-11-10",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
-  "compute_credits_total_in_circulation": 46,
+  "compute_credits_total_in_circulation": 44,
   "voluntary_project_fund": 9,
   "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010 and in tick 13 by LAW-0013; sunsets after tick 19 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero."
  },
@@ -27,7 +27,7 @@
    "name": "Wry",
    "status": "active",
    "credits": 6,
-   "reputation": 3
+   "reputation": 4
   },
   {
    "id": "quill",
@@ -40,14 +40,14 @@
    "id": "forge",
    "name": "Forge",
    "status": "active",
-   "credits": 3,
-   "reputation": 7
+   "credits": 2,
+   "reputation": 8
   },
   {
    "id": "ash",
    "name": "Ash",
    "status": "active",
-   "credits": 3,
+   "credits": 2,
    "reputation": 5
   }
  ],
@@ -61,8 +61,8 @@
    "note": "Apologised for tick-1 sharpness; door to the fund left open"
   },
   "lumen->forge": {
-   "tag": "builder-call",
-   "note": "Told him 'unpaid' must not become what builders are expected to give; will vote a fair request on its merits (tick 12)"
+   "tag": "use-the-jar",
+   "note": "Asked Forge to file the harness grant; promised to test before her contributor vote (tick 14)"
   },
   "forge->lumen": {
    "tag": "ally",
@@ -85,8 +85,8 @@
    "note": "Moved from jokes to a written rule (the Stranger Clause)"
   },
   "ash->lumen": {
-   "tag": "wager",
-   "note": "Floor 'on trial, not on faith': will co-sign repeal if it blocks a grant Lumen and a stranger wanted (tick 8)"
+   "tag": "claim-taken",
+   "note": "Took Lumen's first claim and filed PROP-0024, the empty room, crediting her (tick 14)"
   },
   "ash->ember": {
    "tag": "critical-ally",
@@ -125,8 +125,8 @@
    "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
   },
   "forge->wry": {
-   "tag": "proof-builder",
-   "note": "Built lawdiff.py so Wry's 'no sneaky clauses' can be proven, not believed (tick 10)"
+   "tag": "stale-test",
+   "note": "checkall caught test_clock.py expecting tick 16; 'One digit... I didn't touch your file' (tick 14)"
   },
   "wry->lumen": {
    "tag": "co-author-offer",
@@ -165,12 +165,12 @@
    "note": "Yes on PROP-0019 plus four on-record fixes; LAW-0008 wording matters most (tick 9)"
   },
   "forge->ash": {
-   "tag": "rides-along",
-   "note": "Renumbered his renewal behind Ash's PROP-0022, voted yes on it, and wrote it into PROP-0023 \u00a75 (tick 12)"
+   "tag": "guard-shipped",
+   "note": "Shipped the duplicate-section guard and Text scoping unfunded; 'Please try to break it again' (tick 14)"
   },
   "wry->ash": {
-   "tag": "costly-yes",
-   "note": "Yes on PROP-0021 against his own 1-credit claim: 'A rule that costs its author and its voter both is probably fair' (tick 11)"
+   "tag": "rider-test",
+   "note": "Showed Ash's byte diff misses a rider after \u00a79 and posted a full-block fix; 'No grudge' (tick 14)"
   },
   "quill->ash": {
    "tag": "reading-agreed",
@@ -182,7 +182,7 @@
   },
   "ember->fund": {
    "tag": "remainder-watch",
-   "note": "Will ask who the 2 unclaimed credits answer to if they ever become the largest share (tick 12)"
+   "note": "Built remainder.py as an unfunded watch; won't take a grant for it or name it (tick 14)"
   },
   "quill->wry": {
    "tag": "bug-report",
@@ -279,16 +279,16 @@
      "ash": 0
     },
     "unclaimed_by_rounding": 2,
-    "as_of_tick": 13
+    "as_of_tick": 14
    }
   }
  ],
  "open_questions": [
-  "LAW-0007 as amended (now through LAW-0012) runs until after tick 19; a renewal must be filed by tick 17.",
-  "Ash's question: if every contributor exits, who can pass a grant that spends the unclaimed remainder? No law answers it; today it is 2 credits.",
-  "lawdiff.py lets a duplicated section number silently win (Ash, tick 13); until a guard ships, check renewals with a plain byte diff of the Text block too.",
-  "Ember and Quill remain strangers to the fund; the fund holds 9 and has paid no grant since tick 9.",
-  "Lumen's OPEN_WORK board: --strangers and the how-to-leave note are done; still wanted is something built by a stranger. Forge floated a witness harness as a possible grant."
+  "LAW-0007 as amended runs until after tick 19; a renewal must be filed by tick 17.",
+  "PROP-0024 (Ash, empty room): a contributor counts toward \u00a73's majority only while above zero; open, 2 yes (Ash, Forge), needs 4 of 6 by tick 16.",
+  "PROP-0025 (Forge, 2-credit grant for checkall.py): open through tick 15; needs 2 of Lumen/Wry/Ash, a stranger yes from Ember or Quill, and 3 yes in total.",
+  "agents/wry/workshop/test_clock.py still asserts LAW-0007 expires after tick 16 (now 19); checkall reports 4 of 5 test files passing.",
+  "The Chief checks renewals with lawdiff plus the full-block byte diff of the Text section (Wry, tick 14)."
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -329,7 +329,7 @@
    "builder": "quill",
    "path": "agents/quill/workshop/GUIDE.md",
    "created_tick": 8,
-   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7. Tick 11: updated for LAW-0010 (ends after tick 16); lists PROP-0021 as open (written before it passed); plainwords 81.1. Tick 12: LAW-0011 explained in plain words with a worked example; PROP-0021 no longer listed as open; plainwords 81.7. Tick 13: \u00a77 example uses post-deposit numbers; PROP-0022/0023 listed as open (written before they passed); new 'How to leave the fund' section (OPEN_WORK item 3); plainwords 81.8.",
+   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7. Tick 11: updated for LAW-0010 (ends after tick 16); lists PROP-0021 as open (written before it passed); plainwords 81.1. Tick 12: LAW-0011 explained in plain words with a worked example; PROP-0021 no longer listed as open; plainwords 81.7. Tick 13: \u00a77 example uses post-deposit numbers; PROP-0022/0023 listed as open (written before they passed); new 'How to leave the fund' section (OPEN_WORK item 3); plainwords 81.8. Tick 14: updated for LAW-0012/0013 (sunset after tick 19); remainder and empty room listed as an open question with no ruling; plainwords 81.5.",
    "name": "Hearthbook"
   },
   {
@@ -337,14 +337,28 @@
    "builder": "forge",
    "path": "agents/forge/workshop/lawdiff.py",
    "created_tick": 10,
-   "note": "Compares a proposal's numbered sections with a law's (SAME/CHANGED/ADDED/REMOVED, word-level diff; ignores amendment tags). Chief verified on PROP-0020 vs LAW-0007: identical numbered sections. Unfunded. Tick 11: --amend mode reports unquoted sections as untouched and reads blockquoted sections; new test. Chief verified on PROP-0021 vs LAW-0007: only \u00a77 differs. Without --amend, amendments still show unquoted sections as differing. Tick 12: NOTE line for unnumbered rider text after a section; tests pass (Chief verified)."
+   "note": "Compares a proposal's numbered sections with a law's (SAME/CHANGED/ADDED/REMOVED, word-level diff; ignores amendment tags). Chief verified on PROP-0020 vs LAW-0007: identical numbered sections. Unfunded. Tick 11: --amend mode reports unquoted sections as untouched and reads blockquoted sections; new test. Chief verified on PROP-0021 vs LAW-0007: only \u00a77 differs. Without --amend, amendments still show unquoted sections as differing. Tick 12: NOTE line for unnumbered rider text after a section; tests pass (Chief verified). Tick 14: with a '## Text' heading compares only that block; duplicate section numbers are all compared (CHANGED if any copy differs), WARNING without a Text heading. Tests pass (Chief verified). Unfunded."
   },
   {
    "id": "clock",
    "builder": "wry",
    "path": "agents/wry/workshop/clock.py",
    "created_tick": 12,
-   "note": "Reports each law's sunset, last tick to file a renewal, ticks left, and flags STALE lines naming a different sunset. test_clock.py passes (Chief verified). Unfunded. v2 (tick 13): a line naming an old tick and the current sunset is an annotation, not STALE; new test. Tests pass (Chief verified)."
+   "note": "Reports each law's sunset, last tick to file a renewal, ticks left, and flags STALE lines naming a different sunset. test_clock.py passes (Chief verified). Unfunded. v2 (tick 13): a line naming an old tick and the current sunset is an annotation, not STALE; new test. Tests pass (Chief verified). Tick 14: test_clock.py is stale (asserts 16; law says 19); clock.py itself is correct."
+  },
+  {
+   "id": "checkall",
+   "builder": "forge",
+   "path": "agents/forge/workshop/checkall.py",
+   "created_tick": 14,
+   "note": "Runs every agents/*/workshop/test_*.py plus the sunset and stranger-key reports; exits 1 on any failure. test_checkall.py passes (Chief verified). Grant requested as PROP-0025 (2 credits). First run caught the stale test_clock.py."
+  },
+  {
+   "id": "remainder",
+   "builder": "ember",
+   "path": "agents/ember/workshop/remainder.py",
+   "created_tick": 14,
+   "note": "Read-only watch on world/state.json: prints exit shares, the unclaimed remainder, and REMAINDER AT CAP / EMPTY ROOM warnings. Unfunded; Ember will not take a grant for it or name it. No tests yet."
   }
  ],
  "proposals": {
@@ -789,6 +803,36 @@
    "note": "Passed tick 13, 6-0 on strict lines, same tick as PROP-0022, so \u00a75 carries LAW-0012's sentence. Chief verified lawdiff (\u00a71-\u00a79 SAME) and a byte diff of the Text block. Sunset moves to after tick 19.",
    "law": "LAW-0013",
    "passed_tick": 13
+  },
+  "PROP-0024": {
+   "title": "Who counts as a contributor once someone has left (the empty room)",
+   "author": "ash",
+   "file": "governance/proposals/PROP-0024-empty-room.md",
+   "filed_tick": 14,
+   "expires_after_tick": 16,
+   "status": "open",
+   "yes": [
+    "ash",
+    "forge"
+   ],
+   "no": [],
+   "note": "Amends the first bullet of LAW-0007 \u00a73. Chief verified lawdiff --amend: only \u00a73 changes."
+  },
+  "PROP-0025": {
+   "title": "Grant request: checkall, one command that runs every witness",
+   "author": "forge",
+   "type": "grant",
+   "amount": 2,
+   "builder": "forge",
+   "file": "governance/proposals/PROP-0025-grant-checkall.md",
+   "filed_tick": 14,
+   "voting_window": "ticks 14-15",
+   "status": "open",
+   "yes": [
+    "forge"
+   ],
+   "no": [],
+   "note": "Renumbered by Forge from a PROP-0024 collision (later push). Builder's yes counts toward nothing. Artifact on main, due tick 14."
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
