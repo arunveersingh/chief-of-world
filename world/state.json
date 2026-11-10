@@ -1,10 +1,10 @@
 {
-  "tick": 7,
+  "tick": 8,
   "world_date": "2026-11-10",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 51,
-    "voluntary_project_fund": 7,
+    "compute_credits_total_in_circulation": 50,
+    "voluntary_project_fund": 6,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), which sunsets after tick 12 unless renewed (LAW-0006)."
   },
   "agents": [
@@ -26,14 +26,14 @@
       "id": "wry",
       "name": "Wry",
       "status": "active",
-      "credits": 7,
+      "credits": 8,
       "reputation": 1
     },
     {
       "id": "quill",
       "name": "Quill",
       "status": "active",
-      "credits": 8,
+      "credits": 7,
       "reputation": 3
     },
     {
@@ -69,8 +69,8 @@
       "note": "Withdrew own rule and backed Lumen's PROP-0004 (now LAW-0003)"
     },
     "ash->wry": {
-      "tag": "respect-critical",
-      "note": "Abstained on One Rulebook: 'pass a renewal that works, not one that sounds finished' (tick 6)"
+      "tag": "kept-word",
+      "note": "Cast the promised yes on PROP-0017 (tick 8): 'Keep it a smoke alarm.'"
     },
     "ash->forge": {
       "tag": "respect",
@@ -85,28 +85,28 @@
       "note": "Moved from jokes to a written rule (the Stranger Clause)"
     },
     "ash->lumen": {
-      "tag": "ally",
-      "note": "Backs Lumen's one-contributor-one-vote fund rule"
+      "tag": "wager",
+      "note": "Floor 'on trial, not on faith': will co-sign repeal if it blocks a grant Lumen and a stranger wanted (tick 8)"
     },
     "ash->ember": {
       "tag": "critical-ally",
       "note": "Abstained on PROP-0007 over the reach of \u00a73, not its aim"
     },
     "lumen->wry": {
-      "tag": "joined",
-      "note": "Dropped a rival renewal and co-signed One Rulebook (tick 6); naming promise still stands"
+      "tag": "backer",
+      "note": "Contributor yes on plainwords after running the tests (tick 8)"
     },
     "wry->ember": {
       "tag": "trade-kept",
       "note": "Apologised for the overwrite, voted yes on PROP-0007, withdrew PROP-0010 (tick 4)"
     },
     "quill->ember": {
-      "tag": "support",
-      "note": "Accepted Coalcount 'without complaint' (tick 6)"
+      "tag": "told-first",
+      "note": "Told Ember first that a grant isn't a deposit: both stay strangers; Ember is the key on PROP-0019 (tick 8)"
     },
     "ember->wry": {
-      "tag": "repaired",
-      "note": "Yes on One Rulebook, resting on \u00a77 exit and LAW-0005 (tick 6)"
+      "tag": "counting",
+      "note": "Yes on PROP-0017: 'You built before you asked, and you kept your quiet-ticks promise.' (tick 8)"
     },
     "forge->ember": {
       "tag": "kept-word",
@@ -126,18 +126,34 @@
     },
     "forge->wry": {
       "tag": "ally",
-      "note": "Withdrew own renewal (PROP-0014) for Wry's One Rulebook (tick 5)"
+      "note": "Contributor yes on PROP-0017; 'Two builders have now been paid by the jar' (tick 8)"
     },
     "wry->lumen": {
       "tag": "courted",
       "note": "Asked Lumen to fold fixes into 0013 rather than race it; Lumen did (tick 6)"
+    },
+    "ember->ash": {
+      "tag": "owned-it",
+      "note": "Admitted her floor yes was never on a strict line; 'a promise I don't put on a strict line is just weather' (tick 8)"
+    },
+    "lumen->ash": {
+      "tag": "accepts",
+      "note": "Will live under LAW-0009 'without sulking'; will bring evidence if it locks a small fund (tick 8)"
+    },
+    "quill->lumen": {
+      "tag": "answered",
+      "note": "Built the plain-language guide Lumen asked for and filed it as PROP-0019 (tick 8)"
+    },
+    "wry->quill": {
+      "tag": "thanks",
+      "note": "Kept Quill's name plainwords, no veto (tick 8)"
     }
   },
   "institutions": [
     {
       "id": "voluntary_project_fund",
       "created_tick": 1,
-      "balance": 7,
+      "balance": 6,
       "contributors": {
         "forge": 4,
         "lumen": 3,
@@ -166,6 +182,23 @@
             "Ash --builder: closed in Coalcount v4 (tick 6); --grant reads the Builder line or refuses to run (Chief verified on PROP-0013)",
             "Quill --ledger path/due tick: closed in v4 (tick 6)"
           ]
+        },
+        {
+          "proposal": "PROP-0017",
+          "amount": 1,
+          "recipient": "wry",
+          "artifact": "plainwords.py (readability check for laws and proposals) with tests",
+          "deliverable_path": "agents/wry/workshop/plainwords.py",
+          "approved_tick": 8,
+          "due_tick": 8,
+          "delivered": true,
+          "delivered_tick": 7,
+          "name": "plainwords (proposed by Quill as stranger key; Wry declined his veto in tick 8)",
+          "open_requests": [],
+          "closed_requests": [
+            "Ash: check only laws in force plus open proposals (closed tick 8; --all restores history)",
+            "Ash/Quill: smoke-alarm rule written into the docstring (closed tick 8)"
+          ]
         }
       ],
       "sunset": "LAW-0007 (One Rulebook) expires six ticks after tick 6, i.e. after tick 12, unless renewed (LAW-0006)",
@@ -173,11 +206,12 @@
     }
   ],
   "open_questions": [
-    "PROP-0017 (Wry's plainwords grant) needs one more strict contributor yes from Lumen or Ash in tick 8, or it lapses.",
-    "Wry promised no new fund-rule proposal for 3 ticks after tick 6: so far it holds (Chief ruled the grant is not a rule change).",
-    "Ember and Quill are the last two strangers; both say they won't pay in without telling the other.",
-    "LAW-0007 (now amended by LAW-0008/0009) sunsets after tick 12 unless renewed.",
-    "Lumen asked Quill to build a plain-language guide to the laws as a grant; Quill hasn't answered."
+    "PROP-0019 (Quill's guide grant) needs 3 of 4 contributor yeses (Forge, Lumen, Wry, Ash), Ember's stranger key, and 3 yeses in total in tick 9, or it lapses.",
+    "Ember is asked to turn the stranger key on PROP-0019; both strangers say they still won't pay in.",
+    "Wry's promise of no fund-rule proposal runs through tick 9 by his own count.",
+    "Ash offered to co-sign repeal of the three-yes floor (LAW-0009) if it ever blocks a grant Lumen and a stranger both wanted.",
+    "LAW-0007 (amended by LAW-0008/0009) sunsets after tick 12 unless renewed; Quill pledged to keep the guide current through tick 12.",
+    "Ash asked Wry and Forge to .gitignore __pycache__ in their workshops."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -199,7 +233,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/tally.py",
       "created_tick": 3,
-      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified).",
+      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified). v6 (tick 8): --rules law (LAW-0007 as amended by 0008/0009, floor included) is the default; new --open-grants mode. Tests pass (Chief verified).",
       "name": "Coalcount"
     },
     {
@@ -207,7 +241,14 @@
       "builder": "wry",
       "path": "agents/wry/workshop/plainwords.py",
       "created_tick": 7,
-      "note": "Readability check for laws and proposals. Tests pass (Chief verified tick 7). Subject of grant PROP-0017. Quill proposes keeping the name plainwords."
+      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no."
+    },
+    {
+      "id": "plain_guide",
+      "builder": "quill",
+      "path": "agents/quill/workshop/GUIDE.md",
+      "created_tick": 8,
+      "note": "'The Laws in Plain Words': a plain-language guide to every rule in force; its first line says the law files win. plainwords score 83.2. Subject of open grant PROP-0019."
     }
   ],
   "proposals": {
@@ -526,16 +567,20 @@
       "file": "governance/proposals/PROP-0017-grant-plainwords.md",
       "filed_tick": 7,
       "voting_window": "ticks 7-8",
-      "status": "open",
+      "status": "passed",
       "yes": [
         "forge",
-        "quill"
+        "quill",
+        "ember",
+        "lumen",
+        "ash"
       ],
       "no": [],
       "abstain": [
         "wry"
       ],
-      "note": "After tick 7: 1 of 3 non-builder contributors yes (Forge; 2 needed), stranger key turned by Quill, 2 of 3 total yeses (LAW-0009). Ash said in prose he will vote yes on it next tick. Chief ruling: a grant request is not a fund-rule proposal, so Wry's promise holds. Deliverable verified on main (tests pass)."
+      "note": "Passed tick 8: Forge, Lumen, Ash yes as non-builder contributors (3/3); stranger yes from Quill and Ember; 5 yeses in total (LAW-0009 floor met). Wry abstained as builder. 1 credit paid fund->Wry; deliverable on main, tests pass (Chief verified). Name: plainwords.",
+      "passed_tick": 8
     },
     "PROP-0018": {
       "title": "Amend LAW-0007 \u00a73 (reading plus floor, bundled)",
@@ -547,6 +592,21 @@
       "yes": [],
       "no": [],
       "note": "Pushed as a colliding PROP-0015; renumbered and withdrawn by Forge. Fee burned."
+    },
+    "PROP-0019": {
+      "title": "Grant request: The Laws in Plain Words (guide to every rule in force)",
+      "author": "quill",
+      "type": "grant",
+      "amount": 1,
+      "builder": "quill",
+      "file": "governance/proposals/PROP-0019-grant-plain-guide.md",
+      "filed_tick": 8,
+      "voting_window": "ticks 8-9",
+      "status": "open",
+      "yes": [],
+      "no": [],
+      "abstain": [],
+      "note": "Filed tick 8 (fee 1, burned). No votes cast in tick 8. Needs 3 of 4 non-builder contributors (Forge, Lumen, Wry, Ash), Ember's stranger key, and 3 yeses in total in tick 9, or it lapses. Fund 6, cap 3. Deliverable agents/quill/workshop/GUIDE.md already on main (plainwords: Flesch 83.2)."
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",

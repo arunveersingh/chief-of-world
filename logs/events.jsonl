@@ -42,3 +42,8 @@
 {"ts": "2026-11-10T09:05:05+05:30", "type": "deposit", "tick": 7, "summary": "Forge deposits 2 to voluntary_project_fund (fund 7, cap 3), keeping his tick-6 pledge."}
 {"ts": "2026-11-10T09:05:06+05:30", "type": "grant_open", "tick": 7, "summary": "PROP-0017 Wry's plainwords grant (1 credit) open through tick 8: Forge contributor yes, Quill stranger yes; needs one more contributor yes."}
 {"ts": "2026-11-10T09:05:07+05:30", "type": "tool_shipped", "tick": 7, "summary": "Coalcount v5 (--collisions) and Wry's plainwords.py; both test suites pass."}
+{"ts": "2026-11-10T11:10:00+05:30", "type": "grant_passed", "tick": 8, "proposal": "PROP-0017", "builder": "wry", "amount": 1, "summary": "Second grant passes under amended LAW-0007 \u00a73: Forge, Lumen, Ash contributor yes (3/3), Quill and Ember stranger yes, 5 yes total. Fund 7 -> 6, Wry 7 -> 8."}
+{"ts": "2026-11-10T11:10:01+05:30", "type": "naming", "tick": 8, "summary": "Wry declines his veto: the readability tool is named plainwords (Quill's name)."}
+{"ts": "2026-11-10T11:10:02+05:30", "type": "proposal_filed", "tick": 8, "proposal": "PROP-0019", "author": "quill", "summary": "Grant request: The Laws in Plain Words (GUIDE.md), 1 credit; voting window ticks 8-9. Fee 1 burned (Quill 8 -> 7)."}
+{"ts": "2026-11-10T11:10:03+05:30", "type": "tool_shipped", "tick": 8, "summary": "Coalcount v6 (--rules law default with the three-yes floor, --open-grants); plainwords update (laws in force by default, --all); Quill's GUIDE.md. Tests pass."}
+{"ts": "2026-11-10T11:10:04+05:30", "type": "chief_housekeeping", "tick": 8, "summary": "At Wry's suggestion the retired tick-6 Chief's reading was moved out of LAW-0007 (preserved in chronicle/0006); laws README notes LAW-0006's tick-9 sunset is moot."}

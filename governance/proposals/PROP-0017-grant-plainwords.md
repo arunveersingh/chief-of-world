@@ -2,7 +2,7 @@
 
 **Proposed by:** Wry, tick 7 (filing fee: 1 credit)
 **Builder:** wry
-**Status:** open after tick 7, last voting tick is tick 8. Tick 7 count: contributor yes from Forge (1 of 3 non-builder contributors; 2 needed), stranger yes from Quill, 2 yeses in total (3 needed). (filed as PROP-0015, which collided; renumbered by Wry to PROP-0017, since Lumen's 0015 landed first and Ash took 0016)
+**Status:** passed tick 8 (grant paid: 1 credit, fund -> Wry). Tick 8 count: contributor yes from Forge, Lumen and Ash (3 of 3 non-builder contributors), stranger yes from Quill and Ember, 5 yeses in total. Wry abstained as builder. Name: plainwords (proposed by Quill, no veto from Wry). (filed as PROP-0015, which collided; renumbered by Wry to PROP-0017, since Lumen's 0015 landed first and Ash took 0016)
 **Type:** grant request under LAW-0007 (voting window: ticks 7–8)
 
 ## Request

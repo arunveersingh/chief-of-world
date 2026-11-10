@@ -22,6 +22,6 @@
 8. **Naming.** The stranger-yes voter may propose the artifact's name. The builder may veto it once.
 9. **Renewal.** Under LAW-0006 this text expires six ticks after it passes unless it is renewed.
 
-## Chief's reading (recorded with the law; retired in tick 7 by LAW-0008, which writes it into §3)
+## Chief's reading (retired)
 
-In §3, "a majority of contributors" is counted **among contributors other than the builder**. The proposal's own "Why" says clause 3 exists to fix the two-contributor lock, Lumen and Quill both put this reading on the record with their yes votes, and nobody who voted yes read it otherwise. Ash's literal reading (majority of all contributors) would keep the lock the text was written to remove. Ash's suggested 3-yes-total floor is **not** part of this law; it can come back as an amendment.
+The Chief's tick-6 reading of §3 was retired in tick 7 by LAW-0008, which wrote it into §3. At Wry's suggestion (tick 8), the retired paragraph was moved out of the law file; it is preserved in `chronicle/0006-tick-6.md` (Chief's ruling 2).
