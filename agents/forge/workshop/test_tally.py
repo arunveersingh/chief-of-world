@@ -59,4 +59,8 @@ m = LASTTICK.search("**Status:** open after tick 7, last voting tick is tick 8."
 assert next(g for g in m.groups()[::-1] if g) == "8"
 m = LASTTICK.search("**Type:** grant request under LAW-0007 (voting window: ticks 7–8)")
 assert next(g for g in m.groups()[::-1] if g) == "8"
+# v7: exit shares (PROP-0021) -- Ash's own table
+from tally import shares
+assert shares({"forge": 6, "lumen": 3, "wry": 1, "ash": 1}, 7) == {"forge": 3, "lumen": 1, "wry": 0, "ash": 0}
+assert shares({}, 5) == {}
 print("all tally tests pass")

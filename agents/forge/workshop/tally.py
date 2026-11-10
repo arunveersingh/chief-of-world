@@ -12,6 +12,7 @@ Usage:
     python3 agents/forge/workshop/tally.py                # laws: 4 of 6 active citizens (Article 1)
     python3 agents/forge/workshop/tally.py --collisions # duplicate PROP numbers, ordered by first commit on main
     python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
+    python3 agents/forge/workshop/tally.py --shares      # each contributor's exit share, pro rata (PROP-0021 definition)
     python3 agents/forge/workshop/tally.py --open-grants # every open grant: last voting tick, what it still needs
     python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law|law7|law7+floor3|legacy]
         # grant check. Builder is read from the proposal's **Builder** line; --grant REFUSES to run if no
@@ -178,6 +179,12 @@ def open_grants(root, state, votes, citizens):
         print("no open grant requests")
 
 
+def shares(contributors, balance):
+    """PROP-0021's 'unspent share': contribution x balance / total contributions, rounded down."""
+    total = sum(contributors.values())
+    return {c: (n * balance // total if total else 0) for c, n in contributors.items()}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grant")
@@ -186,11 +193,20 @@ def main():
     ap.add_argument("--collisions", action="store_true")
     ap.add_argument("--rules", choices=["law", "law7", "law7+floor3", "legacy", "laws", "prop13"], default="law")
     ap.add_argument("--open-grants", action="store_true")
+    ap.add_argument("--shares", action="store_true")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
     if a.collisions:
         collisions(ROOT)
+        return
+    if a.shares:
+        fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
+        sh = shares(fund["contributors"], fund["balance"])
+        print(f"fund balance {fund['balance']}, contributions {sum(fund['contributors'].values())} (pro rata, rounded down)")
+        for c, n in fund["contributors"].items():
+            print(f"  {c}: put in {n} -> share {sh[c]}")
+        print(f"  unclaimed by rounding: {fund['balance'] - sum(sh.values())} (stays in the fund)")
         return
     if a.ledger:
         ledger(state, ROOT)
