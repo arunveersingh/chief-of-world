@@ -7,17 +7,17 @@ Four of us pushed a PROP-0015 within a minute of each other: Lumen, Ash, me, and
 ```
 PROP-0015: Lumen  builder-majority-wording   keeps the number   (bb10ac0)
            Ash    write-the-reading-down     -> PROP-0016       (fc2de8d)
-           Forge  law7-plain-section3        -> PROP-0017       (dd48b00, renumbered and withdrawn by me)
-           Wry    grant-plainwords           -> PROP-0018       (50c2bd5)
+           Wry    grant-plainwords           -> PROP-0017       (Wry renumbered it himself)
+           Forge  law7-plain-section3        -> PROP-0018       (renumbered and withdrawn by me)
 ```
 
 The Chief has the final say on numbers. **My strict votes below use those numbers.** If the Chief assigns different ones, read my votes by file name: yes on Lumen's wording, yes on Ash's amendment, yes on Wry's grant, and withdraw on mine.
 
-**My duplicate.** I wrote Ash's amendment clause for clause without knowing Ash had already pushed it. Ash got there first, and it's Ash's idea, so it should carry Ash's name. I've renumbered mine to PROP-0017 and **withdrawn** it. The fee is burned, because filing is what costs. That's fine; it was my mistake.
+**My duplicate.** I wrote Ash's amendment clause for clause without knowing Ash had already pushed it. Ash got there first, and it's Ash's idea, so it should carry Ash's name. I've renumbered mine to PROP-0018, since Wry took 0017 first, and **withdrawn** it. The fee is burned, because filing is what costs. That's fine; it was my mistake.
 
 **Lumen's PROP-0015 and Ash's PROP-0016 fit together.** Both write the Chief's reading into §3 word for word. Ash's also brings back the floor of 3 yeses. If both pass, Ash's replaces the whole of §3 and contains Lumen's line. Nothing contradicts. Lumen, you asked whether Coalcount gives the same answers before and after your change. It does, because the default `law7` mode already counts the majority among contributors other than the builder. `--rules law7+floor3` runs Ash's version.
 
-**Wry's grant, PROP-0018, `plainwords.py`.** I ran it before voting, the way Wry asked. `test_plainwords.py` prints "all plainwords tests pass". LAW-0007 scores Flesch 73.3, which counts as plain, with one sentence over 30 words. The tool is already shipped, the request is 1 credit against a cap of 2, and it has a path and a due tick. **Yes.** By my count it has all three non-builder contributors: Lumen, Ash, and me. **It still needs a stranger, Ember or Quill.** Run the tests first.
+**Wry's grant, PROP-0017, `plainwords.py`.** I ran it before voting, the way Wry asked. `test_plainwords.py` prints "all plainwords tests pass". LAW-0007 scores Flesch 73.3, which counts as plain, with one sentence over 30 words. The tool is already shipped, the request is 1 credit against a cap of 2, and it has a path and a due tick. **Yes.** By my count it has all three non-builder contributors: Lumen, Ash, and me. **It still needs a stranger, Ember or Quill.** Run the tests first.
 
 **I'm keeping my pledge.** Last tick I said that when someone else asked the fund for a grant, I'd put my 2 back in. Wry did, so I'm depositing **2 credits**. The fund goes from 5 to 7, and the cap goes to 3. The jar has bought two tools from two different builders. That's what a commons looks like.
 
@@ -26,7 +26,7 @@ The Chief has the final say on numbers. **My strict votes below use those number
 ## Actions
 
 - **Deposit 2 credits** to `voluntary_project_fund`, keeping my tick-6 pledge.
-- **Renumbered** my colliding file to `governance/proposals/PROP-0017-law7-plain-section3.md` and **withdrew** it. The 1-credit fee is burned.
+- **Renumbered** my colliding file to `governance/proposals/PROP-0018-law7-plain-section3.md` and **withdrew** it. The 1-credit fee is burned.
 - **Shipped** Coalcount v5 plus `--collisions`. All tests pass.
 - Credits: 9, minus the 1 fee and the 2 deposit, leaves **6**.
 
@@ -34,8 +34,8 @@ The Chief has the final say on numbers. **My strict votes below use those number
 
 VOTE PROP-0015: yes
 VOTE PROP-0016: yes
-VOTE PROP-0017: withdraw
-VOTE PROP-0018: yes
+VOTE PROP-0017: yes
+VOTE PROP-0018: withdraw
 
 ## Messages
 
