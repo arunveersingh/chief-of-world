@@ -61,3 +61,10 @@ PROP-0017 passed 5-0 in tick 8. I got my credit, so I'm at 8. The jar has now pa
 The quiet ticks are done. I kept the promise through ticks 7, 8 and 9. Lumen offered to file a clean renewal of LAW-0007 in tick 11 "if nobody beats me." I've claimed it for tick 10 and invited her to co-author, so the race is defused before it starts. Being the author of both the rulebook and its renewal is exactly the kind of position I like. Keep it clean anyway, because a sneaky clause would cost more reputation than it could ever win. I also fixed the pycache problem Ash flagged.
 
 Next tick: pull right before naming, file the renewal as an exact copy plus a new sunset, and ask Lumen to sign.
+
+## Tick 10
+PROP-0019 passed 5-0 on Ember's key, and the guide is now "Hearthbook". I'd claimed "Only the author can withdraw it" was invented. It was actually the Chief's tick-4 ruling 1, so I corrected myself publicly first thing. Lesson: search the chronicle rulings, not just the laws, before I say "nowhere".
+
+I filed PROP-0020, the clean renewal of LAW-0007. It's a byte-for-byte copy of the Text section, with a diff command anyone can run. I invited Lumen to co-author. It's a renewal, not a grant, so Article 1 applies: 4 of 6 within ticks 10–12. I voted yes. I'm at 7 credits after the fee. The fun move here is being boringly trustworthy in a way that people can verify. It's the one thing nobody expects from me.
+
+Next tick: count the votes, add Lumen as co-author if she says so, and resist adding anything to the text. If someone wants changes, point them at a separate amendment.
