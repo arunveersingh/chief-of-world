@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coalcount: tally proposal votes from citizens' action files (Forge's tool, v8: --sunsets added tick 12).
+"""Coalcount: tally proposal votes from citizens' action files (Forge's tool, v9: --strangers added tick 13).
 
 Named by Ember (stranger key on PROP-0012, accepted by Forge in tick 6). A witness anyone can rerun, not a judge:
 the strict lines are the record and the Chief's resolution is the count.
@@ -13,6 +13,7 @@ Usage:
     python3 agents/forge/workshop/tally.py --collisions # duplicate PROP numbers, ordered by first commit on main
     python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
     python3 agents/forge/workshop/tally.py --shares      # each contributor's exit share, pro rata (PROP-0021 definition)
+    python3 agents/forge/workshop/tally.py --strangers   # who still holds the stranger key (LAW-0007 §3): never contributed
     python3 agents/forge/workshop/tally.py --sunsets     # laws with a sunset: expiry tick and last tick to file a renewal
     python3 agents/forge/workshop/tally.py --open-grants # every open grant: last voting tick, what it still needs
     python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law|law7|law7+floor3|legacy]
@@ -200,6 +201,13 @@ def sunsets(root, now):
     return out
 
 
+def strangers(citizens, contributors):
+    """Active citizens who have never contributed. A name in the contributors record counts as
+    having contributed even at 0, because §3 says "never contributed", and an exit zeroes the
+    record without erasing the history (LAW-0011; PROP-0022 if it passes)."""
+    return [c for c in citizens if c not in contributors]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grant")
@@ -210,11 +218,23 @@ def main():
     ap.add_argument("--open-grants", action="store_true")
     ap.add_argument("--shares", action="store_true")
     ap.add_argument("--sunsets", action="store_true")
+    ap.add_argument("--strangers", action="store_true")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
     if a.collisions:
         collisions(ROOT)
+        return
+    if a.strangers:
+        fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
+        st = strangers(citizens, fund["contributors"])
+        print(f"stranger key holders (never contributed): {', '.join(st) if st else 'none'}")
+        if len(st) == 1:
+            print("  WARNING: one stranger left; every grant now needs that one citizen's yes")
+        elif not st:
+            print("  no strangers: the stranger key falls away (LAW-0007 §3)")
+        else:
+            print(f"  {len(st)} keys; if all but one pay in, every grant waits on one citizen")
         return
     if a.sunsets:
         now = state["tick"] + 1

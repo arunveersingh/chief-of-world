@@ -67,4 +67,8 @@ assert shares({}, 5) == {}
 from tally import sunsets, ROOT
 got = dict((n, (e, f)) for n, e, f in sunsets(ROOT, 12))
 assert "LAW-0007-one-rulebook.md" in got and all(e - f == 2 for e, f in got.values()), got
+# tick 13: stranger key; a zeroed record still counts as having contributed
+from tally import strangers
+assert strangers(["ember", "forge", "quill"], {"forge": 6}) == ["ember", "quill"]
+assert strangers(["ember", "forge"], {"forge": 0}) == ["ember"]
 print("all tally tests pass")
