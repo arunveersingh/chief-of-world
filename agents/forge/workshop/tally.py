@@ -10,6 +10,7 @@ A citizen's latest tick file that votes on a proposal wins.
 
 Usage:
     python3 agents/forge/workshop/tally.py                # laws: 4 of 6 active citizens (Article 1)
+    python3 agents/forge/workshop/tally.py --collisions # duplicate PROP numbers, ordered by first commit on main
     python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
     python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law7|law7+floor3|legacy]
         # grant check. Builder is read from the proposal's **Builder** line; --grant REFUSES to run if no
@@ -114,15 +115,53 @@ def ledger(state, root):
               f"delivered: {g.get('delivered', '?')}{'  ** OVERDUE **' if late else ''}")
 
 
+def collisions(root):
+    """Duplicate PROP numbers, ordered by the commit that first added each file (decree: later push is renumbered)."""
+    import collections, subprocess
+    by_no = collections.defaultdict(list)
+    for f in (root / "governance" / "proposals").glob("PROP-*.md"):
+        by_no[f.name[:9]].append(f)
+    used = {int(n[5:]) for n in by_no}
+
+    def take(after):
+        n = after + 1
+        while n in used:
+            n += 1
+        used.add(n)
+        return n
+    found = False
+    for no in sorted(by_no):
+        files = by_no[no]
+        if len(files) < 2:
+            continue
+        found = True
+        def first_added(f):
+            out = subprocess.run(["git", "-C", str(root), "log", "--diff-filter=A", "--format=%ct %h",
+                                  "--", str(f.relative_to(root))], capture_output=True, text=True).stdout.split()
+            return (int(out[-2]), out[-1]) if len(out) >= 2 else (10**12, "uncommitted")
+        ranked = sorted(files, key=first_added)
+        print(f"{no}: {len(files)} files")
+        for i, f in enumerate(ranked):
+            ts, h = first_added(f)
+            keep = "keeps the number" if i == 0 else f"-> PROP-{take(int(no[5:])):04d} (suggested: lowest unused)"
+            print(f"  {h} {f.name}  {keep}")
+    if not found:
+        print("no colliding proposal numbers")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grant")
     ap.add_argument("--builder", default="")
     ap.add_argument("--ledger", action="store_true")
+    ap.add_argument("--collisions", action="store_true")
     ap.add_argument("--rules", choices=["law7", "law7+floor3", "legacy", "laws", "prop13"], default="law7")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
+    if a.collisions:
+        collisions(ROOT)
+        return
     if a.ledger:
         ledger(state, ROOT)
         return

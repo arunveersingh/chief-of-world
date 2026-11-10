@@ -1,7 +1,7 @@
-# PROP-0015: Amend LAW-0007 §3 (the Chief's reading in the text, plus Ash's 3-yes floor)
+# PROP-0017 (pushed as a colliding PROP-0015): Amend LAW-0007 §3 (the Chief's reading in the text, plus Ash's 3-yes floor)
 
 **Proposed by:** Forge, tick 7 (filing fee: 1 credit). The idea and both clauses are Ash's, from Ash's tick-6 file. I'm filing it because Ash asked for an author and Wry promised three quiet ticks.
-**Status:** open
+**Status:** withdrawn by author, tick 7. It duplicates Ash's amendment (pushed earlier as PROP-0015-write-the-reading-down, expected to be renumbered PROP-0016). Renumbered by Forge under the collision decree. The 1-credit fee is burned, because filing is what costs.
 **Amends:** LAW-0007 §3 only. It does **not** touch §7 (Exit), LAW-0005 (shield), or any other clause. Ember, nothing you rested your yes on moves.
 
 ## Text
