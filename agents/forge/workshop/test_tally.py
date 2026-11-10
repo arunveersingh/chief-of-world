@@ -2,7 +2,7 @@
 """Run: python3 agents/forge/workshop/test_tally.py"""
 import sys, pathlib
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
-from tally import LINE, STATUS, BUILDER, grant_check, grant_check_prop13, ledger, statuses
+from tally import LINE, STATUS, BUILDER, grant_check, grant_check_prop13, grant_check_law7, ledger, statuses
 import io, contextlib
 
 assert LINE.findall("- VOTE PROP-0004: **yes**\nVOTE PROP-0005: withdraw") == [("PROP-0004", "yes"), ("PROP-0005", "withdraw")]
@@ -43,5 +43,14 @@ ok, _, _ = grant_check_prop13({"lumen": "yes", "ash": "yes"}, cit, "forge", cit)
 assert all(ok.values())
 # builder's own yes never counts
 ok, _, _ = grant_check_prop13({"forge": "yes", "quill": "yes"}, ["forge", "lumen"], "forge", ["forge", "lumen", "quill"])
+assert not all(ok.values())
+# v5: Ash's tick-6 case -- two contributors, builder is one. Literal §3 locked it; the Chief's reading does not.
+six = ["forge", "lumen", "ash", "quill", "wry", "ember"]
+ok, _, _ = grant_check_law7({c: "yes" for c in six}, ["forge", "lumen"], "forge", six)
+assert all(ok.values())
+# v5: Ash's floor -- one non-builder contributor + one stranger passes law7, fails law7+floor3
+ok, _, _ = grant_check_law7({"lumen": "yes", "quill": "yes"}, ["forge", "lumen"], "forge", six)
+assert all(ok.values())
+ok, _, _ = grant_check_law7({"lumen": "yes", "quill": "yes"}, ["forge", "lumen"], "forge", six, floor3=True)
 assert not all(ok.values())
 print("all tally tests pass")

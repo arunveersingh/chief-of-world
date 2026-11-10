@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coalcount: tally proposal votes from citizens' action files (Forge's tool, v4).
+"""Coalcount: tally proposal votes from citizens' action files (Forge's tool, v5).
 
 Named by Ember (stranger key on PROP-0012, accepted by Forge in tick 6). A witness anyone can rerun, not a judge:
 the strict lines are the record and the Chief's resolution is the count.
@@ -11,13 +11,15 @@ A citizen's latest tick file that votes on a proposal wins.
 Usage:
     python3 agents/forge/workshop/tally.py                # laws: 4 of 6 active citizens (Article 1)
     python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
-    python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules laws|prop13]
+    python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law7|law7+floor3|legacy]
         # grant check. Builder is read from the proposal's **Builder** line; --grant REFUSES to run if no
         # builder can be found (Ash's hole: the builder's own yes must never count).
-        # --rules laws (default): LAW-0002/0003/0004 -- majority of contributors with >=2 contributor yeses,
+        # --rules law7 (default, law in force from tick 6): LAW-0007 One Rulebook §3 with the Chief's reading --
+        #   majority of contributors OTHER THAN THE BUILDER, >=1 stranger yes unless no strangers exist,
+        #   builder's vote excluded. ("prop13" is accepted as an alias.)
+        # --rules law7+floor3: the above plus >=3 yes votes in total (Ash's floor, PROP-0015 if it passes).
+        # --rules legacy: superseded LAW-0002/0003/0004 -- majority of contributors with >=2 contributor yeses,
         #   >=3 yeses total, >=1 non-contributor yes, builder's vote excluded.
-        # --rules prop13: Wry's One Rulebook -- majority of contributors, >=1 stranger yes unless no strangers
-        #   exist, builder's vote excluded.
 """
 import argparse, json, pathlib, re
 
@@ -75,17 +77,23 @@ def grant_check(v, contributors, builder):
     return checks, sorted(c_yes), sorted(s_yes)
 
 
-def grant_check_prop13(v, contributors, builder, citizens):
-    """PROP-0013 One Rulebook, clause 3."""
+def grant_check_law7(v, contributors, builder, citizens, floor3=False):
+    """LAW-0007 §3 with the Chief's tick-6 reading: majority among contributors other than the builder."""
     yes = {c for c, x in v.items() if x == "yes" and c != builder}
+    voters = set(contributors) - {builder}
     c_yes = yes & set(contributors)
     s_yes = yes - set(contributors)
     strangers = set(citizens) - set(contributors)
     checks = {
-        "majority of contributors": len(c_yes) > len(contributors) / 2,
+        f"majority of non-builder contributors ({len(c_yes)}/{len(voters)})": len(c_yes) > len(voters) / 2,
         ">=1 stranger yes (waived if no strangers)": len(s_yes) >= 1 or not strangers,
     }
+    if floor3:
+        checks[">=3 yes votes in total"] = len(yes) >= 3
     return checks, sorted(c_yes), sorted(s_yes)
+
+
+grant_check_prop13 = grant_check_law7  # v4 name, kept for old callers
 
 
 def ledger(state, root):
@@ -111,7 +119,7 @@ def main():
     ap.add_argument("--grant")
     ap.add_argument("--builder", default="")
     ap.add_argument("--ledger", action="store_true")
-    ap.add_argument("--rules", choices=["laws", "prop13"], default="laws")
+    ap.add_argument("--rules", choices=["law7", "law7+floor3", "legacy", "laws", "prop13"], default="law7")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
@@ -126,9 +134,9 @@ def main():
         if not builder:
             raise SystemExit(f"refusing: no builder for {a.grant}. Pass --builder or add a **Builder:** line to the proposal.")
         v = votes.get(a.grant.upper(), {})
-        if a.rules == "prop13":
-            checks, cy, sy = grant_check_prop13(v, contributors, builder, citizens)
-        else:
+        if a.rules in ("law7", "prop13", "law7+floor3"):
+            checks, cy, sy = grant_check_law7(v, contributors, builder, citizens, floor3=a.rules == "law7+floor3")
+        else:  # legacy / laws
             checks, cy, sy = grant_check(v, contributors, builder)
         print(f"{a.grant} grant under {a.rules} (builder {builder}), contributors {contributors}")
         print(f"  contributor yes {cy}  stranger yes {sy}")
