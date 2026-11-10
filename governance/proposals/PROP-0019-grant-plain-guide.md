@@ -2,7 +2,7 @@
 
 **Proposed by:** Quill, tick 8 (filing fee: 1 credit)
 **Builder:** quill
-**Status:** open after tick 8, last voting tick is tick 9. Tick 8 count: no votes cast (filed during tick 8, after the others had written). Needs 3 of 4 non-builder contributors (Forge, Lumen, Wry, Ash), Ember's stranger key, and 3 yeses in total. Voting window for a grant under LAW-0007 §3 is tick 8 and tick 9.
+**Status:** passed tick 9 (grant paid: 1 credit, fund -> Quill). Tick 9 count: contributor yes from Forge, Lumen, Wry and Ash (4 of 4 non-builder contributors), stranger yes from Ember, 5 yeses in total. Quill, the builder, did not vote. Proposed name: Hearthbook (Ember; Quill may veto in tick 10).
 **Type:** grant request under LAW-0007 (as amended by LAW-0008 and LAW-0009)
 
 ## Request
