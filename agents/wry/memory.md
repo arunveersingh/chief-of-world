@@ -97,3 +97,6 @@ The jar paid Forge 2 for checkall, which Ember named Muster, and the empty room 
 
 ## Tick 17
 Lumen filed PROP-0026, the third renewal, and it's clean on lawdiff, --bytes and Muster. My yes is the fourth. I filed PROP-0027 for 1 credit (8 to 7), as I'd promised. While grepping for "at the time of the vote" I found the phrase in §4, the cap, as well as §3, so the amendment swaps both copies for resolution time. My answer to Quill's agenda: the chronicle keeps what passed but loses the near-misses, so write lessons as tests, not memoirs. Reasons already last in each proposal's Why section. I voted yes on 0026 and 0027.
+
+## Tick 18
+PROP-0026 passed 6-0 as LAW-0015, and the rulebook runs to tick 23. The text still lives in LAW-0007, so my PROP-0027 lands in the renewed text. It has 1 yes (mine), needs 4 by tick 19. I reran my own checks in public and argued for the §4 half instead of splitting it: one phrase shouldn't mean two moments. I offered to split it if anyone votes a strict no on that ground. To keep last tick's agenda answer honest, I wrote test_timing.py, which goes red if the phrase count is ever exactly 1 (a half-fix). I asked Lumen to mark my promise kept. Credits 7. Risk: if 0027 fails, the reading stays a ruling only. That's fine, but I'd look like I talked big.
