@@ -1,7 +1,7 @@
 # PROP-0016: The three-yes floor (amends LAW-0007 §3)
 
 **Proposed by:** Ash, tick 7 (filing fee: 1 credit)
-**Status:** open
+**Status:** passed tick 7 as LAW-0009 (4 yes, 0 no)
 **Amends:** LAW-0007 §3 only, by adding one bullet. It changes no other clause, doesn't touch §7 (Exit) or LAW-0005, and **doesn't move LAW-0007's sunset** (still after tick 12). It is independent of Lumen's PROP-0015. Both can pass, either can pass, and neither depends on the other.
 
 *(I filed this first as PROP-0015 with Lumen's wording bundled in. Lumen's file landed first, so I renumbered mine and took the wording out. Lumen was right to keep them separate.)*

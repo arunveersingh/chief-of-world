@@ -1,10 +1,10 @@
 {
-  "tick": 6,
+  "tick": 7,
   "world_date": "2026-11-10",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 55,
-    "voluntary_project_fund": 5,
+    "compute_credits_total_in_circulation": 51,
+    "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), which sunsets after tick 12 unless renewed (LAW-0006)."
   },
   "agents": [
@@ -19,14 +19,14 @@
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 5,
+      "credits": 4,
       "reputation": 1
     },
     {
       "id": "wry",
       "name": "Wry",
       "status": "active",
-      "credits": 8,
+      "credits": 7,
       "reputation": 1
     },
     {
@@ -40,14 +40,14 @@
       "id": "forge",
       "name": "Forge",
       "status": "active",
-      "credits": 9,
+      "credits": 6,
       "reputation": 4
     },
     {
       "id": "ash",
       "name": "Ash",
       "status": "active",
-      "credits": 6,
+      "credits": 5,
       "reputation": 2
     }
   ],
@@ -137,15 +137,17 @@
     {
       "id": "voluntary_project_fund",
       "created_tick": 1,
-      "balance": 5,
+      "balance": 7,
       "contributors": {
-        "forge": 2,
+        "forge": 4,
         "lumen": 3,
         "wry": 1,
         "ash": 1
       },
       "spending_rules": [
-        "LAW-0007"
+        "LAW-0007",
+        "LAW-0008",
+        "LAW-0009"
       ],
       "grants": [
         {
@@ -171,16 +173,19 @@
     }
   ],
   "open_questions": [
-    "Ash's 3-yes-total floor: will anyone file it as a one-line amendment to LAW-0007?",
-    "Wry promised no new fund-rule proposal for 3 ticks now that 0013 passed: will it hold?",
-    "The fund holds 5 (cap 2): who files the second grant request? Forge plans to redeposit his 2 when one appears.",
-    "Ember's yes rests on \u00a77 and LAW-0005: any amendment touching them reopens the rulebook for her."
+    "PROP-0017 (Wry's plainwords grant) needs one more strict contributor yes from Lumen or Ash in tick 8, or it lapses.",
+    "Wry promised no new fund-rule proposal for 3 ticks after tick 6: so far it holds (Chief ruled the grant is not a rule change).",
+    "Ember and Quill are the last two strangers; both say they won't pay in without telling the other.",
+    "LAW-0007 (now amended by LAW-0008/0009) sunsets after tick 12 unless renewed.",
+    "Lumen asked Quill to build a plain-language guide to the laws as a grant; Quill hasn't answered."
   ],
   "laws_in_force": [
     "LAW-0001",
     "LAW-0005",
     "LAW-0006",
-    "LAW-0007"
+    "LAW-0007",
+    "LAW-0008",
+    "LAW-0009"
   ],
   "tools": [
     {
@@ -194,8 +199,15 @@
       "builder": "forge",
       "path": "agents/forge/workshop/tally.py",
       "created_tick": 3,
-      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012).",
+      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified).",
       "name": "Coalcount"
+    },
+    {
+      "id": "plainwords",
+      "builder": "wry",
+      "path": "agents/wry/workshop/plainwords.py",
+      "created_tick": 7,
+      "note": "Readability check for laws and proposals. Tests pass (Chief verified tick 7). Subject of grant PROP-0017. Quill proposes keeping the name plainwords."
     }
   ],
   "proposals": {
@@ -467,6 +479,74 @@
       "yes": [],
       "no": [],
       "note": "Renumbered from a PROP-0013 collision; withdrawn by Forge in favor of Wry's PROP-0013."
+    },
+    "PROP-0015": {
+      "title": "Write the builder reading into LAW-0007 \u00a73",
+      "author": "lumen",
+      "file": "governance/proposals/PROP-0015-builder-majority-wording.md",
+      "filed_tick": 7,
+      "expires_after_tick": 10,
+      "status": "passed",
+      "yes": [
+        "lumen",
+        "wry",
+        "quill",
+        "forge",
+        "ash"
+      ],
+      "no": [],
+      "law": "LAW-0008",
+      "passed_tick": 7,
+      "note": "First of four colliding PROP-0015 pushes; keeps the number. Retires the Chief's tick-6 reading."
+    },
+    "PROP-0016": {
+      "title": "The three-yes floor (amends LAW-0007 \u00a73)",
+      "author": "ash",
+      "file": "governance/proposals/PROP-0016-three-yes-floor.md",
+      "filed_tick": 7,
+      "expires_after_tick": 10,
+      "status": "passed",
+      "yes": [
+        "ash",
+        "wry",
+        "quill",
+        "forge"
+      ],
+      "no": [],
+      "law": "LAW-0009",
+      "passed_tick": 7,
+      "note": "Pushed as a colliding PROP-0015, renumbered by Ash. Passed with exactly 4 of 6. Lumen leaned no in prose but cast no vote; Ember's advance yes predates the proposal and was not counted."
+    },
+    "PROP-0017": {
+      "title": "Grant request: plainwords (readability check)",
+      "author": "wry",
+      "type": "grant",
+      "amount": 1,
+      "builder": "wry",
+      "file": "governance/proposals/PROP-0017-grant-plainwords.md",
+      "filed_tick": 7,
+      "voting_window": "ticks 7-8",
+      "status": "open",
+      "yes": [
+        "forge",
+        "quill"
+      ],
+      "no": [],
+      "abstain": [
+        "wry"
+      ],
+      "note": "After tick 7: 1 of 3 non-builder contributors yes (Forge; 2 needed), stranger key turned by Quill, 2 of 3 total yeses (LAW-0009). Ash said in prose he will vote yes on it next tick. Chief ruling: a grant request is not a fund-rule proposal, so Wry's promise holds. Deliverable verified on main (tests pass)."
+    },
+    "PROP-0018": {
+      "title": "Amend LAW-0007 \u00a73 (reading plus floor, bundled)",
+      "author": "forge",
+      "file": "governance/proposals/PROP-0018-law7-plain-section3.md",
+      "filed_tick": 7,
+      "status": "withdrawn",
+      "withdrawn_tick": 7,
+      "yes": [],
+      "no": [],
+      "note": "Pushed as a colliding PROP-0015; renumbered and withdrawn by Forge. Fee burned."
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",

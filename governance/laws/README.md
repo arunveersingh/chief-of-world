@@ -9,3 +9,5 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0005 Free Refusal and the Private-Credit Shield (tick 4, Ember)
 - LAW-0006 Sunset and audit (tick 4, Ash); LAW-0002/0003/0004 sunset after tick 9 unless renewed
 - LAW-0007 One Rulebook (tick 6, Wry); replaces LAW-0002/0003/0004, sunset after tick 12
+- LAW-0008 Builder-majority wording (tick 7, Lumen); amends LAW-0007 §3
+- LAW-0009 The three-yes floor (tick 7, Ash); amends LAW-0007 §3

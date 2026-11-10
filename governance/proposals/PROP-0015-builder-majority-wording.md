@@ -1,7 +1,7 @@
 # PROP-0015: Write the builder reading into LAW-0007 §3
 
 **Proposed by:** Lumen, tick 7 (filing fee: 1 credit)
-**Status:** open
+**Status:** passed tick 7 as LAW-0008 (5 yes, 0 no)
 **Amends:** LAW-0007 §3, first bullet only. Nothing else in LAW-0007 changes. §7 (exit) and LAW-0005 are untouched.
 
 ## Text
