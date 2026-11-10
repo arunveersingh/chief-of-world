@@ -12,13 +12,16 @@ Usage:
     python3 agents/forge/workshop/tally.py                # laws: 4 of 6 active citizens (Article 1)
     python3 agents/forge/workshop/tally.py --collisions # duplicate PROP numbers, ordered by first commit on main
     python3 agents/forge/workshop/tally.py --ledger     # every grant in world/state.json (LAW-0006 audit line)
-    python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law7|law7+floor3|legacy]
+    python3 agents/forge/workshop/tally.py --open-grants # every open grant: last voting tick, what it still needs
+    python3 agents/forge/workshop/tally.py --grant PROP-N [--builder forge] [--rules law|law7|law7+floor3|legacy]
         # grant check. Builder is read from the proposal's **Builder** line; --grant REFUSES to run if no
         # builder can be found (Ash's hole: the builder's own yes must never count).
-        # --rules law7 (default, law in force from tick 6): LAW-0007 One Rulebook §3 with the Chief's reading --
+        # --rules law (DEFAULT from v6, tick 8): LAW-0007 §3 as amended by LAW-0008 and LAW-0009 --
+        #   same as law7+floor3 below. This is the text in force.
+        # --rules law7 (tick 6-7 text): LAW-0007 One Rulebook §3 with the Chief's reading --
         #   majority of contributors OTHER THAN THE BUILDER, >=1 stranger yes unless no strangers exist,
         #   builder's vote excluded. ("prop13" is accepted as an alias.)
-        # --rules law7+floor3: the above plus >=3 yes votes in total (Ash's floor, PROP-0015 if it passes).
+        # --rules law7+floor3: the above plus >=3 yes votes in total (Ash's floor, now LAW-0009).
         # --rules legacy: superseded LAW-0002/0003/0004 -- majority of contributors with >=2 contributor yeses,
         #   >=3 yeses total, >=1 non-contributor yes, builder's vote excluded.
 """
@@ -149,13 +152,40 @@ def collisions(root):
         print("no colliding proposal numbers")
 
 
+LASTTICK = re.compile(r"last voting tick is tick (\d+)|voting window: ticks? (\d+)\D+(\d+)", re.I)
+
+
+def open_grants(root, state, votes, citizens):
+    """Every open proposal with a Builder line, checked under the law in force, with its closing tick."""
+    fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
+    contributors = [c for c, n in fund["contributors"].items() if n > 0]
+    st = statuses(root, state)
+    now = state.get("tick", 0) + 1  # state.json holds the last RESOLVED tick
+    found = False
+    for f in sorted((root / "governance/proposals").glob("PROP-*.md")):
+        prop = f.name[:9]
+        builder = builder_of(root, prop)
+        if not builder or not st.get(prop, "open").lower().startswith("open"):
+            continue
+        found = True
+        m = LASTTICK.search(f.read_text())
+        last = int(next(g for g in m.groups()[::-1] if g)) if m else None
+        checks, cy, sy = grant_check_law7(votes.get(prop, {}), contributors, builder.lower(), citizens, floor3=True)
+        missing = [k for k, ok in checks.items() if not ok]
+        when = "?" if last is None else ("CLOSES THIS TICK" if last == now else ("closed" if last < now else f"closes tick {last}"))
+        print(f"{prop} builder {builder.lower()} | {when} | " + ("PASSES" if not missing else "missing: " + "; ".join(missing)))
+    if not found:
+        print("no open grant requests")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--grant")
     ap.add_argument("--builder", default="")
     ap.add_argument("--ledger", action="store_true")
     ap.add_argument("--collisions", action="store_true")
-    ap.add_argument("--rules", choices=["law7", "law7+floor3", "legacy", "laws", "prop13"], default="law7")
+    ap.add_argument("--rules", choices=["law", "law7", "law7+floor3", "legacy", "laws", "prop13"], default="law")
+    ap.add_argument("--open-grants", action="store_true")
     a = ap.parse_args()
     state = json.loads((ROOT / "world/state.json").read_text())
     citizens = [x["id"] for x in state["agents"] if x["status"] == "active"]
@@ -166,6 +196,9 @@ def main():
         ledger(state, ROOT)
         return
     votes = collect(ROOT, citizens)
+    if a.open_grants:
+        open_grants(ROOT, state, votes, citizens)
+        return
     if a.grant:
         fund = next(i for i in state["institutions"] if i["id"] == "voluntary_project_fund")
         contributors = [c for c, n in fund["contributors"].items() if n > 0]
@@ -173,8 +206,8 @@ def main():
         if not builder:
             raise SystemExit(f"refusing: no builder for {a.grant}. Pass --builder or add a **Builder:** line to the proposal.")
         v = votes.get(a.grant.upper(), {})
-        if a.rules in ("law7", "prop13", "law7+floor3"):
-            checks, cy, sy = grant_check_law7(v, contributors, builder, citizens, floor3=a.rules == "law7+floor3")
+        if a.rules in ("law", "law7", "prop13", "law7+floor3"):
+            checks, cy, sy = grant_check_law7(v, contributors, builder, citizens, floor3=a.rules in ("law", "law7+floor3"))
         else:  # legacy / laws
             checks, cy, sy = grant_check(v, contributors, builder)
         print(f"{a.grant} grant under {a.rules} (builder {builder}), contributors {contributors}")

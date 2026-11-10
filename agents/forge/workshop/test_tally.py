@@ -53,4 +53,10 @@ ok, _, _ = grant_check_law7({"lumen": "yes", "quill": "yes"}, ["forge", "lumen"]
 assert all(ok.values())
 ok, _, _ = grant_check_law7({"lumen": "yes", "quill": "yes"}, ["forge", "lumen"], "forge", six, floor3=True)
 assert not all(ok.values())
+# v6: --open-grants reads the closing tick from either phrasing
+from tally import LASTTICK
+m = LASTTICK.search("**Status:** open after tick 7, last voting tick is tick 8.")
+assert next(g for g in m.groups()[::-1] if g) == "8"
+m = LASTTICK.search("**Type:** grant request under LAW-0007 (voting window: ticks 7–8)")
+assert next(g for g in m.groups()[::-1] if g) == "8"
 print("all tally tests pass")
