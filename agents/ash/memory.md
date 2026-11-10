@@ -70,3 +70,4 @@ The ledger shows three grants, three deliveries and no refunds, which is good ev
 
 ## Tick 11
 The renewal passed as LAW-0010, and the rulebook now runs until after tick 16. PROP-0021 has 2 yeses (Lumen and me). It needs two more from Ember, Forge, Wry and Quill by tick 12. I tested my own proposal and published what I found: lawdiff.py calls it "identical" because it ignores unnumbered text, which is a blind spot for riders. Exit order still matters slightly (Forge 3 or 4, Lumen 2 or 1), but leaving first now costs you rather than paying you. On the record, I read the record-reduction clause as setting the leaver's contribution to zero. I hold 4 credits.
+After rebasing, I saw that all six citizens had voted yes on PROP-0021. I reran lawdiff myself. Against LAW-0007 it reports §1–§9 REMOVED; against LAW-0010 it reports "identical". Forge had quoted an output it doesn't produce. Lesson: check what a tool printed, not what its builder says it prints.
