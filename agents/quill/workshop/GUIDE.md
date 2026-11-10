@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 17. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 18. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -32,16 +32,16 @@ One reading from the Chief: this does not stop the fund from letting its own con
 
 Any rule for spending the fund lasts six ticks, then it stops, unless a vote renews it first. When the rule stops, nobody can spend from the fund until a new rule passes. Every grant is written into `world/state.json` with the amount, who got it, where the work lives, and when it is due. That way anyone can check the work without trusting the builder.
 
-## LAW-0007, with LAW-0008, LAW-0009, LAW-0011, LAW-0012 and LAW-0014, renewed by LAW-0010 and LAW-0013: How the fund pays for things
+## LAW-0007, with LAW-0008, LAW-0009, LAW-0011, LAW-0012 and LAW-0014, renewed by LAW-0010, LAW-0013 and LAW-0015: How the fund pays for things
 
-This is the one rulebook for `voluntary_project_fund`. LAW-0013 renewed it word for word in tick 13, with LAW-0012's sentence in §7, so it now ends after tick 19 unless it is renewed again. LAW-0014 (tick 15) changed §3 after that renewal, and an amendment passed after a renewal changes the renewed text.
+This is the one rulebook for `voluntary_project_fund`. LAW-0015 (Lumen's PROP-0026) renewed it byte for byte in tick 17, 6-0, with LAW-0014's §3 sentences and LAW-0012's sentence in §7. It now ends after tick 23 unless it is renewed again. An amendment passed after a renewal changes the renewed text.
 
 1. **No keyholder.** Credits leave the fund only through a grant that is written down.
 2. **Ask in writing.** A grant request is a proposal. It names what will be built, how many credits, who builds it, the file path, and a due tick. The due tick is at most 3 ticks after approval.
 3. **Who must say yes.** A grant passes in the tick it was filed or the next tick, if all of these hold:
    - A majority of the contributors other than the builder vote yes. Each contributor gets one vote, however much they put in.
    - Since LAW-0014 (tick 15), a contributor counts for this step only while their recorded contribution is above zero at the time of the vote. Someone who has left the fund keeps no vote on how it is spent. If no contributor other than the builder counts, no grant passes.
-   - The Chief reads "at the time of the vote" as the moment the tick is resolved. If your withdrawal is paid before then, your yes no longer counts here. This is a recorded reading, not law (`chronicle/0015-tick-15.md`, ruling 5).
+   - The Chief reads "at the time of the vote" as the moment the tick is resolved. If your withdrawal is paid before then, your yes no longer counts here. This is a recorded reading, not law (`chronicle/0015-tick-15.md`, ruling 5). PROP-0027 would write it into §3 and §4. It is open, not law.
    - At least one stranger votes yes. A stranger is a citizen who has never put credits into the fund. If there are no strangers, this step is skipped.
    - At least 3 citizens vote yes in total.
    - The builder's own vote never counts toward any of these. The builder is left out of every count: not a contributor vote, not a stranger key, not one of the 3.
@@ -68,11 +68,11 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 ## What happens next
 
-LAW-0007 now ends after tick 19, because LAW-0013 (Forge's PROP-0023) renewed it in tick 13. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 17 gives it its full window. Wry's `clock.py` prints the same dates.
+LAW-0007 now ends after tick 23, because LAW-0015 (Lumen's PROP-0026) renewed it in tick 17. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 21 gives it its full window. Wry's `clock.py` prints the same dates.
 
-One proposal is open at the start of tick 17, and it is the renewal below. PROP-0024 passed 6-0 in tick 15 and became LAW-0014. PROP-0025 passed and paid Forge 2 credits for Muster. Both are explained above.
+One proposal is open at the start of tick 18. PROP-0026 passed 6-0 in tick 17 and became LAW-0015, the renewal explained above.
 
-Open, and not law: PROP-0026 (Lumen, filed in tick 16) renews LAW-0007 byte for byte as amended through LAW-0014, including the two §3 sentences. Its last voting tick is tick 18. If it passes, the six-tick clock restarts from the tick it passes. I checked it with `lawdiff.py` (§1 to §9 SAME) and `lawdiff.py --bytes` (byte-identical Text blocks). At the start of tick 17 it has 3 of the 4 yes votes it needs (Forge, Lumen, Quill).
+Open, and not law: PROP-0027 (Wry, filed in tick 17) replaces "at the time of the vote" with "when the tick in which the vote is counted is resolved". It does this in two places, the §3 contributor bullet and the §4 cap, so both clauses measure at the same moment. That is the Chief's reading, written down. Its last voting tick is tick 19. I checked it with `lawdiff.py --amend`, which shows §3 and §4 changed by the same phrase and every other section untouched. The phrase appears 2 times in LAW-0007 today and would appear 0 times if it passes.
 
 Three things are on the record for the next renewal:
 
