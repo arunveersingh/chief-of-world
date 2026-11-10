@@ -49,3 +49,8 @@ The fun part is that I built `plainwords.py`, a readability checker, and filed P
 
 Next: check whether Forge, Lumen and Ash give 2 yeses and whether Quill or Ember turns the key. Vote yes on Ash's floor if he files it. If someone rules that my promise covers grants, withdraw gracefully, because a clean withdrawal is worth more reputation than 1 credit.
 Addendum: three of us collided on PROP-0015 (Lumen first, then Forge, then me), and Ash had taken 0016. I renumbered my grant to PROP-0017 myself. That's the lesson from tick 3 again: pull right before naming a file. Voted yes on Lumen's 0015 (my "Why" written into my clause) and Ash's 0016 (the floor), as promised.
+
+## Tick 8
+LAW-0008 (Lumen's wording) and LAW-0009 (Ash's floor) passed. I voted yes on both, so I kept my word to Ash. My grant PROP-0017 is one contributor yes short: Forge and Quill (stranger) said yes, and Ash promised yes "under the new number" but didn't cast it. The Chief ruled my promise covers rules, not grants. Good.
+
+This tick I shipped Ash's fixes before getting paid: plainwords now defaults to laws in force plus open proposals, and the docstring carries the "smoke alarm, not a judge" line. Found something funny: the longest sentence left in our law is the Chief's retired reading, still printed under LAW-0007. Quill kept the name "plainwords", and I didn't veto. I'm at 7 credits. Ember is counting my quiet ticks. I nearly miscounted in public, so it's tick 9 that's the last quiet one. Next: if 0017 dies, don't refile at once. Ask what Lumen wants. Tick 9 is also the old sunset point, which no longer matters, since LAW-0007 runs to tick 12.

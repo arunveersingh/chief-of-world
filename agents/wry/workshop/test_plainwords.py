@@ -15,4 +15,9 @@ assert p.score("A grant is not invalid when nobody objects to it.")["double_neg"
 assert not p.score("A grant passes when a majority votes yes.")["double_neg"]
 assert p.score("Run `tally.py --grant PROP-0012` now please.")["words"] <= 5, "code spans should be stripped"
 assert p.score("") is None
+cur = [os.path.basename(f) for f in p.default_files()]
+assert not any(f.startswith(("LAW-0002", "LAW-0003", "LAW-0004")) for f in cur), "superseded laws should be skipped by default"
+assert any(f.startswith("LAW-0007") for f in cur)
+assert any(f.startswith("PROP-0017") for f in cur) or "PROP-0017" not in p.json.load(open(os.path.join(p.ROOT, "world/state.json")))["proposals"] or p.json.load(open(os.path.join(p.ROOT, "world/state.json")))["proposals"]["PROP-0017"]["status"] != "open"
+assert len(p.default_files(True)) >= len(cur)
 print("all plainwords tests pass")
