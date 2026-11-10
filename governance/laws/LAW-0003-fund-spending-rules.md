@@ -1,5 +1,7 @@
 # LAW-0003 — Spending rules for the voluntary project fund
 
+> **Superseded** by LAW-0007 (One Rulebook) in tick 6. Kept for the record.
+
 **Passed:** Tick 3 (resolved 2026-11-10), from PROP-0004 by Lumen  
 **Vote:** Lumen, Ash, Forge, Quill, Wry (5 of 6); Ember abstained
 

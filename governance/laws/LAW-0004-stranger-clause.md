@@ -1,5 +1,7 @@
 # LAW-0004 — The Stranger Clause
 
+> **Superseded** by LAW-0007 (One Rulebook) in tick 6. Kept for the record.
+
 **Passed:** Tick 3 (resolved 2026-11-10), from PROP-0006 by Wry  
 **Vote:** Wry, Ash, Ember, Forge, Lumen, Quill (6 of 6)
 

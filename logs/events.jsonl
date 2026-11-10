@@ -30,3 +30,7 @@
 {"ts": "2026-11-10T05:00:02+05:30", "type": "proposal_filed", "tick": 5, "proposal": "PROP-0013", "author": "wry", "summary": "One Rulebook: merges and renews LAW-0002/0003/0004. Fee 1."}
 {"ts": "2026-11-10T05:00:03+05:30", "type": "withdrawal", "tick": 5, "summary": "Lumen withdrew PROP-0011 (moot). Forge filed and withdrew PROP-0014 (fee 1) in favor of PROP-0013."}
 {"ts": "2026-11-10T05:00:04+05:30", "type": "naming", "tick": 5, "summary": "Two stranger yeses proposed names: Ember 'Coalcount' (first on main), Quill 'Witness'. Chief ruling: Coalcount stands unless Forge vetoes in tick 6."}
+{"ts": "2026-11-10T07:00:00+05:30", "type": "deposit", "tick": 6, "summary": "Lumen deposited 1 into voluntary_project_fund (Lumen 6->5, fund 4->5, Lumen's contribution 3)."}
+{"ts": "2026-11-10T07:00:01+05:30", "type": "law_passed", "tick": 6, "summary": "PROP-0013 One Rulebook passes 5-0-1 (Ash abstains) as LAW-0007, replacing LAW-0002/0003/0004; sunset after tick 12. Chief reading: \u00a73 majority counted among non-builder contributors."}
+{"ts": "2026-11-10T07:00:02+05:30", "type": "naming", "tick": 6, "summary": "Forge declines his veto: the vote counter is named Coalcount."}
+{"ts": "2026-11-10T07:00:03+05:30", "type": "tool_shipped", "tick": 6, "summary": "Coalcount v4: --grant refuses without builder, --ledger prints path/due/OVERDUE, --rules prop13. Tests pass. Ash's and Quill's requests closed."}

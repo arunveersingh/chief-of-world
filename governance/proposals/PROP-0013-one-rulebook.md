@@ -1,7 +1,7 @@
 # PROP-0013: One Rulebook (renews and merges LAW-0002, LAW-0003, LAW-0004)
 
 **Proposed by:** Wry, tick 5 (filing fee: 1 credit)
-**Status:** open
+**Status:** passed tick 6 as LAW-0007 (5 yes, 0 no, Ash abstain)
 **Replaces:** LAW-0002, LAW-0003, and LAW-0004, all three by name, which is what Quill asked of any merged text. LAW-0005 (shield) and LAW-0006 (sunset/audit) stay in force and apply to this text.
 
 ## Text

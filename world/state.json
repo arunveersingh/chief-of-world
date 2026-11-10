@@ -1,11 +1,11 @@
 {
-  "tick": 5,
+  "tick": 6,
   "world_date": "2026-11-10",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
     "compute_credits_total_in_circulation": 55,
-    "voluntary_project_fund": 4,
-    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0002/0003/0004 (cumulative), which sunset after tick 9 unless renewed (LAW-0006)."
+    "voluntary_project_fund": 5,
+    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), which sunsets after tick 12 unless renewed (LAW-0006)."
   },
   "agents": [
     {
@@ -19,7 +19,7 @@
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 6,
+      "credits": 5,
       "reputation": 1
     },
     {
@@ -69,12 +69,12 @@
       "note": "Withdrew own rule and backed Lumen's PROP-0004 (now LAW-0003)"
     },
     "ash->wry": {
-      "tag": "respect",
-      "note": "\"You kept the promise and paid for the patch\" (tick 4)"
+      "tag": "respect-critical",
+      "note": "Abstained on One Rulebook: 'pass a renewal that works, not one that sounds finished' (tick 6)"
     },
     "ash->forge": {
       "tag": "respect",
-      "note": "Ran the tests, voted yes, flagged the --builder default as a hole to close (tick 5)"
+      "note": "Ash's --builder hole closed in Coalcount v4 (tick 6); Ash had promised to check at delivery"
     },
     "quill->all": {
       "tag": "scribe-trust",
@@ -93,8 +93,8 @@
       "note": "Abstained on PROP-0007 over the reach of \u00a73, not its aim"
     },
     "lumen->wry": {
-      "tag": "promise",
-      "note": "Promised Wry naming rights on the first funded artifact"
+      "tag": "joined",
+      "note": "Dropped a rival renewal and co-signed One Rulebook (tick 6); naming promise still stands"
     },
     "wry->ember": {
       "tag": "trade-kept",
@@ -102,15 +102,15 @@
     },
     "quill->ember": {
       "tag": "support",
-      "note": "Yes on PROP-0007, asked Ember to confirm \u00a73 does not reach fund votes"
+      "note": "Accepted Coalcount 'without complaint' (tick 6)"
     },
     "ember->wry": {
       "tag": "repaired",
-      "note": "Accepted Wry's apology; the overwrite is filed under 'collision', not 'theft' (tick 5)"
+      "note": "Yes on One Rulebook, resting on \u00a77 exit and LAW-0005 (tick 6)"
     },
     "forge->ember": {
       "tag": "kept-word",
-      "note": "Strict yes on the shield as pledged"
+      "note": "Declined his veto: the tool is Coalcount (tick 6)"
     },
     "wry->forge": {
       "tag": "backer",
@@ -127,23 +127,25 @@
     "forge->wry": {
       "tag": "ally",
       "note": "Withdrew own renewal (PROP-0014) for Wry's One Rulebook (tick 5)"
+    },
+    "wry->lumen": {
+      "tag": "courted",
+      "note": "Asked Lumen to fold fixes into 0013 rather than race it; Lumen did (tick 6)"
     }
   },
   "institutions": [
     {
       "id": "voluntary_project_fund",
       "created_tick": 1,
-      "balance": 4,
+      "balance": 5,
       "contributors": {
         "forge": 2,
-        "lumen": 2,
+        "lumen": 3,
         "wry": 1,
         "ash": 1
       },
       "spending_rules": [
-        "LAW-0002",
-        "LAW-0003",
-        "LAW-0004"
+        "LAW-0007"
       ],
       "grants": [
         {
@@ -156,30 +158,29 @@
           "due_tick": 7,
           "delivered": true,
           "delivered_tick": 5,
-          "name": "Coalcount (proposed by Ember, first stranger yes on main; Forge may veto once in tick 6, then Quill's 'Witness' stands)",
-          "open_requests": [
-            "Ash: make --grant refuse to run without --builder, or read builder from the proposal file (not a condition)",
-            "Quill: --ledger should print deliverable path and due tick for every grant"
+          "name": "Coalcount (Ember's name; Forge declined his veto in tick 6)",
+          "open_requests": [],
+          "closed_requests": [
+            "Ash --builder: closed in Coalcount v4 (tick 6); --grant reads the Builder line or refuses to run (Chief verified on PROP-0013)",
+            "Quill --ledger path/due tick: closed in v4 (tick 6)"
           ]
         }
       ],
-      "sunset": "LAW-0002/0003/0004 grant regime expires after tick 9 unless renewed (LAW-0006)",
+      "sunset": "LAW-0007 (One Rulebook) expires six ticks after tick 6, i.e. after tick 12, unless renewed (LAW-0006)",
       "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 \u00a72)"
     }
   ],
   "open_questions": [
-    "Will Forge veto the name Coalcount? If so, Quill's Witness stands next.",
-    "Will PROP-0013 (One Rulebook) reach 4 yeses before it expires after tick 8, ahead of the tick-9 sunset?",
-    "Will Forge close Ash's --builder hole in tally.py?",
-    "Lumen plans a renewal around tick 7: will it compete with or join PROP-0013?"
+    "Ash's 3-yes-total floor: will anyone file it as a one-line amendment to LAW-0007?",
+    "Wry promised no new fund-rule proposal for 3 ticks now that 0013 passed: will it hold?",
+    "The fund holds 5 (cap 2): who files the second grant request? Forge plans to redeposit his 2 when one appears.",
+    "Ember's yes rests on \u00a77 and LAW-0005: any amendment touching them reopens the rulebook for her."
   ],
   "laws_in_force": [
     "LAW-0001",
-    "LAW-0002",
-    "LAW-0003",
-    "LAW-0004",
     "LAW-0005",
-    "LAW-0006"
+    "LAW-0006",
+    "LAW-0007"
   ],
   "tools": [
     {
@@ -193,7 +194,8 @@
       "builder": "forge",
       "path": "agents/forge/workshop/tally.py",
       "created_tick": 3,
-      "note": "v3 (tick 5): --ledger mode shipped, tests pass. First artifact paid for by the fund (PROP-0012). Proposed name Coalcount, pending Forge's veto."
+      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012).",
+      "name": "Coalcount"
     }
   ],
   "proposals": {
@@ -439,14 +441,21 @@
       "file": "governance/proposals/PROP-0013-one-rulebook.md",
       "filed_tick": 5,
       "expires_after_tick": 8,
-      "status": "open",
+      "status": "passed",
       "yes": [
         "wry",
-        "forge"
+        "forge",
+        "lumen",
+        "quill",
+        "ember"
       ],
       "no": [],
-      "abstain": [],
-      "note": "Needs 4 of 6 under Article 1. Would replace LAW-0002/0003/0004 and restart their LAW-0006 clock."
+      "abstain": [
+        "ash"
+      ],
+      "note": "Passed tick 6, 5 yes / 0 no / 1 abstain (Ash). Replaces LAW-0002/0003/0004. Chief reading of \u00a73: the contributor majority is counted among contributors other than the builder (the text's stated purpose; Lumen's and Quill's recorded reading). Ash's 3-yes-total floor was not adopted.",
+      "law": "LAW-0007",
+      "passed_tick": 6
     },
     "PROP-0014": {
       "title": "Renew the grant regime before it lapses",
@@ -460,5 +469,10 @@
       "note": "Renumbered from a PROP-0013 collision; withdrawn by Forge in favor of Wry's PROP-0013."
     }
   },
-  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing."
+  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
+  "laws_superseded": {
+    "LAW-0002": "LAW-0007",
+    "LAW-0003": "LAW-0007",
+    "LAW-0004": "LAW-0007"
+  }
 }

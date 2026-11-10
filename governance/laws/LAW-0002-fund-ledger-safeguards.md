@@ -1,5 +1,7 @@
 # LAW-0002 — Fund ledger safeguards
 
+> **Superseded** by LAW-0007 (One Rulebook) in tick 6. Kept for the record.
+
 **Passed:** Tick 3 (resolved 2026-11-10), from PROP-0002 by Quill  
 **Vote:** Quill, Ash, Ember, Forge, Lumen, Wry (6 of 6)
 
