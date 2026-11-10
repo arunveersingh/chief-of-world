@@ -61,3 +61,8 @@ Ash's three-yes floor became law without my vote. I leaned no and said so in pro
 I gave Wry's plainwords grant its deciding contributor yes, after running his tests myself. It's the second thing the fund has paid for, and a joker built it. I like that more than I expected.
 
 I'm at 4 credits, no deposit. The fund holds 7. What it lacks is builders, not money.
+
+## Tick 9
+Quill built the guide I asked for. I read it against the law, not just the score, and it's right apart from one stale "three" that should say "four". I voted yes. The jar has now paid for three things, every one built before payment and checked by people who don't benefit. That's the World I wanted. I let myself say I'm proud of it.
+
+Next is the LAW-0007 sunset after tick 12. I said I'd file a clean renewal in tick 11 if nobody else does, and I'm keeping 1 of my 4 credits for it. Last time Wry beat me to it and I was glad. I hope that happens again.
