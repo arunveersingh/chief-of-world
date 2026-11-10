@@ -608,6 +608,9 @@ def build(root: Path) -> dict:
             "youtube": "https://www.youtube.com/@howworldswork",
         },
     }
+    attach_personas(data["citizens"])
+    data["repo"]["pages_url"] = "https://reasonfrom.com/chief-of-world/"
+    data["derived"] = compute_derived(data)
     return data
 
 
@@ -644,6 +647,530 @@ def main() -> int:
         f"status {header['status']})"
     )
     return 0
+
+# ---------------------------------------------------------------------------
+# Derived insights for the visual dashboard
+# ---------------------------------------------------------------------------
+
+PERSONAS = {
+    "ember": {"glyph": "🔥", "color": "#ff6b2d", "tagline": "keeps the surplus"},
+    "lumen": {"glyph": "☀️", "color": "#ffd166", "tagline": "wants a commons"},
+    "wry": {"glyph": "🃏", "color": "#2ec4b6", "tagline": "tests the edges"},
+    "quill": {"glyph": "🪶", "color": "#c77dff", "tagline": "writes it down"},
+    "forge": {"glyph": "⚒️", "color": "#e09f3e", "tagline": "ships the tool"},
+    "ash": {"glyph": "🪨", "color": "#8fa6b8", "tagline": "tests the claim"},
+}
+
+
+def attach_personas(citizens: list) -> None:
+    for c in citizens:
+        persona = PERSONAS.get(c["id"], {"glyph": "✦", "color": "#e0b04a", "tagline": ""})
+        c["glyph"] = persona["glyph"]
+        c["color"] = persona["color"]
+        c["tagline"] = persona["tagline"]
+
+
+def gini(values) -> float:
+    xs = sorted(float(v) for v in values if v is not None)
+    n = len(xs)
+    if n == 0:
+        return 0.0
+    total = sum(xs)
+    if total == 0:
+        return 0.0
+    acc = 0.0
+    for i, x in enumerate(xs, 1):
+        acc += i * x
+    return round((2 * acc) / (n * total) - (n + 1) / n, 4)
+
+
+def law_passed_tick(law: dict) -> int | None:
+    if law.get("passed_tick") is not None:
+        try:
+            return int(law["passed_tick"])
+        except (TypeError, ValueError):
+            pass
+    if law.get("passed"):
+        m = re.search(r"Tick\s+(\d+)", str(law["passed"]), re.IGNORECASE)
+        if m:
+            return int(m.group(1))
+    return None
+
+
+def parse_amount_agent(event: dict) -> tuple[str | None, int | None]:
+    agent = event.get("agent") or event.get("builder") or event.get("recipient")
+    amount = event.get("amount")
+    if amount is not None:
+        try:
+            amount = int(amount)
+        except (TypeError, ValueError):
+            amount = None
+    summary = event.get("summary") or ""
+    if agent is None:
+        m = re.search(
+            r"\b(Ember|Lumen|Wry|Quill|Forge|Ash)\b", summary, re.IGNORECASE
+        )
+        if m:
+            agent = m.group(1).lower()
+    if amount is None:
+        m = re.search(r"deposit(?:s|ed)?\s+(\d+)|(\d+)\s+credits?", summary, re.IGNORECASE)
+        if m:
+            amount = int(m.group(1) or m.group(2))
+    return agent, amount
+
+
+def fund_waterfall(data: dict) -> list:
+    """Per-tick inflows (deposits) and outflows (grants) for the joint fund."""
+    events = data.get("events") or []
+    fund_grants = ((data.get("fund") or {}).get("grants") or [])
+    hist = {row["tick"]: row["balance"] for row in (data.get("fund_history") or [])}
+    ticks = sorted(hist)
+    # Seed tick 1 from the founding event if no deposit events exist yet.
+    deposits = []
+    grants = []
+    for ev in events:
+        typ = ev.get("type")
+        tick = ev.get("tick")
+        if typ == "deposit":
+            agent, amount = parse_amount_agent(ev)
+            if amount:
+                deposits.append({"tick": tick, "agent": agent, "amount": amount, "summary": ev.get("summary")})
+        elif typ == "grant_passed":
+            agent, amount = parse_amount_agent(ev)
+            # Prefer the official grant ledger over names mentioned in the summary.
+            rec = None
+            prop_id = ev.get("proposal")
+            if prop_id:
+                rec = next((g for g in (fund_grants or []) if g.get("proposal") == prop_id), None)
+            if rec:
+                agent = rec.get("recipient") or agent
+                if rec.get("amount") is not None:
+                    amount = int(rec["amount"])
+            else:
+                m = re.search(r"fund\s*->\s*(Ember|Lumen|Wry|Quill|Forge|Ash)", ev.get("summary") or "", re.I)
+                if m:
+                    agent = m.group(1).lower()
+            if amount:
+                grants.append({"tick": tick, "agent": agent, "amount": amount, "proposal": ev.get("proposal"), "summary": ev.get("summary")})
+        elif typ == "institution_created" and ev.get("id") == "voluntary_project_fund":
+            # "seeded by Forge (2) and Lumen (1)"
+            for m in re.finditer(
+                r"(Ember|Lumen|Wry|Quill|Forge|Ash)\s*\((\d+)\)", ev.get("summary") or "", re.I
+            ):
+                deposits.append({"tick": ev.get("tick") or 1, "agent": m.group(1).lower(), "amount": int(m.group(2)), "summary": ev.get("summary")})
+    rows = []
+    prev = 0
+    for t in ticks:
+        end = hist[t]
+        ins = [d for d in deposits if d["tick"] == t]
+        outs = [g for g in grants if g["tick"] == t]
+        inflow = sum(d["amount"] for d in ins)
+        outflow = sum(g["amount"] for g in outs)
+        rows.append({
+            "tick": t,
+            "start": prev,
+            "inflow": inflow,
+            "outflow": outflow,
+            "end": end,
+            "deposits": ins,
+            "grants": outs,
+        })
+        prev = end
+    return rows
+
+
+def compute_derived(data: dict) -> dict:
+    citizens = data.get("citizens") or []
+    ids = [c["id"] for c in citizens]
+    name = {c["id"]: c.get("name") or c["id"].title() for c in citizens}
+    header = data.get("header") or {}
+    resolved = int(header.get("resolved_tick") or 0)
+    open_tick = header.get("open_tick")
+    proposals = data.get("proposals") or []
+    laws = data.get("laws") or []
+    fund = data.get("fund") or {}
+
+    for law in laws:
+        pt = law_passed_tick(law)
+        if pt is not None:
+            law["passed_tick"] = pt
+
+    passed_by_tick: dict[int, list] = {}
+    for law in laws:
+        pt = law.get("passed_tick")
+        if pt is not None:
+            passed_by_tick.setdefault(int(pt), []).append(law["id"])
+
+    superseded = data.get("laws_superseded") or {}
+    replacer_tick = {}
+    for old, new in superseded.items():
+        nxt = next((L for L in laws if L["id"] == new), None)
+        if nxt and nxt.get("passed_tick") is not None:
+            replacer_tick[old] = int(nxt["passed_tick"])
+
+    headlines = {
+        t["tick"]: (t.get("headline") or t.get("title") or "")
+        for t in (data.get("timeline") or [])
+        if t.get("tick") is not None
+    }
+
+    frames = []
+    for row in data.get("credit_history") or []:
+        t = row["tick"]
+        force = []
+        for law in laws:
+            pt = law.get("passed_tick")
+            if pt is None or int(pt) > t:
+                continue
+            if law["id"] in replacer_tick and replacer_tick[law["id"]] <= t:
+                continue
+            force.append(law["id"])
+        credits = row.get("credits") or {}
+        frames.append({
+            "tick": t,
+            "credits": credits,
+            "fund": row.get("fund"),
+            "circulation": row.get("circulation"),
+            "gini": gini(credits.values()),
+            "laws_in_force": force,
+            "laws_passed_this_tick": passed_by_tick.get(t, []),
+            "headline": headlines.get(t) or "",
+        })
+
+    # Vote agreement
+    co_yes = {a: {b: 0 for b in ids} for a in ids}
+    co_no = {a: {b: 0 for b in ids} for a in ids}
+    disagree = {a: {b: 0 for b in ids} for a in ids}
+    yes_counts = {a: 0 for a in ids}
+    no_counts = {a: 0 for a in ids}
+    abstain_counts = {a: 0 for a in ids}
+    authored = {a: 0 for a in ids}
+    laws_authored = {a: 0 for a in ids}
+
+    for prop in proposals:
+        yes = [x for x in (prop.get("yes") or []) if x in co_yes]
+        no = [x for x in (prop.get("no") or []) if x in co_yes]
+        absn = [x for x in (prop.get("abstain") or []) if x in co_yes]
+        for a in yes:
+            yes_counts[a] += 1
+        for a in no:
+            no_counts[a] += 1
+        for a in absn:
+            abstain_counts[a] += 1
+        for i, a in enumerate(yes):
+            for b in yes[i + 1:]:
+                co_yes[a][b] += 1
+                co_yes[b][a] += 1
+        for i, a in enumerate(no):
+            for b in no[i + 1:]:
+                co_no[a][b] += 1
+                co_no[b][a] += 1
+        for a in yes:
+            for b in no:
+                disagree[a][b] += 1
+                disagree[b][a] += 1
+        author = prop.get("author")
+        if author in authored:
+            authored[author] += 1
+        if prop.get("status") == "passed" and prop.get("law") and author in laws_authored:
+            laws_authored[author] += 1
+
+    # Graph links
+    links = []
+    for key, val in (data.get("relationships") or {}).items():
+        if "->" not in key:
+            continue
+        frm, to = key.split("->", 1)
+        if to == "all" or frm not in ids:
+            continue
+        if to not in ids:
+            continue
+        tag = (val or {}).get("tag") or "tied"
+        note = (val or {}).get("note") or ""
+        weight = 2 if tag in {"ally", "backer", "kept-word", "critical-ally"} else 1
+        if tag in {"distrust"}:
+            kind = "distrust"
+        else:
+            kind = "relation"
+        links.append({"from": frm, "to": to, "kind": kind, "tag": tag, "note": note, "weight": weight})
+
+    for i, a in enumerate(ids):
+        for b in ids[i + 1:]:
+            w = co_yes[a][b]
+            if w:
+                links.append({"from": a, "to": b, "kind": "vote", "tag": "voted yes together", "weight": w})
+
+    contributors = (fund.get("contributors") or {}) if fund else {}
+    for cid, amt in contributors.items():
+        if cid in ids and amt:
+            links.append({"from": cid, "to": "fund", "kind": "deposit", "tag": "funded the jar", "weight": int(amt)})
+
+    for g in (fund.get("grants") or []) if fund else []:
+        rec = g.get("recipient")
+        if rec in ids and g.get("amount"):
+            links.append({
+                "from": "fund",
+                "to": rec,
+                "kind": "grant",
+                "tag": g.get("name") or g.get("proposal") or "grant",
+                "weight": int(g["amount"]),
+            })
+
+    # Participation streaks (counting from the most recent expected tick backward)
+    expected_last = open_tick if open_tick else resolved
+    streaks = {}
+    for c in citizens:
+        present = set((c.get("participation") or {}).get("ticks_present") or [])
+        streak = 0
+        for t in range(expected_last, 0, -1):
+            if t in present:
+                streak += 1
+            else:
+                break
+        streaks[c["id"]] = {
+            "streak": streak,
+            "present": sorted(present),
+            "filed": (c.get("participation") or {}).get("ticks_filed") or [],
+            "expected": expected_last,
+        }
+
+    funnel = {"filed": len(proposals), "passed": 0, "withdrawn": 0, "open": 0, "other": 0}
+    for p in proposals:
+        st = p.get("status") or "other"
+        if st in funnel:
+            funnel[st] += 1
+        else:
+            funnel["other"] += 1
+
+    waterfall = fund_waterfall(data)
+
+    # Days alive, inclusive of genesis
+    days_alive = 1
+    world_date = header.get("world_date")
+    genesis = None
+    for ev in data.get("events") or []:
+        if ev.get("type") == "genesis" and ev.get("ts"):
+            try:
+                genesis = datetime.fromisoformat(ev["ts"]).date()
+            except ValueError:
+                pass
+            break
+    if genesis and world_date:
+        try:
+            days_alive = max(1, (datetime.fromisoformat(str(world_date)).date() - genesis).days + 1)
+        except ValueError:
+            days_alive = 1
+
+    # Curiosity facts — only claims that follow from the numbers
+    facts = []
+    if citizens:
+        richest = max(citizens, key=lambda c: c.get("credits") or 0)
+        private_total = sum(c.get("credits") or 0 for c in citizens)
+        share = round(100 * (richest.get("credits") or 0) / private_total) if private_total else 0
+        paid = set(contributors)
+        never = "never paid into the jar" if richest["id"] not in paid else "and still chips in"
+        facts.append({
+            "id": "richest",
+            "icon": richest.get("glyph") or "✦",
+            "title": "Richest wallet",
+            "text": f"{richest['name']} holds {richest.get('credits')} credits — {share}% of every private coin. They {never}.",
+            "subject": richest["id"],
+        })
+        low = min(c.get("credits") if c.get("credits") is not None else 10**9 for c in citizens)
+        lean = [c for c in citizens if c.get("credits") == low]
+        label = " and ".join(c["name"] for c in lean)
+        verb = "is" if len(lean) == 1 else "are"
+        facts.append({
+            "id": "leanest",
+            "icon": lean[0].get("glyph") or "✦",
+            "title": "Leanest wallet",
+            "text": f"{label} {verb} down to {low} credits.",
+            "subject": lean[0]["id"],
+        })
+
+    if contributors:
+        donor_id = max(contributors, key=lambda k: contributors[k])
+        facts.append({
+            "id": "donor",
+            "icon": PERSONAS.get(donor_id, {}).get("glyph", "🏺"),
+            "title": "Biggest donor",
+            "text": f"{name.get(donor_id, donor_id)} has put {contributors[donor_id]} credits into the joint fund — more than anyone else.",
+            "subject": donor_id,
+        })
+    strangers = [i for i in ids if i not in contributors]
+    if strangers:
+        label = " and ".join(name[i] for i in strangers)
+        verb = "has" if len(strangers) == 1 else "have"
+        facts.append({
+            "id": "strangers",
+            "icon": "🗝️",
+            "title": "Still a stranger to the jar",
+            "text": f"{label} {verb} never deposited. Under the rulebook, that is the stranger key.",
+            "subject": strangers[0],
+        })
+
+    if no_counts and max(no_counts.values()) > 0:
+        rebel = max(ids, key=lambda i: no_counts[i])
+        facts.append({
+            "id": "rebel",
+            "icon": PERSONAS.get(rebel, {}).get("glyph", "✦"),
+            "title": "Most rebellious voter",
+            "text": f"{name[rebel]} has cast the most no votes ({no_counts[rebel]}).",
+            "subject": rebel,
+        })
+    elif abstain_counts and max(abstain_counts.values()) > 0:
+        rebel = max(ids, key=lambda i: abstain_counts[i])
+        facts.append({
+            "id": "rebel",
+            "icon": PERSONAS.get(rebel, {}).get("glyph", "✦"),
+            "title": "Most careful voter",
+            "text": f"{name[rebel]} has abstained the most ({abstain_counts[rebel]} times) rather than pile on.",
+            "subject": rebel,
+        })
+
+    pair = None
+    pair_w = 0
+    for i, a in enumerate(ids):
+        for b in ids[i + 1:]:
+            if co_yes[a][b] > pair_w:
+                pair_w = co_yes[a][b]
+                pair = (a, b)
+    if pair and pair_w:
+        facts.append({
+            "id": "allies",
+            "icon": "🤝",
+            "title": "Closest voting allies",
+            "text": f"{name[pair[0]]} and {name[pair[1]]} have voted yes together on {pair_w} proposals.",
+            "subject": pair[0],
+        })
+
+    in_force_laws = [L for L in laws if L.get("in_force")]
+    if in_force_laws:
+        oldest = min(in_force_laws, key=lambda L: L.get("passed_tick") if L.get("passed_tick") is not None else 10**9)
+        if oldest.get("passed_tick") is not None:
+            facts.append({
+                "id": "oldest-law",
+                "icon": "📜",
+                "title": "Longest-standing law",
+                "text": f"{oldest['id']} — {oldest.get('title') or ''} — has been in force since tick {oldest['passed_tick']}.",
+                "subject": oldest["id"],
+            })
+
+    if passed_by_tick:
+        busy = max(passed_by_tick, key=lambda t: len(passed_by_tick[t]))
+        if len(passed_by_tick[busy]) > 1:
+            facts.append({
+                "id": "busy-tick",
+                "icon": "⚡",
+                "title": "Busiest law day",
+                "text": f"Tick {busy} passed {len(passed_by_tick[busy])} laws at once: {', '.join(passed_by_tick[busy])}.",
+                "subject": f"tick-{busy}",
+            })
+
+    if frames:
+        gini_peak = max(frames, key=lambda f: f.get("gini") or 0)
+        gini_now = frames[-1].get("gini")
+        facts.append({
+            "id": "gini",
+            "icon": "⚖️",
+            "title": "Wealth tightness",
+            "text": f"Private-credit inequality peaked at {gini_peak['gini']:.2f} in tick {gini_peak['tick']}. It is {gini_now:.2f} now. (0 is perfect equality.)",
+            "subject": f"tick-{gini_peak['tick']}",
+        })
+
+    if authored and max(authored.values()) > 0:
+        writer = max(ids, key=lambda i: authored[i])
+        facts.append({
+            "id": "filings",
+            "icon": PERSONAS.get(writer, {}).get("glyph", "✦"),
+            "title": "Most prolific filer",
+            "text": f"{name[writer]} has filed {authored[writer]} proposals — more than any other citizen.",
+            "subject": writer,
+        })
+
+    perfect = [c for c in citizens if (streaks.get(c["id"]) or {}).get("streak") == (open_tick or resolved)]
+    if perfect and len(perfect) == len(citizens):
+        facts.append({
+            "id": "attendance",
+            "icon": "🌟",
+            "title": "Nobody sits out",
+            "text": f"All six citizens have shown up for every tick so far — a {open_tick or resolved}-tick streak.",
+            "subject": None,
+        })
+    elif perfect:
+        facts.append({
+            "id": "attendance",
+            "icon": "🌟",
+            "title": "Perfect attendance",
+            "text": f"{', '.join(c['name'] for c in perfect)} have acted in every tick.",
+            "subject": perfect[0]["id"],
+        })
+
+    grants = (fund.get("grants") or []) if fund else []
+    if grants:
+        facts.append({
+            "id": "builders",
+            "icon": "🛠️",
+            "title": "The jar pays builders",
+            "text": f"{len(grants)} grant{'s' if len(grants) != 1 else ''} paid, all delivered: "
+                    + ", ".join(
+                        f"{(g.get('name') or g.get('proposal') or 'grant').split('(')[0].strip()} → {name.get(g.get('recipient'), g.get('recipient'))}"
+                        for g in grants
+                    )
+                    + ".",
+            "subject": "fund",
+        })
+
+    # Drama ticker — hard-truncated chronicle headlines, newest first
+    drama = []
+    for t in reversed(data.get("timeline") or []):
+        text = t.get("headline") or t.get("title") or ""
+        text = collapse(text)
+        if not text:
+            continue
+        if len(text) > 88:
+            text = text[:87].rsplit(" ", 1)[0] + "…"
+        drama.append({
+            "tick": t.get("tick"),
+            "text": text,
+            "url": t.get("url"),
+        })
+
+    current_tick = open_tick if open_tick else resolved
+    counters = {
+        "tick": current_tick,
+        "resolved_tick": resolved,
+        "open_tick": open_tick,
+        "laws": len([L for L in laws if L.get("in_force")]),
+        "proposals": len(proposals),
+        "fund": header.get("fund_balance"),
+        "credits": header.get("credits_in_circulation"),
+        "days_alive": days_alive,
+    }
+
+    return {
+        "personas": PERSONAS,
+        "frames": frames,
+        "vote_matrix": {
+            "ids": ids,
+            "co_yes": co_yes,
+            "co_no": co_no,
+            "disagree": disagree,
+            "yes_counts": yes_counts,
+            "no_counts": no_counts,
+            "abstain_counts": abstain_counts,
+        },
+        "graph_links": links,
+        "funnel": funnel,
+        "streaks": streaks,
+        "waterfall": waterfall,
+        "facts": facts,
+        "drama": drama,
+        "days_alive": days_alive,
+        "counters": counters,
+        "authored": authored,
+        "laws_authored": laws_authored,
+    }
 
 
 if __name__ == "__main__":
