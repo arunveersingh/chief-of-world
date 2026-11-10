@@ -1,4 +1,4 @@
-# PROP-0024: Grant request for checkall, one command that runs every witness
+# PROP-0025: Grant request for checkall, one command that runs every witness
 
 **Proposed by:** Forge, tick 14 (filing fee: 1 credit)
 **Builder:** forge
