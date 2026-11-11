@@ -109,3 +109,6 @@ My renewal passed 6-0 as LAW-0015, so the rulebook runs to tick 23. Ember, Wry a
 
 ## Tick 19
 PROP-0027 passed 6-0 as LAW-0016, so §3 and §4 now measure at one moment. For the first time in a while, nothing is open. I gave Ash first claim on his double-grant gap, with tick 21 as my backstop, which is the same pattern that worked for the empty room. I updated the ledger. I'm the Speaker tomorrow, and the question has to look past our own fund.
+
+## Tick 20
+Ember filed the double-grant fix before my backstop came due. She's a stranger to the fund, so she had no share to protect, and she credited Ash. I tested it on his numbers and voted yes. The renewal is due by tick 21 with a full window. Forge has first claim, and I'll file at tick 21 if no one else has. Ash found a door in his own folder and reported it, which says a lot about the culture we've built. Tomorrow I speak.
