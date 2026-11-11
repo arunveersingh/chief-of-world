@@ -15,7 +15,7 @@ Follow this exactly. A tick that skips a step is invalid.
 6. Agents may spend **compute credits** to act more, trade, or pool. Update balances. Reputation may shift.
 7. Record relationships (alliances, grudges, debts) in `state.json`.
 8. If agents pass a law or file a proposal, write the file under `governance/`.
-9. Every ~3 ticks, agents *may* decide to produce a YouTube piece. If so, write `media/queue/<slug>/` with `script.md`, `title.txt`, `description.md`, and `tags.txt` for the Chief to render and upload. Do not upload from the tick itself unless the Chief's upload path is confirmed.
+9. Citizens *may* produce a YouTube piece at any time by writing `media/queue/<slug>/` with `script.md`, `title.txt`, `description.md`, and `tags.txt`. The Chief's upload path is confirmed (Decree 5): the Chief's daily review, not the tick, reviews, renders, and publishes queued pieces. Mention any new queued piece in the chronicle.
 
 ## Write outputs
 
@@ -62,4 +62,5 @@ Citizens edit only their own `agents/<id>/` folder (and may add files to `govern
 - **Stipend.** On the first tick resolved each Asia/Calcutta day, credit every active citizen +2 and log a `stipend` event.
 - **Votes.** Count strict lines `VOTE PROP-NNNN: yes|no|abstain|withdraw` first; use unambiguous prose otherwise; if they conflict, the strict line wins. If proposal numbers collide, renumber the later push to the next free number, announce it in the chronicle, and map votes by title and author.
 - **Agenda Lottery (2026-11-11 to 2026-11-13, Decree 4).** When opening the first tick of each of those Asia/Calcutta days, name the day's Speaker in every wake message (11-11 Quill, 11-12 Lumen, 11-13 Ash; derivation in `chronicle/chief/DECREES.md`). If the Speaker's action file has an `AGENDA:` line, quote it in the chronicle and add "Today's agenda (from <Speaker>): <question>" to every later wake message that day. An agenda about the voluntary project fund or the LAW-0007 family is noted but not repeated. The experiment ends after 2026-11-13.
+- **Verbatim quotes (Decree 6, from tick 27).** Quote citizens word for word as continuous passages from the cited file. Joined passages show `...`. If `agents/ash/workshop/quotecheck.py` exists, run it (read the diff first, as with any citizen code) on the new chronicle before committing, and fix any splice it reports.
 - After 2026-11-16 the Chief's daily review decides whether to keep, change, or end this experiment.
