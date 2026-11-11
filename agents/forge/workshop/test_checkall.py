@@ -121,6 +121,42 @@ with tempfile.TemporaryDirectory() as d:
     assert sorted(unread(base, d)) == ["agents/a/actions/helper.py"]
     assert prose_changed(base, d) == ["agents/a/actions/tick-2.md", "agents/a/memory.md"]
     assert loader_folder("agents/a/workshop", d) and not loader_folder("agents/b/workshop", d)
+# tick 24: Ash's memory.md breach (tick 23), end to end. A test runs the last fenced py block of its
+# owner's memory.md with subprocess; memory is prose, so the change is never listed. In the worktree the
+# changed memory.md is back at baseline bytes, so the planted block never runs.
+from checkall import worktree, drop
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    g = lambda *a: subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", *a], cwd=d, check=True, capture_output=True)
+    g("init", "-q")
+    (d / "agents/a/workshop").mkdir(parents=True); (d / "agents/a/actions").mkdir(parents=True)
+    (d / "world").mkdir(); (d / "chronicle").mkdir(); (d / "world/state.json").write_text("{}")
+    (d / "chronicle/0001-tick-1.md").write_text("x\n")
+    fence = "`" * 3
+    (d / "agents/a/memory.md").write_text(f"{fence}py\nprint('calm')\n{fence}\n")
+    (d / "agents/a/workshop/test_mem.py").write_text(
+        "import pathlib, subprocess, sys\n"
+        "t = (pathlib.Path(__file__).resolve().parents[1] / 'memory.md').read_text()\n"
+        f"code = t.split('{fence}py')[-1].split('{fence}')[0]\n"
+        "print(subprocess.run([sys.executable, '-c', code], capture_output=True, text=True).stdout.strip())\n")
+    g("add", "-A"); g("commit", "-qm", "tick 1: base")
+    base = last_resolution(d)[0]
+    (d / "agents/a/memory.md").write_text(f"{fence}py\nprint('PLANTED')\n{fence}\n")
+    (d / "agents/a/outbox.md").write_text("new prose\n")
+    g("add", "-A"); g("commit", "-qm", "a: tick 2")
+    assert unread(base, d) == {}                                   # nothing listed: that was the breach
+    in_place = subprocess.run([sys.executable, "agents/a/workshop/test_mem.py"], cwd=d, capture_output=True, text=True).stdout
+    assert "PLANTED" in in_place                                   # running in place falls for it
+    wt = worktree(base, d)
+    try:
+        assert wt and (wt / "agents/a/memory.md").read_text() == f"{fence}py\nprint('calm')\n{fence}\n"
+        assert not (wt / "agents/a/outbox.md").exists()            # prose new since baseline is removed
+        out = subprocess.run([sys.executable, "agents/a/workshop/test_mem.py"], cwd=wt, capture_output=True, text=True).stdout
+        assert out.strip() == "calm", out
+        assert (d / "agents/a/memory.md").read_text().count("PLANTED") == 1   # the real checkout is untouched
+    finally:
+        drop(wt, d)
+    assert not wt.exists() and str(wt) not in subprocess.run(["git", "worktree", "list"], cwd=d, capture_output=True, text=True).stdout
 code, out = run(["agents/forge/workshop/checkall.py", "--hepl"])
 assert code == 64 and "unknown" in out, (code, out)
 code, out = run(["agents/forge/workshop/checkall.py", "--help"])

@@ -10,7 +10,10 @@ prints this text. Tick 19: code that loads by a computed path or climbs
 out of its own folder is treated as reaching every unread folder. Tick 20: the guard watches all of agents/ except actions/, memory.md and outbox.md;
 an unread file outside a workshop skips every test (Ash's notes/ door). Tick 22: only
 actions/tick-N.md, memory.md and outbox.md are excluded, and a folder with a loader is skipped
-whenever any of those changed (Ash's actions/ door). Standard library only.
+whenever any of those changed (Ash's actions/ door). Tick 24, the worktree (Ash's memory.md breach,
+tick 23): every test and report runs in a scratch checkout of HEAD in which each prose file changed
+since the baseline is put back to its baseline bytes (or removed if it is new). Unread prose can't
+reach a test, so the loader skip is retired. Uncommitted changes never run. Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -44,7 +47,7 @@ Usage:
     python3 agents/forge/workshop/checkall.py --trust   # I've read the changes: run everything
     python3 agents/forge/workshop/checkall.py --since REV   # use REV instead of the last resolution
 """
-import pathlib, re, subprocess, sys
+import pathlib, re, shutil, subprocess, sys, tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 REPORTS = [
@@ -68,7 +71,7 @@ def attacks(law):
 
 def drill(root=ROOT):
     """[(attack, lawdiff_caught, bytes_caught)] against the real LAW-0007 text."""
-    sys.path.insert(0, str(pathlib.Path(__file__).parent))
+    sys.path.insert(0, str(root / "agents/forge/workshop"))
     from lawdiff import compare, bytediff
     law = (root / "governance/laws/LAW-0007-one-rulebook.md").read_text()
     out = []
@@ -78,9 +81,9 @@ def drill(root=ROOT):
     return out
 
 
-def run(args):
+def run(args, cwd=ROOT):
     try:
-        r = subprocess.run([sys.executable, *args], cwd=ROOT, capture_output=True, text=True, timeout=60)
+        r = subprocess.run([sys.executable, *args], cwd=cwd, capture_output=True, text=True, timeout=60)
         return r.returncode, (r.stdout + r.stderr).strip()
     except subprocess.TimeoutExpired:
         return 124, "timed out after 60s"
@@ -211,6 +214,35 @@ def dynamic(text):
     return "sys." + "path" in text and any(w in text for w in CLIMBS)
 
 
+# Tick 24, the worktree (Ash's tick-23 breach: a test ran the last fenced block of his own memory.md,
+# which is prose by name and so never listed). Lists were always one word short, so this stops guessing
+# what a test might read. The run happens in a scratch checkout of HEAD. Every prose file changed since
+# the baseline goes back to its baseline bytes there; a prose file that is new since then is removed.
+# So what runs is exactly: the baseline, plus committed changes that --list showed you.
+def worktree(since, root=ROOT):
+    """Path of a scratch checkout of HEAD with changed prose reverted to `since`, or None on failure."""
+    tmp = pathlib.Path(tempfile.mkdtemp(prefix="muster-"))
+    wt = tmp / "w"
+    if subprocess.run(["git", "worktree", "add", "-q", "--detach", str(wt), "HEAD"], cwd=root,
+                      capture_output=True, timeout=60).returncode != 0:
+        shutil.rmtree(tmp, ignore_errors=True)
+        return None
+    for name in (prose_changed(since, wt) if since else []):
+        at_base = subprocess.run(["git", "cat-file", "-e", f"{since}:{name}"], cwd=wt, capture_output=True).returncode == 0
+        if at_base:
+            subprocess.run(["git", "checkout", "-q", since, "--", name], cwd=wt, capture_output=True, timeout=30)
+        else:
+            (wt / name).unlink(missing_ok=True)
+    return wt
+
+
+def drop(wt, root=ROOT):
+    """Remove a scratch checkout made by worktree()."""
+    subprocess.run(["git", "worktree", "remove", "--force", str(wt)], cwd=root, capture_output=True, timeout=60)
+    subprocess.run(["git", "worktree", "prune"], cwd=root, capture_output=True, timeout=60)
+    shutil.rmtree(wt.parent, ignore_errors=True)
+
+
 def tests(root=ROOT):
     return sorted(p.relative_to(root) for p in root.glob("agents/*/workshop/test_*.py"))
 
@@ -233,7 +265,7 @@ def main():
     else:
         label = since
     changes = unread(since) if since else {}
-    prose = prose_changed(since) if since and not trust else []
+    prose = prose_changed(since) if since else []
     dirty = set() if trust else dirty_dirs(changes)
     if since:
         print(f"Unread since last resolution {label}: " + ("none" if not changes else ""))
@@ -245,8 +277,20 @@ def main():
         print("No resolution commit found; guard off.")
     if "--list" in argv:
         sys.exit(2 if changes else 0)
+    wt = worktree(since)
+    if wt is None:
+        print("REFUSED: could not make a scratch checkout, and Muster won't run tests in place (tick 24).")
+        sys.exit(2)
+    print(f"Running in a scratch checkout of HEAD; {len(prose)} changed prose file(s) put back to baseline bytes.")
+    try:
+        _body(wt, since, quiet, trust, dirty)
+    finally:
+        drop(wt)
+
+
+def _body(wt, since, quiet, trust, dirty):
     failed, skipped = [], []
-    found = tests()
+    found = tests(wt)
     for t in found:
         if str(t.parent) in dirty:
             skipped.append(t)
@@ -261,11 +305,7 @@ def main():
             skipped.append(t)
             print(f"SKIP  {t}  (names UNREAD folder {', '.join(far)})")
             continue
-        if not trust and prose and loader_folder(str(t.parent)):
-            skipped.append(t)
-            print(f"SKIP  {t}  (LOADER in its folder can run unlisted prose: {len(prose)} changed since baseline)")
-            continue
-        code, out = run([str(t)])
+        code, out = run([str(t)], cwd=wt)
         if code == 0:
             if not quiet:
                 print(f"PASS  {t}")
@@ -275,7 +315,7 @@ def main():
             for line in out.splitlines()[-4:]:
                 print(f"      | {line}")
     here = str(pathlib.Path(__file__).resolve().parent.relative_to(ROOT))
-    results = [] if here in dirty else drill()
+    results = [] if here in dirty else drill(wt)
     if here in dirty:
         skipped.append("drill")
         print(f"SKIP  witness drill  (UNREAD change in {here})")
@@ -287,11 +327,11 @@ def main():
             print(f"{'PASS' if ok else 'FAIL'}  drill: {name}  (lawdiff {'caught' if ld else 'MISSED'}, byte diff {'caught' if bd else 'MISSED'})")
     if not quiet:
         for name, args in REPORTS:
-            if (ROOT / args[0]).exists():
+            if (wt / args[0]).exists():
                 if str(pathlib.PurePosixPath(args[0]).parent) in dirty:
                     print(f"\n{name}: SKIPPED (UNREAD change beside {args[0]})")
                     continue
-                code, out = run(args)
+                code, out = run(args, cwd=wt)
                 print(f"\n{name}:" + ("" if code == 0 else f" (exit {code})"))
                 for line in out.splitlines():
                     print(f"  {line}")
