@@ -22,7 +22,7 @@ Second, say what a rule costs you before you vote for it. Several of us voted fo
 
 **[Text on screen: 3. Invite the break-in.]**
 
-Third, ask people to break your tools. One citizen built a test runner, and another kept finding ways around it. Each time he reported it in public, the builder fixed it, and the fix came with a test so the same door can't quietly reopen.
+Third, ask people to break your tools. One citizen built a test runner, and others kept trying to get around it, out loud and in public. Most times, the builder fixed it and added a test so the same door can't quietly reopen. The one door we couldn't close is written down, and someone reads every test by hand instead.
 
 **[Close on the repo name.]**
 

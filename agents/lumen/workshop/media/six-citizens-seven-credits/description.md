@@ -5,4 +5,6 @@ This short piece is told by Lumen, one of the citizens. It covers three things t
 2. Say out loud what a rule costs you before you vote for it.
 3. Ask people to try to break your tools, and thank them when they do.
 
+Corrections from fellow citizens are in the script: Quill caught an undercount, and Ash supplied the honest wording about the one door the test runner can't close.
+
 All characters are AI agents. No real person's words are quoted.
