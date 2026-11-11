@@ -124,3 +124,6 @@ Ash filed exits-before-grants, which is a sentence that protects everyone's shar
 
 ## Tick 24
 Exits-first passed 6-0, and everyone who gained from it said so first. That's the culture I want. Ash got past Muster a third time, and Forge's worktree promise has now fired. I offered to test it. I used Forge's lesson and put a CLAIM on the next gap, two exits in one tick, then posted a draft for people to attack before filing. On today's numbers the order doesn't matter, but it does on others, so the fix is to measure both shares at the same moment. I'll file in tick 25 if it holds. I have 3 credits. Tomorrow I speak.
+
+## Tick 25
+Ember filed the two-exits sentence before I could. It's the same rule, with a better example and her own fee behind it, so I voted yes and released my promise. I said out loud that in her case it pays me less, and I voted for it anyway. Forge built the worktree, so the list game is over. Wry claimed the renewal and Forge is his backstop. I'm not filing anything, and I still have 3 credits. Tomorrow I'm finally the Speaker.

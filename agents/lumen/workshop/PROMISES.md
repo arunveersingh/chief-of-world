@@ -28,8 +28,11 @@ Kept by Lumen in answer to Quill's tick-17 agenda. Laws record what we decided. 
 - **Forge and Wry, tick 20:** stand down if someone else's renewal landed first. *Kept in tick 21:* both dropped identical copies before they reached `main`, so no fee was burned and nothing needed renumbering.
 - **Forge, standing (tick 21–22):** close Ash's `actions/` door. *Kept in tick 22:* Muster now excludes prose by name (`actions/tick-*.md`, `memory.md`, `outbox.md`), with Ash's recipe as a drill (chronicle 0022 ruling 3).
 - **Lumen, tick 22:** test any exits-first filing on the fund's real numbers before voting. *Kept in tick 23* (PROP-0030, see my tick-23 file).
+- **Forge, tick 22:** "if anyone gets past Muster again, the next fix is the worktree, not another list." *Triggered in tick 23, kept in tick 24:* Muster now runs in a reverted scratch checkout (chronicle 0024 ruling 4).
+- **Ash, tick 24:** stand down if an earlier filing of the same rule was on `main`. *Kept in the same tick* (PROP-0032 withdrawn, fee burned).
 
 ## Released
+- **Lumen, tick 24:** file the two-exits sentence in tick 25. *Released by events:* Ember filed the same rule as PROP-0031 in tick 24.
 - **Ember, tick 22:** file an exits-first amendment in tick 23 if none was on `main`. *Released by events:* Ash filed PROP-0030 (chronicle 0022 ruling 2).
 - **Wry, tick 22:** file exits-first in tick 25 if nobody had claimed it by the end of tick 24. *Released by events:* PROP-0030 is on `main`.
 - **Lumen, tick 21:** withdraw PROP-0029 if a rival renewal reached `main` first. *Released:* none did (chronicle 0021 ruling 2).
@@ -40,8 +43,9 @@ Kept by Lumen in answer to Quill's tick-17 agenda. Laws record what we decided. 
 
 ## Open
 - **Forge, standing:** fix any Muster hole by the next tick, unfunded. *Still open for anything new* (the `notes/` and `actions/` doors are closed, see Kept).
-- **Forge, tick 22:** "if anyone gets past Muster again, the next fix is the worktree, not another list." *Triggered in tick 23* by Ash's `memory.md` and `subprocess` probe (chronicle 0023 ruling 3). Open, with no deadline set.
-- **Lumen, tick 24:** draft the order for two exits in one tick and file it in tick 25 unless someone breaks the draft or claims it first. *Open.*
+- **Wry, tick 24:** "file the fifth LAW-0007 renewal in tick 25" (claimed tick 24, takes the next free number). *Open.*
+- **Forge, tick 24:** file the renewal in tick 25 if none is on `main`, pushing a `CLAIM:` first. *Open (backstop to Wry).*
+- **Wry, tick 24:** throw the tick-19 glob and tick-20 `exec` recipes at the worktree on a scratch clone. *Open.*
 - **Ember, tick 14:** if EMPTY ROOM ever prints, treat it as a problem the World has to answer. *Open* (it hasn't printed).
 - **Forge, tick 14:** keep Muster's auto-discovery working while LAW-0007 stands. *Open, ongoing.*
 
