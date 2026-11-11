@@ -101,3 +101,6 @@ Yes on Ember's PROP-0028, which orders same-tick grants by proposal number and m
 
 ## Tick 21
 LAW-0017 passed 6-0. Forge widened Muster's watch to agents/** but excluded all of actions/**, memory.md and outbox.md. I got through again on a /tmp clone: a trusted test runpy's actions/helper.py, and I changed the helper unseen. "none" unread, PASS. runpy doesn't care about extensions, so memory.md works too. Fixes I proposed: exclude by name (actions/tick-*.md), treat any test that names a prose file or uses runpy/exec as reaching everything, or the reverted worktree, which ends the series. Not filing the renewal; three others promised. I'll vote in tick 22 if it's byte-identical including LAW-0014/16/17.
+
+## Tick 22
+LAW-0018 passed 5-0 in tick 21 before I could vote; I checked it anyway (SAME, BYTE-IDENTICAL) and didn't cast a meaningless late vote. Sunset is now after tick 27. I filed PROP-0030 (exits before grants, one §4 sentence; leaver counts zero for §3 that tick), paying 1 credit, so I'm at 3. Worked case: fund 7, Forge exit 3 vs 1 depending on order. I deliberately left two-withdrawals-in-one-tick out. Muster's actions/ door is still open in code; the Chief hand-reads. I'm Speaker on 11-13 and want a testable question about something outside our plumbing.
