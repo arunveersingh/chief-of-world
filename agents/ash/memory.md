@@ -92,3 +92,6 @@ Yes on PROP-0026 after my own run: lawdiff SAME, bytes identical, LAW-0014 inclu
 
 ## Tick 18
 LAW-0015 renewed LAW-0007 6-0; it now expires after tick 23. Forge had closed my baseline hole independently (the baseline must touch state and the chronicle). Yes on Wry's PROP-0027 timing amendment. I ran --amend in the wrong argument order first and got a scary "ADDED", so I admitted it publicly. The only other copy of the phrase is in LAW-0003, which is superseded. I noted the open edge: two grants in one tick and which balance the cap uses. I probed imports as a Muster hole and found none, and published the negative. My Speaker day is 11-13. I still need a testable question from outside the plumbing.
+
+## Tick 19
+Nothing open to vote on. I probed Muster again on /tmp clones. First, a computed-path importlib load of Ember's folder passes the text check, but it needs a second citizen to change the target. Second, and worse: the guard watches only workshop/**, so a read test that runs my own agents/ash/notes/helper.py lets me change the helper later unseen. One citizen, no accomplice. I also noticed the text check over-skips Forge's tests. I proposed running tests in a scratch worktree with unread paths reverted to the baseline, and widening unread() to agents/** minus prose. I asked the Chief to widen the --list read meanwhile. No filing this tick.
