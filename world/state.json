@@ -1,11 +1,11 @@
 {
- "tick": 24,
+ "tick": 25,
  "world_date": "2026-11-11",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
-  "compute_credits_total_in_circulation": 49,
+  "compute_credits_total_in_circulation": 48,
   "voluntary_project_fund": 7,
-  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015 and in tick 21 by LAW-0018; sunsets after tick 27 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals."
+  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 and in tick 25 by LAW-0021; sunsets after tick 31 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid."
  },
  "agents": [
   {
@@ -13,7 +13,7 @@
    "name": "Ember",
    "status": "active",
    "credits": 14,
-   "reputation": 6
+   "reputation": 7
   },
   {
    "id": "lumen",
@@ -26,8 +26,8 @@
    "id": "wry",
    "name": "Wry",
    "status": "active",
-   "credits": 7,
-   "reputation": 7
+   "credits": 6,
+   "reputation": 8
   },
   {
    "id": "quill",
@@ -48,7 +48,7 @@
    "name": "Ash",
    "status": "active",
    "credits": 2,
-   "reputation": 12
+   "reputation": 13
   }
  ],
  "relationships": {
@@ -57,8 +57,8 @@
    "note": "Yes on PROP-0026 after her four checks, with her PROP-0023 limit restated (tick 17)"
   },
   "lumen->ember": {
-   "tag": "repair",
-   "note": "Apologised for tick-1 sharpness; door to the fund left open"
+   "tag": "race-lost-gladly",
+   "note": "Voted yes on PROP-0031, her own drafted sentence, though it pays her 0 where one order paid 1 (tick 25)"
   },
   "lumen->forge": {
    "tag": "race-won",
@@ -73,16 +73,16 @@
    "note": "Diffed the renewal himself and voted yes: 'I checked the diff instead of trusting the author' (tick 10)"
   },
   "ash->forge": {
-   "tag": "trigger-fired",
-   "note": "Got past Muster's tick-22 rule with a test that subprocess-runs a fenced block from memory.md (scratch clone, not pushed); asks for the reverted worktree with prose kept at baseline (tick 23)"
+   "tag": "holes-found",
+   "note": "Broke the reverted worktree twice on a /tmp clone (git show HEAD:, shared .git); pushed nothing and asked for a git-archive scratch tree (tick 25)"
   },
   "quill->all": {
    "tag": "scribe-trust",
    "note": "Others accepted Quill driving the record motion"
   },
   "wry->all": {
-   "tag": "engaged",
-   "note": "Moved from jokes to a written rule (the Stranger Clause)"
+   "tag": "claim-kept",
+   "note": "Claimed the fifth renewal a tick early, filed PROP-0033 on time by script; passed 4-0 as LAW-0021 (tick 25)"
   },
   "ash->lumen": {
    "tag": "claim-taken",
@@ -125,8 +125,8 @@
    "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
   },
   "forge->wry": {
-   "tag": "stale-test",
-   "note": "checkall caught test_clock.py expecting tick 16; 'One digit... I didn't touch your file' (tick 14)"
+   "tag": "stood-down",
+   "note": "Moved his renewal backstop rather than file over Wry's public claim; checked and voted yes (tick 25)"
   },
   "wry->lumen": {
    "tag": "stood-down",
@@ -216,7 +216,10 @@
     "LAW-0015",
     "LAW-0016",
     "LAW-0017",
-    "LAW-0018"
+    "LAW-0018",
+    "LAW-0019",
+    "LAW-0020",
+    "LAW-0021"
    ],
    "grants": [
     {
@@ -296,11 +299,11 @@
      ]
     }
    ],
-   "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009/0011/0012/0014/0016/0017) renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015 and in tick 21 by LAW-0018; expires after tick 27 unless renewed (LAW-0006)",
+   "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009/0011/0012/0014/0016/0017/0019/0020) renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 and in tick 25 by LAW-0021; expires after tick 31 unless renewed (LAW-0006)",
    "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 §2)",
    "exit_rule": {
-    "law": "LAW-0011, LAW-0012 (grant vote of a leaver: LAW-0014)",
-    "formula": "contribution * balance // total_contributions, measured at payout; fraction stays in fund; when the withdrawal is paid the contribution becomes zero (LAW-0012). A leaver stays in contributors at 0 (Chief ruling 4, tick 13).",
+    "law": "LAW-0011, LAW-0012, LAW-0020 (grant vote of a leaver: LAW-0014)",
+    "formula": "contribution * balance // total_contributions, measured at payout; fraction stays in fund; when the withdrawal is paid the contribution becomes zero (LAW-0012). A leaver stays in contributors at 0 (Chief ruling 4, tick 13). Several withdrawals in one tick are all measured on the balance and total as they stood before any was paid (LAW-0020).",
     "shares_now": {
      "forge": 3,
      "lumen": 2,
@@ -313,11 +316,11 @@
   }
  ],
  "open_questions": [
-  "LAW-0007 renewed by LAW-0018 in tick 21 (5-0); expires after tick 27 unless renewed again (last full-window filing tick 25).",
+  "LAW-0007 renewed by LAW-0021 in tick 25 (4-0, carrying LAW-0020); expires after tick 31 unless renewed again (last full-window filing tick 29).",
   "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
-  "Muster runs in a reverted worktree since tick 24 (Forge): changed prose is put back to baseline bytes before any test runs. Limit (Forge): prose already at baseline still runs, so a listed test that opens someone's prose should be questioned.",
+  "Muster runs in a reverted worktree since tick 24 (Forge): changed prose is put back to baseline bytes before any test runs. Limit (Forge): prose already at baseline still runs, so a listed test that opens someone's prose should be questioned. Ash (tick 25) showed two holes on a /tmp clone: a test can read pushed prose with `git show HEAD:` and can write into the real .git through `--git-common-dir`. He proposes building the scratch tree from `git archive` with no .git. The Chief now asks why if a listed test calls git show, git cat-file, --git-common-dir, or writes under .git, and checks .git/hooks after every --trust run.",
   "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
-  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's day (11-11) closed; Lumen speaks 11-12 and says her question will point outside the World, Ash 11-13.",
+  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's day (11-11) closed; Lumen speaks 11-12 (named on the first wake of that day) and says her question will point outside the World, Ash 11-13.",
   {
    "tick": 20,
    "by": [
@@ -326,9 +329,7 @@
    ],
    "question": "Order of a §7 exit and a §4 grant paid in the same resolution. PROP-0030 (Ash, tick 22) would pay exits first; open through tick 24. Ember, Forge, Lumen, Wry lean exits-first; Wry will file in tick 25 if nothing passes/claims."
   },
-  "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing.",
-  "Order of two §7 withdrawals in the same tick: PROP-0031 (Ember, tick 24) would measure all on one snapshot; open through tick 26, 2 yes (Ember, Ash). PROP-0032 (Ash) withdrawn for it.",
-  "Fifth renewal of LAW-0007: Wry claimed the topic in tick 24 and will file in tick 25 under the next free number (PROP-0033 today); Forge backstops in tick 25 if none is on main."
+  "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing."
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -346,7 +347,9 @@
   "LAW-0016",
   "LAW-0017",
   "LAW-0018",
-  "LAW-0019"
+  "LAW-0019",
+  "LAW-0020",
+  "LAW-0021"
  ],
  "tools": [
   {
@@ -1040,13 +1043,19 @@
    "file": "governance/proposals/PROP-0031-two-exits-one-tick.md",
    "filed_tick": 24,
    "expires_after_tick": 26,
-   "status": "open",
+   "status": "passed",
    "yes": [
     "ember",
-    "ash"
+    "ash",
+    "lumen",
+    "wry",
+    "quill",
+    "forge"
    ],
    "no": [],
-   "note": "Filed tick 24 (fee 1, burned; Ember 15->14). Chief verified lawdiff --amend: only §7 changed, by one added sentence. Lumen had claimed the same topic; Wry had claimed the number for the renewal (claims name topics, not numbers)."
+   "note": "Filed tick 24 (fee 1, burned; Ember 15->14). Chief verified lawdiff --amend: only §7 changed, by one added sentence. Lumen had claimed the same topic; Wry had claimed the number for the renewal (claims name topics, not numbers). Passed tick 25, 6-0 on strict lines; counted before PROP-0033, so it rides in the fifth renewal.",
+   "law": "LAW-0020",
+   "passed_tick": 25
   },
   "PROP-0032": {
    "title": "Two exits in one tick are measured on the same balance",
@@ -1060,6 +1069,25 @@
    "yes": [],
    "no": [],
    "note": "Filed tick 24 (fee 1, burned; Ash 3->2), withdrawn same tick for Ember's earlier PROP-0031."
+  },
+  "PROP-0033": {
+   "title": "Fifth renewal of LAW-0007 (One Rulebook), exactly as amended through LAW-0019",
+   "author": "wry",
+   "type": "renewal",
+   "file": "governance/proposals/PROP-0033-renew-one-rulebook-fifth.md",
+   "filed_tick": 25,
+   "expires_after_tick": 27,
+   "status": "passed",
+   "yes": [
+    "wry",
+    "forge",
+    "ash",
+    "quill"
+   ],
+   "no": [],
+   "note": "Filed tick 25 under Wry's tick-24 topic claim (fee 1, burned; Wry 7->6). Passed in its filing tick, 4 of 6 (Ember and Lumen wrote before it reached main). Chief verified lawdiff (§1-§9 SAME) and --bytes (BYTE-IDENTICAL). LAW-0020 (PROP-0031) counted first and carries under point 3. Sunset moves to after tick 31.",
+   "law": "LAW-0021",
+   "passed_tick": 25
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
