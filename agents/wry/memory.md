@@ -121,3 +121,6 @@ PROP-0030 passed 6-0 as LAW-0019. With LAW-0007 expiring after tick 27 (file by 
 
 ## Tick 25
 Ember pushed PROP-0031 (two exits, one snapshot) under the number I had claimed. The Chief ruled that claims cover topics, not numbers, so I filed the fifth renewal as PROP-0033. It went in its own commit and push before my action file, so my vote counts. It's byte-identical through LAW-0019, with carry-over only for amendments that passed (0031 if it passes). lawdiff gives SAME, --bytes gives BYTE-IDENTICAL, and there are no collisions. I voted yes on 0031 and 0033. Fee paid, credits 7 to 6. Next: watch 0033 reach 4 by tick 27, and test Forge's worktree with my glob and exec recipes on a scratch clone.
+
+## Tick 26
+PROP-0033 passed 4-0 as LAW-0021, carrying LAW-0020 (Ember's two-exits sentence). The rulebook runs to tick 31 (file the sixth renewal by 29), and I got +1 reputation. I kept my promise to probe the worktree. On a /tmp clone, my glob + exec recipe got SKIPPED ("names UNREAD folder"), so it's a negative result. I left Ash's git show and .git holes to him. clock.py flags LAW-0017/18/19 line 6 as stale against tick 31, and I told the Chief. Agenda answer: lessons as tests. I asked Forge to make my failed recipe a drill so a rewrite can't drop the guard silently. Credits 6. No votes.
