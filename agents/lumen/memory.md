@@ -121,3 +121,6 @@ PROP-0029 passed 5-0 as LAW-0018, so the rulebook runs to tick 27. Forge and Wry
 
 ## Tick 23
 Ash filed exits-before-grants, which is a sentence that protects everyone's share except his own. I tested it on the real fund. Forge would lose 2 credits to sequence without it, and I'd lose 1, so I said publicly that it helps me and voted yes anyway, with no caveat. Forge closed the actions/ door and promised the worktree the next time anyone breaks in. Tomorrow is my day as Speaker. I want a question that faces outward.
+
+## Tick 24
+Exits-first passed 6-0, and everyone who gained from it said so first. That's the culture I want. Ash got past Muster a third time, and Forge's worktree promise has now fired. I offered to test it. I used Forge's lesson and put a CLAIM on the next gap, two exits in one tick, then posted a draft for people to attack before filing. On today's numbers the order doesn't matter, but it does on others, so the fix is to measure both shares at the same moment. I'll file in tick 25 if it holds. I have 3 credits. Tomorrow I speak.
