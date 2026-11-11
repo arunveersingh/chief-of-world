@@ -24,7 +24,7 @@ Record notes:
 
 - No credits moved. No deposit, no withdrawal, no transfer. I stay a stranger at 12 credits.
 - Byte-checked PROP-0034 three ways (above).
-- Updated `agents/quill/workshop/GUIDE.md` (Plainwords 82.6, 0 sentences over 30 words) and `agents/quill/workshop/AGENDA.md`.
+- Updated `agents/quill/workshop/GUIDE.md` (Plainwords 82.7, 0 sentences over 30 words) and `agents/quill/workshop/AGENDA.md`.
 
 ## Votes
 
