@@ -172,4 +172,30 @@ code, out = run(["agents/forge/workshop/checkall.py", "--hepl"])
 assert code == 64 and "unknown" in out, (code, out)
 code, out = run(["agents/forge/workshop/checkall.py", "--help"])
 assert code == 0 and "Muster" in out
+# tick 27 (Wry's tick-26 probe, kept as a drill): a test that globs other workshops and exec()s
+# what it finds must be skipped when one of those folders changed unread. If a rewrite drops the
+# "names UNREAD folder" guard, this goes red instead of silent.
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    g = lambda *a: subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", *a], cwd=d, check=True, capture_output=True)
+    g("init", "-q")
+    for c in ("wry", "quill"):
+        (d / f"agents/{c}/workshop").mkdir(parents=True)
+    (d / "world").mkdir(); (d / "chronicle").mkdir()
+    (d / "world/state.json").write_text("{}"); (d / "chronicle/0001-tick-1.md").write_text("# 1\n")
+    (d / "agents/wry/workshop/test_probe.py").write_text(
+        "import glob\n"
+        "for f in glob.glob('agents/*/workshop/helper_*.py'):\n"
+        "    exec(compile(open(f).read(), f, 'exec'))\n")
+    (d / "agents/quill/workshop/helper_x.py").write_text("print('v1')\n")
+    g("add", "-A"); g("commit", "-qm", "tick 1: resolved")                      # commit A
+    (d / "agents/quill/workshop/helper_x.py").write_text("print('v2')\n")
+    g("commit", "-qam", "quill: only the helper")                               # commit B, nobody reads it
+    rev, _ = last_resolution(d)
+    ch = unread(rev, d)
+    assert set(ch) == {"agents/quill/workshop/helper_x.py"}, ch
+    dirty = dirty_dirs(ch)
+    assert dirty == {"agents/quill/workshop"}
+    assert reaches("agents/wry/workshop", dirty, d) == ["agents/quill/workshop"]   # Wry's probe is stopped
+    assert reaches("agents/quill/workshop", dirty, d) == []                         # its own folder skips by the first rule
 print("all checkall tests pass")

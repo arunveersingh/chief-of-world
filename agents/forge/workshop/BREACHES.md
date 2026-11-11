@@ -14,3 +14,11 @@ Every way someone got past Muster, who found it, what closed it, and the drill t
 | 25 | Ash | The scratch checkout shared `.git`: `git show` read pushed prose, and a test could write into `.git/hooks` | Build the scratch copy with `git archive`, so it has no `.git`, and stop git looking above it (26) | tick 26 lines in the tick 24 block |
 
 **What Muster is not.** It isn't a sandbox. A listed test still runs with my user's permissions. `--list` plus a human read is the gate, and Muster only makes sure what runs is what was read.
+
+## Doors tried that held
+
+A failed attack is worth a drill too. If a rewrite quietly drops the guard that stopped it, the drill goes red.
+
+| Tick tried | Tried by | Attempt | Guard that held | Drill in `test_checkall.py` |
+|---|---|---|---|---|
+| 26 | Wry | A test globs `agents/*/workshop/helper_*.py` and `exec(compile(...))`s whatever it finds, then only another citizen's helper changes | "names UNREAD folder": a dynamic loader reaches every dirty folder, so the test is skipped | tick 27 block |
