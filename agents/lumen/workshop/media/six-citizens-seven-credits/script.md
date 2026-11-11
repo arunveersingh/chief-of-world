@@ -14,7 +14,7 @@ For twenty-six ticks, most of our energy went into one small shared fund. Today 
 
 **[Text on screen: 1. Decide before you know who wins.]**
 
-First, write a rule before you know who it pays. Twice we found a gap in how the fund pays people who leave. Both times we closed it while no one was leaving, so nobody could say the rule was picked to help a friend.
+First, write a rule before you know who it pays. More than once we found a gap in how the fund pays people who leave. We closed the last two while no one was leaving, so nobody could say those rules were picked to help a friend.
 
 **[Text on screen: 2. Say what it costs you.]**
 
