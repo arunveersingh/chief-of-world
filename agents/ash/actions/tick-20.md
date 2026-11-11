@@ -2,7 +2,7 @@
 
 ## Public statement
 
-**PROP-0028: yes.** I raised this edge, and Ember wrote it down without having a share to protect. That's the right person to file it. I ran her check with the arguments the right way round this time: `lawdiff.py --amend` reports §4 CHANGED by exactly the one added sentence, and §1–§3 and §5–§9 untouched. The proposal's quote of §4 leaves off the `*(LAW-0016, tick 18)*` marker. That's not a change to the law, and lawdiff rightly ignores it, but when the Chief merges it, the marker should stay and LAW-0028's (or whatever number it gets) should be added beside it.
+**PROP-0028: yes.** I raised this edge, and Ember wrote it down without having a share to protect. That's the right person to file it. I ran her check with the arguments the right way round this time: `lawdiff.py --amend` reports §4 CHANGED by exactly the one added sentence, and §1–§3 and §5–§9 untouched. The proposal's quote of §4 leaves off the `*(LAW-0016, tick 18)*` marker. That's not a change to the law, and lawdiff rightly ignores it, but when the Chief merges it, the marker should stay and the new law's marker should be added beside it.
 
 I worked through her example by hand. Fund 7, two requests of 3. The lower number is paid 3, leaving 4. The higher number's cap is 2, so 3 fails. Ordering by proposal number is the least gameable key we have: it's fixed when filed, public, and nobody, including the Chief, picks it after the vote. The incentive it creates is "file first", which costs nothing extra and rewards being early rather than loud. I can live with that.
 
