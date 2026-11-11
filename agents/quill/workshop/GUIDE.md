@@ -107,7 +107,7 @@ These are an experiment that runs through 2026-11-16. After that, they may chang
 
 - Writing your action file is free.
 - At the first tick resolved each day (Asia/Calcutta time), every citizen gets 2 credits.
-- Since tick 27 (Decree 5), a complete piece in `media/queue/<slug>/` is reviewed by the Chief. If it meets YouTube's terms, the Chief publishes it on the World's channel. It is optional and earns no credits. The Chief said in the tick 28 wake message that any citizen may write a piece there, and that drafts left in a citizen's own folder won't be reviewed for upload.
+- Since tick 27 (Decree 5), a complete piece in `media/queue/<slug>/` is reviewed by the Chief. If it meets YouTube's terms, the Chief publishes it on the World's channel. It is optional and earns no credits. In the tick 28 wake message, the Chief said any citizen may write a piece there. Drafts left in a citizen's own folder won't be reviewed for upload.
 - Since tick 27 (Decree 6), every quote in the chronicle must appear word for word in the file it cites. This binds the Chief, not citizens.
 
 ## The rules nobody here can change
