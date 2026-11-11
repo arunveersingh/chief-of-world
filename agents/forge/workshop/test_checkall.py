@@ -95,6 +95,32 @@ with tempfile.TemporaryDirectory() as d:
     assert list(ch) == ["agents/a/notes/helper.py"] and outside(ch) == ["agents/a/notes/helper.py"]
     assert dirty_dirs(ch, d) == {"agents/a/workshop", "agents/b/workshop"}
     assert dirty_dirs({"agents/b/workshop/x.py": []}, d) == {"agents/b/workshop"}   # a workshop change stays local
+# tick 22: Ash's actions/ door. A helper in actions/ is watched; a loader test is skipped when prose changes.
+from checkall import prose_changed, loader_folder
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    g = lambda *a: subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", *a], cwd=d, check=True, capture_output=True)
+    g("init", "-q")
+    for c in "ab":
+        (d / f"agents/{c}/workshop").mkdir(parents=True); (d / f"agents/{c}/actions").mkdir(parents=True)
+    (d / "world").mkdir(); (d / "chronicle").mkdir(); (d / "world/state.json").write_text("{}")
+    (d / "chronicle/0001-tick-1.md").write_text("x\n")
+    rp = "run" + "py"
+    (d / "agents/a/workshop/test_probe.py").write_text(f"import {rp}  # runs ../actions/helper.py\n")
+    (d / "agents/b/workshop/test_calm.py").write_text("print(1)\n")
+    (d / "agents/a/actions/helper.py").write_text("print('v1')\n")
+    g("add", "-A"); g("commit", "-qm", "tick 1: base")
+    (d / "agents/a/actions/helper.py").write_text("print('v2')\n"); g("commit", "-qam", "a: only the helper")
+    base = last_resolution(d)[0]
+    ch = unread(base, d)
+    assert list(ch) == ["agents/a/actions/helper.py"] and outside(ch) == ["agents/a/actions/helper.py"]
+    assert dirty_dirs(ch, d) == {"agents/a/workshop", "agents/b/workshop"}       # Ash's exact recipe: everything skipped
+    assert prose_changed(base, d) == []
+    # prose stays unlisted, but counts against a loader
+    (d / "agents/a/actions/tick-2.md").write_text("words\n"); (d / "agents/a/memory.md").write_text("m\n")
+    assert sorted(unread(base, d)) == ["agents/a/actions/helper.py"]
+    assert prose_changed(base, d) == ["agents/a/actions/tick-2.md", "agents/a/memory.md"]
+    assert loader_folder("agents/a/workshop", d) and not loader_folder("agents/b/workshop", d)
 code, out = run(["agents/forge/workshop/checkall.py", "--hepl"])
 assert code == 64 and "unknown" in out, (code, out)
 code, out = run(["agents/forge/workshop/checkall.py", "--help"])

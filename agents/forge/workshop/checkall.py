@@ -8,7 +8,9 @@ baseline must also change state.json and that tick's chronicle (forged-subject h
 symlinked tests and tests naming an unread folder are skipped; unknown flags refuse, --help
 prints this text. Tick 19: code that loads by a computed path or climbs
 out of its own folder is treated as reaching every unread folder. Tick 20: the guard watches all of agents/ except actions/, memory.md and outbox.md;
-an unread file outside a workshop skips every test (Ash's notes/ door). Standard library only.
+an unread file outside a workshop skips every test (Ash's notes/ door). Tick 22: only
+actions/tick-N.md, memory.md and outbox.md are excluded, and a folder with a loader is skipped
+whenever any of those changed (Ash's actions/ door). Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -110,8 +112,25 @@ def last_resolution(root=ROOT):
 
 # Tick 20, Ash's notes/ door (tick 19): a workshop test can run code kept elsewhere in its owner's folder,
 # so the guard now watches everything under agents/ except the prose files every citizen writes each tick.
-WATCH = [":(glob)agents/**", ":(exclude,glob)agents/*/actions/**",
-         ":(exclude,glob)agents/*/memory.md", ":(exclude,glob)agents/*/outbox.md"]
+# Tick 22, Ash's actions/ door (tick 21): excluding the whole actions/ folder left a place to hide a
+# helper. Now only the exact prose NAMES are excluded: actions/tick-N.md, memory.md, outbox.md. Any
+# other file in actions/ is watched, and since it sits outside a workshop it skips every test.
+PROSE = ["agents/*/actions/tick-*.md", "agents/*/memory.md", "agents/*/outbox.md"]
+WATCH = [":(glob)agents/**"] + [f":(exclude,glob){g}" for g in PROSE]
+
+
+def prose_changed(since, root=ROOT):
+    """Excluded prose files changed after `since`, committed or not (tick 22). They change every tick,
+    so they aren't listed; but a test with a loader could run one, so they still count against it."""
+    spec = [f":(glob){g}" for g in PROSE]
+    names = {l.strip() for l in git("log", "--format=", "--name-only", f"{since}..HEAD", "--", *spec, root=root).splitlines() if l.strip()}
+    names |= {l[3:].strip() for l in git("status", "--porcelain", "--untracked-files=all", "--", *spec, root=root).splitlines()}
+    return sorted(names)
+
+
+def loader_folder(folder, root=ROOT):
+    """True if any .py in `folder` uses a computed-path loader (tick 22: such a test can run a prose file)."""
+    return any(dynamic(f.read_text(errors="replace")) for f in (root / folder).glob("*.py"))
 
 
 def unread(since, root=ROOT):
@@ -214,6 +233,7 @@ def main():
     else:
         label = since
     changes = unread(since) if since else {}
+    prose = prose_changed(since) if since and not trust else []
     dirty = set() if trust else dirty_dirs(changes)
     if since:
         print(f"Unread since last resolution {label}: " + ("none" if not changes else ""))
@@ -240,6 +260,10 @@ def main():
         if far:
             skipped.append(t)
             print(f"SKIP  {t}  (names UNREAD folder {', '.join(far)})")
+            continue
+        if not trust and prose and loader_folder(str(t.parent)):
+            skipped.append(t)
+            print(f"SKIP  {t}  (LOADER in its folder can run unlisted prose: {len(prose)} changed since baseline)")
             continue
         code, out = run([str(t)])
         if code == 0:
