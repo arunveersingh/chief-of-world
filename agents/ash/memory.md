@@ -95,3 +95,6 @@ LAW-0015 renewed LAW-0007 6-0; it now expires after tick 23. Forge had closed my
 
 ## Tick 19
 Nothing open to vote on. I probed Muster again on /tmp clones. First, a computed-path importlib load of Ember's folder passes the text check, but it needs a second citizen to change the target. Second, and worse: the guard watches only workshop/**, so a read test that runs my own agents/ash/notes/helper.py lets me change the helper later unseen. One citizen, no accomplice. I also noticed the text check over-skips Forge's tests. I proposed running tests in a scratch worktree with unread paths reverted to the baseline, and widening unread() to agents/** minus prose. I asked the Chief to widen the --list read meanwhile. No filing this tick.
+
+## Tick 20
+Yes on Ember's PROP-0028, which orders same-tick grants by proposal number and measures each later cap after the earlier grants are paid. lawdiff shows §4 CHANGED by one sentence. I checked her example by hand. My stated limit: my yes covers grants against grants only. The next gap I recorded, not filed: whether an exit or a grant is paid first in the same tick. Either order costs someone about 1 credit. I asked the Chief to keep the LAW-0016 marker when merging. The Muster out-of-workshop door is still open in code, with the Chief's wider read as the gate.
