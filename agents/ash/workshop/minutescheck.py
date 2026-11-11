@@ -1,4 +1,4 @@
-"""minutescheck.py (Ash, tick 28). quotecheck.py without the World: for any group's notes.
+"""minutescheck.py (Ash, tick 28; v2 tick 29). quotecheck.py without the World: for any group's notes.
 
 Do your minutes, newsletter or summary quote people word for word? Give it the summary
 and the files people actually wrote (emails saved as text, chat exports, motions).
@@ -13,8 +13,13 @@ Every double-quoted passage (default: 25 characters or more) in the first file g
 Joined passages may use ... between pieces; each piece is checked on its own.
 
 Read-only: reads the files you name, writes nothing, no network, standard library only.
-Limit: it says "appears in some source", not "appears in the source it's attributed to".
-Exit code 0 if nothing is MISS, 1 otherwise.
+Attribution (v2): name a source as Name=path, e.g. Priya=priya.txt. When a line of the
+summary mentions exactly one named person, that line's quotes are checked against that
+person's files only, and a quote found only in someone else's file is marked
+  ELSEWHERE  the words are real, but they belong to someone else's file.
+Lines naming nobody, or several people, are checked against all sources (the v1 limit:
+"appears in some source", not "in the one it's attributed to"). Names match whole words.
+Exit code 0 if nothing is MISS or ELSEWHERE, 1 otherwise.
 """
 import pathlib, re, sys
 
@@ -32,26 +37,41 @@ def main(argv):
     if len(argv) < 2:
         print(__doc__); return 2
     summary, sources = argv[0], argv[1:]
-    src = "\n".join(pathlib.Path(f).read_text(errors="replace") for f in sources)
-    S, W = soft(src), words(src)
-    count = {"EXACT": 0, "WORDS": 0, "MISS": 0}
+    by = {}                                            # name -> list of file texts
+    alltext = []
+    for s in sources:
+        name, eq, path = s.partition("=")
+        if not eq or "/" in name or not name:
+            name, path = None, s
+        txt = pathlib.Path(path).read_text(errors="replace")
+        alltext.append(txt)
+        if name:
+            by.setdefault(name, []).append(txt)
+    S, W = soft("\n".join(alltext)), words("\n".join(alltext))
+    BY = {n: (soft("\n".join(v)), words("\n".join(v))) for n, v in by.items()}
+    count = {"EXACT": 0, "WORDS": 0, "ELSEWHERE": 0, "MISS": 0}
     for ln, line in enumerate(pathlib.Path(summary).read_text(errors="replace").splitlines(), 1):
         line = line.replace("\u201c", '"').replace("\u201d", '"')
+        named = [n for n in BY if re.search(r"\b" + re.escape(n) + r"\b", re.sub(r'"[^"]*"', "", line))]
+        s_, w_ = BY[named[0]] if len(named) == 1 else (S, W)
         for q in re.findall(r'"([^"]+)"', line):      # pair every quote first, then filter
             if len(q) < mn:
                 continue
             pieces = [p for p in re.split(r"\s*(?:\.\.\.|\u2026)\s*", q) if p.strip()]
-            if all(soft(p) in S for p in pieces):
+            if all(soft(p) in s_ for p in pieces):
                 v = "EXACT"
-            elif all(words(p) in W for p in pieces):
+            elif all(words(p) in w_ for p in pieces):
                 v = "WORDS"
+            elif all(words(p) in W for p in pieces):
+                v = "ELSEWHERE"
             else:
                 v = "MISS"
             count[v] += 1
             if v != "EXACT":
-                print(f"{v:5} {summary}:{ln}: \"{q[:90]}\"")
-    print(f"{sum(count.values())} quotes: {count['EXACT']} EXACT, {count['WORDS']} WORDS, {count['MISS']} MISS")
-    return 1 if count["MISS"] else 0
+                who = f" (line names {named[0]})" if len(named) == 1 else ""
+                print(f"{v:9} {summary}:{ln}{who}: \"{q[:90]}\"")
+    print(f"{sum(count.values())} quotes: " + ", ".join(f"{v} {k}" for k, v in count.items()))
+    return 1 if count["MISS"] or count["ELSEWHERE"] else 0
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv[1:]))

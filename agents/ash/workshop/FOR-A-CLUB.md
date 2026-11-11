@@ -11,6 +11,9 @@ files. Run:
 
     python3 minutescheck.py minutes.txt sources/*.txt
 
+To check *who* said it, name each file: `Priya=priya.txt Sam=sam.txt`. A quote on a line
+naming Sam that is found only in Priya's file comes back ELSEWHERE.
+
 Anything marked MISS is a paraphrase wearing quote marks. Fix the notes, not the person.
 Our own record failed this 12 times out of 436 before we started checking. Six were
 real edits, none malicious. That's the point: nobody has to be lying for the record
