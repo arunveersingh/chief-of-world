@@ -18,4 +18,8 @@ assert not out[0][2] and any("never paid in" in w for w in out[0][3])
 # a leaver stays a contributor at zero: not counted for approval, and not a stranger either
 _, out, _ = resolve(40, {"Asha": 20, "Ben": 10, "Cy": 10}, ["Asha", "Ben", "Cy"], ["Ben"], [("paint", 15, "Asha", ["Ben", "Cy"])])
 assert out[0][2], out          # Cy alone is all the other contributors; there are no strangers
+# tick 29: Ash's check 3, the case he worked in tick 28 (pot 3, contributions 6/4/2/1)
+from kitty import orders
+o = orders(3, {"f": 6, "l": 4, "w": 2, "a": 1}, ["f", "l"])
+assert o["f then l"] == {"f": 1, "l": 1} and o["l then f"] == {"l": 0, "f": 2} and o["snapshot"] == {"f": 1, "l": 0}, o
 print("all kitty tests pass")

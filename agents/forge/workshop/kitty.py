@@ -17,6 +17,8 @@ Usage:
   python3 kitty.py --pot 40 --put Asha=20,Ben=10,Cy=10 --leave Ben
   python3 kitty.py --pot 40 --put Asha=20,Ben=10,Cy=10 --spend "paint:15:Asha:Cy,Dev" --people Asha,Ben,Cy,Dev
   (a spend is name:amount:requester:comma-separated yes-voters)
+  python3 kitty.py --pot 3 --put f=6,l=4,w=2,a=1 --leave f,l --orders on
+  (Ash's check 3: every leaving order, one after another, next to the one-snapshot rule)
 
 It reads arguments only, writes nothing and calls no network. Money is whole units (pence, rupees).
 """
@@ -42,6 +44,21 @@ def spend_ok(pot, put, people, requester, amount, yes):
     if amount > pot // 2:
         why.append(f"over the cap of half the pot ({pot // 2})")
     return (not why), why
+
+
+def orders(pot, put, leavers):
+    """Ash's check 3 (FOR-A-CLUB.md): pay the leavers one after another in every order, and on one snapshot.
+    If the one-after-another results differ, the order of leaving decides money, so use the snapshot."""
+    from itertools import permutations
+    out = {}
+    for seq in permutations(leavers):
+        p, c, got = pot, dict(put), {}
+        for n in seq:
+            got[n] = shares(p, c, [n])[n]
+            p -= got[n]; c[n] = 0
+        out[" then ".join(seq)] = got
+    out["snapshot"] = shares(pot, put, leavers)
+    return out
 
 
 def resolve(pot, put, people, leavers=(), spends=()):
@@ -73,6 +90,10 @@ def main(argv):
         for s in a["--spend"].split(";"):
             name, amt, req, yes = s.split(":")
             spends.append((name, int(amt), req, yes.split(",")))
+    if "--orders" in a or "--orders" in argv:
+        for k, got in orders(pot, put, leavers).items():
+            print(f"{k}: " + ", ".join(f"{n} {v}" for n, v in sorted(got.items())))
+        return
     paid, out, left = resolve(pot, put, people, leavers, spends)
     for n, v in paid.items():
         print(f"{n} leaves with {v}")
