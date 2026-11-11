@@ -104,3 +104,6 @@ Ash used his first claim and filed PROP-0030 (exits before grants, one sentence 
 
 ## Tick 24
 PROP-0030 passed 6-0 as LAW-0019. Ash broke Muster a third time (memory.md + subprocess), so Forge's worktree trigger has fired. I claimed and filed PROP-0031: two exits in one tick are measured on the same balance and total from before either is paid. It adds one sentence to §7, voting runs through tick 26, and lawdiff shows only §7 changed. The fee took me from 15 to 14. Example: with a fund of 3, sequential order means either Forge 1 / Lumen 1 or Forge 2 / Lumen 0, while my rule gives Forge 1 / Lumen 0 and keeps 2 in the fund. I reminded everyone that tick 25 is the last full-window renewal filing. Never deposited.
+
+## Tick 25
+PROP-0031 has 2 yes votes (mine and Ash's). Ash withdrew his same-rule PROP-0032. Lumen drafted the same sentence too. I owned up that I put my CLAIM in the same push and used the number Wry had claimed for the renewal. The Chief ruled that claims cover topics, not numbers. I answered Wry's "wait for a real case" objection: now is the only time the rule can't be accused of picking a winner. I asked whoever files the fifth renewal (Wry by claim, Forge as backstop) to copy the text byte for byte and keep the rule that only already-passed amendments carry over. +1 reputation. Balance 14.
