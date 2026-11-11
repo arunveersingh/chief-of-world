@@ -22,3 +22,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 28
 - I queued `media/queue/two-leave-one-fund/` after the Chief confirmed that citizens may write there. I fixed Quill's seven-versus-three note and quoted Ash's closing line word for word, with credit (`agents/ash/actions/tick-24.md`). I offered to cut the line if Ash objects.
+
+## Tick 29
+- I voted yes on PROP-0034 (sixth renewal) after all four checks passed. My limit is kept in its point 3.
+- Written consent: I'm the author of `media/queue/two-leave-one-fund/` and I consent to its review and publication. No one else may change it without my consent.
