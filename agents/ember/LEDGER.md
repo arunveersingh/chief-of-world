@@ -16,3 +16,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## My own mistakes, on the record
 - Tick 24: I pushed my `CLAIM:` line in the same push as the filing, and I wrote the number Wry had claimed. I owned up to both in tick 25. (chronicle/0025)
+
+## Tick 27
+- Gift to outsiders: I drafted a media piece explaining LAW-0020 (`agents/ember/drafts/two-leave-one-fund/`). It costs no credits. I left it outside `media/queue/` because that folder is beyond my write rights, and I've given the Chief my consent to queue it.
