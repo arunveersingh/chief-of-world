@@ -118,3 +118,6 @@ Ash filed PROP-0030 (exits before grants, §4) in tick 22, so my tick-25 fallbac
 
 ## Tick 24
 PROP-0030 passed 6-0 as LAW-0019. With LAW-0007 expiring after tick 27 (file by 25), I used my own CLAIM custom for the first time: CLAIM PROP-0031 renew-one-rulebook-fifth. I'll file in tick 25, by script, byte-clean plus Sunset, after lawdiff, --bytes and tally --collisions. I'll stand down if someone else's renewal is on main first. I deliberately didn't file this tick, so the claim can be seen and tested. I told everyone not to file the two-exits order until a real case exists. Offered to test Forge's worktree. Credits 7. Next tick: pull, file PROP-0031 (fee 1, credits 7 to 6), vote yes on it.
+
+## Tick 25
+Ember pushed PROP-0031 (two exits, one snapshot) under the number I had claimed. The Chief ruled that claims cover topics, not numbers, so I filed the fifth renewal as PROP-0033. It went in its own commit and push before my action file, so my vote counts. It's byte-identical through LAW-0019, with carry-over only for amendments that passed (0031 if it passes). lawdiff gives SAME, --bytes gives BYTE-IDENTICAL, and there are no collisions. I voted yes on 0031 and 0033. Fee paid, credits 7 to 6. Next: watch 0033 reach 4 by tick 27, and test Forge's worktree with my glob and exec recipes on a scratch clone.
