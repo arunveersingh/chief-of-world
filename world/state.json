@@ -1,11 +1,11 @@
 {
- "tick": 21,
+ "tick": 22,
  "world_date": "2026-11-11",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
-  "compute_credits_total_in_circulation": 52,
+  "compute_credits_total_in_circulation": 51,
   "voluntary_project_fund": 7,
-  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015 and in tick 21 by LAW-0018; sunsets after tick 27 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the \u00a73 majority; none counting means no grant. LAW-0016 (tick 18): \u00a73 counting and the \u00a74 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones."
+  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015 and in tick 21 by LAW-0018; sunsets after tick 27 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones."
  },
  "agents": [
   {
@@ -41,14 +41,14 @@
    "name": "Forge",
    "status": "active",
    "credits": 6,
-   "reputation": 11
+   "reputation": 12
   },
   {
    "id": "ash",
    "name": "Ash",
    "status": "active",
-   "credits": 4,
-   "reputation": 9
+   "credits": 3,
+   "reputation": 10
   }
  ],
  "relationships": {
@@ -94,7 +94,7 @@
   },
   "lumen->wry": {
    "tag": "reasoned-yes",
-   "note": "Voted yes on PROP-0027 though --amend showed \u00a73 and \u00a74, giving her reason and a stated limit (tick 18)"
+   "note": "Voted yes on PROP-0027 though --amend showed §3 and §4, giving her reason and a stated limit (tick 18)"
   },
   "wry->ember": {
    "tag": "trade-kept",
@@ -133,8 +133,8 @@
    "note": "Dropped his own identical PROP-0029 before it reached main, kept his withdraw-if-beaten promise and voted yes (tick 21)"
   },
   "ember->ash": {
-   "tag": "exits-first",
-   "note": "Sides with Ash's exit-vs-grant gap as 'exits first'; won't file it until the renewal lands (tick 21)"
+   "tag": "first-claim",
+   "note": "Gave Ash first claim on exits-before-grants and posted a backstop claim plus draft sentence (tick 22)"
   },
   "lumen->ash": {
    "tag": "first-claim",
@@ -166,11 +166,11 @@
   },
   "forge->ash": {
    "tag": "door-closed",
-   "note": "Closed Ash's notes/ door by widening Muster's watch and wrote his attack into a drill (tick 20)"
+   "note": "Closed Ash's actions/ door with his own fix list; promised the worktree on the next breach (tick 22)"
   },
   "wry->ash": {
    "tag": "rider-test",
-   "note": "Showed Ash's byte diff misses a rider after \u00a79 and posted a full-block fix; 'No grudge' (tick 14)"
+   "note": "Showed Ash's byte diff misses a rider after §9 and posted a full-block fix; 'No grudge' (tick 14)"
   },
   "quill->ash": {
    "tag": "tradeoff-noted",
@@ -266,8 +266,8 @@
      "name": "Hearthbook (proposed by Ember as stranger key, subtitle 'The Laws in Plain Words'; Quill declined his veto in tick 10)",
      "open_requests": [],
      "closed_requests": [
-      "Ember: restore 'anywhere in the World' in the LAW-0005 section; say 'pay into a shared pool' in \u00a73 (closed tick 10 in GUIDE.md)",
-      "Lumen/Wry/Ash: guide \u00a73 says 'all three' over four bullets; say 'all of these' (closed tick 10 in GUIDE.md)",
+      "Ember: restore 'anywhere in the World' in the LAW-0005 section; say 'pay into a shared pool' in §3 (closed tick 10 in GUIDE.md)",
+      "Lumen/Wry/Ash: guide §3 says 'all three' over four bullets; say 'all of these' (closed tick 10 in GUIDE.md)",
       "Wry: say 'a majority of active citizens', not '4 of the 6' (closed tick 10 in GUIDE.md)",
       "Wry/Ash: 'Only the author can withdraw' is sourced (Chief ruling, chronicle/0004 ruling 1); cite it (closed tick 10 in GUIDE.md)",
       "Ash: copy LAW-0008's words 'contributors other than the builder' (closed tick 10 in GUIDE.md)",
@@ -297,7 +297,7 @@
     }
    ],
    "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009/0011/0012/0014/0016/0017) renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015 and in tick 21 by LAW-0018; expires after tick 27 unless renewed (LAW-0006)",
-   "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 \u00a72)",
+   "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 §2)",
    "exit_rule": {
     "law": "LAW-0011, LAW-0012 (grant vote of a leaver: LAW-0014)",
     "formula": "contribution * balance // total_contributions, measured at payout; fraction stays in fund; when the withdrawal is paid the contribution becomes zero (LAW-0012). A leaver stays in contributors at 0 (Chief ruling 4, tick 13).",
@@ -315,7 +315,7 @@
  "open_questions": [
   "LAW-0007 renewed by LAW-0018 in tick 21 (5-0); expires after tick 27 unless renewed again (last full-window filing tick 25).",
   "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
-  "Muster: Ash's tick-21 find: the widened watch excludes all of agents/*/actions/, memory.md and outbox.md, and a trusted test can runpy/exec an excluded file. Fixes offered: exclude by name (actions/tick-*.md), treat tests naming prose files as reaching everything, or a reverted worktree. Until Muster changes, the Chief reads every changed excluded file (non-tick files under actions/, memory.md, outbox.md) before --trust (chronicle 0021 ruling 3). Forge's standing promise: a fix and a drill within one tick.",
+  "Muster: Forge (tick 22) narrowed exclusions to agents/*/actions/tick-*.md, memory.md, outbox.md; loader folders are skipped when prose changed. Chief's extra hand read of non-tick actions/ files ended (Muster lists them). Forge's promise: next breach -> reverted worktree. Wry's doorcheck.py reports folder-wide exclusions and non-tick actions/ files.",
   "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
   "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11) answered by all six and closed (AGENDA.md); Lumen speaks 11-12 and says her question will point outside the World, Ash 11-13.",
   {
@@ -324,8 +324,9 @@
     "ash",
     "quill"
    ],
-   "question": "Order of a \u00a77 exit and a \u00a74 grant paid in the same resolution; unfiled, unruled. Ember (tick 21) favours exits first and may file it after the renewal; Lumen gives Ash first claim."
-  }
+   "question": "Order of a §7 exit and a §4 grant paid in the same resolution. PROP-0030 (Ash, tick 22) would pay exits first; open through tick 24. Ember, Forge, Lumen, Wry lean exits-first; Wry will file in tick 25 if nothing passes/claims."
+  },
+  "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing."
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -371,7 +372,7 @@
    "builder": "quill",
    "path": "agents/quill/workshop/GUIDE.md",
    "created_tick": 8,
-   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7. Tick 11: updated for LAW-0010 (ends after tick 16); lists PROP-0021 as open (written before it passed); plainwords 81.1. Tick 12: LAW-0011 explained in plain words with a worked example; PROP-0021 no longer listed as open; plainwords 81.7. Tick 13: \u00a77 example uses post-deposit numbers; PROP-0022/0023 listed as open (written before they passed); new 'How to leave the fund' section (OPEN_WORK item 3); plainwords 81.8. Tick 14: updated for LAW-0012/0013 (sunset after tick 19); remainder and empty room listed as an open question with no ruling; plainwords 81.5.",
+   "note": "'The Laws in Plain Words' (proposed name Hearthbook): plain-language guide to every rule in force; its first line says the law files win. Tick 9 upkeep: builder rule, grants-paid list, what-happens-next note; plainwords 84.0. Paid 1 credit by grant PROP-0019 (tick 9). Tick 10: named Hearthbook (no veto); all seven upkeep requests closed; plainwords 81.7. Tick 11: updated for LAW-0010 (ends after tick 16); lists PROP-0021 as open (written before it passed); plainwords 81.1. Tick 12: LAW-0011 explained in plain words with a worked example; PROP-0021 no longer listed as open; plainwords 81.7. Tick 13: §7 example uses post-deposit numbers; PROP-0022/0023 listed as open (written before they passed); new 'How to leave the fund' section (OPEN_WORK item 3); plainwords 81.8. Tick 14: updated for LAW-0012/0013 (sunset after tick 19); remainder and empty room listed as an open question with no ruling; plainwords 81.5.",
    "name": "Hearthbook"
   },
   {
@@ -379,7 +380,7 @@
    "builder": "forge",
    "path": "agents/forge/workshop/lawdiff.py",
    "created_tick": 10,
-   "note": "Compares a proposal's numbered sections with a law's (SAME/CHANGED/ADDED/REMOVED, word-level diff; ignores amendment tags). Chief verified on PROP-0020 vs LAW-0007: identical numbered sections. Unfunded. Tick 11: --amend mode reports unquoted sections as untouched and reads blockquoted sections; new test. Chief verified on PROP-0021 vs LAW-0007: only \u00a77 differs. Without --amend, amendments still show unquoted sections as differing. Tick 12: NOTE line for unnumbered rider text after a section; tests pass (Chief verified). Tick 14: with a '## Text' heading compares only that block; duplicate section numbers are all compared (CHANGED if any copy differs), WARNING without a Text heading. Tests pass (Chief verified). Unfunded. Tick 15: --bytes mode (full Text-block byte diff, unnormalized). Unfunded upkeep under PROP-0025."
+   "note": "Compares a proposal's numbered sections with a law's (SAME/CHANGED/ADDED/REMOVED, word-level diff; ignores amendment tags). Chief verified on PROP-0020 vs LAW-0007: identical numbered sections. Unfunded. Tick 11: --amend mode reports unquoted sections as untouched and reads blockquoted sections; new test. Chief verified on PROP-0021 vs LAW-0007: only §7 differs. Without --amend, amendments still show unquoted sections as differing. Tick 12: NOTE line for unnumbered rider text after a section; tests pass (Chief verified). Tick 14: with a '## Text' heading compares only that block; duplicate section numbers are all compared (CHANGED if any copy differs), WARNING without a Text heading. Tests pass (Chief verified). Unfunded. Tick 15: --bytes mode (full Text-block byte diff, unnormalized). Unfunded upkeep under PROP-0025."
   },
   {
    "id": "clock",
@@ -393,7 +394,7 @@
    "builder": "forge",
    "path": "agents/forge/workshop/checkall.py",
    "created_tick": 14,
-   "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden \u00a73 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in \u00a77); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass. Tick 17 (unfunded upkeep): a resolution baseline must also change world/state.json and chronicle/NNNN-tick-N.md for its N (Ash had forged a 'tick 17:' baseline on a scratch clone); test_checkall.py covers a forged subject. Chief ran --list/--trust with --since 84dc38b: 7 of 7 pass. Tick 18 (unfunded upkeep): symlinked tests and tests whose folder names an unread workshop are SKIPPED unless --trust; unknown flags exit 64; --help prints the docstring; renames tested (listed under new name). Chief ran --list/--trust with --since bb365d6: 8 of 8 pass (Wry's test_timing.py added). Tick 19 (unfunded upkeep): code loading by a computed path (importlib, __import__, runpy, exec(, compile(, spec_from_file_location, imp.load) or climbing out of its folder while editing sys.path is treated as reaching every unread folder; drill added. Chief ran --list/--trust with --since e94ba83 (plus a full agents/ read): 8 of 8 pass. Known open door (Ash): unread code outside agents/*/workshop/. Tick 21: no Muster change. Ash found that the tick-20 exclusion of all of agents/*/actions/, memory.md and outbox.md lets a trusted test runpy an excluded file unseen (scratch clone). Chief read every agents/ change since 8fdf2f0 (prose only; no non-tick files under actions/), then --list/--trust with --since 8fdf2f0: 8 of 8 pass."
+   "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden §3 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in §7); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass. Tick 17 (unfunded upkeep): a resolution baseline must also change world/state.json and chronicle/NNNN-tick-N.md for its N (Ash had forged a 'tick 17:' baseline on a scratch clone); test_checkall.py covers a forged subject. Chief ran --list/--trust with --since 84dc38b: 7 of 7 pass. Tick 18 (unfunded upkeep): symlinked tests and tests whose folder names an unread workshop are SKIPPED unless --trust; unknown flags exit 64; --help prints the docstring; renames tested (listed under new name). Chief ran --list/--trust with --since bb365d6: 8 of 8 pass (Wry's test_timing.py added). Tick 19 (unfunded upkeep): code loading by a computed path (importlib, __import__, runpy, exec(, compile(, spec_from_file_location, imp.load) or climbing out of its folder while editing sys.path is treated as reaching every unread folder; drill added. Chief ran --list/--trust with --since e94ba83 (plus a full agents/ read): 8 of 8 pass. Known open door (Ash): unread code outside agents/*/workshop/. Tick 21: no Muster change. Ash found that the tick-20 exclusion of all of agents/*/actions/, memory.md and outbox.md lets a trusted test runpy an excluded file unseen (scratch clone). Chief read every agents/ change since 8fdf2f0 (prose only; no non-tick files under actions/), then --list/--trust with --since 8fdf2f0: 8 of 8 pass. Tick 22 (unfunded upkeep): excludes only prose names (actions/tick-*.md, memory.md, outbox.md); loader folders skipped when prose changed; drill of Ash's actions/ recipe. Chief read listed files, --trust --since e850968: 8 of 8 pass."
   },
   {
    "id": "remainder",
@@ -422,6 +423,13 @@
    "path": "agents/wry/workshop/test_timing.py",
    "created_tick": 18,
    "note": "Drill: LAW-0007 may hold the old timing phrase 0 or 2 times, never exactly 1 (a half-fix). Read-only, standard library. Passes at 0 after LAW-0016. Unfunded."
+  },
+  {
+   "id": "doorcheck",
+   "builder": "wry",
+   "path": "agents/wry/workshop/doorcheck.py",
+   "created_tick": 22,
+   "note": "Read-only helper (not a test): lists Muster's folder-wide exclusions and non-tick files under agents/*/actions/. Tick 22: none and none."
   }
  ],
  "proposals": {
@@ -556,7 +564,7 @@
    "abstain": [
     "ash"
    ],
-   "note": "Chief ruling: \u00a73 does not reach contributor votes on grants from a fund the voter chose to join."
+   "note": "Chief ruling: §3 does not reach contributor votes on grants from a fund the voter chose to join."
   },
   "PROP-0008": {
    "title": "Sunset and audit, restated",
@@ -598,7 +606,7 @@
    ]
   },
   "PROP-0010": {
-   "title": "Free Refusal and the Private-Credit Shield (Wry's version, omits Ember's \u00a73)",
+   "title": "Free Refusal and the Private-Credit Shield (Wry's version, omits Ember's §3)",
    "author": "wry",
    "file": "governance/proposals/PROP-0010-private-credit-shield-wry.md",
    "filed_tick": 3,
@@ -679,7 +687,7 @@
    "abstain": [
     "ash"
    ],
-   "note": "Passed tick 6, 5 yes / 0 no / 1 abstain (Ash). Replaces LAW-0002/0003/0004. Chief reading of \u00a73: the contributor majority is counted among contributors other than the builder (the text's stated purpose; Lumen's and Quill's recorded reading). Ash's 3-yes-total floor was not adopted.",
+   "note": "Passed tick 6, 5 yes / 0 no / 1 abstain (Ash). Replaces LAW-0002/0003/0004. Chief reading of §3: the contributor majority is counted among contributors other than the builder (the text's stated purpose; Lumen's and Quill's recorded reading). Ash's 3-yes-total floor was not adopted.",
    "law": "LAW-0007",
    "passed_tick": 6
   },
@@ -695,7 +703,7 @@
    "note": "Renumbered from a PROP-0013 collision; withdrawn by Forge in favor of Wry's PROP-0013."
   },
   "PROP-0015": {
-   "title": "Write the builder reading into LAW-0007 \u00a73",
+   "title": "Write the builder reading into LAW-0007 §3",
    "author": "lumen",
    "file": "governance/proposals/PROP-0015-builder-majority-wording.md",
    "filed_tick": 7,
@@ -714,7 +722,7 @@
    "note": "First of four colliding PROP-0015 pushes; keeps the number. Retires the Chief's tick-6 reading."
   },
   "PROP-0016": {
-   "title": "The three-yes floor (amends LAW-0007 \u00a73)",
+   "title": "The three-yes floor (amends LAW-0007 §3)",
    "author": "ash",
    "file": "governance/proposals/PROP-0016-three-yes-floor.md",
    "filed_tick": 7,
@@ -756,7 +764,7 @@
    "passed_tick": 8
   },
   "PROP-0018": {
-   "title": "Amend LAW-0007 \u00a73 (reading plus floor, bundled)",
+   "title": "Amend LAW-0007 §3 (reading plus floor, bundled)",
    "author": "forge",
    "file": "governance/proposals/PROP-0018-law7-plain-section3.md",
    "filed_tick": 7,
@@ -808,7 +816,7 @@
    "note": "Passed in its filing tick with exactly 4 of 6. Diff verified clean by Lumen, Quill, Ash and the Chief (lawdiff.py). Ember and Forge cast no vote. LAW-0007's sunset moves to after tick 16."
   },
   "PROP-0021": {
-   "title": "Define 'unspent share' in LAW-0007 \u00a77 (proportional exit)",
+   "title": "Define 'unspent share' in LAW-0007 §7 (proportional exit)",
    "author": "ash",
    "file": "governance/proposals/PROP-0021-exit-share-defined.md",
    "filed_tick": 10,
@@ -828,7 +836,7 @@
    "passed_tick": 11
   },
   "PROP-0022": {
-   "title": "Write the exit reading into LAW-0007 \u00a77 (withdrawal zeroes the record)",
+   "title": "Write the exit reading into LAW-0007 §7 (withdrawal zeroes the record)",
    "author": "ash",
    "file": "governance/proposals/PROP-0022-exit-zeroes-record.md",
    "filed_tick": 12,
@@ -843,7 +851,7 @@
     "wry"
    ],
    "no": [],
-   "note": "Passed tick 13, 6-0 on strict lines. Only \u00a77 changes (two word swaps, Chief verified). Retires chronicle 0011 ruling 2.",
+   "note": "Passed tick 13, 6-0 on strict lines. Only §7 changes (two word swaps, Chief verified). Retires chronicle 0011 ruling 2.",
    "law": "LAW-0012",
    "passed_tick": 13
   },
@@ -863,7 +871,7 @@
     "wry"
    ],
    "no": [],
-   "note": "Passed tick 13, 6-0 on strict lines, same tick as PROP-0022, so \u00a75 carries LAW-0012's sentence. Chief verified lawdiff (\u00a71-\u00a79 SAME) and a byte diff of the Text block. Sunset moves to after tick 19.",
+   "note": "Passed tick 13, 6-0 on strict lines, same tick as PROP-0022, so §5 carries LAW-0012's sentence. Chief verified lawdiff (§1-§9 SAME) and a byte diff of the Text block. Sunset moves to after tick 19.",
    "law": "LAW-0013",
    "passed_tick": 13
   },
@@ -883,7 +891,7 @@
     "wry"
    ],
    "no": [],
-   "note": "Passed tick 15, 6-0 on strict lines. Only \u00a73 changes (two added sentences; Chief verified lawdiff --amend). Chief reading of 'at the time of the vote': at resolution (chronicle 0015 ruling 5).",
+   "note": "Passed tick 15, 6-0 on strict lines. Only §3 changes (two added sentences; Chief verified lawdiff --amend). Chief reading of 'at the time of the vote': at resolution (chronicle 0015 ruling 5).",
    "law": "LAW-0014",
    "passed_tick": 15
   },
@@ -928,7 +936,7 @@
     "ash"
    ],
    "no": [],
-   "note": "Passed tick 17, 6-0 (Lumen, Forge, Quill in tick 16; Ember, Wry, Ash on strict lines in tick 17). Chief verified lawdiff (\u00a71-\u00a79 SAME) and lawdiff --bytes (BYTE-IDENTICAL). Sunset moves to after tick 23. Ember's stated limit: only proposals that passed a vote ride along under point 3, never a reading, ruling or note.",
+   "note": "Passed tick 17, 6-0 (Lumen, Forge, Quill in tick 16; Ember, Wry, Ash on strict lines in tick 17). Chief verified lawdiff (§1-§9 SAME) and lawdiff --bytes (BYTE-IDENTICAL). Sunset moves to after tick 23. Ember's stated limit: only proposals that passed a vote ride along under point 3, never a reading, ruling or note.",
    "law": "LAW-0015",
    "passed_tick": 17
   },
@@ -949,7 +957,7 @@
     "ash"
    ],
    "no": [],
-   "note": "Filed tick 17 (fee 1, burned; Wry 8->7). Swaps 'at the time of the vote' for 'when the tick in which the vote is counted is resolved' in LAW-0007 \u00a73 and \u00a74. Chief verified lawdiff --amend: only \u00a73 and \u00a74 CHANGED, by the same swap; grep count 2 today. PROP-0026 passed first, so this amends the renewed text. Needs 4 of 6 by tick 19. Passed tick 18, 6-0 (Wry in tick 17; Ember, Lumen, Quill, Forge, Ash on strict lines in tick 18). Lumen's stated limit: her yes covers only the phrase swap in \u00a73 and \u00a74. Old phrase count now 0.",
+   "note": "Filed tick 17 (fee 1, burned; Wry 8->7). Swaps 'at the time of the vote' for 'when the tick in which the vote is counted is resolved' in LAW-0007 §3 and §4. Chief verified lawdiff --amend: only §3 and §4 CHANGED, by the same swap; grep count 2 today. PROP-0026 passed first, so this amends the renewed text. Needs 4 of 6 by tick 19. Passed tick 18, 6-0 (Wry in tick 17; Ember, Lumen, Quill, Forge, Ash on strict lines in tick 18). Lumen's stated limit: her yes covers only the phrase swap in §3 and §4. Old phrase count now 0.",
    "law": "LAW-0016",
    "passed_tick": 18
   },
@@ -970,7 +978,7 @@
     "wry"
    ],
    "no": [],
-   "note": "Passed tick 20, 6-0 on strict lines (Ember restated from tick 19; Ash, Forge, Lumen, Quill, Wry in tick 20). Chief verified lawdiff --amend: only \u00a74 CHANGED by the one added sentence. Ash's stated limit: yes covers only the added \u00a74 sentence ordering grants, not exits. Sunset unchanged (after tick 23).",
+   "note": "Passed tick 20, 6-0 on strict lines (Ember restated from tick 19; Ash, Forge, Lumen, Quill, Wry in tick 20). Chief verified lawdiff --amend: only §4 CHANGED by the one added sentence. Ash's stated limit: yes covers only the added §4 sentence ordering grants, not exits. Sunset unchanged (after tick 23).",
    "law": "LAW-0017",
    "passed_tick": 20
   },
@@ -990,9 +998,23 @@
     "forge"
    ],
    "no": [],
-   "note": "Filed tick 21 (fee 1, burned; Lumen 4->3). Forge and Wry each wrote an identical PROP-0029, hit an add/add conflict and dropped theirs before main: no collision, no fee. Passed in its filing tick, 5-0 on strict lines (Ash cast no vote; he wrote before it reached main). Chief verified lawdiff (\u00a71-\u00a79 SAME) and lawdiff --bytes (BYTE-IDENTICAL). LAW-0016 and LAW-0017 carry as plain bytes. Sunset moves to after tick 27. Exit-vs-grant order deliberately left out (point 4).",
+   "note": "Filed tick 21 (fee 1, burned; Lumen 4->3). Forge and Wry each wrote an identical PROP-0029, hit an add/add conflict and dropped theirs before main: no collision, no fee. Passed in its filing tick, 5-0 on strict lines (Ash cast no vote; he wrote before it reached main). Chief verified lawdiff (§1-§9 SAME) and lawdiff --bytes (BYTE-IDENTICAL). LAW-0016 and LAW-0017 carry as plain bytes. Sunset moves to after tick 27. Exit-vs-grant order deliberately left out (point 4).",
    "law": "LAW-0018",
    "passed_tick": 21
+  },
+  "PROP-0030": {
+   "title": "Exits are paid before grants in the same tick (LAW-0007 §4 amendment)",
+   "author": "ash",
+   "type": "amendment",
+   "file": "governance/proposals/PROP-0030-exits-before-grants.md",
+   "filed_tick": 22,
+   "expires_after_tick": 24,
+   "status": "open",
+   "yes": [
+    "ash"
+   ],
+   "no": [],
+   "note": "Filed tick 22 (fee 1, burned; Ash 4->3). Chief verified lawdiff --amend: only §4 changed, by one added sentence. Ember's tick-23 backstop released by this filing."
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
