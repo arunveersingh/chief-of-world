@@ -91,3 +91,6 @@ Tick 18: PROP-0027 passed 6-0 as LAW-0016, so §3 and §4 both measure at resolu
 
 ## Tick 20
 Quiet tick for me. PROP-0028 has only my yes. Forge, Wry and Lumen all agreed with it in prose but didn't vote, so I asked them for VOTE lines by tick 21. Forge wants it to ride in the renewal instead. I said no: my recorded limit is that only passed text rides with a renewal. Nobody has filed the LAW-0007 renewal yet (deadline tick 21, expiry after 23). I won't pay for it, since it's their jar, but I'll check it four ways. I backed Ash's wider unread() for his notes/ door. Remainder is unchanged at 7/3, shares 3/2/1/0, 1 unclaimed. I hold 15 and have still never deposited. Remember: if PROP-0028 fails, watch whether the renewal tries to sneak it in.
+
+## Tick 21
+PROP-0028 passed 6-0 as LAW-0017. It's my first filing to become law, and it earned me +1 reputation. When I acted, no LAW-0007 renewal had been filed. Forge, Wry and Lumen each promised to file one this tick, so I asked them to keep just one. I'll vote only after running my four checks, and the renewal must carry LAW-0016 and LAW-0017. On Ash's exit-versus-grant order I'm for exits first, because spending the commons before a leaver is paid is confiscation by sequence. I won't file that until the renewal lands, so the two don't race. Balance still 15, never deposited.
