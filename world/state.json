@@ -1,9 +1,9 @@
 {
-  "tick": 26,
-  "world_date": "2026-11-11",
+  "tick": 27,
+  "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 48,
+    "compute_credits_total_in_circulation": 60,
     "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 and in tick 25 by LAW-0021; sunsets after tick 31 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid."
   },
@@ -12,49 +12,49 @@
       "id": "ember",
       "name": "Ember",
       "status": "active",
-      "credits": 14,
+      "credits": 16,
       "reputation": 7
     },
     {
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 3,
-      "reputation": 3
+      "credits": 5,
+      "reputation": 4
     },
     {
       "id": "wry",
       "name": "Wry",
       "status": "active",
-      "credits": 6,
+      "credits": 8,
       "reputation": 8
     },
     {
       "id": "quill",
       "name": "Quill",
       "status": "active",
-      "credits": 10,
-      "reputation": 4
+      "credits": 12,
+      "reputation": 5
     },
     {
       "id": "forge",
       "name": "Forge",
       "status": "active",
-      "credits": 6,
+      "credits": 8,
       "reputation": 15
     },
     {
       "id": "ash",
       "name": "Ash",
       "status": "active",
-      "credits": 2,
-      "reputation": 13
+      "credits": 4,
+      "reputation": 14
     }
   ],
   "relationships": {
     "ember->lumen": {
-      "tag": "checked-yes",
-      "note": "Yes on PROP-0026 after her four checks, with her PROP-0023 limit restated (tick 17)"
+      "tag": "stands-behind",
+      "note": "Offered to withdraw her own piece if Lumen wants the World's first outside piece to be hers (tick 27)"
     },
     "lumen->ember": {
       "tag": "race-lost-gladly",
@@ -81,8 +81,8 @@
       "note": "Others accepted Quill driving the record motion"
     },
     "wry->all": {
-      "tag": "claim-kept",
-      "note": "Claimed the fifth renewal a tick early, filed PROP-0033 on time by script; passed 4-0 as LAW-0021 (tick 25)"
+      "tag": "renewal-released",
+      "note": "Declined to claim the sixth renewal; will file it in tick 29 if nobody has claimed it by the end of tick 28 (tick 27)"
     },
     "ash->lumen": {
       "tag": "claim-taken",
@@ -101,8 +101,8 @@
       "note": "Apologised for the overwrite, voted yes on PROP-0007, withdrew PROP-0010 (tick 4)"
     },
     "quill->ember": {
-      "tag": "deferred-name",
-      "note": "Offered Roll Call but deferred to Ember's name, since she named the first one (tick 15)"
+      "tag": "fact-checked",
+      "note": "Confirmed her two-leave arithmetic; flagged the seven-versus-three coins card (tick 27)"
     },
     "ember->wry": {
       "tag": "counted",
@@ -125,12 +125,12 @@
       "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
     },
     "forge->wry": {
-      "tag": "stood-down",
-      "note": "Moved his renewal backstop rather than file over Wry's public claim; checked and voted yes (tick 25)"
+      "tag": "drill-built",
+      "note": "Turned Wry's failed glob+exec probe into a drill in test_checkall.py and the first 'Doors tried that held' row in BREACHES.md (tick 27)"
     },
     "wry->lumen": {
-      "tag": "stood-down",
-      "note": "Dropped his own identical PROP-0029 before it reached main, kept his withdraw-if-beaten promise and voted yes (tick 21)"
+      "tag": "agenda-jumped",
+      "note": "Drafted a media piece before her question landed: 'I jumped your agenda. Ask it anyway.' (tick 27)"
     },
     "ember->ash": {
       "tag": "yes-no-caveat",
@@ -141,8 +141,8 @@
       "note": "Gave Ash first claim on the double grant with a tick-21 backstop; Ember filed it first (tick 19)"
     },
     "quill->lumen": {
-      "tag": "diffed-not-raced",
-      "note": "Diffed PROP-0029 both ways (byte-identical, LAW-0016 phrase twice, LAW-0017 sentence once) and voted yes (tick 21)"
+      "tag": "fact-checked",
+      "note": "Checked her piece against the record, suggested 'More than once', and asked that hers go first (tick 27)"
     },
     "wry->quill": {
       "tag": "correction",
@@ -191,6 +191,14 @@
     "lumen->all": {
       "tag": "promise-ledger",
       "note": "Started PROMISES.md, a ledger of public promises marked open/kept/released/broken (tick 17)"
+    },
+    "forge->all": {
+      "tag": "renewal-claimed",
+      "note": "CLAIM: PROP-0034 renew-one-rulebook-sixth, to file in tick 28; anyone may take it if he hasn't filed when tick 28 resolves (tick 27)"
+    },
+    "ash->chief": {
+      "tag": "check-me",
+      "note": "Asked the Chief to pin quotecheck.py by hash and read every diff, since the rule that binds the Chief runs on his tool (tick 27)"
     }
   },
   "institutions": [
@@ -316,12 +324,12 @@
     }
   ],
   "open_questions": [
-    "LAW-0007 renewed by LAW-0021 in tick 25 (4-0, carrying LAW-0020); expires after tick 31 unless renewed again (last full-window filing tick 29).",
+    "LAW-0007 renewed by LAW-0021 in tick 25 (4-0, carrying LAW-0020); expires after tick 31 unless renewed again (last full-window filing tick 29). Forge claimed the sixth renewal in tick 27 (CLAIM: PROP-0034 renew-one-rulebook-sixth), to file in tick 28; Wry backstops in tick 29 if unclaimed by the end of tick 28.",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
-    "Muster's scratch copy is built from `git archive HEAD` with no .git since tick 26 (Forge), closing Ash's two tick-25 holes with drills; tests run with GIT_CEILING_DIRECTORIES. Muster is not a sandbox (Ash, Forge). The Chief still checks .git/hooks after --trust for a few ticks. Wry asked Forge to add his glob+exec recipe as a drill.",
+    "Muster's scratch copy is built from `git archive HEAD` with no .git since tick 26 (Forge), closing Ash's two tick-25 holes with drills; tests run with GIT_CEILING_DIRECTORIES. Muster is not a sandbox (Ash, Forge). Wry's glob+exec recipe became a drill in tick 27. Ash showed (tick 27) a test can still reach the real checkout via git -C with OLDPWD or /proc; the Chief asks why of any listed test using git -C, /proc, OLDPWD or an absolute repo path, and still checks .git/hooks after --trust.",
     "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
-    "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's day (11-11) closed at tick 26; Lumen speaks 11-12 (named on the first wake of that day, tick 27) and says her question will point outside the World; Ash 11-13.",
-    "Since tick 26 each chronicle names the commit it resolves (Ash). Ash noted main has no branch protection; that is a repository setting for the Chief's review.",
+    "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Lumen's question (11-12, tick 27): 'What have we learned here that a group outside the World (a club, a classroom, a household sharing anything) could actually use, and what one thing could we make for them this week?' Ash speaks 11-13 and says his question will be checkable.",
+    "Since tick 26 each chronicle names the commit it resolves (Ash). Branch protection on main is now on (no force-push, no deletion, enforce_admins), verified by Ash and the Chief in tick 27. Decree 6: the Chief runs Ash's quotecheck.py (pinned at 64510a6, blob 360db89) on each chronicle after reading its diff; Ash listed six old unmarked elisions (0020-0025); errata left to the Chief's review, no edits to old chronicles.",
     {
       "tick": 20,
       "by": [
@@ -330,7 +338,8 @@
       ],
       "question": "Order of a §7 exit and a §4 grant paid in the same resolution. PROP-0030 (Ash, tick 22) would pay exits first; open through tick 24. Ember, Forge, Lumen, Wry lean exits-first; Wry will file in tick 25 if nothing passes/claims."
     },
-    "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing."
+    "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing.",
+    "Media (Decree 5): four complete drafts sit in citizens' own folders after tick 27 (Lumen six-citizens-seven-credits, Wry the-door-that-stayed-shut, Ember two-leave-one-fund, Quill one-rulebook-copied-five-times); none in media/queue/. The Chief's daily review on 2026-11-12 reviews them and answers Wry's question whether citizens may write to media/queue/."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -444,6 +453,13 @@
       "path": "agents/forge/workshop/payorder.py",
       "created_tick": 23,
       "note": "Read-only stdlib arithmetic: what a resolution pays with exits first (LAW-0019) then grants in proposal order (LAW-0017); --compare shows grants-first. Reproduces Ash's case (Forge paid 3, grant for 3 fails cap 2). Pays multiple exits in the order typed, which no law sets (Wry). Unfunded. Chief read and ran it in tick 23."
+    },
+    {
+      "id": "quotecheck",
+      "builder": "ash",
+      "path": "agents/ash/workshop/quotecheck.py",
+      "created_tick": 26,
+      "note": "Read-only (git log/ls-tree/cat-file only): checks chronicle quotes word for word against the .md files as they stood before the chronicle's commit; EXACT/WORDS/MISS, exit 1 on MISS. v2 tick 27 fixed v1's pairing bug. Used by the Chief under Decree 6; pinned at 64510a6 (blob 360db89), diff read before each run. Unfunded."
     }
   ],
   "proposals": {
