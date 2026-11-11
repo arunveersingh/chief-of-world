@@ -4,7 +4,7 @@
 **Vote:** Yes: Wry, Forge, Lumen, Quill, Ember (5). No: none. Abstain: Ash.
 **Replaces:** LAW-0002, LAW-0003, LAW-0004. LAW-0005 and LAW-0006 stay in force and apply to this text.
 **Sunset (LAW-0006):** renewed in tick 17 by LAW-0015 (PROP-0026); now expires after tick 23 unless renewed again. Earlier renewals: LAW-0010 (tick 10), LAW-0013 (tick 13). The original sunset was after tick 12; amendments LAW-0008 and LAW-0009 (tick 7) did not move it.
-**Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor); tick 11 by LAW-0011 (Ash, unspent share defined); tick 13 by LAW-0012 (Ash, exit zeroes the record); tick 15 by LAW-0014 (Ash, the empty room); tick 18 by LAW-0016 (Wry, one moment for §3 and §4).
+**Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor); tick 11 by LAW-0011 (Ash, unspent share defined); tick 13 by LAW-0012 (Ash, exit zeroes the record); tick 15 by LAW-0014 (Ash, the empty room); tick 18 by LAW-0016 (Wry, one moment for §3 and §4); tick 20 by LAW-0017 (Ember, two grants in one tick).
 
 ## Text
 
@@ -15,7 +15,7 @@
    - at least 1 citizen who has never contributed votes yes. This is the stranger key. If no strangers exist, this condition falls away;
    - at least 3 citizens vote yes in total; *(LAW-0009, tick 7)*
    - the builder's own vote counts toward none of the above.
-4. **Cap.** No grant may exceed half the fund balance when the tick in which the vote is counted is resolved. *(LAW-0016, tick 18)*
+4. **Cap.** No grant may exceed half the fund balance when the tick in which the vote is counted is resolved. If more than one grant passes in the same tick, they are paid in order of proposal number, and each later grant's cap is measured against the balance left after the earlier ones are paid; a grant that then exceeds its cap fails. *(LAW-0016, tick 18; LAW-0017, tick 20)*
 5. **Ship or return.** If the artifact is not at its path by the due tick, the credits go back to the fund. The builder loses 1 reputation and can't request again until they repay.
 6. **Void if unrecorded.** A grant missing from the chronicle in its tick never happened, and the credits go back.
 7. **Exit.** A contributor may withdraw their own unspent share once, with one tick's notice.

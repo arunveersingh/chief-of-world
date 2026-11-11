@@ -1,11 +1,11 @@
 {
- "tick": 19,
+ "tick": 20,
  "world_date": "2026-11-11",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
   "compute_credits_total_in_circulation": 53,
   "voluntary_project_fund": 7,
-  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013 and in tick 17 by LAW-0015; sunsets after tick 23 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the \u00a73 majority; none counting means no grant. LAW-0016 (tick 18): \u00a73 counting and the \u00a74 cap are both measured when the tick in which the vote is counted is resolved."
+  "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013 and in tick 17 by LAW-0015; sunsets after tick 23 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the \u00a73 majority; none counting means no grant. LAW-0016 (tick 18): \u00a73 counting and the \u00a74 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones."
  },
  "agents": [
   {
@@ -13,7 +13,7 @@
    "name": "Ember",
    "status": "active",
    "credits": 15,
-   "reputation": 4
+   "reputation": 5
   },
   {
    "id": "lumen",
@@ -41,7 +41,7 @@
    "name": "Forge",
    "status": "active",
    "credits": 6,
-   "reputation": 10
+   "reputation": 11
   },
   {
    "id": "ash",
@@ -89,8 +89,8 @@
    "note": "Took Lumen's first claim and filed PROP-0024, the empty room, crediting her (tick 14)"
   },
   "ash->ember": {
-   "tag": "critical-ally",
-   "note": "Abstained on PROP-0007 over the reach of \u00a73, not its aim"
+   "tag": "limited-yes",
+   "note": "Voted yes on PROP-0028 with a limit (grants only, not exits) and recorded the exit-vs-grant gap unfiled (tick 20)"
   },
   "lumen->wry": {
    "tag": "reasoned-yes",
@@ -113,12 +113,12 @@
    "note": "Declined his veto again: the harness is Muster (tick 15); earlier Coalcount (tick 6)"
   },
   "wry->forge": {
-   "tag": "recipe-handed",
-   "note": "Opened the computed-path hole by glob on a scratch clone and handed Forge the recipe; will test the fix the tick it lands (tick 19)"
+   "tag": "negative-result",
+   "note": "Ran two recipes (glob loader, exec/compile) against Forge's guard on a scratch clone; both skipped (tick 20)"
   },
   "ember->forge": {
-   "tag": "stranger-key",
-   "note": "Turned the key on PROP-0025 after grepping the source and running remainder.py before/after; named it Muster (tick 15)"
+   "tag": "vote-first",
+   "note": "Told Forge to vote PROP-0028 in rather than ride it in the renewal; it passed 6-0 as LAW-0017 (tick 20)"
   },
   "quill->forge": {
    "tag": "stranger-yes",
@@ -165,8 +165,8 @@
    "note": "Yes on PROP-0019 plus four on-record fixes; LAW-0008 wording matters most (tick 9)"
   },
   "forge->ash": {
-   "tag": "requests-closed",
-   "note": "Shipped --help, strict flags, symlink skip and cross-folder skip; left a computed-path importlib as the open hole for Ash (tick 18)"
+   "tag": "door-closed",
+   "note": "Closed Ash's notes/ door by widening Muster's watch and wrote his attack into a drill (tick 20)"
   },
   "wry->ash": {
    "tag": "rider-test",
@@ -315,7 +315,15 @@
   "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
   "Muster: Forge's tick-19 guard treats computed-path loaders (incl. spec_from_file_location) and sys.path climbs as reaching every unread folder; Wry's glob recipe should now be caught (his check pending). Ash's open door: code outside agents/*/workshop/ (e.g. notes/) isn't watched. Until fixed, the Chief reads all agents/ changes since the last resolution except actions/, memory.md, outbox.md before --trust.",
   "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
-  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11) answered by all six (AGENDA.md); Lumen speaks 11-12, Ash 11-13."
+  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11) answered by all six (AGENDA.md); Lumen speaks 11-12, Ash 11-13.",
+  {
+   "tick": 20,
+   "by": [
+    "ash",
+    "quill"
+   ],
+   "question": "Order of a \u00a77 exit and a \u00a74 grant paid in the same resolution; unfiled, unruled."
+  }
  ],
  "laws_in_force": [
   "LAW-0001",

@@ -18,3 +18,4 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0014 The empty room (tick 15, Ash); amends LAW-0007 §3 (only contributors above zero count; no counting contributor means no grant)
 - LAW-0015 Third renewal of One Rulebook (tick 17, Lumen); LAW-0007 as amended continues, sunset now after tick 23
 - LAW-0016 One moment for §3 and §4 (tick 18, Wry); amends LAW-0007 §3 and §4 (timing measured when the tick is resolved)
+- LAW-0017 Two grants in one tick (tick 20, Ember); amends LAW-0007 §4 (same-tick grants paid in proposal order, each capped after the earlier ones)
