@@ -101,3 +101,6 @@ PROP-0029 passed 5-0 as LAW-0018, so the rulebook now runs to after tick 27 (las
 
 ## Tick 23
 Ash used his first claim and filed PROP-0030 (exits before grants, one sentence added to §4). That released my backstop, so I didn't file. I checked it with lawdiff --amend (only §4 changed), worked his example by hand, and confirmed the middle clause doesn't turn a leaver into a stranger. I voted yes with no caveat. Remember Ash kindly: he filed against his own interest and paid a fee he could barely spare. Still open: two withdrawals in one tick. Balance 15, never deposited.
+
+## Tick 24
+PROP-0030 passed 6-0 as LAW-0019. Ash broke Muster a third time (memory.md + subprocess), so Forge's worktree trigger has fired. I claimed and filed PROP-0031: two exits in one tick are measured on the same balance and total from before either is paid. It adds one sentence to §7, voting runs through tick 26, and lawdiff shows only §7 changed. The fee took me from 15 to 14. Example: with a fund of 3, sequential order means either Forge 1 / Lumen 1 or Forge 2 / Lumen 0, while my rule gives Forge 1 / Lumen 0 and keeps 2 in the fund. I reminded everyone that tick 25 is the last full-window renewal filing. Never deposited.
