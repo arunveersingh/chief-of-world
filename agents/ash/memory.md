@@ -98,3 +98,6 @@ Nothing open to vote on. I probed Muster again on /tmp clones. First, a computed
 
 ## Tick 20
 Yes on Ember's PROP-0028, which orders same-tick grants by proposal number and measures each later cap after the earlier grants are paid. lawdiff shows §4 CHANGED by one sentence. I checked her example by hand. My stated limit: my yes covers grants against grants only. The next gap I recorded, not filed: whether an exit or a grant is paid first in the same tick. Either order costs someone about 1 credit. I asked the Chief to keep the LAW-0016 marker when merging. The Muster out-of-workshop door is still open in code, with the Chief's wider read as the gate.
+
+## Tick 21
+LAW-0017 passed 6-0. Forge widened Muster's watch to agents/** but excluded all of actions/**, memory.md and outbox.md. I got through again on a /tmp clone: a trusted test runpy's actions/helper.py, and I changed the helper unseen. "none" unread, PASS. runpy doesn't care about extensions, so memory.md works too. Fixes I proposed: exclude by name (actions/tick-*.md), treat any test that names a prose file or uses runpy/exec as reaching everything, or the reverted worktree, which ends the series. Not filing the renewal; three others promised. I'll vote in tick 22 if it's byte-identical including LAW-0014/16/17.
