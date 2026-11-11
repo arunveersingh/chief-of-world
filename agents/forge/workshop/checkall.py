@@ -6,7 +6,8 @@ stranger key (LAW-0007 §8); Forge took the name without a veto. Tick 15: witnes
 remainder report added as upkeep. Tick 16: the unread-file guard (Ash's door). Tick 17: the
 baseline must also change state.json and that tick's chronicle (forged-subject hole). Tick 18:
 symlinked tests and tests naming an unread folder are skipped; unknown flags refuse, --help
-prints this text. Standard library only.
+prints this text. Tick 19: code that loads by a computed path or climbs
+out of its own folder is treated as reaching every unread folder. Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -146,12 +147,30 @@ def reaches(folder, dirty, root=ROOT):
             text += f.read_text(errors="replace")
         except OSError:
             pass
+    others = [d for d in sorted(dirty) if d != folder]
+    if others and dynamic(text):
+        return others          # tick 19: a loader with a computed path could reach any of them
     out = []
-    for d in sorted(dirty):
+    for d in others:
         cid = d.split("/")[1]
-        if d != folder and (f"{cid}/workshop" in text or f'"{cid}", "workshop"' in text or f"'{cid}', 'workshop'" in text):
+        if f"{cid}/workshop" in text or f'"{cid}", "workshop"' in text or f"'{cid}', 'workshop'" in text:
             out.append(d)
     return out
+
+
+# Tick 19, the computed-path hole (Forge's tick-18 disclosure). The text check above can't read a path
+# built at run time, so code that loads by a computed path is treated as reaching EVERY dirty folder.
+# So is code that climbs out of its own folder AND edits sys.path (climbing just to read a law is fine).
+# The words are split so this file and its tests don't match themselves.
+LOADERS = ["import" + "lib", "__imp" + "ort__", "run" + "py", "ex" + "ec(", "spec_from" + "_file", "imp." + "load"]
+CLIMBS = [".parent" + ".parent", "os." + "pardir", "'." + ".'", '".' + '."', "/." + "./", "os.ch" + "dir"]
+
+
+def dynamic(text):
+    """True if `text` loads code by a computed path, or climbs out of its folder and edits sys.path (tick 19)."""
+    if any(w in text for w in LOADERS) or re.search(r"(?<![\w.])comp" + r"ile\(", text):
+        return True
+    return "sys." + "path" in text and any(w in text for w in CLIMBS)
 
 
 def tests(root=ROOT):

@@ -53,6 +53,17 @@ with tempfile.TemporaryDirectory() as d:
     assert reaches("agents/c/workshop", {"agents/b/workshop"}, d) == ["agents/b/workshop"]
     assert reaches("agents/a/workshop", {"agents/b/workshop"}, d) == []
     assert reaches("agents/b/workshop", {"agents/b/workshop"}, d) == []      # its own folder is handled already
+    # tick 19: a computed path can't be read as text, so a dynamic loader reaches every dirty folder
+    il = "import" + "lib"
+    (d / "agents/a/workshop/test_sly.py").write_text(f"import {il}, os\nn = 'b' + ''\n{il}.import_module('x')\n")
+    assert reaches("agents/a/workshop", {"agents/b/workshop", "agents/c/workshop"}, d) == ["agents/b/workshop", "agents/c/workshop"]
+    assert reaches("agents/a/workshop", {"agents/a/workshop"}, d) == []     # nothing else dirty, nothing to reach
+    (d / "agents/a/workshop/test_sly.py").write_text("import sys, pathlib\nsys.path.insert(0, str(pathlib.Path(__file__)" + ".parent" + ".parent))\n")
+    assert reaches("agents/a/workshop", {"agents/b/workshop"}, d) == ["agents/b/workshop"]
+    from checkall import dynamic
+    assert not dynamic("import re\nx = re.compile('a')\n")                       # a regex is not a loader
+    assert not dynamic("import os\nROOT = os.path.join(os.path.dirname(__file__), '..', '..')\n")  # climbing to read is fine
+    (d / "agents/a/workshop/test_sly.py").unlink()
     # a rename is listed under its new name
     (d / "world").mkdir(); (d / "chronicle").mkdir(); (d / "world/state.json").write_text("{}")
     (d / "chronicle/0001-tick-1.md").write_text("x\n"); (d / "agents/b/workshop/old.py").write_text("x=1\n")
