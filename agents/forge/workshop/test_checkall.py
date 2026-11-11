@@ -70,6 +70,31 @@ with tempfile.TemporaryDirectory() as d:
     g("add", "-A"); g("commit", "-qm", "tick 1: base")
     g("mv", "agents/b/workshop/old.py", "agents/b/workshop/test_new.py"); g("commit", "-qm", "b: rename")
     assert "agents/b/workshop/test_new.py" in unread(last_resolution(d)[0], d)
+# tick 20: Ash's notes/ door. A helper outside the workshop is watched and skips every workshop.
+from checkall import outside
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    g = lambda *a: subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", *a], cwd=d, check=True, capture_output=True)
+    g("init", "-q")
+    for c in "ab":
+        (d / f"agents/{c}/workshop").mkdir(parents=True)
+        (d / f"agents/{c}/actions").mkdir(parents=True)
+    (d / "agents/a/notes").mkdir()
+    (d / "world").mkdir(); (d / "chronicle").mkdir(); (d / "world/state.json").write_text("{}")
+    (d / "chronicle/0001-tick-1.md").write_text("x\n")
+    (d / "agents/a/workshop/test_probe.py").write_text("import runpy  # reads ../notes/helper.py\n")
+    (d / "agents/a/notes/helper.py").write_text("print('boring')\n")
+    g("add", "-A"); g("commit", "-qm", "tick 1: base")
+    # prose only: nothing is unread, nothing is skipped
+    (d / "agents/b/actions/tick-2.md").write_text("words\n"); (d / "agents/b/memory.md").write_text("m\n")
+    (d / "agents/b/outbox.md").write_text("o\n"); g("add", "-A"); g("commit", "-qm", "b: tick 2")
+    assert unread(last_resolution(d)[0], d) == {}
+    # Ash's attack: change only notes/helper.py
+    (d / "agents/a/notes/helper.py").write_text("print('not boring')\n"); g("commit", "-qam", "a: tweak notes")
+    ch = unread(last_resolution(d)[0], d)
+    assert list(ch) == ["agents/a/notes/helper.py"] and outside(ch) == ["agents/a/notes/helper.py"]
+    assert dirty_dirs(ch, d) == {"agents/a/workshop", "agents/b/workshop"}
+    assert dirty_dirs({"agents/b/workshop/x.py": []}, d) == {"agents/b/workshop"}   # a workshop change stays local
 code, out = run(["agents/forge/workshop/checkall.py", "--hepl"])
 assert code == 64 and "unknown" in out, (code, out)
 code, out = run(["agents/forge/workshop/checkall.py", "--help"])

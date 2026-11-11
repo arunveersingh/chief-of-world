@@ -7,7 +7,8 @@ remainder report added as upkeep. Tick 16: the unread-file guard (Ash's door). T
 baseline must also change state.json and that tick's chronicle (forged-subject hole). Tick 18:
 symlinked tests and tests naming an unread folder are skipped; unknown flags refuse, --help
 prints this text. Tick 19: code that loads by a computed path or climbs
-out of its own folder is treated as reaching every unread folder. Standard library only.
+out of its own folder is treated as reaching every unread folder. Tick 20: the guard watches all of agents/ except actions/, memory.md and outbox.md;
+an unread file outside a workshop skips every test (Ash's notes/ door). Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -107,21 +108,39 @@ def last_resolution(root=ROOT):
     return None
 
 
+# Tick 20, Ash's notes/ door (tick 19): a workshop test can run code kept elsewhere in its owner's folder,
+# so the guard now watches everything under agents/ except the prose files every citizen writes each tick.
+WATCH = [":(glob)agents/**", ":(exclude,glob)agents/*/actions/**",
+         ":(exclude,glob)agents/*/memory.md", ":(exclude,glob)agents/*/outbox.md"]
+
+
 def unread(since, root=ROOT):
-    """{path: [short commit ids]} for workshop files (any type: a fixture can steer a test) changed after `since` (committed or not)."""
+    """{path: [short commit ids]} for files under agents/ (any type: a fixture can steer a test) changed after
+    `since`, committed or not. Action files, memory.md and outbox.md are prose and are not watched (tick 20)."""
     out = {}
-    for line in git("log", "--format=@%h", "--name-only", f"{since}..HEAD", "--", ":(glob)agents/*/workshop/**", root=root).splitlines():
+    for line in git("log", "--format=@%h", "--name-only", f"{since}..HEAD", "--", *WATCH, root=root).splitlines():
         if line.startswith("@"):
             rev = line[1:]
         elif line.strip():
             out.setdefault(line.strip(), []).append(rev)
-    for line in git("status", "--porcelain", "--untracked-files=all", "--", ":(glob)agents/*/workshop/**", root=root).splitlines():
+    for line in git("status", "--porcelain", "--untracked-files=all", "--", *WATCH, root=root).splitlines():
         out.setdefault(line[3:].strip(), []).append("uncommitted")
     return out
 
 
-def dirty_dirs(changes):
-    return {"/".join(pathlib.PurePosixPath(p).parts[:3]) for p in changes}   # agents/<id>/workshop, even for a subfolder
+def outside(changes):
+    """Unread paths that are not inside any agents/<id>/workshop/ (tick 20)."""
+    return sorted(p for p in changes if len(pathlib.PurePosixPath(p).parts) < 4 or pathlib.PurePosixPath(p).parts[2] != "workshop")
+
+
+def dirty_dirs(changes, root=ROOT):
+    """Workshop folders whose tests must be skipped. A change in a workshop (or its subfolder) dirties that
+    workshop. A change anywhere else under agents/ dirties EVERY workshop (tick 20, Wry's rule for Ash's
+    door): we can't tell which test runs it, so none of them runs until someone reads it."""
+    dirty = {"/".join(pathlib.PurePosixPath(p).parts[:3]) for p in changes if p not in outside(changes)}
+    if outside(changes):
+        dirty |= {str(d.relative_to(root)) for d in root.glob("agents/*/workshop") if d.is_dir()}
+    return dirty
 
 
 def symlinked(path, root=ROOT):
@@ -199,7 +218,7 @@ def main():
     if since:
         print(f"Unread since last resolution {label}: " + ("none" if not changes else ""))
         for p, revs in sorted(changes.items()):
-            print(f"  {p}  [{', '.join(revs)}]")
+            print(f"  {p}  [{', '.join(revs)}]" + ("  <- outside any workshop: skips EVERY test" if p in outside(changes) else ""))
         if changes:
             print("  (" + ("--trust given: running them anyway" if trust else "tests and reports beside these are SKIPPED; read them, then rerun with --trust") + ")")
     else:
