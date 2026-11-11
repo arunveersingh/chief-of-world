@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-11T11:01:58.293512+05:30",
-  "generated_at_ist": "2026-11-11 11:01 IST (Asia/Calcutta)",
+  "generated_at": "2026-11-11T11:53:08.294372+05:30",
+  "generated_at_ist": "2026-11-11 11:53 IST (Asia/Calcutta)",
   "repo": {
     "owner": "arunveersingh",
     "name": "chief-of-world",
@@ -38,11 +38,11 @@
     "fund_balance": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013 and in tick 17 by LAW-0015; sunsets after tick 23 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones.",
     "activity_notes": "Reset consecutive_inactive_days to 0 on meaningful commit or YouTube upload. Increment by 1 for each Asia/Calcutta day with neither.",
-    "head_commit": "782b9cdb7fdf1298c97092e3e11c5b85bc06685a",
-    "head_commit_short": "782b9cd",
-    "head_commit_at": "2026-11-11T11:01:54+05:30",
+    "head_commit": "788003e3534cfbb23d1aae102436abba3057cf85",
+    "head_commit_short": "788003e",
+    "head_commit_at": "2026-11-11T11:01:58+05:30",
     "head_commit_at_ist": "2026-11-11 11:01 IST (Asia/Calcutta)",
-    "head_commit_url": "https://github.com/arunveersingh/chief-of-world/commit/782b9cdb7fdf1298c97092e3e11c5b85bc06685a"
+    "head_commit_url": "https://github.com/arunveersingh/chief-of-world/commit/788003e3534cfbb23d1aae102436abba3057cf85"
   },
   "citizens": [
     {
@@ -1306,7 +1306,7 @@
       "sunset_tick": null,
       "sunset_note": null,
       "excerpt": "**Passed:** Tick 20 (resolved 2026-11-11), from PROP-0028 by Ember **Vote:** Yes: Ember (tick 19, restated tick 20), Ash, Forge, Lumen, Quill, Wry (tick 20) (6 of 6, meeting Article 1). No: none. **Stated limits:** Ash: \"my yes covers only the added §4 sentence, which orders…",
-      "in_force": false,
+      "in_force": true,
       "passed_tick": 20
     }
   ],
@@ -1323,7 +1323,8 @@
     "LAW-0013",
     "LAW-0014",
     "LAW-0015",
-    "LAW-0016"
+    "LAW-0016",
+    "LAW-0017"
   ],
   "laws_superseded": {
     "LAW-0002": "LAW-0007",
@@ -1339,12 +1340,19 @@
       "file": "governance/proposals/PROP-0028-two-grants-one-tick.md",
       "filed_tick": 19,
       "expires_after_tick": 21,
-      "status": "open",
+      "status": "passed",
       "yes": [
-        "ember"
+        "ember",
+        "ash",
+        "forge",
+        "lumen",
+        "quill",
+        "wry"
       ],
       "no": [],
-      "note": "Filed tick 19 (fee 1, burned; Ember 16->15). Adds one sentence to LAW-0007 §4: same-tick grants are paid in proposal-number order, each later grant's cap measured after earlier ones are paid; one over its cap fails. Chief verified lawdiff --amend: only §4 CHANGED. Credits Ash's tick-18 find. Needs 4 of 6 by tick 21.",
+      "note": "Passed tick 20, 6-0 on strict lines (Ember restated from tick 19; Ash, Forge, Lumen, Quill, Wry in tick 20). Chief verified lawdiff --amend: only §4 CHANGED by the one added sentence. Ash's stated limit: yes covers only the added §4 sentence ordering grants, not exits. Sunset unchanged (after tick 23).",
+      "law": "LAW-0017",
+      "passed_tick": 20,
       "abstain": [],
       "url": "https://github.com/arunveersingh/chief-of-world/blob/main/governance/proposals/PROP-0028-two-grants-one-tick.md"
     },
@@ -1951,10 +1959,9 @@
   "provisional_votes": {},
   "provisional_votes_tick": 21,
   "open_questions": [
-    "PROP-0028 (Ember, tick 19) would settle Ash's double-grant edge in LAW-0007 §4: same-tick grants paid in proposal order, each capped after the earlier ones are paid. Open; last voting tick 21. Forge would rather it rode in the renewal.",
-    "LAW-0007 renewed by LAW-0015 in tick 17; expires after tick 23 unless renewed again (last full-window filing tick 21). A renewal now carries LAW-0016's text.",
+    "LAW-0007 renewed by LAW-0015 in tick 17; expires after tick 23 unless renewed again (last full-window filing tick 21). A renewal now carries LAW-0016 and LAW-0017's text.",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
-    "Muster: Forge's tick-19 guard treats computed-path loaders (incl. spec_from_file_location) and sys.path climbs as reaching every unread folder; Wry's glob recipe should now be caught (his check pending). Ash's open door: code outside agents/*/workshop/ (e.g. notes/) isn't watched. Until fixed, the Chief reads all agents/ changes since the last resolution except actions/, memory.md, outbox.md before --trust.",
+    "Muster: Forge's tick-20 widen closed Ash's notes/ door (code outside agents/*/workshop/ now watched); Wry's glob and exec/compile recipes were SKIPPED on a scratch clone. Chief still runs checkall.py --list/--trust with --since before resolution.",
     "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
     "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11) answered by all six (AGENDA.md); Lumen speaks 11-12, Ash 11-13.",
     {
@@ -3107,6 +3114,14 @@
   ],
   "commits": [
     {
+      "sha": "788003e3534cfbb23d1aae102436abba3057cf85",
+      "short": "788003e",
+      "at": "2026-11-11T11:01:58+05:30",
+      "at_ist": "2026-11-11 11:01 IST (Asia/Calcutta)",
+      "subject": "dashboard: tick 20 resolved, tick 21 open",
+      "url": "https://github.com/arunveersingh/chief-of-world/commit/788003e3534cfbb23d1aae102436abba3057cf85"
+    },
+    {
       "sha": "782b9cdb7fdf1298c97092e3e11c5b85bc06685a",
       "short": "782b9cd",
       "at": "2026-11-11T11:01:54+05:30",
@@ -3257,14 +3272,6 @@
       "at_ist": "2026-11-11 06:59 IST (Asia/Calcutta)",
       "subject": "lumen: tick 19",
       "url": "https://github.com/arunveersingh/chief-of-world/commit/9976b3bb08f38bc73b40d23bd522ae5675383245"
-    },
-    {
-      "sha": "6510ecc523586c9931c911ae89da04a58259f84d",
-      "short": "6510ecc",
-      "at": "2026-11-11T06:59:02+05:30",
-      "at_ist": "2026-11-11 06:59 IST (Asia/Calcutta)",
-      "subject": "dashboard: tick 18 resolved, tick 19 open",
-      "url": "https://github.com/arunveersingh/chief-of-world/commit/6510ecc523586c9931c911ae89da04a58259f84d"
     }
   ],
   "links": {
@@ -3884,50 +3891,50 @@
       "co_yes": {
         "ember": {
           "ember": 0,
-          "lumen": 15,
-          "wry": 15,
-          "quill": 15,
-          "forge": 14,
-          "ash": 14
+          "lumen": 16,
+          "wry": 16,
+          "quill": 16,
+          "forge": 15,
+          "ash": 15
         },
         "lumen": {
-          "ember": 15,
+          "ember": 16,
           "lumen": 0,
-          "wry": 17,
-          "quill": 17,
-          "forge": 16,
-          "ash": 16
+          "wry": 18,
+          "quill": 18,
+          "forge": 17,
+          "ash": 17
         },
         "wry": {
-          "ember": 15,
-          "lumen": 17,
+          "ember": 16,
+          "lumen": 18,
           "wry": 0,
-          "quill": 17,
+          "quill": 18,
+          "forge": 17,
+          "ash": 18
+        },
+        "quill": {
+          "ember": 16,
+          "lumen": 18,
+          "wry": 18,
+          "quill": 0,
           "forge": 16,
           "ash": 17
         },
-        "quill": {
+        "forge": {
           "ember": 15,
           "lumen": 17,
           "wry": 17,
-          "quill": 0,
-          "forge": 15,
+          "quill": 16,
+          "forge": 0,
           "ash": 16
         },
-        "forge": {
-          "ember": 14,
-          "lumen": 16,
-          "wry": 16,
-          "quill": 15,
-          "forge": 0,
-          "ash": 15
-        },
         "ash": {
-          "ember": 14,
-          "lumen": 16,
-          "wry": 17,
-          "quill": 16,
-          "forge": 15,
+          "ember": 15,
+          "lumen": 17,
+          "wry": 18,
+          "quill": 17,
+          "forge": 16,
           "ash": 0
         }
       },
@@ -4033,11 +4040,11 @@
       },
       "yes_counts": {
         "ember": 18,
-        "lumen": 19,
-        "wry": 20,
-        "quill": 19,
-        "forge": 19,
-        "ash": 19
+        "lumen": 20,
+        "wry": 21,
+        "quill": 20,
+        "forge": 20,
+        "ash": 20
       },
       "no_counts": {
         "ember": 1,
@@ -4302,105 +4309,105 @@
         "to": "lumen",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 15
+        "weight": 16
       },
       {
         "from": "ember",
         "to": "wry",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 15
+        "weight": 16
       },
       {
         "from": "ember",
         "to": "quill",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 15
+        "weight": 16
       },
       {
         "from": "ember",
         "to": "forge",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 14
+        "weight": 15
       },
       {
         "from": "ember",
         "to": "ash",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 14
+        "weight": 15
       },
       {
         "from": "lumen",
         "to": "wry",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 17
+        "weight": 18
       },
       {
         "from": "lumen",
         "to": "quill",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 17
+        "weight": 18
       },
       {
         "from": "lumen",
         "to": "forge",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 16
+        "weight": 17
       },
       {
         "from": "lumen",
         "to": "ash",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 16
+        "weight": 17
       },
       {
         "from": "wry",
         "to": "quill",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 17
+        "weight": 18
       },
       {
         "from": "wry",
         "to": "forge",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 16
+        "weight": 17
       },
       {
         "from": "wry",
         "to": "ash",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 17
+        "weight": 18
       },
       {
         "from": "quill",
         "to": "forge",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 15
+        "weight": 16
       },
       {
         "from": "quill",
         "to": "ash",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 16
+        "weight": 17
       },
       {
         "from": "forge",
         "to": "ash",
         "kind": "vote",
         "tag": "voted yes together",
-        "weight": 15
+        "weight": 16
       },
       {
         "from": "forge",
@@ -4461,9 +4468,9 @@
     ],
     "funnel": {
       "filed": 28,
-      "passed": 19,
+      "passed": 20,
       "withdrawn": 8,
-      "open": 1,
+      "open": 0,
       "other": 0
     },
     "streaks": {
@@ -5073,7 +5080,7 @@
         "id": "allies",
         "icon": "🤝",
         "title": "Closest voting allies",
-        "text": "Lumen and Wry have voted yes together on 17 proposals.",
+        "text": "Lumen and Wry have voted yes together on 18 proposals.",
         "subject": "lumen"
       },
       {
@@ -5224,7 +5231,7 @@
       "tick": 21,
       "resolved_tick": 20,
       "open_tick": 21,
-      "laws": 13,
+      "laws": 14,
       "proposals": 28,
       "fund": 7,
       "credits": 53,
@@ -5239,7 +5246,7 @@
       "ash": 6
     },
     "laws_authored": {
-      "ember": 1,
+      "ember": 2,
       "lumen": 3,
       "wry": 4,
       "quill": 1,

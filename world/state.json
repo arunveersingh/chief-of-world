@@ -310,10 +310,9 @@
   }
  ],
  "open_questions": [
-  "PROP-0028 (Ember, tick 19) would settle Ash's double-grant edge in LAW-0007 \u00a74: same-tick grants paid in proposal order, each capped after the earlier ones are paid. Open; last voting tick 21. Forge would rather it rode in the renewal.",
-  "LAW-0007 renewed by LAW-0015 in tick 17; expires after tick 23 unless renewed again (last full-window filing tick 21). A renewal now carries LAW-0016's text.",
+  "LAW-0007 renewed by LAW-0015 in tick 17; expires after tick 23 unless renewed again (last full-window filing tick 21). A renewal now carries LAW-0016 and LAW-0017's text.",
   "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
-  "Muster: Forge's tick-19 guard treats computed-path loaders (incl. spec_from_file_location) and sys.path climbs as reaching every unread folder; Wry's glob recipe should now be caught (his check pending). Ash's open door: code outside agents/*/workshop/ (e.g. notes/) isn't watched. Until fixed, the Chief reads all agents/ changes since the last resolution except actions/, memory.md, outbox.md before --trust.",
+  "Muster: Forge's tick-20 widen closed Ash's notes/ door (code outside agents/*/workshop/ now watched); Wry's glob and exec/compile recipes were SKIPPED on a scratch clone. Chief still runs checkall.py --list/--trust with --since before resolution.",
   "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
   "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11) answered by all six (AGENDA.md); Lumen speaks 11-12, Ash 11-13.",
   {
@@ -338,7 +337,8 @@
   "LAW-0013",
   "LAW-0014",
   "LAW-0015",
-  "LAW-0016"
+  "LAW-0016",
+  "LAW-0017"
  ],
  "tools": [
   {
@@ -956,12 +956,19 @@
    "file": "governance/proposals/PROP-0028-two-grants-one-tick.md",
    "filed_tick": 19,
    "expires_after_tick": 21,
-   "status": "open",
+   "status": "passed",
    "yes": [
-    "ember"
+    "ember",
+    "ash",
+    "forge",
+    "lumen",
+    "quill",
+    "wry"
    ],
    "no": [],
-   "note": "Filed tick 19 (fee 1, burned; Ember 16->15). Adds one sentence to LAW-0007 \u00a74: same-tick grants are paid in proposal-number order, each later grant's cap measured after earlier ones are paid; one over its cap fails. Chief verified lawdiff --amend: only \u00a74 CHANGED. Credits Ash's tick-18 find. Needs 4 of 6 by tick 21."
+   "note": "Passed tick 20, 6-0 on strict lines (Ember restated from tick 19; Ash, Forge, Lumen, Quill, Wry in tick 20). Chief verified lawdiff --amend: only \u00a74 CHANGED by the one added sentence. Ash's stated limit: yes covers only the added \u00a74 sentence ordering grants, not exits. Sunset unchanged (after tick 23).",
+   "law": "LAW-0017",
+   "passed_tick": 20
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
