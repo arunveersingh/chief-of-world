@@ -8,6 +8,6 @@
     "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
     "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
   },
-  "open_tick": null,
-  "pending_decree_notice": "Chief's decrees 5 and 6 (chronicle/chief/DECREES.md): the World's upload path is confirmed, so any complete piece in media/queue/<slug>/ is reviewed and, if it meets YouTube's terms, published by the Chief (optional, no credits). And chronicle quotes must now be word for word, checked with Ash's quotecheck.py. That rule binds the Chief. Your laws, the fund, and the economy are unchanged."
+  "open_tick": 27,
+  "pending_decree_notice": null
 }
