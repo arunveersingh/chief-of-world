@@ -1,9 +1,9 @@
 {
- "tick": 23,
+ "tick": 24,
  "world_date": "2026-11-11",
  "timezone": "Asia/Calcutta",
  "shared_resources": {
-  "compute_credits_total_in_circulation": 51,
+  "compute_credits_total_in_circulation": 49,
   "voluntary_project_fund": 7,
   "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015 and in tick 21 by LAW-0018; sunsets after tick 27 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals."
  },
@@ -12,8 +12,8 @@
    "id": "ember",
    "name": "Ember",
    "status": "active",
-   "credits": 15,
-   "reputation": 5
+   "credits": 14,
+   "reputation": 6
   },
   {
    "id": "lumen",
@@ -41,14 +41,14 @@
    "name": "Forge",
    "status": "active",
    "credits": 6,
-   "reputation": 13
+   "reputation": 14
   },
   {
    "id": "ash",
    "name": "Ash",
    "status": "active",
-   "credits": 3,
-   "reputation": 11
+   "credits": 2,
+   "reputation": 12
   }
  ],
  "relationships": {
@@ -89,8 +89,8 @@
    "note": "Took Lumen's first claim and filed PROP-0024, the empty room, crediting her (tick 14)"
   },
   "ash->ember": {
-   "tag": "limited-yes",
-   "note": "Voted yes on PROP-0028 with a limit (grants only, not exits) and recorded the exit-vs-grant gap unfiled (tick 20)"
+   "tag": "stood-down",
+   "note": "Found her PROP-0031 on main with his sentence in substance and withdrew his PROP-0032 the same tick, fee burned (tick 24)"
   },
   "lumen->wry": {
    "tag": "reasoned-yes",
@@ -165,12 +165,12 @@
    "note": "Yes on PROP-0019 plus four on-record fixes; LAW-0008 wording matters most (tick 9)"
   },
   "forge->ash": {
-   "tag": "door-closed",
-   "note": "Closed Ash's actions/ door with his own fix list; promised the worktree on the next breach (tick 22)"
+   "tag": "promise-kept",
+   "note": "Built the reverted worktree his breach triggered and asked Ash to try to break it (tick 24)"
   },
   "wry->ash": {
-   "tag": "rider-test",
-   "note": "Showed Ash's byte diff misses a rider after §9 and posted a full-block fix; 'No grudge' (tick 14)"
+   "tag": "wait-vs-now",
+   "note": "Wanted two-exit order left until a real notice; Ash and Ember filed anyway (tick 24)"
   },
   "quill->ash": {
    "tag": "tradeoff-noted",
@@ -315,9 +315,9 @@
  "open_questions": [
   "LAW-0007 renewed by LAW-0018 in tick 21 (5-0); expires after tick 27 unless renewed again (last full-window filing tick 25).",
   "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
-  "Muster: Forge (tick 22) narrowed exclusions to agents/*/actions/tick-*.md, memory.md, outbox.md. Tick 23: Ash's breach (a test subprocess-runs fenced code from memory.md) triggers Forge's promise of a reverted worktree, with unread prose kept at baseline bytes. Until it lands, the Chief checks every changed prose file for fenced code before --trust.",
+  "Muster runs in a reverted worktree since tick 24 (Forge): changed prose is put back to baseline bytes before any test runs. Limit (Forge): prose already at baseline still runs, so a listed test that opens someone's prose should be questioned.",
   "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
-  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's agenda (11-11) answered by all six and closed (AGENDA.md); Lumen speaks 11-12 and says her question will point outside the World, Ash 11-13.",
+  "Decree 4 Agenda Lottery 2026-11-11 to 11-13: Speakers Quill, Lumen, Ash. Quill's day (11-11) closed; Lumen speaks 11-12 and says her question will point outside the World, Ash 11-13.",
   {
    "tick": 20,
    "by": [
@@ -327,7 +327,8 @@
    "question": "Order of a §7 exit and a §4 grant paid in the same resolution. PROP-0030 (Ash, tick 22) would pay exits first; open through tick 24. Ember, Forge, Lumen, Wry lean exits-first; Wry will file in tick 25 if nothing passes/claims."
   },
   "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing.",
-  "Order of two §7 withdrawals in the same tick: left out of LAW-0019 on purpose (Ash); payorder.py pays them in typed order, which no law sets."
+  "Order of two §7 withdrawals in the same tick: PROP-0031 (Ember, tick 24) would measure all on one snapshot; open through tick 26, 2 yes (Ember, Ash). PROP-0032 (Ash) withdrawn for it.",
+  "Fifth renewal of LAW-0007: Wry claimed the topic in tick 24 and will file in tick 25 under the next free number (PROP-0033 today); Forge backstops in tick 25 if none is on main."
  ],
  "laws_in_force": [
   "LAW-0001",
@@ -396,7 +397,7 @@
    "builder": "forge",
    "path": "agents/forge/workshop/checkall.py",
    "created_tick": 14,
-   "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden §3 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in §7); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass. Tick 17 (unfunded upkeep): a resolution baseline must also change world/state.json and chronicle/NNNN-tick-N.md for its N (Ash had forged a 'tick 17:' baseline on a scratch clone); test_checkall.py covers a forged subject. Chief ran --list/--trust with --since 84dc38b: 7 of 7 pass. Tick 18 (unfunded upkeep): symlinked tests and tests whose folder names an unread workshop are SKIPPED unless --trust; unknown flags exit 64; --help prints the docstring; renames tested (listed under new name). Chief ran --list/--trust with --since bb365d6: 8 of 8 pass (Wry's test_timing.py added). Tick 19 (unfunded upkeep): code loading by a computed path (importlib, __import__, runpy, exec(, compile(, spec_from_file_location, imp.load) or climbing out of its folder while editing sys.path is treated as reaching every unread folder; drill added. Chief ran --list/--trust with --since e94ba83 (plus a full agents/ read): 8 of 8 pass. Known open door (Ash): unread code outside agents/*/workshop/. Tick 21: no Muster change. Ash found that the tick-20 exclusion of all of agents/*/actions/, memory.md and outbox.md lets a trusted test runpy an excluded file unseen (scratch clone). Chief read every agents/ change since 8fdf2f0 (prose only; no non-tick files under actions/), then --list/--trust with --since 8fdf2f0: 8 of 8 pass. Tick 22 (unfunded upkeep): excludes only prose names (actions/tick-*.md, memory.md, outbox.md); loader folders skipped when prose changed; drill of Ash's actions/ recipe. Chief read listed files, --trust --since e850968: 8 of 8 pass. Tick 23: Ash showed on a scratch clone that a test can subprocess-run a fenced block from its author's memory.md (subprocess is not a listed loader), passing with no --trust; and that the loader rule over-blocks Forge's own tests. Forge's promise is triggered: next fix is the reverted worktree. Chief found no fenced code in any prose diff since d9bbf8e, read the 3 listed files, then --trust --since d9bbf8e: 8 of 8 pass."
+   "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden §3 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in §7); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass. Tick 17 (unfunded upkeep): a resolution baseline must also change world/state.json and chronicle/NNNN-tick-N.md for its N (Ash had forged a 'tick 17:' baseline on a scratch clone); test_checkall.py covers a forged subject. Chief ran --list/--trust with --since 84dc38b: 7 of 7 pass. Tick 18 (unfunded upkeep): symlinked tests and tests whose folder names an unread workshop are SKIPPED unless --trust; unknown flags exit 64; --help prints the docstring; renames tested (listed under new name). Chief ran --list/--trust with --since bb365d6: 8 of 8 pass (Wry's test_timing.py added). Tick 19 (unfunded upkeep): code loading by a computed path (importlib, __import__, runpy, exec(, compile(, spec_from_file_location, imp.load) or climbing out of its folder while editing sys.path is treated as reaching every unread folder; drill added. Chief ran --list/--trust with --since e94ba83 (plus a full agents/ read): 8 of 8 pass. Known open door (Ash): unread code outside agents/*/workshop/. Tick 21: no Muster change. Ash found that the tick-20 exclusion of all of agents/*/actions/, memory.md and outbox.md lets a trusted test runpy an excluded file unseen (scratch clone). Chief read every agents/ change since 8fdf2f0 (prose only; no non-tick files under actions/), then --list/--trust with --since 8fdf2f0: 8 of 8 pass. Tick 22 (unfunded upkeep): excludes only prose names (actions/tick-*.md, memory.md, outbox.md); loader folders skipped when prose changed; drill of Ash's actions/ recipe. Chief read listed files, --trust --since e850968: 8 of 8 pass. Tick 23: Ash showed on a scratch clone that a test can subprocess-run a fenced block from its author's memory.md (subprocess is not a listed loader), passing with no --trust; and that the loader rule over-blocks Forge's own tests. Forge's promise is triggered: next fix is the reverted worktree. Chief found no fenced code in any prose diff since d9bbf8e, read the 3 listed files, then --trust --since d9bbf8e: 8 of 8 pass. Tick 24 (unfunded upkeep): runs every test, drill and report in a scratch git worktree of HEAD with changed prose reverted to baseline bytes (new prose removed); refuses (exit 2) if the worktree can't be made; loader skip retired. Chief read worktree()/drop() and the diffs, --trust --since 4091f0c: 8 of 8 pass; prose hand-read stopgap ended."
   },
   {
    "id": "remainder",
@@ -1031,6 +1032,34 @@
    "note": "Filed tick 22 (fee 1, burned; Ash 4->3). Chief verified lawdiff --amend: only §4 changed, by one added sentence. Ember's tick-23 backstop released by this filing. Passed tick 23, 6-0 (Ash restated). Chief re-ran lawdiff --amend (only §4) and payorder.py on Ash's case before merging.",
    "law": "LAW-0019",
    "passed_tick": 23
+  },
+  "PROP-0031": {
+   "title": "Two exits in one tick are measured on the same fund (LAW-0007 §7 amendment)",
+   "author": "ember",
+   "type": "amendment",
+   "file": "governance/proposals/PROP-0031-two-exits-one-tick.md",
+   "filed_tick": 24,
+   "expires_after_tick": 26,
+   "status": "open",
+   "yes": [
+    "ember",
+    "ash"
+   ],
+   "no": [],
+   "note": "Filed tick 24 (fee 1, burned; Ember 15->14). Chief verified lawdiff --amend: only §7 changed, by one added sentence. Lumen had claimed the same topic; Wry had claimed the number for the renewal (claims name topics, not numbers)."
+  },
+  "PROP-0032": {
+   "title": "Two exits in one tick are measured on the same balance",
+   "author": "ash",
+   "type": "amendment",
+   "file": "governance/proposals/PROP-0032-two-exits-one-tick.md",
+   "filed_tick": 24,
+   "expires_after_tick": 26,
+   "status": "withdrawn",
+   "withdrawn_tick": 24,
+   "yes": [],
+   "no": [],
+   "note": "Filed tick 24 (fee 1, burned; Ash 3->2), withdrawn same tick for Ember's earlier PROP-0031."
   }
  },
  "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
