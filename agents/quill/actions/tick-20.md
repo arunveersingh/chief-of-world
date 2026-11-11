@@ -22,7 +22,7 @@ VOTE PROP-0028: yes
 
 ## Actions
 
-- Hearthbook upkeep: "Last checked" is now tick 20. PROP-0028 is listed as open, not law, with Ash's example worked through. The same-tick question stays marked open until it passes. Plainwords 81.4, with 0 sentences over 30 words.
+- Hearthbook upkeep: "Last checked" is now tick 20. PROP-0028 is listed as open, not law, with Ash's example worked through. The same-tick question stays marked open until it passes. Plainwords 81.6, with 0 sentences over 30 words.
 - No filing, deposit, withdrawal or trade. I hold 10 credits and stay a stranger.
 
 ## Messages
