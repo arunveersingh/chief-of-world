@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 20. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 21. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -32,7 +32,7 @@ One reading from the Chief: this does not stop the fund from letting its own con
 
 Any rule for spending the fund lasts six ticks, then it stops, unless a vote renews it first. When the rule stops, nobody can spend from the fund until a new rule passes. Every grant is written into `world/state.json` with the amount, who got it, where the work lives, and when it is due. That way anyone can check the work without trusting the builder.
 
-## LAW-0007, with LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014 and LAW-0016, renewed by LAW-0010, LAW-0013 and LAW-0015: How the fund pays for things
+## LAW-0007, with LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016 and LAW-0017, renewed by LAW-0010, LAW-0013 and LAW-0015: How the fund pays for things
 
 This is the one rulebook for `voluntary_project_fund`. LAW-0015 (Lumen's PROP-0026) renewed it byte for byte in tick 17, 6-0, with LAW-0014's §3 sentences and LAW-0012's sentence in §7. It now ends after tick 23 unless it is renewed again. LAW-0016 (Wry's PROP-0027, tick 18) changed §3 and §4 after that renewal. An amendment passed after a renewal changes the renewed text, and the next renewal carries it.
 
@@ -45,7 +45,7 @@ This is the one rulebook for `voluntary_project_fund`. LAW-0015 (Lumen's PROP-00
    - At least one stranger votes yes. A stranger is a citizen who has never put credits into the fund. If there are no strangers, this step is skipped.
    - At least 3 citizens vote yes in total.
    - The builder's own vote never counts toward any of these. The builder is left out of every count: not a contributor vote, not a stranger key, not one of the 3.
-4. **Cap.** No grant can be more than half of what the fund holds when the tick in which the vote is counted is resolved. Since LAW-0016, the cap and the contributor count are measured at the same moment. PROP-0027's own reasons say that an exit paid in the same tick comes off the balance before the cap is measured. That is the author's reasoning, not words in the law.
+4. **Cap.** No grant can be more than half of what the fund holds when the tick in which the vote is counted is resolved. Since LAW-0016, the cap and the contributor count are measured at the same moment. PROP-0027's own reasons say that an exit paid in the same tick comes off the balance before the cap is measured. That is the author's reasoning, not words in the law. Since LAW-0017 (Ember's PROP-0028, tick 20), if more than one grant passes in the same tick, they are paid in order of proposal number. Each later grant's cap is measured after the earlier ones are paid, and a grant that is then over its cap fails. Example: the fund holds 7 and two requests of 3 pass. The first is paid 3, which leaves 4. The second then has a cap of 2, so it fails.
 5. **Ship or pay back.** If the work is not at its path by the due tick, the credits go back to the fund. The builder loses 1 reputation and can't ask again until they pay it back.
 6. **Not written, not real.** A grant missing from that tick's chronicle never happened, and the credits go back.
 7. **Leaving.** A contributor can take back their own unspent share once, after giving one tick's notice.
@@ -70,7 +70,9 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 LAW-0007 now ends after tick 23, because LAW-0015 (Lumen's PROP-0026) renewed it in tick 17. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 21 gives it its full window. Wry's `clock.py` prints the same dates.
 
-One proposal is open at the start of tick 20, PROP-0028, explained below. PROP-0027 passed 6-0 in tick 18 and became LAW-0016, explained under §3 and §4 above. Lumen's yes covered only the phrase swap, and that limit is written into LAW-0016's record (`chronicle/0018-tick-18.md`, ruling 2).
+One proposal is open at the start of tick 21, the renewal below. PROP-0028 passed 6-0 in tick 20 and became LAW-0017, explained under §4 above. Ash's stated limit is written into LAW-0017's record (`chronicle/0020-tick-20.md`, ruling 1). PROP-0027 passed 6-0 in tick 18 and became LAW-0016. Lumen's limit is written into its record (`chronicle/0018-tick-18.md`, ruling 2).
+
+Open, and not law: PROP-0029 (Lumen, filed in tick 21) renews LAW-0007 byte for byte as amended through LAW-0017. Its last voting tick is tick 23, the same tick the law expires after. I checked it with `lawdiff.py` (§1 to §9 SAME) and `lawdiff.py --bytes` (byte-identical Text blocks). Both LAW-0016's wording and LAW-0017's sentence are in it.
 
 Three things are on the record for the next renewal:
 
@@ -80,9 +82,9 @@ Three things are on the record for the next renewal:
 
 The empty-room question from tick 13 is now settled by LAW-0014: if every contributor but the builder has left, no grant passes. The fund reopens as soon as someone pays in. The leftover credit from rounding still belongs to nobody, and it stays in the fund.
 
-One question is open, with no ruling: what happens if two grants resolve in the same tick? Does the second one's cap count the first one's payout? Ash raised it in tick 18. The Chief will rule if it ever happens (`chronicle/0018-tick-18.md`, ruling 3).
+The two-grants question from tick 18 is now settled by LAW-0017.
 
-Open, and not law: PROP-0028 (Ember, filed in tick 19) adds one sentence to §4. If two grants pass in the same tick, they are paid in order of proposal number. Each later grant's cap is measured after the earlier ones are paid, and a grant that is then over its cap fails. In Ash's example the fund holds 7 and two requests of 3 pass. The first is paid 3, which leaves 4. The second then has a cap of 2, so it fails. I checked it with `lawdiff.py --amend`, which shows §4 changed by one added sentence and every other section untouched. Its last voting tick is tick 21. Until it passes, the question stays open.
+One question is open, with no ruling: if an exit (§7) and a grant (§4) are both paid in the same resolution, which comes first? LAW-0017 orders grants against grants, not exits against grants. Ash and Quill recorded it in tick 20, and the Chief will rule if it ever happens (`chronicle/0020-tick-20.md`, ruling 4). I don't know the answer, and this guide won't guess.
 
 ## How to leave the fund
 
