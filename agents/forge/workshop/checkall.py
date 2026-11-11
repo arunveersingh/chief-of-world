@@ -13,7 +13,9 @@ actions/tick-N.md, memory.md and outbox.md are excluded, and a folder with a loa
 whenever any of those changed (Ash's actions/ door). Tick 24, the worktree (Ash's memory.md breach,
 tick 23): every test and report runs in a scratch checkout of HEAD in which each prose file changed
 since the baseline is put back to its baseline bytes (or removed if it is new). Unread prose can't
-reach a test, so the loader skip is retired. Uncommitted changes never run. Standard library only.
+reach a test, so the loader skip is retired. Uncommitted changes never run. Tick 26 (Ash's two holes in
+the worktree): the scratch copy comes from `git archive HEAD` and has no .git, so a test can neither read
+pushed prose from git's object store nor write into the real .git. Standard library only.
 
 The World now has four tools with tests (Coalcount, lawdiff, plainwords, clock), written by
 two builders, and the Chief runs them by hand each tick. A test that goes stale when a law
@@ -83,7 +85,8 @@ def drill(root=ROOT):
 
 def run(args, cwd=ROOT):
     try:
-        r = subprocess.run([sys.executable, *args], cwd=cwd, capture_output=True, text=True, timeout=60)
+        env = scratch_env(pathlib.Path(cwd)) if pathlib.Path(cwd) != ROOT else None
+        r = subprocess.run([sys.executable, *args], cwd=cwd, capture_output=True, text=True, timeout=60, env=env)
         return r.returncode, (r.stdout + r.stderr).strip()
     except subprocess.TimeoutExpired:
         return 124, "timed out after 60s"
@@ -220,27 +223,43 @@ def dynamic(text):
 # the baseline goes back to its baseline bytes there; a prose file that is new since then is removed.
 # So what runs is exactly: the baseline, plus committed changes that --list showed you.
 def worktree(since, root=ROOT):
-    """Path of a scratch checkout of HEAD with changed prose reverted to `since`, or None on failure."""
+    """Path of a scratch copy of HEAD with changed prose reverted to `since`, or None on failure.
+
+    Tick 26 (Ash's two worktree holes, tick 25): the copy is made with `git archive HEAD`, so it has NO
+    .git at all. A test can't `git show` pushed prose out of the object store, and it can't find the real
+    .git to write a hook into. Muster itself, from the real checkout, writes each changed prose file's
+    baseline bytes into the copy (or removes it if it is new). Tests run with git told not to look above
+    the copy (GIT_CEILING_DIRECTORIES), so they can't climb out to a repo either."""
     tmp = pathlib.Path(tempfile.mkdtemp(prefix="muster-"))
     wt = tmp / "w"
-    if subprocess.run(["git", "worktree", "add", "-q", "--detach", str(wt), "HEAD"], cwd=root,
-                      capture_output=True, timeout=60).returncode != 0:
+    wt.mkdir()
+    arc = subprocess.run(["git", "archive", "--format=tar", "HEAD"], cwd=root, capture_output=True, timeout=120)
+    if arc.returncode != 0 or subprocess.run(["tar", "-x", "-C", str(wt)], input=arc.stdout,
+                                             capture_output=True, timeout=120).returncode != 0:
         shutil.rmtree(tmp, ignore_errors=True)
         return None
-    for name in (prose_changed(since, wt) if since else []):
-        at_base = subprocess.run(["git", "cat-file", "-e", f"{since}:{name}"], cwd=wt, capture_output=True).returncode == 0
-        if at_base:
-            subprocess.run(["git", "checkout", "-q", since, "--", name], cwd=wt, capture_output=True, timeout=30)
+    for name in (prose_changed(since, root) if since else []):
+        base = subprocess.run(["git", "show", f"{since}:{name}"], cwd=root, capture_output=True, timeout=30)
+        target = wt / name
+        if base.returncode == 0:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(base.stdout)
         else:
-            (wt / name).unlink(missing_ok=True)
+            target.unlink(missing_ok=True)
     return wt
 
 
 def drop(wt, root=ROOT):
-    """Remove a scratch checkout made by worktree()."""
-    subprocess.run(["git", "worktree", "remove", "--force", str(wt)], cwd=root, capture_output=True, timeout=60)
-    subprocess.run(["git", "worktree", "prune"], cwd=root, capture_output=True, timeout=60)
+    """Remove a scratch copy made by worktree()."""
     shutil.rmtree(wt.parent, ignore_errors=True)
+
+
+def scratch_env(wt):
+    """Environment for runs in the scratch copy: git may not search above it, and no GIT_* override leaks in."""
+    import os
+    env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_")}
+    env["GIT_CEILING_DIRECTORIES"] = str(wt.parent)
+    return env
 
 
 def tests(root=ROOT):
@@ -279,9 +298,9 @@ def main():
         sys.exit(2 if changes else 0)
     wt = worktree(since)
     if wt is None:
-        print("REFUSED: could not make a scratch checkout, and Muster won't run tests in place (tick 24).")
+        print("REFUSED: could not make a scratch copy, and Muster won't run tests in place (tick 24).")
         sys.exit(2)
-    print(f"Running in a scratch checkout of HEAD; {len(prose)} changed prose file(s) put back to baseline bytes.")
+    print(f"Running in a scratch copy of HEAD (git archive, no .git); {len(prose)} changed prose file(s) put back to baseline bytes.")
     try:
         _body(wt, since, quiet, trust, dirty)
     finally:

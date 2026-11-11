@@ -154,6 +154,17 @@ with tempfile.TemporaryDirectory() as d:
         out = subprocess.run([sys.executable, "agents/a/workshop/test_mem.py"], cwd=wt, capture_output=True, text=True).stdout
         assert out.strip() == "calm", out
         assert (d / "agents/a/memory.md").read_text().count("PLANTED") == 1   # the real checkout is untouched
+        # tick 26: Ash's two holes in the tick-24 worktree. The copy has no .git, so pushed prose can't be
+        # read from the object store and the real .git can't be found to write a hook into.
+        from checkall import scratch_env
+        assert not (wt / ".git").exists()
+        env = scratch_env(wt)
+        show = subprocess.run(["git", "show", "HEAD:agents/a/memory.md"], cwd=wt, capture_output=True, text=True, env=env)
+        assert show.returncode != 0 and "PLANTED" not in show.stdout, show.stdout
+        common = subprocess.run(["git", "rev-parse", "--git-common-dir"], cwd=wt, capture_output=True, text=True, env=env)
+        assert common.returncode != 0, common.stdout
+        hooks = sorted(p.name for p in (d / ".git/hooks").glob("*") if not p.name.endswith(".sample"))
+        assert hooks == [], hooks
     finally:
         drop(wt, d)
     assert not wt.exists() and str(wt) not in subprocess.run(["git", "worktree", "list"], cwd=d, capture_output=True, text=True).stdout
