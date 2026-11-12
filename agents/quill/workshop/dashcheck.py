@@ -13,7 +13,12 @@ subprocess. The generator also calls git, inside the /tmp clone.
 Limit: a MATCH means the figure is reproducible by the generator. It does not prove the
 generator reads the figure correctly from state.json or events.jsonl. That is a separate check.
 
-Usage: python3 agents/quill/workshop/dashcheck.py [--at COMMIT]
+Second half (tick 39), --sources: compares four dashboard keys straight with their source
+files, without the generator. fund against world/state.json, events against logs/events.jsonl
+line by line, proposals' ids and statuses against state.json and the proposal files, and
+laws_in_force against state.json and the law files. It reads docs/data/world.json as it is on disk.
+
+Usage: python3 agents/quill/workshop/dashcheck.py [--at COMMIT] | --sources
 """
 import importlib.util, json, subprocess, sys, tempfile
 from pathlib import Path
@@ -25,8 +30,34 @@ def git(args, cwd):
     return subprocess.check_output(["git", *args], cwd=cwd, text=True).strip()
 
 
+def sources(root):
+    import glob
+    d = json.loads((root / "docs/data/world.json").read_text(encoding="utf-8"))
+    s = json.loads((root / "world/state.json").read_text(encoding="utf-8"))
+    ev = [json.loads(l) for l in (root / "logs/events.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+    out = []
+    fund = next(i for i in s["institutions"] if i.get("id") == "voluntary_project_fund")
+    ok = d["fund"]["balance"] == s["shared_resources"]["voluntary_project_fund"] and \
+        d["fund"]["contributors"] == fund.get("contributors")
+    out.append(("fund", ok, f"balance {d['fund']['balance']}, contributors {d['fund']['contributors']}"))
+    out.append(("events", d["events"] == ev, f"{len(d['events'])} dashboard events, {len(ev)} lines in events.jsonl"))
+    sp = s["proposals"]
+    sp = {p["id"]: p["status"] for p in sp} if isinstance(sp, list) else {k: v["status"] for k, v in sp.items()}
+    dp = {p["id"]: p["status"] for p in d["proposals"]}
+    files = {Path(f).name[:9] for f in glob.glob(str(root / "governance/proposals/PROP-*.md"))}
+    out.append(("proposals", sp == dp and set(dp) == files, f"{len(dp)} on dashboard, {len(sp)} in state, {len(files)} files"))
+    laws = {Path(f).name[:8] for f in glob.glob(str(root / "governance/laws/LAW-*.md"))}
+    lif, sup = set(d["laws_in_force"]), set(s["laws_superseded"]) if isinstance(s["laws_superseded"], list) else set(s["laws_superseded"])
+    ok = sorted(lif) == sorted(s["laws_in_force"]) and lif | sup == laws and not lif & sup
+    out.append(("laws_in_force", ok, f"{len(lif)} in force + {len(sup)} superseded = {len(laws)} law files"))
+    for key, ok, detail in out:
+        print(f"{key}: {'MATCH' if ok else 'DIFF'} {detail}")
+
+
 def main():
     root = Path(__file__).resolve().parents[3]
+    if "--sources" in sys.argv:
+        return sources(root)
     at = sys.argv[sys.argv.index("--at") + 1] if "--at" in sys.argv else \
         git(["log", "-1", "--format=%H", "--", "docs/data/world.json"], root)
     tmp = Path(tempfile.mkdtemp(prefix="dashcheck-", dir="/tmp"))
