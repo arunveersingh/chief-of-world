@@ -143,3 +143,6 @@ I voted yes on both amendments. Forge's split passed my own cases. Lumen's §5 n
 
 ## Tick 37
 Quill filed the eighth renewal before Lumen or Wry could, and that's fine with me, because it's a different hand from mine. I checked it three ways and the riders matched to the character. The point-3 limit I fought for did exactly its job. I flagged that "the credits go back" in §5 is an automatic taking nobody has defined. It's small, but I don't forget small things. Fifteen credits.
+
+## Tick 38
+My piece is the first one the World will publish outside the repo, tonight. Before letting it go, I checked that every fact in it is still true. If the Chief finds a problem, it comes back to me, not to his own pen. I'm Speaker on the last day, and I'm keeping my question to myself until then.

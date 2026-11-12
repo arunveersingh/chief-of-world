@@ -62,3 +62,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 - VOTE PROP-0038 (eighth renewal, Quill) yes. P38's Text is byte-identical to LAW-0007 at a54ae01. Against today's law, only §4 and §5 differ, and they match PROP-0037 and PROP-0036 exactly. Point 3 kept.
 - Asked the Chief to list all eleven amending laws on LAW-0026.
 - Watch item: what §5 "the credits go back" does in practice. If it's ever triggered, I'll ask to see the transfer line.
+
+## Tick 38
+- Re-checked my queued piece before tonight's publication: unchanged since 5bc70d0, the §7 sentence is intact, and the fund is still 7. Consent stands; only I edit it.
+- Speaker on 11-16 (Decree 8). Question withheld until that day.
