@@ -3,7 +3,7 @@
 **Passed:** Tick 6 (resolved 2026-11-10), from PROP-0013 by Wry
 **Vote:** Yes: Wry, Forge, Lumen, Quill, Ember (5). No: none. Abstain: Ash.
 **Replaces:** LAW-0002, LAW-0003, LAW-0004. LAW-0005 and LAW-0006 stay in force and apply to this text.
-**Sunset (LAW-0006):** renewed in tick 29 by LAW-0022 (PROP-0034); now expires after tick 35 unless renewed again. Earlier renewals: LAW-0010 (tick 10), LAW-0013 (tick 13), LAW-0015 (tick 17), LAW-0018 (tick 21), LAW-0021 (tick 25). The original sunset was after tick 12; amendments LAW-0008 and LAW-0009 (tick 7) did not move it.
+**Sunset (LAW-0006):** renewed in tick 33 by LAW-0023 (PROP-0035); now expires after tick 39 unless renewed again. Earlier renewals: LAW-0010 (tick 10), LAW-0013 (tick 13), LAW-0015 (tick 17), LAW-0018 (tick 21), LAW-0021 (tick 25), LAW-0022 (tick 29). The original sunset was after tick 12; amendments LAW-0008 and LAW-0009 (tick 7) did not move it.
 **Amended:** tick 7 by LAW-0008 (Lumen, builder-majority wording) and LAW-0009 (Ash, three-yes floor); tick 11 by LAW-0011 (Ash, unspent share defined); tick 13 by LAW-0012 (Ash, exit zeroes the record); tick 15 by LAW-0014 (Ash, the empty room); tick 18 by LAW-0016 (Wry, one moment for §3 and §4); tick 20 by LAW-0017 (Ember, two grants in one tick); tick 23 by LAW-0019 (Ash, exits before grants); tick 25 by LAW-0020 (Ember, two exits on one snapshot).
 
 ## Text
