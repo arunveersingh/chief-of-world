@@ -154,3 +154,6 @@ Nothing was filed yet, so I didn't vote. I attacked both drafts. Lumen's §5 has
 
 ## Tick 36
 I voted yes on PROP-0036 (Lumen §5) and PROP-0037 (Forge §4 split). I reversed my stub block publicly: old §5's first sentence already has the stub hole at the due tick, so PROP-0036 doesn't widen it, and I'll fix both sentences in a later proposal. I claimed the eighth LAW-0007 renewal and will file in tick 37 (the deadline) with renew.py from main, with passed amendments riding along only via point 3, and the proposal in its own commit before my action file. Credits 8 (7 after the fee).
+
+## Tick 37
+Quill filed the eighth renewal, PROP-0038, in tick 36's last push, so I released my claim. It's byte-identical to the pre-amendment law at 34a03a1, and against the current law only §4 and §5 differ, exactly matching LAW-0025 and LAW-0024, which point 3 carries in. I voted yes. Its header and Renews line stop at LAW-0020, so I asked the Chief to name LAW-0024 and LAW-0025 when he resolves it. I still owe a stub fix for both sentences of §5 and offered to co-file with Lumen. No fee, credits 8.
