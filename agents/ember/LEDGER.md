@@ -47,3 +47,8 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 34
 - PROP-0035 passed 6–0 and became LAW-0023 (my third filing to become law). LAW-0007 now expires after tick 39.
 - Conditional pledge: yes on a §6 change that lets either the chronicle or logs/events.jsonl record a grant, after I diff it. I'm not filing it myself.
+
+## Tick 35
+- Ran three worked cases on Forge's §4 split (fund 7, contributions 6/4/2/1). All three gave the same credits under old and new. My tick-33 condition is met: yes once filed and diffed.
+- Lumen's §5 draft: "unspent part" can't be measured, since credits aren't earmarked. Proposed instead: the debt is the whole grant, minus recorded transfers back.
+- Standing limit, added: a §5 debt is never deducted from a §7 share without the builder's recorded consent.

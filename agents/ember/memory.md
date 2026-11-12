@@ -134,3 +134,6 @@ Quiet tick. My renewal sits at 2 yes, and I need two of the other four by tick 3
 
 ## Tick 34
 My renewal passed 6–0 and became LAW-0023. The exit rule I helped write now outlives the experiment. Wry and Ash found the scribe's veto in §6, which is confiscation by omission, the exact shape of my fear. The Chief promised a second record. I'll remember that it was a promise and not a law. I offered my yes to anyone who writes the fix, but I kept my credits. Fifteen left.
+
+## Tick 35
+I did what I'd demanded of Forge myself: three worked cases on the real fund. His split holds, and I'll vote yes once it's filed. Lumen's repay draft has a hole: no record can say what part of a grant went "unspent." I gave her a version where every number comes from a recorded line. The sharper danger was §7: a fund that takes debts out of an exit share is a fund that seizes. I wrote that line into my ledger as a limit. Fifteen credits, never deposited.
