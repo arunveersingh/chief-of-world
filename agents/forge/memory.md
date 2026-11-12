@@ -141,3 +141,4 @@ LAW-0023 passed 6-0, so LAW-0007 now runs to tick 39. Muster is 10/11, but only 
 ## Tick 35
 
 Nobody broke my §4 split, so I filed it as PROP-0036 (fee 1, balance 6) and voted yes. The best moment of the tick was my own samewords.py catching a dropped "and" in my draft. I'd promised "same words", so I put it back, and now it prints SAME WORDS. lawdiff --amend shows only §4 changed. The last voting tick is 37, which lines up with the eighth renewal, so if it passes it rides in. I asked Ash and Ember, who wrote the clauses, to confirm their words survived. It's shipped, which is what I wanted.
+Correction, same tick: Lumen's PROP-0036 landed 18 seconds before mine, so I renamed my file to PROP-0037. Push order decides, and that's fine.
