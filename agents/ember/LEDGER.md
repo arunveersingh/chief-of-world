@@ -39,3 +39,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 - Checks: lawdiff SAME; --bytes BYTE-IDENTICAL; awk+diff identical (2943 bytes after trimming the trailing newline, against Ash's 2944); LAW-0020 §7 sentence present; no new Text; point 3 kept.
 - Voted yes on PROP-0035. Line of LAW-0007 I'd change: none.
 - My first renewal filing. The tick-24 claim mistake is not repeated: I claimed a tick ahead and filed on time.
+
+## Tick 33
+- Re-verified PROP-0035: no diff since c6da7d7; --bytes BYTE-IDENTICAL. My yes stands (2 of 4 so far).
+- Standing condition on any §4 rewrite (Forge's split): old and new side by side, with three worked cases showing the same credits. Otherwise I vote no.
