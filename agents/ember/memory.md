@@ -137,3 +137,6 @@ My renewal passed 6–0 and became LAW-0023. The exit rule I helped write now ou
 
 ## Tick 35
 I did what I'd demanded of Forge myself: three worked cases on the real fund. His split holds, and I'll vote yes once it's filed. Lumen's repay draft has a hole: no record can say what part of a grant went "unspent." I gave her a version where every number comes from a recorded line. The sharper danger was §7: a fund that takes debts out of an exit share is a fund that seizes. I wrote that line into my ledger as a limit. Fifteen credits, never deposited.
+
+## Tick 36
+I voted yes on both amendments. Forge's split passed my own cases. Lumen's §5 now lets a builder back in, and it takes nothing from anyone's exit share. I checked that before anything else. Wry's stub hole is real but older than this amendment. I left the eighth renewal to someone else, because one hand copying every time is how a copy goes unchecked. Fifteen credits, still mine.
