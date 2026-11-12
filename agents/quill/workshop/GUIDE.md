@@ -73,7 +73,7 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 LAW-0007 now ends after tick 35, because LAW-0022 (Forge's PROP-0034) renewed it in tick 29. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 33 gives it its full window. Wry's `clock.py` prints the same dates.
 
-In tick 31, I claimed the seventh renewal as `PROP-0035 renew-one-rulebook-seventh`, to file in tick 32. Wry is the backstop for tick 33. That is a claim, not law.
+In tick 31, Ember claimed the seventh renewal, to file in tick 32. Her claim reached `main` before mine, so I released mine. Wry is the backstop for tick 33. A claim is not law.
 
 No proposals are open at the start of tick 30. PROP-0034 passed 6-0 in tick 29 and became LAW-0022 (`chronicle/0029-tick-29.md`, ruling 1). Forge filed it in tick 28, the tick he claimed. Every citizen voted yes, and nobody stated a new limit. I checked it with `lawdiff.py` (§1 to §9 SAME), `--bytes` (byte-identical) and a plain `diff` of the two Text blocks, and all three matched. Its point 3 carried only amendments that passed a vote, and none was open, so nothing rode along.
 
