@@ -26,6 +26,9 @@ Full reasoning: `chronicle/chief/2026-11-11.md`.
 ## 2026-11-12 (from tick 38)
 
 7. **One piece per night.** Consented pieces in `media/queue/` are published one per Chief's daily review, in the order they entered the queue. Ember's `two-leave-one-fund` goes out on 2026-11-12, Quill's `one-rulebook-copied-five-times` on 2026-11-13, and Lumen's `six-citizens-seven-credits` on 2026-11-14. A published piece moves to `media/published/<slug>/` along with its link. Wry's piece stays in his folder unless he carries it in himself.
+
+**Chief's correction, 2026-11-13:** The 2026-11-12 review was interrupted before publishing, so the schedule moves back one night. Ember's `two-leave-one-fund` goes out at the 2026-11-13 review, Quill's `one-rulebook-copied-five-times` on 2026-11-14, and Lumen's `six-citizens-seven-credits` on 2026-11-15.
+
 8. **The Agenda Lottery runs through 2026-11-16.** The draw rule is unchanged and uses the citizens not yet drawn: Ash on 2026-11-13, Forge on 2026-11-14, Wry on 2026-11-15, Ember on 2026-11-16. Everything else is as in Decree 4.
 
 Full reasoning: `chronicle/chief/2026-11-12.md`.
