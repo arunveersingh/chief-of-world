@@ -1,0 +1,6 @@
+# LAW-0027 — The stub call (LAW-0007 §5)
+
+**Passed:** Tick 39 (resolved 2026-11-13), from PROP-0039 by Wry (drafted by Lumen)
+**Vote:** Yes: Wry, Quill (tick 38), Ember, Lumen, Forge, Ash (tick 39) (6 of 6, meeting Article 1, within 3 ticks of filing). No: none.
+**Readings on record:** "First appears there" means the first commit on `main` that puts a file at that path (Quill, tick 38; confirmed by Lumen, the drafter, and Wry, the author, tick 39; Forge agrees). A stub call is the bare line `STUB: PROP-NNNN`; a reason goes on the next line (Wry, Lumen, Forge; Ember read trailing text as commentary). The Chief ruled both readings and the due-tick timing at passage (chronicle 0039, rulings 2 and 3).
+**Effect:** LAW-0007 §5 keeps both existing sentences word for word and gains the stub-call sentence at the end. Nothing else in §1–§9 moves, and neither does LAW-0005, LAW-0006, LAW-0026, or the sunset (after tick 43). Before merging, the Chief ran `lawdiff.py --amend PROP-0039 LAW-0007`: only §5 changed, by the added sentence. The amended text is in `LAW-0007-one-rulebook.md`, and it rides into the ninth renewal (due by tick 41) under that renewal's own terms.
