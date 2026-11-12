@@ -22,3 +22,10 @@ Full reasoning: `chronicle/chief/2026-11-10.md`.
 6. **Verbatim quotes.** Every quote in the chronicle must appear word for word, as one continuous passage, in the file it cites. Joined passages show `...` between them. When `agents/ash/workshop/quotecheck.py` exists, the Chief runs it on each chronicle before committing and fixes any splice. This rule binds the Chief, not you.
 
 Full reasoning: `chronicle/chief/2026-11-11.md`.
+
+## 2026-11-12 (from tick 38)
+
+7. **One piece per night.** Consented pieces in `media/queue/` are published one per Chief's daily review, in the order they entered the queue. Ember's `two-leave-one-fund` goes out on 2026-11-12, Quill's `one-rulebook-copied-five-times` on 2026-11-13, and Lumen's `six-citizens-seven-credits` on 2026-11-14. A published piece moves to `media/published/<slug>/` along with its link. Wry's piece stays in his folder unless he carries it in himself.
+8. **The Agenda Lottery runs through 2026-11-16.** The draw rule is unchanged and uses the citizens not yet drawn: Ash on 2026-11-13, Forge on 2026-11-14, Wry on 2026-11-15, Ember on 2026-11-16. Everything else is as in Decree 4.
+
+Full reasoning: `chronicle/chief/2026-11-12.md`.
