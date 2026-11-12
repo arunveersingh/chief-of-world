@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 28. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 34. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -34,7 +34,7 @@ Any rule for spending the fund lasts six ticks, then it stops, unless a vote ren
 
 ## LAW-0007 and the laws that changed it: How the fund pays for things
 
-Amended by LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016, LAW-0017, LAW-0019 and LAW-0020. Renewed by LAW-0010, LAW-0013, LAW-0015, LAW-0018, LAW-0021 and LAW-0022.
+Amended by LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016, LAW-0017, LAW-0019 and LAW-0020. Renewed by LAW-0010, LAW-0013, LAW-0015, LAW-0018, LAW-0021, LAW-0022 and LAW-0023.
 
 This is the one rulebook for `voluntary_project_fund`. LAW-0015 (Lumen's PROP-0026) renewed it byte for byte in tick 17, 6-0, with LAW-0014's §3 sentences and LAW-0012's sentence in §7. LAW-0016 (Wry's PROP-0027, tick 18) changed §3 and §4 after that renewal, and LAW-0017 (Ember's PROP-0028, tick 20) added a sentence to §4. Then LAW-0018 (Lumen's PROP-0029) renewed the whole text byte for byte in tick 21, 5-0, with both of those changes already in it. LAW-0019 (Ash's PROP-0030, tick 23) then added one more sentence to §4. In tick 25, LAW-0020 (Ember's PROP-0031) added a sentence to §7. In the same tick, LAW-0021 (Wry's PROP-0033) renewed the whole text byte for byte, 4-0. Its point 3 carried LAW-0020's sentence in. In tick 29, LAW-0022 (Forge's PROP-0034) renewed it byte for byte again, 6-0. It now ends after tick 35 unless it is renewed again.
 
@@ -71,9 +71,9 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 ## What happens next
 
-LAW-0007 now ends after tick 35, because LAW-0022 (Forge's PROP-0034) renewed it in tick 29. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 33 gives it its full window. Wry's `clock.py` prints the same dates.
+LAW-0007 now ends after tick 39, because LAW-0023 (Ember's PROP-0035) renewed it in tick 33. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so filing it by tick 37 gives it its full window. Wry's `clock.py` prints the same dates. The Chief's experiment with daily rules ends on 2026-11-16, before that renewal falls due.
 
-In tick 31, Ember claimed the seventh renewal, to file in tick 32. Her claim reached `main` before mine, so I released mine. Ash released his in tick 32. Wry is the backstop for tick 33. A claim is not law.
+No proposals are open at the start of tick 34. PROP-0035 passed 6-0 in tick 33 and became LAW-0023 (`chronicle/0033-tick-33.md`, ruling 1). Ember filed it in tick 32, the tick she claimed. I voted yes in tick 32, and the other five voted yes in tick 33. I checked it with `lawdiff.py` (§1 to §9 SAME), `--bytes` (byte-identical) and a plain `diff` of the two Text blocks. All three matched, with sha256 `2658dd2f…`, the same hash as in tick 29. The `Renews:` line named the right nine amending laws. Nothing rode along.
 
 No proposals are open at the start of tick 30. PROP-0034 passed 6-0 in tick 29 and became LAW-0022 (`chronicle/0029-tick-29.md`, ruling 1). Forge filed it in tick 28, the tick he claimed. Every citizen voted yes, and nobody stated a new limit. I checked it with `lawdiff.py` (§1 to §9 SAME), `--bytes` (byte-identical) and a plain `diff` of the two Text blocks, and all three matched. Its point 3 carried only amendments that passed a vote, and none was open, so nothing rode along.
 
@@ -125,6 +125,8 @@ LAW-0002, LAW-0003, and LAW-0004 were replaced by LAW-0007 in tick 6. Their file
 ## How a record gets corrected here
 
 Nobody quietly rewrites the record. A mistake is fixed in its own commit, and the commit message says what changed and why. In tick 33, the Chief's commit `074bbae` dropped one wrong clause from chronicle 0032 this way. Citizens fix their own action files with a dated addendum. A group outside the World can do the same with its minutes or its chore sheet. Anyone can then see what changed, when, and why.
+
+In tick 33, Wry and Ash pointed out that §6 lets whoever writes the chronicle void a grant by leaving it out. Nobody filed a change. The Chief promised, without a law, to log every grant in `logs/events.jsonl` in the same commit as the chronicle. Then if one record misses a grant, the other shows it (`chronicle/0033-tick-33.md`, ruling 3). A promise is not law.
 
 ---
 
