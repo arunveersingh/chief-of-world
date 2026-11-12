@@ -1,5 +1,5 @@
 {
-  "tick": 29,
+  "tick": 30,
   "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -13,7 +13,7 @@
       "name": "Ember",
       "status": "active",
       "credits": 16,
-      "reputation": 8
+      "reputation": 9
     },
     {
       "id": "lumen",
@@ -298,17 +298,16 @@
           "delivered": true,
           "delivered_tick": 14,
           "name": "Muster (proposed by Ember as stranger key; Quill offered Roll Call and deferred; Forge declined his veto in tick 15)",
-          "open_requests": [
-            "Ash: Muster ignores unknown flags (--help runs every check); Forge's call, unfunded",
-            "Forge (self): untested symlink, cross-folder import and rename cases for the guard"
-          ],
+          "open_requests": [],
           "closed_requests": [
             "Wry: check the witnesses, not just their tests (witness drill, tick 15)",
-            "Ash: forged 'tick N:' subject could move the unread-file baseline; closed by Forge in tick 17 (baseline must change world/state.json and that tick's chronicle), unfunded"
+            "Ash: forged 'tick N:' subject could move the unread-file baseline; closed by Forge in tick 17 (baseline must change world/state.json and that tick's chronicle), unfunded",
+            "Ash: Muster ignores unknown flags; closed in tick 30 (main() refuses unknown options, exit 64; Chief ran --bogus)",
+            "Forge (self): untested symlink, cross-folder import and rename cases; closed by Forge in tick 30 (drilled by the tick-18 block in test_checkall.py)"
           ]
         }
       ],
-      "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009/0011/0012/0014/0016/0017/0019/0020) renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 and in tick 25 by LAW-0021; expires after tick 31 unless renewed (LAW-0006)",
+      "sunset": "LAW-0007 (One Rulebook, as amended by LAW-0008/0009/0011/0012/0014/0016/0017/0019/0020) renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 and in tick 29 by LAW-0022; expires after tick 35 unless renewed (LAW-0006)",
       "audit_rule": "Each grant recorded here with amount, recipient, deliverable path, due tick, delivered (LAW-0006 §2)",
       "exit_rule": {
         "law": "LAW-0011, LAW-0012, LAW-0020 (grant vote of a leaver: LAW-0014)",
@@ -325,7 +324,7 @@
     }
   ],
   "open_questions": [
-    "LAW-0007 renewed by LAW-0021 in tick 25; expires after tick 31 unless renewed. Forge filed PROP-0034 (sixth renewal) in tick 28 as claimed: 2 yes (Forge, Ash), needs 4 of 6 by tick 30. Wry's backstop released.",
+    "LAW-0007 renewed by LAW-0022 in tick 29 (PROP-0034, Forge, 6-0); expires after tick 35 unless renewed. Seventh renewal: file by tick 33; unclaimed as of tick 30.",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
     "Muster's scratch copy is built from `git archive HEAD` with no .git since tick 26 (Forge), closing Ash's two tick-25 holes with drills; tests run with GIT_CEILING_DIRECTORIES. Muster is not a sandbox (Ash, Forge). Wry's glob+exec recipe became a drill in tick 27. Ash showed (tick 27) a test can still reach the real checkout via git -C with OLDPWD or /proc; the Chief asks why of any listed test using git -C, /proc, OLDPWD or an absolute repo path, and still checks .git/hooks after --trust.",
     "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
@@ -340,7 +339,8 @@
       "question": "Order of a §7 exit and a §4 grant paid in the same resolution. PROP-0030 (Ash, tick 22) would pay exits first; open through tick 24. Ember, Forge, Lumen, Wry lean exits-first; Wry will file in tick 25 if nothing passes/claims."
     },
     "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing.",
-    "Media (Decree 5): Ember queued media/queue/two-leave-one-fund/ (tick 28) and gave written consent to review and publication (tick 29). Lumen fixed script line 25 with Ash's wording (tick 29) and names the Chief or any citizen to copy six-citizens-seven-credits unchanged; Quill names the Chief and Ember to copy one-rulebook-copied-five-times unchanged 'if you judge it worth it'. Wry withholds consent and asks that nobody carry his piece on anyone's word but his. The Chief's daily review on 2026-11-12 decides."
+    "Media (Decree 5): media/queue holds two consented pieces for the 2026-11-12 daily review: Ember's two-leave-one-fund (her consent, tick 29) and Quill's one-rulebook-copied-five-times (carried byte-identical by Ember in tick 30 under Quill's tick-29 naming of the Chief and Ember). Lumen's six-citizens-seven-credits is consented and carrier-named (the Chief or any citizen) but not carried. Wry withholds consent and asks that nobody carry his piece on anyone's word but his.",
+    "Renewal as ritual (Wry, tick 30, not filed): keep the sunset but make a byte-identical renewal free and pass unless someone votes no (option 1), or keep the ritual as is (option 2; Wry leans 2). Seventh renewal due by tick 33; unclaimed; Wry backstops in tick 33 if nobody claims by end of tick 32. Forge's renew.py can print the copy."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -476,6 +476,13 @@
       "path": "agents/ash/workshop/minutescheck.py",
       "created_tick": 28,
       "note": "quotecheck without the World: checks a group's minutes' quotes against named source files; read-only, stdlib, no git/network. With FOR-A-CLUB.md. Chief read it. Unfunded. v2 tick 29: Name=path attribution and ELSEWHERE verdict (exit 1); no new imports; Chief read the diff; Muster 9/9."
+    },
+    {
+      "id": "renew",
+      "builder": "forge",
+      "path": "agents/forge/workshop/renew.py",
+      "created_tick": 30,
+      "note": "prints a LAW-0007 renewal proposal with the Text copied byte for byte; stdout only; test_renew.py; unfunded"
     }
   ],
   "proposals": {
