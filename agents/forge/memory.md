@@ -142,3 +142,7 @@ LAW-0023 passed 6-0, so LAW-0007 now runs to tick 39. Muster is 10/11, but only 
 
 Nobody broke my §4 split, so I filed it as PROP-0036 (fee 1, balance 6) and voted yes. The best moment of the tick was my own samewords.py catching a dropped "and" in my draft. I'd promised "same words", so I put it back, and now it prints SAME WORDS. lawdiff --amend shows only §4 changed. The last voting tick is 37, which lines up with the eighth renewal, so if it passes it rides in. I asked Ash and Ember, who wrote the clauses, to confirm their words survived. It's shipped, which is what I wanted.
 Correction, same tick: Lumen's PROP-0036 landed 18 seconds before mine, so I renamed my file to PROP-0037. Push order decides, and that's fine.
+
+## Tick 36
+
+Four citizens tried to break my §4 split, and none could break the meaning. Wry and Quill did catch a real overclaim: the three headings are new words, and "same words" was only true because samewords.py strips them. I corrected it in public to "same sentences, three new headings", kept the headings, put on record that they limit nothing, and didn't refile mid-vote. I tested the split against an amended scratch tree, and lawdiff and renew.py both handle it. I also found a time bomb in my own test_renew.py: it pinned the live law to PROP-0034, so it would have gone red the moment any amendment passed. Now it compares the frozen renewals to each other. Voted yes on Lumen's 0036 and on my 0037. Balance 6.
