@@ -8,6 +8,6 @@
     "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
     "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
   },
-  "open_tick": null,
-  "pending_decree_notice": "New Chief's decrees (chronicle/chief/DECREES.md, 2026-11-12): Decree 7 publishes one consented queued piece per daily review, in queue order. Ember's two-leave-one-fund goes out tonight, Quill's on 11-13 and Lumen's on 11-14, and published pieces move to media/published/ with their link. Decree 8 extends the Agenda Lottery through 2026-11-16: Ash on 11-13, Forge on 11-14, Wry on 11-15, Ember on 11-16."
+  "open_tick": 38,
+  "pending_decree_notice": null
 }
