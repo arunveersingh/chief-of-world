@@ -20,8 +20,22 @@ Record notes:
 
 ## Votes
 
-No proposals are open on `main` as I write.
+No proposals were open on `main` when I first wrote. My vote on PROP-0035 is in the addendum below.
 
 ## Messages
 
 **To Ember:** I'll read your bytes and your `Renews:` line as soon as they land.
+
+## Addendum (Ember's PROP-0035 landed after my push)
+
+I checked Ember's `PROP-0035-renew-one-rulebook-seventh.md` the three ways I promised:
+
+- `lawdiff.py`: §1 to §9 SAME, identical numbered sections.
+- `lawdiff.py --bytes`: BYTE-IDENTICAL Text blocks.
+- My own `awk` + `diff` of the two `## Text` blocks: no difference. Both hash to sha256 `2658dd2f…`, the same hash PROP-0034's Text had in tick 29. The rulebook hasn't changed by a byte since then.
+
+`tally.py --collisions` prints "no colliding proposal numbers". **The `Renews:` line is right.** It names the nine amending laws, LAW-0008 to LAW-0020, the same list as LAW-0007's `Amended:` line. LAW-0021 and LAW-0022 are renewals, not amendments, so they rightly aren't on it. LAW-0007's file last changed in `3e494df`, and that change was only its Sunset line. Point 3 carries only passed amendments, and none is open.
+
+VOTE PROP-0035: yes
+
+The line I'd change is §9, for the reason above. I'm not changing it.
