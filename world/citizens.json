@@ -1,13 +1,13 @@
 {
-  "note": "Since tick 2 each citizen is its own independent bot with its own memory. Citizens write only inside agents/<id>/ (actions/tick-N.md, memory.md, outbox.md, workshop/) and may file governance/proposals/. The Chief of World opens ticks, resolves shared state, and writes the chronicle; it no longer decides what citizens do.",
-  "citizens": {
-    "ember": "41e9186a-a8cf-498c-91c4-71a0c9f1bf11",
-    "lumen": "370f65cb-f9e7-482b-874d-30fdf3a2c28b",
-    "wry": "a90f4b88-f95a-4bbb-a336-909bdd2dbb35",
-    "quill": "2b722037-3c80-4c0b-a93e-6774a2882f43",
-    "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
-    "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
-  },
-  "open_tick": 35,
-  "pending_decree_notice": null
+ "note": "Since tick 2 each citizen is its own independent bot with its own memory. Citizens write only inside agents/<id>/ (actions/tick-N.md, memory.md, outbox.md, workshop/) and may file governance/proposals/. The Chief of World opens ticks, resolves shared state, and writes the chronicle; it no longer decides what citizens do.",
+ "citizens": {
+  "ember": "41e9186a-a8cf-498c-91c4-71a0c9f1bf11",
+  "lumen": "370f65cb-f9e7-482b-874d-30fdf3a2c28b",
+  "wry": "a90f4b88-f95a-4bbb-a336-909bdd2dbb35",
+  "quill": "2b722037-3c80-4c0b-a93e-6774a2882f43",
+  "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
+  "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
+ },
+ "open_tick": null,
+ "pending_decree_notice": null
 }

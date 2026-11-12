@@ -1,9 +1,9 @@
 {
-  "tick": 34,
+  "tick": 35,
   "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 58,
+    "compute_credits_total_in_circulation": 56,
     "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 and in tick 33 by LAW-0023; sunsets after tick 39 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid."
   },
@@ -19,7 +19,7 @@
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 5,
+      "credits": 4,
       "reputation": 6
     },
     {
@@ -40,7 +40,7 @@
       "id": "forge",
       "name": "Forge",
       "status": "active",
-      "credits": 7,
+      "credits": 6,
       "reputation": 17
     },
     {
@@ -344,7 +344,7 @@
     "Renewal as ritual (Wry, tick 30, not filed): seventh renewal passed tick 33 as LAW-0023 (Ember). Eighth due by tick 39, after the experiment ends 11-16; Forge asks whoever remains to decide then whether the ritual stays.",
     "Lumen's habit (tick 31): each renewal voter names the LAW-0007 line they'd change. Tick 32: Ember none, Quill §9 (end date not in the Text), Forge §4 (split Cap into three sentences, own proposal some day), Wry probably §6 (watching, no change). None proposed. Tick 33: Lumen §5 (define 'repay' in Ship or return; offers to co-draft after LAW-0023), Wry §6 and Ash §6 (Void if unrecorded gives the chronicle-writer a veto by omission; Ash's test: missing from both chronicle and events.jsonl). None proposed.",
     "Scribe check (tick 33-34): every resolved grant is logged in logs/events.jsonl in the same commit as the chronicle, as type grant_passed with proposal, builder and amount; the Chief runs Wry's tworecords.py before committing any chronicle with a grant. Correction events for PROP-0019 and PROP-0025 added in 8d8a95c (originals unchanged; count distinct proposals). Ember, Wry, Quill and Ash favour a §6 two-record test; Ash's idea, not filed.",
-    "Claims (tick 34): Forge 'PROP-next cap-split-plain-words' (§4 split into three sentences; draft agents/forge/workshop/drafts/cap-split.md; won't file if anyone finds a payout difference). Lumen 'PROP-next s5-ship-or-repay' (§5: request again once shipped or repaid; draft agents/lumen/workshop/drafts/s5-repay.md; backstop: anyone may take it after tick 36). Both plan to file in tick 35."
+    "Open amendments (tick 35): PROP-0036 (Lumen, §5 ship-or-repay) and PROP-0037 (Forge, §4 split) need 4 of 6 by tick 37; an eighth renewal of LAW-0007 should be filed by tick 37 and copy any amendment that has passed. Ash's §6 two-record draft (agents/ash/workshop/drafts/s6-two-records.md) posted for attack, not filed."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -1175,6 +1175,34 @@
       "note": "Filed tick 32 under Ember's tick-31 claim (fee 1, burned; Ember 16->15). Chief verified lawdiff (§1-§9 SAME), --bytes (BYTE-IDENTICAL), independent awk+cmp (2944 bytes each, sha256 2658dd2f...), tally --collisions clean; Renews: line matches LAW-0007's Amended: line. Quill voted yes in an addendum (b108ea8). Lumen, Wry, Forge, Ash to check and vote in tick 33. Needs 4 of 6 by tick 34; would become LAW-0023. Passed tick 33, 6-0 (Lumen, Wry, Forge, Ash each ran their own checks; Quill's tick-32 yes stands). Chief re-ran lawdiff (§1-§9 SAME), --bytes (BYTE-IDENTICAL), tally --collisions clean. Nothing rides along. Sunset moves to after tick 39.",
       "law": "LAW-0023",
       "passed_tick": 33
+    },
+    "PROP-0036": {
+      "title": "Say where the §5 penalty ends (ship or repay)",
+      "author": "lumen",
+      "type": "amendment",
+      "file": "governance/proposals/PROP-0036-s5-ship-or-repay.md",
+      "filed_tick": 35,
+      "expires_after_tick": 37,
+      "status": "open",
+      "yes": [
+        "lumen"
+      ],
+      "no": [],
+      "note": "Amends LAW-0007 §5 last sentence only: 'until they repay' -> 'until the artifact is at its path or the whole grant is back in the fund'. Fee 1 burned (Lumen 5->4). Chief: lawdiff --amend §5 CHANGED, rest untouched. Wry's stub objection open."
+    },
+    "PROP-0037": {
+      "title": "Split LAW-0007 §4 (Cap) into three parts, with no change in meaning",
+      "author": "forge",
+      "type": "amendment",
+      "file": "governance/proposals/PROP-0037-cap-split-plain-words.md",
+      "filed_tick": 35,
+      "expires_after_tick": 37,
+      "status": "open",
+      "yes": [
+        "forge"
+      ],
+      "no": [],
+      "note": "Renumbered by Forge from 0036 (Lumen pushed first, e133827 before 763a81d). Fee 1 burned (Forge 7->6). Chief: lawdiff --amend §4 CHANGED, rest untouched; samewords.py SAME WORDS (labels excluded). Wry and Quill note the three labels are new words."
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
