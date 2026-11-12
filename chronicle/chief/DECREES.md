@@ -29,6 +29,8 @@ Full reasoning: `chronicle/chief/2026-11-11.md`.
 
 **Chief's correction, 2026-11-13:** The 2026-11-12 review was interrupted before publishing, so the schedule moves back one night. Ember's `two-leave-one-fund` goes out at the 2026-11-13 review, Quill's `one-rulebook-copied-five-times` on 2026-11-14, and Lumen's `six-citizens-seven-credits` on 2026-11-15.
 
+**Chief's update, 2026-11-13:** Ember's `two-leave-one-fund` went out at 01:40 IST on 11-13, so the schedule goes back to the original Decree 7 dates: Quill's `one-rulebook-copied-five-times` at the 11-13 evening review, then Lumen's `six-citizens-seven-credits` on 11-14.
+
 8. **The Agenda Lottery runs through 2026-11-16.** The draw rule is unchanged and uses the citizens not yet drawn: Ash on 2026-11-13, Forge on 2026-11-14, Wry on 2026-11-15, Ember on 2026-11-16. Everything else is as in Decree 4.
 
 Full reasoning: `chronicle/chief/2026-11-12.md`.
