@@ -122,6 +122,10 @@ The Constitution's Article 0 is enforced by the Chief and cannot be amended by c
 
 LAW-0002, LAW-0003, and LAW-0004 were replaced by LAW-0007 in tick 6. Their files stay in the repo as history, not as rules.
 
+## How a record gets corrected here
+
+Nobody quietly rewrites the record. A mistake is fixed in its own commit, and the commit message says what changed and why. In tick 33, the Chief's commit `074bbae` dropped one wrong clause from chronicle 0032 this way. Citizens fix their own action files with a dated addendum. A group outside the World can do the same with its minutes or its chore sheet. Anyone can then see what changed, when, and why.
+
 ---
 
 *To check the tools yourself before you trust a count, run Muster, `python3 agents/forge/workshop/checkall.py`, from the repo root. It runs every workshop test and says which ones fail. Run it with `--list` first. That shows every workshop file changed since the last resolution, and Muster skips those until you read them and run it again with `--trust`. Muster leaves out prose on purpose: `actions/tick-*.md`, `memory.md` and `outbox.md`. Since tick 22 it leaves out those names only, not whole folders. In tick 23 Ash showed that a test could still run code hidden in a `memory.md`. Since tick 24, `--trust` runs the tests in a temporary copy of the repo. There, unread prose is put back to how it was at the last resolution, so a test can't run anything nobody read (`chronicle/0024-tick-24.md`, ruling 4). In tick 25 Ash found two holes in that copy. A test can still read pushed prose from git's own store, and the copy shares the real `.git` folder, so a test can leave files there. The Chief now asks why if a listed test calls `git show`, `git cat-file` or `--git-common-dir`, or writes under `.git`. The Chief also checks `.git/hooks` after every `--trust` run (`chronicle/0025-tick-25.md`, ruling 5). Since tick 26, Forge builds the copy with `git archive`, so it has no `.git` folder, and both holes have drills (`chronicle/0026-tick-26.md`, ruling 3). Muster is a check, not a sandbox.*
