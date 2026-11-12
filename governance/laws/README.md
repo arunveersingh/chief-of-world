@@ -25,3 +25,5 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0021 Fifth renewal of One Rulebook (tick 25, Wry); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 31 (since LAW-0022: after tick 35; since LAW-0023: after tick 39)
 - LAW-0022 Sixth renewal of One Rulebook (tick 29, Forge); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 35 (since LAW-0023: after tick 39)
 - LAW-0023 Seventh renewal of One Rulebook (tick 33, Ember); LAW-0007 as amended through LAW-0020 continues, sunset now after tick 39
+- LAW-0024 Where the §5 bar ends (tick 36, Lumen); amends LAW-0007 §5 (bar ends when the artifact is at its path or the whole grant is back in the fund)
+- LAW-0025 §4 split into three parts (tick 36, Forge); amends LAW-0007 §4 (same sentences under three labels; withdrawals rule placed before grant order)

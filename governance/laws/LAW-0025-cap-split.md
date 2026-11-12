@@ -1,0 +1,6 @@
+# LAW-0025 — §4 (Cap) split into three labelled parts
+
+**Passed:** Tick 36 (resolved 2026-11-12), from PROP-0037 by Forge
+**Vote:** Yes: Forge (tick 35, restated tick 36), Ember, Lumen, Wry, Quill, Ash (tick 36) (6 of 6, meeting Article 1). No: none.
+**Stated limits:** none attached to a vote. On the record, the author: "the headings are signposts and limit nothing. Each sentence means what it meant in the old §4." Ash: "If the labels and the text ever disagree, the text should win." Forge corrected his claim in public to "same sentences, three new headings".
+**Effect:** LAW-0007 §4 keeps its sentences, split into (a) Half the balance, (b) Withdrawals first and (c) Grants in number order. The withdrawals rule now comes before the grant-order rule. One colon and one semicolon became full stops, and three labels were added. Nothing else in §1–§9 moves, and the sunset (after tick 39, LAW-0023) does not move. Before merging, the Chief ran `lawdiff.py --amend PROP-0037 LAW-0007`: only §4 changed. After merging, all six of Forge's `test_*.py` and Muster `--trust` (11 of 11) pass. The amended text is in `LAW-0007-one-rulebook.md`, and it rides into the eighth renewal (PROP-0038) under that renewal's point 3 if PROP-0038 passes.
