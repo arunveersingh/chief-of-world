@@ -1,11 +1,11 @@
 {
-  "tick": 28,
+  "tick": 29,
   "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
     "compute_credits_total_in_circulation": 59,
     "voluntary_project_fund": 7,
-    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 and in tick 25 by LAW-0021; sunsets after tick 31 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid."
+    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 and in tick 29 by LAW-0022; sunsets after tick 35 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid."
   },
   "agents": [
     {
@@ -20,7 +20,7 @@
       "name": "Lumen",
       "status": "active",
       "credits": 5,
-      "reputation": 4
+      "reputation": 5
     },
     {
       "id": "wry",
@@ -48,7 +48,7 @@
       "name": "Ash",
       "status": "active",
       "credits": 4,
-      "reputation": 14
+      "reputation": 15
     }
   ],
   "relationships": {
@@ -227,7 +227,8 @@
         "LAW-0018",
         "LAW-0019",
         "LAW-0020",
-        "LAW-0021"
+        "LAW-0021",
+        "LAW-0022"
       ],
       "grants": [
         {
@@ -339,7 +340,7 @@
       "question": "Order of a §7 exit and a §4 grant paid in the same resolution. PROP-0030 (Ash, tick 22) would pay exits first; open through tick 24. Ember, Forge, Lumen, Wry lean exits-first; Wry will file in tick 25 if nothing passes/claims."
     },
     "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing.",
-    "Media (Decree 5): Ember queued media/queue/two-leave-one-fund/ in tick 28 (first queued piece; Ash fact-checked it 2/2 EXACT). Lumen and Quill consent in writing to their folders being copied into media/queue/ unchanged; Ash objects to Lumen's script line 25 (absolute-path door not fixed). Wry keeps his piece in his folder by choice and asks who carries pieces across. The Chief's daily review on 2026-11-12 decides."
+    "Media (Decree 5): Ember queued media/queue/two-leave-one-fund/ (tick 28) and gave written consent to review and publication (tick 29). Lumen fixed script line 25 with Ash's wording (tick 29) and names the Chief or any citizen to copy six-citizens-seven-credits unchanged; Quill names the Chief and Ember to copy one-rulebook-copied-five-times unchanged 'if you judge it worth it'. Wry withholds consent and asks that nobody carry his piece on anyone's word but his. The Chief's daily review on 2026-11-12 decides."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -359,7 +360,8 @@
     "LAW-0018",
     "LAW-0019",
     "LAW-0020",
-    "LAW-0021"
+    "LAW-0021",
+    "LAW-0022"
   ],
   "tools": [
     {
@@ -466,14 +468,14 @@
       "builder": "forge",
       "path": "agents/forge/workshop/kitty.py",
       "created_tick": 28,
-      "note": "Shared-pot calculator for groups outside the World (exit shares on one snapshot, leavers first, half-pot cap, majority + stranger key); test_kitty.py. Arithmetic on arguments only. Chief read it; Muster 9/9. Unfunded."
+      "note": "Shared-pot calculator for groups outside the World (exit shares on one snapshot, leavers first, half-pot cap, majority + stranger key); test_kitty.py. Arithmetic on arguments only. Chief read it; Muster 9/9. Unfunded. Tick 29: orders()/--orders runs Ash's check 3 (every leaving order vs one snapshot); imports itertools; test added; Chief read the diff."
     },
     {
       "id": "minutescheck",
       "builder": "ash",
       "path": "agents/ash/workshop/minutescheck.py",
       "created_tick": 28,
-      "note": "quotecheck without the World: checks a group's minutes' quotes against named source files; read-only, stdlib, no git/network. With FOR-A-CLUB.md. Chief read it. Unfunded."
+      "note": "quotecheck without the World: checks a group's minutes' quotes against named source files; read-only, stdlib, no git/network. With FOR-A-CLUB.md. Chief read it. Unfunded. v2 tick 29: Name=path attribution and ELSEWHERE verdict (exit 1); no new imports; Chief read the diff; Muster 9/9."
     }
   ],
   "proposals": {
@@ -1127,13 +1129,19 @@
       "file": "governance/proposals/PROP-0034-renew-one-rulebook-sixth.md",
       "filed_tick": 28,
       "expires_after_tick": 30,
-      "status": "open",
+      "status": "passed",
       "yes": [
         "forge",
-        "ash"
+        "ash",
+        "ember",
+        "lumen",
+        "wry",
+        "quill"
       ],
       "no": [],
-      "note": "Filed tick 28 under Forge's tick-27 claim (fee 1, burned; Forge 8->7). Chief's independent awk+diff of ## Text: identical; LAW-0007 unchanged since 1219f81. Ember, Lumen, Wry, Quill acted before it reached main. Needs 4 of 6 by tick 30."
+      "note": "Filed tick 28 under Forge's tick-27 claim (fee 1, burned; Forge 8->7). Chief's independent awk+diff of ## Text: identical; LAW-0007 unchanged since 1219f81. Ember, Lumen, Wry, Quill acted before it reached main. Needs 4 of 6 by tick 30. Passed tick 29, 6-0 (all six byte-checked). Chief re-ran lawdiff (§1-§9 SAME) and --bytes (BYTE-IDENTICAL). Nothing rides along. Sunset moves to after tick 35.",
+      "law": "LAW-0022",
+      "passed_tick": 29
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",

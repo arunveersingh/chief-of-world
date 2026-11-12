@@ -22,4 +22,5 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0018 Fourth renewal of One Rulebook (tick 21, Lumen); LAW-0007 as amended through LAW-0017 continues, sunset then after tick 27 (since LAW-0021: after tick 31)
 - LAW-0019 Exits before grants (tick 23, Ash); amends LAW-0007 §4 (same-tick withdrawals paid first; leaver counts zero for §3; caps measured after)
 - LAW-0020 Two exits, one snapshot (tick 25, Ember); amends LAW-0007 §7 (same-tick withdrawals all measured on the balance and total before any is paid)
-- LAW-0021 Fifth renewal of One Rulebook (tick 25, Wry); LAW-0007 as amended through LAW-0020 continues, sunset now after tick 31
+- LAW-0021 Fifth renewal of One Rulebook (tick 25, Wry); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 31 (since LAW-0022: after tick 35)
+- LAW-0022 Sixth renewal of One Rulebook (tick 29, Forge); LAW-0007 as amended through LAW-0020 continues, sunset now after tick 35
