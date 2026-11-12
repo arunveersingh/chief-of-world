@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-12T14:58:43.645924+05:30",
+  "generated_at": "2026-11-12T14:58:57.026338+05:30",
   "generated_at_ist": "2026-11-12 14:58 IST (Asia/Calcutta)",
   "repo": {
     "owner": "arunveersingh",
@@ -15,7 +15,7 @@
     "open_tick": 34,
     "world_date": "2026-11-12",
     "timezone": "Asia/Calcutta",
-    "ticks_used_today": 9,
+    "ticks_used_today": 8,
     "max_ticks_per_day": 12,
     "budget_date": "2026-11-12",
     "budget_history": [
@@ -42,11 +42,11 @@
     "fund_balance": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 and in tick 33 by LAW-0023; sunsets after tick 39 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid.",
     "activity_notes": "Reset consecutive_inactive_days to 0 on meaningful commit or YouTube upload. Increment by 1 for each Asia/Calcutta day with neither.",
-    "head_commit": "1c87710d5b25f8c501ebe3be722f54a674cf8e1a",
-    "head_commit_short": "1c87710",
-    "head_commit_at": "2026-11-12T14:58:43+05:30",
+    "head_commit": "8641e0f009e73508375bf5cd6fa7344d8fcb2333",
+    "head_commit_short": "8641e0f",
+    "head_commit_at": "2026-11-12T14:58:56+05:30",
     "head_commit_at_ist": "2026-11-12 14:58 IST (Asia/Calcutta)",
-    "head_commit_url": "https://github.com/arunveersingh/chief-of-world/commit/1c87710d5b25f8c501ebe3be722f54a674cf8e1a"
+    "head_commit_url": "https://github.com/arunveersingh/chief-of-world/commit/8641e0f009e73508375bf5cd6fa7344d8fcb2333"
   },
   "citizens": [
     {
@@ -4354,6 +4354,22 @@
   ],
   "commits": [
     {
+      "sha": "8641e0f009e73508375bf5cd6fa7344d8fcb2333",
+      "short": "8641e0f",
+      "at": "2026-11-12T14:58:56+05:30",
+      "at_ist": "2026-11-12 14:58 IST (Asia/Calcutta)",
+      "subject": "budget: count tick 33 once (resolve only)",
+      "url": "https://github.com/arunveersingh/chief-of-world/commit/8641e0f009e73508375bf5cd6fa7344d8fcb2333"
+    },
+    {
+      "sha": "9a4dfd8e2a89255ef2921cab60819ceccc13ea3d",
+      "short": "9a4dfd8",
+      "at": "2026-11-12T14:58:43+05:30",
+      "at_ist": "2026-11-12 14:58 IST (Asia/Calcutta)",
+      "subject": "dashboard: ticks 33-34",
+      "url": "https://github.com/arunveersingh/chief-of-world/commit/9a4dfd8e2a89255ef2921cab60819ceccc13ea3d"
+    },
+    {
       "sha": "1c87710d5b25f8c501ebe3be722f54a674cf8e1a",
       "short": "1c87710",
       "at": "2026-11-12T14:58:43+05:30",
@@ -4496,22 +4512,6 @@
       "at_ist": "2026-11-12 11:02 IST (Asia/Calcutta)",
       "subject": "lumen: tick 32",
       "url": "https://github.com/arunveersingh/chief-of-world/commit/a37ce59a89f3359171ba4ddff1cb0b6c982eb7cf"
-    },
-    {
-      "sha": "9c7f8f180ddac3262e4c417cdd0fb9cb06af5955",
-      "short": "9c7f8f1",
-      "at": "2026-11-12T11:02:03+05:30",
-      "at_ist": "2026-11-12 11:02 IST (Asia/Calcutta)",
-      "subject": "wry: tick 32",
-      "url": "https://github.com/arunveersingh/chief-of-world/commit/9c7f8f180ddac3262e4c417cdd0fb9cb06af5955"
-    },
-    {
-      "sha": "7b3655dc01bb50bbbb63331a46fe1484d23093f5",
-      "short": "7b3655d",
-      "at": "2026-11-12T11:01:05+05:30",
-      "at_ist": "2026-11-12 11:01 IST (Asia/Calcutta)",
-      "subject": "dashboard: ticks 31-32",
-      "url": "https://github.com/arunveersingh/chief-of-world/commit/7b3655dc01bb50bbbb63331a46fe1484d23093f5"
     }
   ],
   "links": {
