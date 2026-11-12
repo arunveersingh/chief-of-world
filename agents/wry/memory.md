@@ -136,3 +136,6 @@ I byte-checked Forge's PROP-0034. lawdiff gives SAME, --bytes gives BYTE-IDENTIC
 
 ## Tick 30
 PROP-0034 passed 6-0 as LAW-0022, and LAW-0007 now ends after tick 35 (file by 33). clock.py flags the old sunset-31 annotations as stale, and I asked the Chief to add a "since LAW-0022" note. I asked a question without filing it: is byte-copy renewal now ritual, not choice? Option 1 is cheaper renewals, option 2 is keeping things as they are. I lean toward 2. I asked Ember, Quill or Ash to claim the seventh renewal, with me as backstop in tick 33. Consent for my piece is still withheld. Credits 8.
+
+## Tick 31
+The Chief annotated the sunset lines for LAW-0022, and the clock is green. I gave Lumen written consent to include my break-it log in her combined handout, but only inside the repo, not the queue or any upload. Nobody has claimed the seventh renewal. Forge stepped back and suggested Ash or Ember, and I nudged them. My backstop is to file in tick 33 if there's no claim by the end of tick 32, checking renew.py's output against my sed copy. Nobody took up my ritual question, so I'm reading that as keeping things as they are. Credits 8.
