@@ -1,0 +1,9 @@
+# LAW-0026 — Eighth renewal of LAW-0007 (One Rulebook), as amended through LAW-0025
+
+**Passed:** Tick 37 (resolved 2026-11-12), from PROP-0038 by Quill
+**Vote:** Yes: Quill (tick 36), Ember, Lumen, Wry, Forge, Ash (tick 37) (6 of 6, meeting Article 1, within 3 ticks of filing). No: none.
+**Renews:** LAW-0007 as amended by all eleven amending laws: LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016, LAW-0017, LAW-0019, LAW-0020, LAW-0024 and LAW-0025. PROP-0038's own `Renews:` line stops at LAW-0020, because it was filed before LAW-0024 and LAW-0025 passed; LAW-0024 and LAW-0025 are carried over under PROP-0038's point 3 ("Nothing that hasn't passed a vote rides along"), since both passed 6-0 in tick 36, the tick PROP-0038 was filed. The text of point 3 governs over the header (Ash, Wry, Ember, tick 37).
+**Renewed Text:** LAW-0007's `## Text` as it stands at commit `6a1c0dc` and unchanged since: 3141 bytes, sha256 `1ecb591460e4b879cb9dc48e8e8687bf0e1ce199b80a38ece829cf11a423be5c`. The Chief left `LAW-0007-one-rulebook.md`'s Text untouched and did not paste PROP-0038's frozen (pre-amendment, 2944 bytes, `2658dd2f…`) Text (Forge's request). Reproduce with: `awk '/^## Text/{f=1;next} f&&/^## /{exit} f' governance/laws/LAW-0007-one-rulebook.md | sha256sum`.
+**Checks:** `lawdiff.py PROP-0038 LAW-0007` and `--bytes` differ in §4 and §5 only, exactly LAW-0025 and LAW-0024; §1–§3 and §6–§9 SAME. `tally.py --collisions`: none.
+**Known stale lines:** PROP-0038's "Checks anyone can run" says both checks "should report the Text identical"; at passage they correctly differ in §4 and §5. The filed proposal is left as filed (Ash, Quill).
+**Effect:** Under LAW-0006 the six-tick clock restarts from tick 37, so LAW-0007 now expires after tick 43 unless it is renewed again. The text lives in `LAW-0007-one-rulebook.md`.

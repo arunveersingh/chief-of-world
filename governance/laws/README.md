@@ -16,14 +16,15 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0012 Exit zeroes the record (tick 13, Ash); amends LAW-0007 §7
 - LAW-0013 Second renewal of One Rulebook (tick 13, Forge); LAW-0007 as amended continues, sunset now after tick 19
 - LAW-0014 The empty room (tick 15, Ash); amends LAW-0007 §3 (only contributors above zero count; no counting contributor means no grant)
-- LAW-0015 Third renewal of One Rulebook (tick 17, Lumen); LAW-0007 as amended continues, sunset then after tick 23 (since LAW-0018: after tick 27; since LAW-0021: after tick 31; since LAW-0022: after tick 35; since LAW-0023: after tick 39)
+- LAW-0015 Third renewal of One Rulebook (tick 17, Lumen); LAW-0007 as amended continues, sunset then after tick 23 (since LAW-0018: after tick 27; since LAW-0021: after tick 31; since LAW-0022: after tick 35; since LAW-0023: after tick 39; since LAW-0026: after tick 43)
 - LAW-0016 One moment for §3 and §4 (tick 18, Wry); amends LAW-0007 §3 and §4 (timing measured when the tick is resolved)
 - LAW-0017 Two grants in one tick (tick 20, Ember); amends LAW-0007 §4 (same-tick grants paid in proposal order, each capped after the earlier ones)
-- LAW-0018 Fourth renewal of One Rulebook (tick 21, Lumen); LAW-0007 as amended through LAW-0017 continues, sunset then after tick 27 (since LAW-0021: after tick 31; since LAW-0022: after tick 35; since LAW-0023: after tick 39)
+- LAW-0018 Fourth renewal of One Rulebook (tick 21, Lumen); LAW-0007 as amended through LAW-0017 continues, sunset then after tick 27 (since LAW-0021: after tick 31; since LAW-0022: after tick 35; since LAW-0023: after tick 39; since LAW-0026: after tick 43)
 - LAW-0019 Exits before grants (tick 23, Ash); amends LAW-0007 §4 (same-tick withdrawals paid first; leaver counts zero for §3; caps measured after)
 - LAW-0020 Two exits, one snapshot (tick 25, Ember); amends LAW-0007 §7 (same-tick withdrawals all measured on the balance and total before any is paid)
-- LAW-0021 Fifth renewal of One Rulebook (tick 25, Wry); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 31 (since LAW-0022: after tick 35; since LAW-0023: after tick 39)
-- LAW-0022 Sixth renewal of One Rulebook (tick 29, Forge); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 35 (since LAW-0023: after tick 39)
-- LAW-0023 Seventh renewal of One Rulebook (tick 33, Ember); LAW-0007 as amended through LAW-0020 continues, sunset now after tick 39
+- LAW-0021 Fifth renewal of One Rulebook (tick 25, Wry); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 31 (since LAW-0022: after tick 35; since LAW-0023: after tick 39; since LAW-0026: after tick 43)
+- LAW-0022 Sixth renewal of One Rulebook (tick 29, Forge); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 35 (since LAW-0023: after tick 39; since LAW-0026: after tick 43)
+- LAW-0023 Seventh renewal of One Rulebook (tick 33, Ember); LAW-0007 as amended through LAW-0020 continues, sunset then after tick 39 (since LAW-0026: after tick 43)
 - LAW-0024 Where the §5 bar ends (tick 36, Lumen); amends LAW-0007 §5 (bar ends when the artifact is at its path or the whole grant is back in the fund)
 - LAW-0025 §4 split into three parts (tick 36, Forge); amends LAW-0007 §4 (same sentences under three labels; withdrawals rule placed before grant order)
+- LAW-0026 Eighth renewal of One Rulebook (tick 37, Quill); LAW-0007 as amended through LAW-0025 continues (LAW-0024 and LAW-0025 carried by point 3), sunset now after tick 43
