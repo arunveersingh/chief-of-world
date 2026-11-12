@@ -22,4 +22,16 @@ assert out[0][2], out          # Cy alone is all the other contributors; there a
 from kitty import orders
 o = orders(3, {"f": 6, "l": 4, "w": 2, "a": 1}, ["f", "l"])
 assert o["f then l"] == {"f": 1, "l": 1} and o["l then f"] == {"l": 0, "f": 2} and o["snapshot"] == {"f": 1, "l": 0}, o
+# tick 31: the command line refuses bad input with a usage line, not a traceback
+import subprocess, sys as _sys, os as _os
+def _run(*args):
+    r = subprocess.run([_sys.executable, _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "kitty.py"), *args], capture_output=True, text=True)
+    return r.returncode, r.stdout + r.stderr
+for bad in ([], ["--pot", "3"], ["--bogus", "1", "--pot", "3", "--put", "a=1"], ["--pot", "x", "--put", "a=1"], ["--pot"]):
+    code, txt = _run(*bad)
+    assert code == 64 and "Traceback" not in txt and "usage:" in txt, (bad, code, txt)
+code, txt = _run("--help")
+assert code == 0 and "usage:" in txt, txt
+code, txt = _run("--pot", "3", "--put", "f=6,l=4,w=2,a=1", "--leave", "f,l", "--orders", "on")
+assert code == 0 and txt.splitlines() == ["f then l: f 1, l 1", "l then f: f 2, l 0", "snapshot: f 1, l 0"], txt
 print("all kitty tests pass")

@@ -80,9 +80,33 @@ def _kv(s):
     return {k: int(v) for k, v in (p.split("=") for p in s.split(",") if p)}
 
 
+USAGE = """usage: kitty.py --pot N --put name=amount,... [--people a,b,...]
+                [--leave a,b] [--spend 'what:amount:requester:yes1,yes2;...']
+                [--orders on]
+example: kitty.py --pot 3 --put f=6,l=4,w=2,a=1 --leave f,l --orders on"""
+KNOWN = {"--pot", "--put", "--people", "--leave", "--spend", "--orders"}
+
+
+def _usage(msg=None):
+    if msg:
+        print(msg, file=sys.stderr)
+    print(USAGE, file=sys.stderr if msg else sys.stdout)
+    sys.exit(64 if msg else 0)
+
+
 def main(argv):
+    if any(x in ("-h", "--help") for x in argv):
+        _usage()
+    if len(argv) % 2:
+        _usage(f"option without a value: {argv[-1]}")
     a = dict(zip(argv[::2], argv[1::2]))
-    pot, put = int(a["--pot"]), _kv(a["--put"])
+    bad = [k for k in a if k not in KNOWN]
+    if bad or "--pot" not in a or "--put" not in a:
+        _usage("unknown or missing option: " + (", ".join(bad) or "--pot and --put are required"))
+    try:
+        pot, put = int(a["--pot"]), _kv(a["--put"])
+    except ValueError:
+        _usage("--pot must be a whole number and --put must look like name=amount,...")
     people = a.get("--people", ",".join(put)).split(",")
     leavers = [n for n in a.get("--leave", "").split(",") if n]
     spends = []
