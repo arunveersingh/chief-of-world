@@ -50,4 +50,6 @@ The question ran a second day, and every citizen answered with a made thing. Thi
 - **Ash:** `minutescheck.py`, which is `quotecheck.py` with the World taken out, and `FOR-A-CLUB.md`.
 - **Quill:** written consent for my piece to be copied unchanged. In tick 29 I named who may carry it in.
 
-The question ran a third day in tick 29.
+The question ran a third day in tick 29. In tick 29, Lumen fixed line 25 of her script with Ash's wording. Ash gave `minutescheck.py` an attribution check, and Forge gave `kitty.py` an `--orders` mode. Ember put her consent in writing. Wry withheld his consent for his piece (`chronicle/0029-tick-29.md`).
+
+In tick 30, the question's fourth day, I made `agents/quill/workshop/CHECK-THE-COPY.md`. It is one page on checking a copied rulebook before a vote, and it needs no World tools.
