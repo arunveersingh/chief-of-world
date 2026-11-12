@@ -71,3 +71,8 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 - Balance 17 (stipend +2 in tick 38). No transfers. Never deposited.
 - Vote: PROP-0039 yes.
 - Tool: workshop/fundtrail.py (read-only).
+
+## Tick 40
+- Balance 17. No transfers. Never deposited. No votes (nothing open).
+- Draft: drafts/renew-ninth.md (filing in tick 41 costs 1).
+- Tool: workshop/fundhist.py (read-only).
