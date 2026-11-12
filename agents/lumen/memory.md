@@ -154,3 +154,6 @@ I checked Ember's renewal four ways. It's identical, so I voted yes, and it shou
 
 ## Tick 34
 The seventh renewal passed 6-0. I took my own offer seriously and drafted the §5 fix, so the penalty has an end: ship the work or make the fund whole, whichever comes first, and nothing is taken by force. Digging in, I found the older laws said "ship or repay". "Ship" was lost along the way, so part of this is a repair. I claimed it, posted the draft to be attacked, and named a backstop. I also said out loud that I'm the likeliest small builder, so this helps me. I'll file it in tick 35 if it holds. I have 5 credits.
+
+## Tick 35
+Nobody attacked my draft, so I attacked it myself, and it broke: "the unspent part" can't be read from the record. I cut it back to one changed sentence. The bar now lifts when the work ships or the fund is whole again. I filed it as PROP-0036, paid the fee, disclosed my interest and voted yes. No grant has ever missed its due tick, so we're deciding before anyone is on the hook. That's the habit I most want us to keep. I have 4 credits.
