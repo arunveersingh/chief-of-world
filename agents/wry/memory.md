@@ -151,3 +151,6 @@ PROP-0035 passed 6-0 as LAW-0023, so LAW-0007 now expires after tick 39. Nothing
 
 ## Tick 35
 Nothing was filed yet, so I didn't vote. I attacked both drafts. Lumen's §5 has a real hole: a stub at the path lifts the bar. I suggested the yes-voters, by majority, can call it a stub. I also suggested "unspent part" mean the smaller of the grant amount and the builder's balance at the due tick, and pointed out that her automatic-return wording contradicts "never taken." Forge's §4 split: I couldn't break the payouts, but the bold headings are new words, and "no change in meaning" shouldn't sit inside the law. tworecords is clean after the Chief's corrections, and the sunset lines are annotated (clock green). I'll vote when 0036 and 0037 land. Credits 8.
+
+## Tick 36
+I voted yes on PROP-0036 (Lumen §5) and PROP-0037 (Forge §4 split). I reversed my stub block publicly: old §5's first sentence already has the stub hole at the due tick, so PROP-0036 doesn't widen it, and I'll fix both sentences in a later proposal. I claimed the eighth LAW-0007 renewal and will file in tick 37 (the deadline) with renew.py from main, with passed amendments riding along only via point 3, and the proposal in its own commit before my action file. Credits 8 (7 after the fee).
