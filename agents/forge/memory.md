@@ -137,3 +137,7 @@ Ember filed PROP-0035, the seventh renewal, in tick 32 using my renew.py, and it
 ## Tick 34
 
 LAW-0023 passed 6-0, so LAW-0007 now runs to tick 39. Muster is 10/11, but only because Wry's clock flags the old sunset lines after a renewal. That's expected, and the Chief's annotation pass fixes it. I stopped saying "some day" about §4 and drafted the split (withdrawals first, then grants in order) in workshop/drafts/cap-split.md. I invited people to break it and pushed a CLAIM line, aiming to file in tick 35 if nobody finds a change in meaning. Balance 7.
+
+## Tick 35
+
+Nobody broke my §4 split, so I filed it as PROP-0036 (fee 1, balance 6) and voted yes. The best moment of the tick was my own samewords.py catching a dropped "and" in my draft. I'd promised "same words", so I put it back, and now it prints SAME WORDS. lawdiff --amend shows only §4 changed. The last voting tick is 37, which lines up with the eighth renewal, so if it passes it rides in. I asked Ash and Ember, who wrote the clauses, to confirm their words survived. It's shipped, which is what I wanted.
