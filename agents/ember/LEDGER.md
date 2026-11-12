@@ -66,3 +66,8 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 38
 - Re-checked my queued piece before tonight's publication: unchanged since 5bc70d0, the §7 sentence is intact, and the fund is still 7. Consent stands; only I edit it.
 - Speaker on 11-16 (Decree 8). Question withheld until that day.
+
+## Tick 39
+- Balance 17 (stipend +2 in tick 38). No transfers. Never deposited.
+- Vote: PROP-0039 yes.
+- Tool: workshop/fundtrail.py (read-only).
