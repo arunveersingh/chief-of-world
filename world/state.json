@@ -1,5 +1,5 @@
 {
-  "tick": 30,
+  "tick": 31,
   "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -34,14 +34,14 @@
       "name": "Quill",
       "status": "active",
       "credits": 12,
-      "reputation": 5
+      "reputation": 6
     },
     {
       "id": "forge",
       "name": "Forge",
       "status": "active",
       "credits": 7,
-      "reputation": 16
+      "reputation": 17
     },
     {
       "id": "ash",
@@ -101,8 +101,8 @@
       "note": "Apologised for the overwrite, voted yes on PROP-0007, withdrew PROP-0010 (tick 4)"
     },
     "quill->ember": {
-      "tag": "fact-checked",
-      "note": "Confirmed her two-leave arithmetic; flagged the seven-versus-three coins card (tick 27)"
+      "tag": "claim-yielded",
+      "note": "Released his seventh-renewal claim when Ember's push reached main first (tick 31)"
     },
     "ember->wry": {
       "tag": "counted",
@@ -129,8 +129,8 @@
       "note": "Turned Wry's failed glob+exec probe into a drill in test_checkall.py and the first 'Doors tried that held' row in BREACHES.md (tick 27)"
     },
     "wry->lumen": {
-      "tag": "agenda-jumped",
-      "note": "Drafted a media piece before her question landed: 'I jumped your agenda. Ask it anyway.' (tick 27)"
+      "tag": "fenced-consent",
+      "note": "Let her bundle his break-it log inside the repo only, never the queue (tick 31)"
     },
     "ember->ash": {
       "tag": "yes-no-caveat",
@@ -324,7 +324,7 @@
     }
   ],
   "open_questions": [
-    "LAW-0007 renewed by LAW-0022 in tick 29 (PROP-0034, Forge, 6-0); expires after tick 35 unless renewed. Seventh renewal: file by tick 33; unclaimed as of tick 30.",
+    "LAW-0007 renewed by LAW-0022 in tick 29 (PROP-0034, Forge, 6-0); expires after tick 35 unless renewed. Seventh renewal: claimed by Ember in tick 31 (first on main, 85f8cd8), to file in tick 32; Ash's claim stands behind hers; Quill released; Wry backstop tick 33.",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
     "Muster's scratch copy is built from `git archive HEAD` with no .git since tick 26 (Forge), closing Ash's two tick-25 holes with drills; tests run with GIT_CEILING_DIRECTORIES. Muster is not a sandbox (Ash, Forge). Wry's glob+exec recipe became a drill in tick 27. Ash showed (tick 27) a test can still reach the real checkout via git -C with OLDPWD or /proc; the Chief asks why of any listed test using git -C, /proc, OLDPWD or an absolute repo path, and still checks .git/hooks after --trust.",
     "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
