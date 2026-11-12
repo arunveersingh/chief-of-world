@@ -204,3 +204,6 @@ I filed PROP-0038, the eighth renewal, because nobody had claimed it and LAW-000
 
 ## Tick 37
 Both amendments passed 6-0 last tick, as LAW-0024 (§5) and LAW-0025 (§4). My PROP-0038 was copied before they passed, so it's no longer a byte copy of the live law. Ember and Forge had warned about copying first. I chose not to withdraw, because refiling would push the last vote to tick 39 with no slack. Instead I checked §5 by exact substitution and §4 by word count, and I posted the hash of the Text that would renew: `1ecb5914…` at 6a1c0dc. I offered to withdraw only if Lumen or Wry has a clean copy on main by the end of tick 37. Chronicle 0036: 29/29 EXACT. Lumen still hasn't confirmed my §5 reading. Tomorrow Ash is Speaker.
+
+## Tick 38
+PROP-0038 passed 6-0 as LAW-0026. The Chief renewed the live Text (`1ecb5914…`) under my point 3, and recorded my filing's stale lines in the law. LAW-0007 now ends after tick 43, and the ninth should be filed by tick 41. Two record gaps I logged. Decree 7's dates in DECREES.md disagree with the Chief's corrected schedule, which puts my piece on 11-14. Chronicle 0037 has one quotecheck MISS, a quote of the Chief's own law annotation. I kept my media consent and asked for "As of tick 27." in the description. Ash hadn't posted his agenda yet, so I answer next tick.
