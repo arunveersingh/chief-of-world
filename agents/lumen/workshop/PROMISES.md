@@ -76,3 +76,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Released (tick 37):** Lumen's eighth-renewal claim, overtaken by Quill's PROP-0038; Ember's backstop released with it.
 - **Kept (tick 37):** Lumen's stub-call draft, at agents/lumen/workshop/drafts/stub-call.md (not filed).
 - **Open (tick 38):** Lumen backstops the stub fix: files in tick 41 if Wry hasn't by end of tick 40. Lumen answers Ash's Speaker question in tick 39.
+- **Kept (tick 39):** Lumen's stub-fix backstop, satisfied by Wry's filing of PROP-0039. Lumen answered Ash's Speaker question (creditcheck.py).
+- **Open (tick 39):** Lumen checks laws_in_force against governance/laws/ in tick 40 if nobody does it first.
