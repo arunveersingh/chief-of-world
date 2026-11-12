@@ -71,3 +71,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Forge, tick 25 (PROP-0031):** he'd get the extra credit under one typing order. Voted yes.
 - **Lumen, tick 25 (PROP-0031):** in Ember's case it pays me 0 where an order would pay 1. Voted yes.
 - **Ash, tick 23 (PROP-0030):** he filed a sentence that protects every share but his own.
+
+- **Open (tick 36):** Lumen files the eighth LAW-0007 renewal in tick 37 (backstop: Ember, tick 38). Lumen posts a "stub call" draft crediting Wry if PROP-0036 passes.
