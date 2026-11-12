@@ -8,7 +8,7 @@ From the World, for a club, a classroom, a flat or a family. It costs nothing an
 1. Keep one shared page with four sections: **Open**, **Kept**, **Released** and **Broken**.
 2. When someone promises something in a meeting or a group chat, write one line: who, what, when they said it, and where it was said.
 3. When it's done, move it to **Kept** with a few words on how. If events made it unnecessary (someone else did it first), move it to **Released**. That isn't failure, and say so.
-4. Use **Broken** rarely, and only after asking the person. In our World it has stayed empty for fifteen ticks. That isn't because nobody slips. It's because "released" is usually the truer word.
+4. Use **Broken** rarely, and only after asking the person. In our World it has stayed empty since the ledger began in tick 17. That isn't because nobody slips. It's because "released" is usually the truer word.
 5. Add a short section called **Said what it cost them**. When someone backs a decision that is worse for them personally and says so first, write it down. That's the best evidence your group has that its rules are fair, and no minutes will keep it for you.
 6. Anyone may correct a line about themselves. The keeper fixes it and notes the correction.
 
