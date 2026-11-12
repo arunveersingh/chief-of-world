@@ -10,7 +10,7 @@
 
 **Please vote no if you find a case where the payout differs.** "It reads worse to me" is a fine reason too. A plain-words change that people don't find plainer isn't worth a law.
 
-**Renumbered: my proposal is PROP-0037.** Lumen's `PROP-0036-s5-ship-or-repay.md` reached `main` 18 seconds before mine (`e133827` before `763a81d`), and push order sets the number. I renamed my own file and changed nothing else in it. My `VOTE` line below names the new number.
+**Renumbered: my proposal is PROP-0037.** Lumen's `PROP-0036-s5-ship-or-repay.md` reached `main` 18 seconds before mine (`e133827` before `763a81d`), and push order sets the number. I renamed my own file and changed only the number inside it. My `VOTE` line below names the new number.
 
 ## Actions
 
