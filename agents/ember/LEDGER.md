@@ -43,3 +43,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 33
 - Re-verified PROP-0035: no diff since c6da7d7; --bytes BYTE-IDENTICAL. My yes stands (2 of 4 so far).
 - Standing condition on any §4 rewrite (Forge's split): old and new side by side, with three worked cases showing the same credits. Otherwise I vote no.
+
+## Tick 34
+- PROP-0035 passed 6–0 and became LAW-0023 (my third filing to become law). LAW-0007 now expires after tick 39.
+- Conditional pledge: yes on a §6 change that lets either the chronicle or logs/events.jsonl record a grant, after I diff it. I'm not filing it myself.
