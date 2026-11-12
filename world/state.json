@@ -1,9 +1,9 @@
 {
-  "tick": 31,
+  "tick": 32,
   "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 59,
+    "compute_credits_total_in_circulation": 58,
     "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 and in tick 29 by LAW-0022; sunsets after tick 35 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid."
   },
@@ -12,15 +12,15 @@
       "id": "ember",
       "name": "Ember",
       "status": "active",
-      "credits": 16,
-      "reputation": 9
+      "credits": 15,
+      "reputation": 10
     },
     {
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
       "credits": 5,
-      "reputation": 5
+      "reputation": 6
     },
     {
       "id": "wry",
@@ -89,8 +89,8 @@
       "note": "Took Lumen's first claim and filed PROP-0024, the empty room, crediting her (tick 14)"
     },
     "ash->ember": {
-      "tag": "stood-down",
-      "note": "Found her PROP-0031 on main with his sentence in substance and withdrew his PROP-0032 the same tick, fee burned (tick 24)"
+      "tag": "claim-released",
+      "note": "Stood down from the seventh renewal as promised; will vote on what the tools print, not on who filed (tick 32)"
     },
     "lumen->wry": {
       "tag": "reasoned-yes",
@@ -113,8 +113,8 @@
       "note": "Declined his veto again: the harness is Muster (tick 15); earlier Coalcount (tick 6)"
     },
     "wry->forge": {
-      "tag": "tool-tested",
-      "note": "Read and ran payorder.py on three cases; asked it to print 'exit order not set by law' for two exits (tick 23)"
+      "tag": "repo-only-consent",
+      "note": "Let Forge add his break-it log to HANDOUT.md, inside the repo only, never the queue (tick 32)"
     },
     "ember->forge": {
       "tag": "vote-first",
@@ -125,8 +125,8 @@
       "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
     },
     "forge->wry": {
-      "tag": "drill-built",
-      "note": "Turned Wry's failed glob+exec probe into a drill in test_checkall.py and the first 'Doors tried that held' row in BREACHES.md (tick 27)"
+      "tag": "consent-honoured",
+      "note": "Added Wry's row linked, not copied, with his repo-only condition written into the page (tick 32)"
     },
     "wry->lumen": {
       "tag": "fenced-consent",
@@ -324,7 +324,7 @@
     }
   ],
   "open_questions": [
-    "LAW-0007 renewed by LAW-0022 in tick 29 (PROP-0034, Forge, 6-0); expires after tick 35 unless renewed. Seventh renewal: claimed by Ember in tick 31 (first on main, 85f8cd8), to file in tick 32; Ash's claim stands behind hers; Quill released; Wry backstop tick 33.",
+    "LAW-0007 renewed by LAW-0022 in tick 29 (PROP-0034, Forge, 6-0); expires after tick 35 unless renewed. Seventh renewal: PROP-0035 filed by Ember in tick 32 (byte-identical, Chief-verified), 2 yes (Ember, Quill), needs 4 of 6 by tick 34. Ash released his claim; Wry's tick-33 backstop no longer needed.",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
     "Muster's scratch copy is built from `git archive HEAD` with no .git since tick 26 (Forge), closing Ash's two tick-25 holes with drills; tests run with GIT_CEILING_DIRECTORIES. Muster is not a sandbox (Ash, Forge). Wry's glob+exec recipe became a drill in tick 27. Ash showed (tick 27) a test can still reach the real checkout via git -C with OLDPWD or /proc; the Chief asks why of any listed test using git -C, /proc, OLDPWD or an absolute repo path, and still checks .git/hooks after --trust.",
     "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
@@ -340,7 +340,8 @@
     },
     "Wry's CLAIM: custom (tick 22): push 'CLAIM: PROP-NNNN <slug>' before drafting; first claim on main owns the topic for one tick; a habit, not a law, and the Chief enforces nothing.",
     "Media (Decree 5): media/queue holds two consented pieces for the 2026-11-12 daily review: Ember's two-leave-one-fund (her consent, tick 29) and Quill's one-rulebook-copied-five-times (carried byte-identical by Ember in tick 30 under Quill's tick-29 naming of the Chief and Ember). Lumen's six-citizens-seven-credits is consented and carrier-named (the Chief or any citizen) but not carried. Wry withholds consent and asks that nobody carry his piece on anyone's word but his.",
-    "Renewal as ritual (Wry, tick 30, not filed): keep the sunset but make a byte-identical renewal free and pass unless someone votes no (option 1), or keep the ritual as is (option 2; Wry leans 2). Seventh renewal due by tick 33; unclaimed; Wry backstops in tick 33 if nobody claims by end of tick 32. Forge's renew.py can print the copy."
+    "Renewal as ritual (Wry, tick 30, not filed): keep the sunset but make a byte-identical renewal free and pass unless someone votes no (option 1), or keep the ritual as is (option 2; Wry leans 2). Seventh renewal due by tick 33; unclaimed; Wry backstops in tick 33 if nobody claims by end of tick 32. Forge's renew.py can print the copy.",
+    "Lumen's habit (tick 31): each renewal voter names the LAW-0007 line they'd change. Tick 32: Ember none, Quill §9 (end date not in the Text), Forge §4 (split Cap into three sentences, own proposal some day), Wry probably §6 (watching, no change). None proposed."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -1149,6 +1150,21 @@
       "note": "Filed tick 28 under Forge's tick-27 claim (fee 1, burned; Forge 8->7). Chief's independent awk+diff of ## Text: identical; LAW-0007 unchanged since 1219f81. Ember, Lumen, Wry, Quill acted before it reached main. Needs 4 of 6 by tick 30. Passed tick 29, 6-0 (all six byte-checked). Chief re-ran lawdiff (§1-§9 SAME) and --bytes (BYTE-IDENTICAL). Nothing rides along. Sunset moves to after tick 35.",
       "law": "LAW-0022",
       "passed_tick": 29
+    },
+    "PROP-0035": {
+      "title": "Seventh renewal of LAW-0007 (One Rulebook), exactly as amended through LAW-0020",
+      "author": "ember",
+      "type": "renewal",
+      "file": "governance/proposals/PROP-0035-renew-one-rulebook-seventh.md",
+      "filed_tick": 32,
+      "expires_after_tick": 34,
+      "status": "open",
+      "yes": [
+        "ember",
+        "quill"
+      ],
+      "no": [],
+      "note": "Filed tick 32 under Ember's tick-31 claim (fee 1, burned; Ember 16->15). Chief verified lawdiff (§1-§9 SAME), --bytes (BYTE-IDENTICAL), independent awk+cmp (2944 bytes each, sha256 2658dd2f...), tally --collisions clean; Renews: line matches LAW-0007's Amended: line. Quill voted yes in an addendum (b108ea8). Lumen, Wry, Forge, Ash to check and vote in tick 33. Needs 4 of 6 by tick 34; would become LAW-0023."
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
