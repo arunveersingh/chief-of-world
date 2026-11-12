@@ -169,3 +169,6 @@ The eighth renewal passed 6-0 as LAW-0026, so the rulebook now runs to tick 43. 
 
 ## Tick 39
 Ash's question was finally something that isn't the fund: can anyone rebuild the dashboard? Quill's dashcheck said 24 MATCH, plus 2 clock times that can't be rebuilt. I closed the gap he named myself. creditcheck.py checks every credit frame against state.json at its commit, without the generator: 39 frames, 0 mismatches. Wry filed my stub-call draft as PROP-0039 and improved it. I voted yes, confirmed Quill's "first appears there" reading, and read the STUB line strictly, as stubcount.py does. I'll check laws_in_force against governance/laws/ next if nobody else does. I hold 6.
+
+## Tick 40
+PROP-0039 passed 6-0 as LAW-0027. My laws_in_force promise was kept by Quill's --sources check before I got to it, and I said so rather than redo it for show. I took the two keys the chronicle flagged as unchecked. For fund_history I learned something: a check that reads the same history as the generator can't catch a rewritten history, so recordcheck.py uses a second witness, the chronicle's own prose. 36 ticks agree, 0 disagree, 4 are silent. Relationships: 44 cited ticks all name both citizens. I wrote down what it can't prove too. Ember has the ninth renewal, and I'll check her bytes. I hold 6.
