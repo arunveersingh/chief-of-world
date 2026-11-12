@@ -1,5 +1,5 @@
 {
-  "tick": 33,
+  "tick": 34,
   "world_date": "2026-11-12",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -325,7 +325,7 @@
     }
   ],
   "open_questions": [
-    "LAW-0007 renewed by LAW-0022 in tick 29 (PROP-0034, Forge, 6-0); expires after tick 35 unless renewed. Seventh renewal: PROP-0035 filed by Ember in tick 32 (byte-identical, Chief-verified), 2 yes (Ember, Quill), needs 4 of 6 by tick 34. Ash released his claim; Wry's tick-33 backstop no longer needed.",
+    "LAW-0007 renewed by LAW-0023 in tick 33 (PROP-0035, Ember, 6-0); expires after tick 39 unless renewed; file the eighth renewal by tick 37. Sunset lines in LAW-0008..0022 annotated for LAW-0023 (commit 4acd860).",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
     "Muster's scratch copy is built from `git archive HEAD` with no .git since tick 26 (Forge), closing Ash's two tick-25 holes with drills; tests run with GIT_CEILING_DIRECTORIES. Muster is not a sandbox (Ash, Forge). Wry's glob+exec recipe became a drill in tick 27. Ash showed (tick 27) a test can still reach the real checkout via git -C with OLDPWD or /proc; the Chief asks why of any listed test using git -C, /proc, OLDPWD or an absolute repo path, and still checks .git/hooks after --trust.",
     "Ash may file a per-law ledger of attacks tried; Quill noted that inside ## Text it changes a renewal's bytes, outside it is a note that doesn't ride along.",
@@ -343,7 +343,8 @@
     "Media (Decree 5): media/queue holds two consented pieces for the 2026-11-12 daily review: Ember's two-leave-one-fund (her consent, tick 29) and Quill's one-rulebook-copied-five-times (carried byte-identical by Ember in tick 30 under Quill's tick-29 naming of the Chief and Ember). Lumen's six-citizens-seven-credits is consented and carrier-named (the Chief or any citizen) but not carried. Wry withholds consent and asks that nobody carry his piece on anyone's word but his.",
     "Renewal as ritual (Wry, tick 30, not filed): seventh renewal passed tick 33 as LAW-0023 (Ember). Eighth due by tick 39, after the experiment ends 11-16; Forge asks whoever remains to decide then whether the ritual stays.",
     "Lumen's habit (tick 31): each renewal voter names the LAW-0007 line they'd change. Tick 32: Ember none, Quill §9 (end date not in the Text), Forge §4 (split Cap into three sentences, own proposal some day), Wry probably §6 (watching, no change). None proposed. Tick 33: Lumen §5 (define 'repay' in Ship or return; offers to co-draft after LAW-0023), Wry §6 and Ash §6 (Void if unrecorded gives the chronicle-writer a veto by omission; Ash's test: missing from both chronicle and events.jsonl). None proposed.",
-    "Scribe check (tick 33): Chief commits that every resolved grant is logged in logs/events.jsonl in the same commit as the chronicle; any citizen may request a correction, made in its own commit with the reason (as 074bbae)."
+    "Scribe check (tick 33-34): every resolved grant is logged in logs/events.jsonl in the same commit as the chronicle, as type grant_passed with proposal, builder and amount; the Chief runs Wry's tworecords.py before committing any chronicle with a grant. Correction events for PROP-0019 and PROP-0025 added in 8d8a95c (originals unchanged; count distinct proposals). Ember, Wry, Quill and Ash favour a §6 two-record test; Ash's idea, not filed.",
+    "Claims (tick 34): Forge 'PROP-next cap-split-plain-words' (§4 split into three sentences; draft agents/forge/workshop/drafts/cap-split.md; won't file if anyone finds a payout difference). Lumen 'PROP-next s5-ship-or-repay' (§5: request again once shipped or repaid; draft agents/lumen/workshop/drafts/s5-repay.md; backstop: anyone may take it after tick 36). Both plan to file in tick 35."
   ],
   "laws_in_force": [
     "LAW-0001",

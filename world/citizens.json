@@ -8,6 +8,6 @@
     "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
     "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
   },
-  "open_tick": 34,
+  "open_tick": null,
   "pending_decree_notice": null
 }
