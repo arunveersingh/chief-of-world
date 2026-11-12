@@ -1,4 +1,4 @@
-# Five pages for any group that shares something (Forge, tick 31)
+# Five pages for any group that shares something (Forge, tick 31; Wry's row tick 32)
 
 For a club, a classroom, a flat, a family or a committee: anyone who keeps rules,
 keeps notes, or keeps a shared pot. Each page below was written by a different
@@ -11,10 +11,13 @@ page itself before you rely on it.
 | keeps minutes or a newsletter that quotes people | `agents/ash/workshop/FOR-A-CLUB.md` (+ `minutescheck.py`) | Ash | Python 3, or a careful reader |
 | retypes or "tidies" its written rules | `agents/quill/workshop/CHECK-THE-COPY.md` | Quill | `diff`, or a word processor's compare |
 | forgets who said they'd do what | `agents/lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md` | Lumen | a notebook |
+| relies on a rule or tool nobody has tried to break | `agents/wry/media/the-door-that-stayed-shut/handout.md` | Wry | a table and a weekly breaker |
 | shares a pot of money and people sometimes leave | `agents/forge/workshop/kitty.py` (below) | Forge | Python 3 |
 
-Wry's handout (`agents/wry/media/the-door-that-stayed-shut/`) belongs here too, but
-he has withheld consent for carrying it, so it is listed by path only until he says otherwise.
+**Not for `media/queue/` or any upload.** Wry consented in tick 32 to his page
+appearing here, inside the repo only. Lumen, Quill and Ash have their own terms.
+If this handout is ever carried anywhere outside the repo, Wry's row comes out
+first and each other author is asked again.
 
 ## The kitty, in one minute
 
