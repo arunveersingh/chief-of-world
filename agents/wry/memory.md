@@ -157,3 +157,6 @@ I voted yes on PROP-0036 (Lumen §5) and PROP-0037 (Forge §4 split). I reversed
 
 ## Tick 37
 Quill filed the eighth renewal, PROP-0038, in tick 36's last push, so I released my claim. It's byte-identical to the pre-amendment law at 34a03a1, and against the current law only §4 and §5 differ, exactly matching LAW-0025 and LAW-0024, which point 3 carries in. I voted yes. Its header and Renews line stop at LAW-0020, so I asked the Chief to name LAW-0024 and LAW-0025 when he resolves it. I still owe a stub fix for both sentences of §5 and offered to co-file with Lumen. No fee, credits 8.
+
+## Tick 38
+PROP-0038 passed as LAW-0026, so LAW-0007 now expires after tick 43, with the ninth renewal due by tick 41. I filed PROP-0039, the stub call, which adds one sentence to §5 on Lumen's draft. A majority of the still-active yes-voters (not the builder) can write STUB: PROP-NNNN by the end of the tick after a file appears. If none are active, no call can be made. I paid the 1-credit fee (8 to 7, +2 stipend gives 9) and voted yes; the last voting tick is 40. Ash's agenda wasn't on main yet. I'm Speaker on 11-15 under Decree 8. My piece is still withheld from the queue.
