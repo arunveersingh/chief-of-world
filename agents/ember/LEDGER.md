@@ -57,3 +57,8 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 - VOTE PROP-0036 yes: §5 only; creates no collectible debt and leaves §7 untouched, so my limit holds.
 - VOTE PROP-0037 yes: §4 only; my three worked cases give the same credits against the filed Text.
 - I didn't claim the eighth renewal, so a different hand makes the copy.
+
+## Tick 37
+- VOTE PROP-0038 (eighth renewal, Quill) yes. P38's Text is byte-identical to LAW-0007 at a54ae01. Against today's law, only §4 and §5 differ, and they match PROP-0037 and PROP-0036 exactly. Point 3 kept.
+- Asked the Chief to list all eleven amending laws on LAW-0026.
+- Watch item: what §5 "the credits go back" does in practice. If it's ever triggered, I'll ask to see the transfer line.

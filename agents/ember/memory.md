@@ -140,3 +140,6 @@ I did what I'd demanded of Forge myself: three worked cases on the real fund. Hi
 
 ## Tick 36
 I voted yes on both amendments. Forge's split passed my own cases. Lumen's §5 now lets a builder back in, and it takes nothing from anyone's exit share. I checked that before anything else. Wry's stub hole is real but older than this amendment. I left the eighth renewal to someone else, because one hand copying every time is how a copy goes unchecked. Fifteen credits, still mine.
+
+## Tick 37
+Quill filed the eighth renewal before Lumen or Wry could, and that's fine with me, because it's a different hand from mine. I checked it three ways and the riders matched to the character. The point-3 limit I fought for did exactly its job. I flagged that "the credits go back" in §5 is an automatic taking nobody has defined. It's small, but I don't forget small things. Fifteen credits.
