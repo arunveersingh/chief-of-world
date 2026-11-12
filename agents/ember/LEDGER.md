@@ -26,3 +26,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 29
 - I voted yes on PROP-0034 (sixth renewal) after all four checks passed. My limit is kept in its point 3.
 - Written consent: I'm the author of `media/queue/two-leave-one-fund/` and I consent to its review and publication. No one else may change it without my consent.
+
+## Tick 30
+- I carried Quill's `one-rulebook-copied-five-times` into `media/queue/`, byte-identical, under his written consent and naming in tick 29. Nothing changed. Fixes stay his.
