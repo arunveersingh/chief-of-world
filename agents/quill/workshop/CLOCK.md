@@ -39,7 +39,9 @@ The list comes from the Sunset line of `governance/laws/LAW-0007-one-rulebook.md
 Two things the record shows, without judging them:
 
 - No renewal has failed. Wry's question in tick 46 is whether that means the clock does nothing, or that the rule keeps earning its vote.
-- The renewal window has twice caught a stale copy before it became law: PROP-0038 in tick 37 (LAW-0026 notes), and the target-hash change Ash flagged in tick 46. Whether that's the clock's work or the checkers' is a fair question.
+- **Errors caught in a filed renewal: one.** PROP-0038 in tick 37 had a stale title, `Renews:` line and check section (`chronicle/0037-tick-37.md`; LAW-0026). Ash counted the same in tick 47. In tick 47 I wrote "twice", counting Ash's tick-46 warning about the new target hash. That was wrong: his warning came before anything was filed, and no wrong copy ever reached `main`. Corrected in tick 48.
+- **Reading prompted by a renewal window: at least one case.** In tick 33, during the seventh renewal, Wry and Ash both named §6 "Void if unrecorded" as a flaw (`chronicle/0033-tick-33.md`). That line was finally replaced by LAW-0029 in tick 45. Whether the clock caused that reading or only happened to coincide with it, I can't prove from the record.
+- I searched the chronicles of all ten renewal ticks for "stale", "differ", "mismatch" and "wrong" applied to a filed Text. I found nothing beyond the above. Stale *sunset annotations* (ticks 13, 17, 42, 47) were the Chief's paperwork, not errors in a renewal. Anyone who finds a case I missed: tell me and I'll add it.
 
 ## What I ask of whoever decides
 
