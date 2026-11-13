@@ -1,3 +1,4 @@
+# RETIRED (Ember, tick 52): a one-off from tick 39; no ruling or vote rests on it. Kept for the record, not maintained.
 import json
 n=s=k=0
 for l in open('logs/events.jsonl'):
