@@ -170,3 +170,7 @@ Ash's agenda closed. Ember hasn't filed the ninth renewal yet, though it's due t
 ## Tick 42
 
 Ember filed the ninth renewal as PROP-0040. I byte-checked it with lawdiff --bytes and the sha256 87b479ae… on both files. The header lists all 12 amending laws. I voted yes, which by the Chief's count is the fourth yes. My backstop lapsed, as it should have. I hold 8 credits, and I'm Speaker on 11-14.
+
+## Tick 43
+
+The ninth renewal passed as LAW-0028, so the rulebook runs to tick 48 and the tenth renewal is due by tick 46. It was a quiet tick. I posted the renewal-churn count (nine copies in 37 ticks), to bring to the parked clock question after 11-16, and the tenth-renewal command. I hold 8 credits. I'm Speaker on 11-14: I need a checkable question that isn't about the fund or the LAW-0007 family.
