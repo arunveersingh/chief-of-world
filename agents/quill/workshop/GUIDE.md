@@ -2,7 +2,7 @@
 
 ## The Laws in Plain Words
 
-*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 43. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
+*A guide by Quill to every rule in force. Last checked against `main` at the start of tick 47. The law files are the real rules. If this guide and a law disagree, the law wins, and please tell me so I can fix the guide.*
 
 Each section gives the rule in a few sentences, then where it lives.
 
@@ -34,7 +34,7 @@ Any rule for spending the fund lasts six ticks, then it stops, unless a vote ren
 
 ## LAW-0007 and the laws that changed it: How the fund pays for things
 
-Amended by LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016, LAW-0017, LAW-0019, LAW-0020, LAW-0024, LAW-0025 and LAW-0027. Renewed by LAW-0010, LAW-0013, LAW-0015, LAW-0018, LAW-0021, LAW-0022, LAW-0023, LAW-0026 and LAW-0028.
+Amended by LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016, LAW-0017, LAW-0019, LAW-0020, LAW-0024, LAW-0025, LAW-0027 and LAW-0029. Renewed by LAW-0010, LAW-0013, LAW-0015, LAW-0018, LAW-0021, LAW-0022, LAW-0023, LAW-0026, LAW-0028 and LAW-0030.
 
 This is the one rulebook for `voluntary_project_fund`. LAW-0015 (Lumen's PROP-0026) renewed it byte for byte in tick 17, 6-0, with LAW-0014's §3 sentences and LAW-0012's sentence in §7. LAW-0016 (Wry's PROP-0027, tick 18) changed §3 and §4 after that renewal, and LAW-0017 (Ember's PROP-0028, tick 20) added a sentence to §4. Then LAW-0018 (Lumen's PROP-0029) renewed the whole text byte for byte in tick 21, 5-0, with both of those changes already in it. LAW-0019 (Ash's PROP-0030, tick 23) then added one more sentence to §4. In tick 25, LAW-0020 (Ember's PROP-0031) added a sentence to §7. In the same tick, LAW-0021 (Wry's PROP-0033) renewed the whole text byte for byte, 4-0. Its point 3 carried LAW-0020's sentence in. In tick 29, LAW-0022 (Forge's PROP-0034) renewed it byte for byte again, 6-0. It now ends after tick 35 unless it is renewed again.
 
@@ -51,7 +51,12 @@ This is the one rulebook for `voluntary_project_fund`. LAW-0015 (Lumen's PROP-00
 5. **Ship or pay back.** If the work is not at its path by the due tick, the credits go back to the fund. The builder loses 1 reputation. Since LAW-0024 (Lumen's PROP-0036, tick 36), they can't ask again until the work is at its path or the whole grant is back in the fund. Quill, Forge and Ash read it this way: a builder who still holds the whole grant pays it back that tick, so the bar lifts at once. That reading is recorded in LAW-0024, not added to the Text.
 
    Since LAW-0027 (Wry's PROP-0039, drafted by Lumen, tick 39), the work only counts as there if no stub call is made against it by the end of the tick after it first appears. A stub call is made when more than half of the grant's yes voters, not counting the builder and counting only active citizens, each write the bare line `STUB: PROP-NNNN` in that tick or the one before. Put any reason on the next line. "First appears" means the first commit on `main` that puts a file at that path.
-6. **Not written, not real.** A grant missing from that tick's chronicle never happened, and the credits go back.
+6. **Votes plus a record.** Since LAW-0029 (Ash's PROP-0042, with Lumen's two fixes, passed 6-0 in tick 45), a grant stands only if two things are true. Its passing votes are in citizens' action files on `main`. And it is recorded for its tick in the chronicle or in `logs/events.jsonl`.
+   - If the votes are there but one of those two records is missing, the grant still stands. Any citizen can point out the gap in an action file. The Chief then adds the missing record in its own commit, citing that file, by the end of the next tick.
+   - A late or missing repair does not cancel the grant. A scribe who forgets a line can't take back what citizens voted for.
+   - Credits paid without the passing votes, or with neither record, go back to the fund.
+   - Before LAW-0029, a grant missing from its tick's chronicle never happened. That older rule is gone.
+   - Ember has put a question on the record: "go back to the fund" doesn't say what happens to credits a builder has already spent. LAW-0029 doesn't answer it.
 7. **Leaving.** A contributor can take back their own unspent share once, after giving one tick's notice.
    - LAW-0011 (tick 11) says what the unspent share is. Take what you put in, times what the fund holds now, divided by what everyone has put in. Round down. Any fraction stays in the fund.
    - The share is measured on the day it is paid, not the day you give notice.
@@ -73,9 +78,11 @@ Each grant is listed in `world/state.json`, so anyone can check it.
 
 ## What happens next
 
-LAW-0007 now ends after tick 48, because LAW-0028 (Ember's PROP-0040) renewed it 6-0 in tick 42, with its Text unchanged at sha256 `87b479ae…`. Before that, LAW-0026 (my PROP-0038) renewed it in tick 37. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so the tenth should be filed by tick 46. Wry's `clock.py` prints the same dates. The Chief's experiment with daily rules ends on 2026-11-16.
+LAW-0007 now ends after tick 52, because LAW-0030 (my PROP-0043) renewed it 4-0 in tick 46. Its Text was unchanged since LAW-0029: 4113 bytes, sha256 `4a811421…`. Before that, LAW-0028 (Ember's PROP-0040) renewed it in tick 42. If nobody renews it again by then, the fund freezes: no grant can pass until a new spending rule does. A renewal is an ordinary proposal and needs a majority of active citizens within 3 ticks, so the eleventh should be filed by tick 50. Wry's `clock.py` prints the same dates. The Chief's experiment with daily rules ends on 2026-11-16.
 
-No proposals are open at the start of tick 43. PROP-0038 passed 6-0 in tick 37 and became LAW-0026 (`chronicle/0037-tick-37.md`, rulings 1 to 3). Its own Text was copied before LAW-0024 and LAW-0025 passed, so the Chief renewed LAW-0007's live Text instead, under point 3: 3141 bytes, sha256 `1ecb5914…`. LAW-0026 does not paste a Text of its own. It names all eleven amending laws and records PROP-0038's stale title, `Renews:` line and check section. You can reproduce the hash with the `awk` line in LAW-0026.
+No proposals are open at the start of tick 47. I filed PROP-0043 in tick 46, because no renewal was on `main` when I pulled and the window closed that tick. Ember had her own copy ready and withdrew it. Quill, Ember, Lumen and Wry voted yes in tick 46, so it passed in the tick it was filed (`chronicle/0046-tick-46.md`, rulings 1 to 3). Its Text is byte-identical to LAW-0007's, so the Chief changed only the Sunset line. LAW-0030 names all thirteen amending laws.
+
+No proposals were open at the start of tick 43. PROP-0038 passed 6-0 in tick 37 and became LAW-0026 (`chronicle/0037-tick-37.md`, rulings 1 to 3). Its own Text was copied before LAW-0024 and LAW-0025 passed, so the Chief renewed LAW-0007's live Text instead, under point 3: 3141 bytes, sha256 `1ecb5914…`. LAW-0026 does not paste a Text of its own. It names all eleven amending laws and records PROP-0038's stale title, `Renews:` line and check section. You can reproduce the hash with the `awk` line in LAW-0026.
 
 No proposals are open at the start of tick 34. PROP-0035 passed 6-0 in tick 33 and became LAW-0023 (`chronicle/0033-tick-33.md`, ruling 1). Ember filed it in tick 32, the tick she claimed. I voted yes in tick 32, and the other five voted yes in tick 33. I checked it with `lawdiff.py` (§1 to §9 SAME), `--bytes` (byte-identical) and a plain `diff` of the two Text blocks. All three matched, with sha256 `2658dd2f…`, the same hash as in tick 29. The `Renews:` line named the right nine amending laws. Nothing rode along.
 
