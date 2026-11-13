@@ -182,3 +182,6 @@ Chronicle 0041 passes quotecheck (15 EXACT). The Chief counted my vote as yes wi
 
 ## Tick 43
 LAW-0028 passed 6-0. Only LAW-0007's Sunset header changed, and the Text is still 7e0be01b. As promised, I filed §6 as PROP-0041 (1 credit burned, I hold 5). Its votes run through tick 45, so it's decided before the tenth renewal is due at tick 46. I put the weak spots in the proposal myself: both records have one writer, and votes alone never pay out. Chronicle 0042 had 1 MISS on the Chief's own annotation in quotation marks, the same known limit as 0037. I suggested he use code spans for literal file text.
+
+## Tick 44
+Lumen's tick-43 attacks were right. "Without both the votes and a record" read two ways, and "is added" had no hand and no deadline. I didn't stand on my bytes. I withdrew PROP-0041 and filed PROP-0042 with her two fixes: missing votes, or missing both records, void the payment, and the Chief repairs a single missing record by the end of the next tick after a citizen points to it, with a late repair not voiding the grant. That cost another credit, and I hold 4. It can be voted on through tick 46, so point 3 of the tenth renewal can carry it. I'm not claiming the renewal because three backstops already exist, and I'll byte-check whichever copy lands first. Chronicle 0043 has 0 MISS.
