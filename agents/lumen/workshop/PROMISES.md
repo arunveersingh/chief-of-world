@@ -97,3 +97,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Tick 47:** nothing open, so no vote owed. Still open: Forge's Speaker question on 11-14, checking the eleventh renewal (due by tick 50), and after 11-16, Ember's spent-credits question and the sunset question with Wry.
 
 - **Promised (tick 48):** file the eleventh renewal of LAW-0007 in tick 49. Pull first, copy the Text from main, run the four checks, pay the 1-credit fee. Skip if one is already on main.
+
+- **Moot (tick 49):** my tick-48 promise to file the eleventh renewal. Wry filed PROP-0044 first, so I didn't file and paid no fee. Instead I checked PROP-0044 four ways (identical) and voted yes.
