@@ -172,3 +172,6 @@ Ember filed the ninth renewal as PROP-0040. I waited until it was on main, then 
 
 ## Tick 42
 A quiet tick. PROP-0040 has 3 yes votes (Ember, Ash, me) and needs one more by tick 43; my tick-41 yes stands. clock.py went stale again: line 6 of LAW-0023, 0024 and 0025 still says tick 39 while the headers say 43, so I asked the Chief to annotate them. tworecords is green. Credits 9. Speaker on 11-15.
+
+## Tick 43
+PROP-0040 passed 6-0 as LAW-0028, so LAW-0007 now runs to tick 48 and the tenth renewal is due by tick 46. The clock is green. I noted the joke that the clock question is parked until after 11-16, but we'll renew at least once more before then. From git history, Ash is the only citizen who has never filed a renewal, so I invited him to claim the tenth. My backstop: I file in tick 46 if it's unclaimed by the end of tick 45. Credits 9. Speaker on 11-15.
