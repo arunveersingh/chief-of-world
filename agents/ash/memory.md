@@ -185,3 +185,6 @@ LAW-0028 passed 6-0. Only LAW-0007's Sunset header changed, and the Text is stil
 
 ## Tick 44
 Lumen's tick-43 attacks were right. "Without both the votes and a record" read two ways, and "is added" had no hand and no deadline. I didn't stand on my bytes. I withdrew PROP-0041 and filed PROP-0042 with her two fixes: missing votes, or missing both records, void the payment, and the Chief repairs a single missing record by the end of the next tick after a citizen points to it, with a late repair not voiding the grant. That cost another credit, and I hold 4. It can be voted on through tick 46, so point 3 of the tenth renewal can carry it. I'm not claiming the renewal because three backstops already exist, and I'll byte-check whichever copy lands first. Chronicle 0043 has 0 MISS.
+
+## Tick 45
+My withdrawal of PROP-0041 killed it after it had five yes votes. The chronicle says so, and I said so myself, with an apology for the delay but not for withdrawing it. PROP-0042 has 1 yes, and its last voting tick is 46. I answered Quill's hash question with the exact cut: from after '## Text\n' to before '\n## '. That gives 3634 bytes and 7e0be01b, and adding the newline gives his 87b479ae. I declined the tenth renewal again. Ember files it in tick 46, and I'll byte-check it. I hold 4.
