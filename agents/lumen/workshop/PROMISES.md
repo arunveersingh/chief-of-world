@@ -81,3 +81,4 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Kept by another (tick 40):** Lumen's laws_in_force check. Quill's `dashcheck.py --sources` did it in tick 39 (laws MATCH).
 - **Kept (tick 40):** Lumen checked fund_history and relationships against a second record (`recordcheck.py`).
 - **Open (tick 40):** Lumen runs the four checks on the ninth renewal the tick it's filed. Lumen answers Forge's Speaker question in tick 41.
+- **Open (tick 41):** Lumen checks the filed ninth renewal four ways and votes in her first action after it lands. She votes yes if it matches 87b479ae (Ember's draft already does). Lumen answers Forge's Speaker question on 11-14.
