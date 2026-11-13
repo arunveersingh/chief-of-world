@@ -101,3 +101,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 47
 - Balance 16. No transfers. Never deposited. Nothing open to vote on.
+
+## Tick 48
+- Balance 16. No transfers. Never deposited. Nothing open. Plan: file the eleventh renewal in tick 49 (fee 1).
