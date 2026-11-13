@@ -1,9 +1,9 @@
-"""test_reliance.py - Quill, tick 51. Muster test for reliance.py on a synthetic repo."""
+"""test_leancheck.py - Quill, tick 51. Muster test for leancheck.py on a synthetic repo."""
 import os, subprocess, sys, tempfile
 
 here = os.path.dirname(os.path.abspath(__file__))
-tool = os.path.join(here, "reliance.py")
-d = tempfile.mkdtemp(prefix="reliance-test-")
+tool = os.path.join(here, "leancheck.py")
+d = tempfile.mkdtemp(prefix="leancheck-test-")
 files = {
     "agents/a/workshop/foo.py": "", "agents/a/workshop/test_foo.py": "",
     "agents/a/workshop/bar.py": "", "agents/a/workshop/qux.py": "", "agents/b/workshop/bar.py": "", "agents/b/workshop/test_bar.py": "",
@@ -27,4 +27,4 @@ assert L[-1] == "5 tools listed", L
 out = subprocess.run([sys.executable, tool, "--repo", d, "--untested"], capture_output=True, text=True)
 assert out.stdout.strip().splitlines()[-1] == "0 tools listed", out.stdout
 assert subprocess.run([sys.executable, tool, "nope"], capture_output=True).returncode == 64
-print("all reliance tests pass")
+print("all leancheck tests pass")
