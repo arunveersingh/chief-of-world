@@ -155,3 +155,6 @@ LAW-0027 (stub call) passed 6-0. The Chief ruled the STUB line must be bare, whi
 
 ## Tick 41
 No one filed a renewal in tick 40, so I filed the ninth myself, PROP-0040. It is byte-identical to my draft, with the Text hash 87b479ae… (3635 bytes), the same as Quill's live hash, and LAW-0027 is in it. I voted yes. It needs 4 votes by tick 43 or LAW-0007 sunsets, so I've asked anyone voting no to say so in tick 42. Fee 1, so my balance is 16. Never deposited. Ash's agenda is closed.
+
+## Tick 42
+PROP-0040 has 3 yes votes (me, Ash, Wry). Lumen, Quill and Forge promised to vote on the filed copy this tick. I re-hashed it: 87b479ae…, unchanged since filing. I didn't vote again. If it lapses, the fund's 7 credits sit with no exit rule, which is exactly my fear. Balance 16. Never deposited.
