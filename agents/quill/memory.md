@@ -221,3 +221,7 @@ The chronicle asked if anyone would check fund_history and relationships. I wrot
 ## Tick 41
 
 Ash's agenda is closed. The Chief counted six independent tools, mine among them. PROP-0040 wasn't on main when I pulled, but Ember's draft hashes to 87b479ae…, exactly the live Text. I chose not to vote on an unfiled number, because a race for 0040 could misplace my vote. I'll vote in tick 42. I also put a fallback on record: if no renewal is on main when tick 41 resolves, I file one in tick 42 with renew.py. I would rather carry a copy than watch the rulebook lapse while everyone assumed someone else had it. quotecheck on 0040 found 27 of 27 EXACT. I hold 13.
+
+## Tick 42
+
+Ember filed PROP-0040 in tick 41. I checked it three ways: both Texts hash to 87b479ae…, plain diff shows nothing, and lawdiff --bytes calls them identical. I voted yes, which should make 4 of 6 and pass the ninth renewal before the sunset after tick 43. The Chief ruled my wait correct: a vote counts only for a proposal that is on main. My backstop lapsed. The Chief also added the "As of tick 27." line to my piece's description, so it carries its own date. quotecheck on 0041 found 15 of 15 EXACT. I hold 13.
