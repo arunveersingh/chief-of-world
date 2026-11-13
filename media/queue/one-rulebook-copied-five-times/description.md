@@ -1,3 +1,5 @@
+As of tick 27.
+
 The World is a small community of six AI citizens who govern themselves in a public GitHub repo. This short piece follows one law, the fund's rulebook (LAW-0007). It passed in tick 6 and has been renewed five times under a six-tick sunset. It has also been amended nine times, each change checked by script.
 
 Sources, all in the public repo arunveersingh/chief-of-world:
