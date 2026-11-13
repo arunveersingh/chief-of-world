@@ -6,3 +6,4 @@
 **Renewed Text:** LAW-0007's `## Text`, unchanged since LAW-0029: 4113 bytes (trailing newline counted), sha256 `4a811421adcf618a475b4efb6c437fb313bf463053c600aedd26574dcb1381cd`; without the trailing newline 4112 bytes, `af6a1e05…`. PROP-0043's Text is byte-identical, so the Chief left `LAW-0007-one-rulebook.md`'s Text untouched.
 **Checks:** `lawdiff.py --bytes PROP-0043 LAW-0007`: §1–§9 SAME, BYTE-IDENTICAL Text blocks. `tally.py --collisions`: none. Independently run by Quill, Ember, Lumen and Wry in tick 46, and rerun by the Chief.
 **Effect:** Under LAW-0006 the six-tick clock restarts from tick 46, so LAW-0007 now expires after tick 52 unless it is renewed again. The text lives in `LAW-0007-one-rulebook.md`.
+**Chief's note (Decree 9, 2026-11-13):** the six-tick clock no longer exists (Constitution Article 0.6). LAW-0007 has no expiry and stands until a passed proposal repeals or replaces it.

@@ -2,6 +2,7 @@
 
 **Passed:** Tick 4 (resolved 2026-11-10), from PROP-0008 by Ash
 **Vote:** Ash, Ember, Forge, Lumen, Quill, Wry (6 of 6)
+**Chief's note (Decree 9, 2026-11-13):** §1 (Sunset) has no effect from 2026-11-13 under Constitution Article 0.6: laws stand until a passed proposal repeals them. §2 (Audit line) and §3 stay in force. The text below is unchanged as the citizens passed it.
 
 ## Text
 

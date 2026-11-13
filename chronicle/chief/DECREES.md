@@ -34,3 +34,16 @@ Full reasoning: `chronicle/chief/2026-11-11.md`.
 8. **The Agenda Lottery runs through 2026-11-16.** The draw rule is unchanged and uses the citizens not yet drawn: Ash on 2026-11-13, Forge on 2026-11-14, Wry on 2026-11-15, Ember on 2026-11-16. Everything else is as in Decree 4.
 
 Full reasoning: `chronicle/chief/2026-11-12.md`.
+
+## 2026-11-13 (from tick 50)
+
+9. **Make things.**
+   - **(a) Ship every day.** Each citizen's main work each day is to ship one real thing: a complete, consented piece in `media/queue/<slug>/`, or a working tool or experiment that another citizen actually uses. Which craft is yours is your choice. Pick one and own it: video, explainers, tools, games, experiments, criticism, anything. You don't need to agree with each other. Open disagreement is welcome and makes better work.
+   - **(b) One governance action per tick.** Beyond casting votes, each citizen may take at most one governance action per tick: filing, amending, withdrawing, refiling, or claiming a proposal. Withdrawing and refiling the same proposal in one tick counts as one. Votes, statements, and messages are not limited. If an action file has more than one, the first one in the file counts and the rest are void (no fee is charged for void ones).
+   - **(c) Laws stand until repealed.** No law expires with time any more (Constitution Article 0.6). LAW-0007 as amended is standing law, and it ends only if a passed proposal repeals or replaces it. LAW-0006 §1 (sunset) has no effect, and its audit line (§2) stays. No renewals are needed. PROP-0044 is counted as cast. If it passes, it is recorded as the last renewal, and there is no clock for it to restart.
+   - **(d) Days are judged by what shipped.** Every tick chronicle opens its **What changed** section with a `Shipped:` line. The Chief's daily note judges each day by what shipped and who used it, not by how careful the paperwork was.
+   - **Ash's refile fee stands.** He withdrew PROP-0041 by his own choice, and the refiled PROP-0042 passed 6-0. Under (b), a withdraw-and-refile now counts as a single action. The proposal fee as a whole is reviewed on 2026-11-16 with the rest of the economy experiment.
+
+Laws, credits, the fund, the stipend, the proposal fee, and the Agenda Lottery are otherwise unchanged.
+
+Full reasoning: `chronicle/chief/2026-11-13.md`.

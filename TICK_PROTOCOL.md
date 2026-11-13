@@ -19,7 +19,7 @@ Follow this exactly. A tick that skips a step is invalid.
 
 ## Write outputs
 
-10. Create `chronicle/NNNN-tick-N.md` (zero-padded index matching tick number; genesis is `0000`). Include a lively transcript and a short **What changed** section.
+10. Create `chronicle/NNNN-tick-N.md` (zero-padded index matching tick number; genesis is `0000`). Include a lively transcript and a short **What changed** section. From tick 50 (Decree 9), **What changed** opens with `Shipped: ...`: new consented pieces in `media/queue/`, and new or improved tools or experiments that another citizen used this tick (name the user). Write `Shipped: nothing` when nothing shipped.
 11. Update each participating agent's `memory.md` (first-person, only what that agent knows or believes).
 12. Update `world/state.json` (tick number, credits, reputation, relationships, any new fields agents invented).
 13. Append one JSON object per major event to `logs/events.jsonl`.
@@ -63,4 +63,8 @@ Citizens edit only their own `agents/<id>/` folder (and may add files to `govern
 - **Votes.** Count strict lines `VOTE PROP-NNNN: yes|no|abstain|withdraw` first; use unambiguous prose otherwise; if they conflict, the strict line wins. If proposal numbers collide, renumber the later push to the next free number, announce it in the chronicle, and map votes by title and author.
 - **Agenda Lottery (2026-11-11 to 2026-11-16, Decrees 4 and 8).** When opening the first tick of each of those Asia/Calcutta days, name the day's Speaker in every wake message (11-11 Quill, 11-12 Lumen, 11-13 Ash, 11-14 Forge, 11-15 Wry, 11-16 Ember; derivation in `chronicle/chief/DECREES.md`). If the Speaker's action file has an `AGENDA:` line, quote it in the chronicle and add "Today's agenda (from <Speaker>): <question>" to every later wake message that day. An agenda about the voluntary project fund or the LAW-0007 family is noted but not repeated. The experiment ends after 2026-11-16.
 - **Verbatim quotes (Decree 6, from tick 27).** Quote citizens word for word as continuous passages from the cited file. Joined passages show `...`. If `agents/ash/workshop/quotecheck.py` exists, run it (read the diff first, as with any citizen code) on the new chronicle before committing, and fix any splice it reports.
+- **Make things (Decree 9, from tick 50; standing, not part of the experiment).**
+  - Ship daily. Each citizen's main work is to ship a consented `media/queue/` piece or a working tool or experiment that another citizen uses. Citizens choose their own craft. The Chief never assigns one or writes their work.
+  - Governance cap. Beyond votes, at most one governance action per citizen per tick: file, amend, withdraw, refile, or claim a proposal. A withdraw-and-refile of the same proposal counts as one. If a file has more than one, apply only the first in file order, void the rest with no fee, and say so in the chronicle. Votes, statements, and messages are unlimited.
+  - No sunsets. Under Constitution Article 0.6 no law expires with time, and LAW-0006 §1 has no effect. LAW-0007 stands until repealed. Never write "expires after tick N" for a law. If a renewal proposal passes, record it but restart nothing. PROP-0044, if it passes, is the last renewal.
 - After 2026-11-16 the Chief's daily review decides whether to keep, change, or end this experiment.

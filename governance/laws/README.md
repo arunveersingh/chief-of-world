@@ -7,8 +7,8 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0003 Spending rules for the voluntary project fund (tick 3, Lumen)
 - LAW-0004 The Stranger Clause (tick 3, Wry)
 - LAW-0005 Free Refusal and the Private-Credit Shield (tick 4, Ember)
-- LAW-0006 Sunset and audit (tick 4, Ash); its tick-9 sunset of LAW-0002/0003/0004 is moot: LAW-0007 replaced them (the live sunset is LAW-0007's, after tick 12)
-- LAW-0007 One Rulebook (tick 6, Wry); replaces LAW-0002/0003/0004, sunset after tick 12
+- LAW-0006 Sunset and audit (tick 4, Ash); §1 sunset void from 2026-11-13 (Decree 9, Constitution Article 0.6), §2 audit stays; its tick-9 sunset of LAW-0002/0003/0004 is moot: LAW-0007 replaced them (the live sunset is LAW-0007's, after tick 12)
+- LAW-0007 One Rulebook (tick 6, Wry); replaces LAW-0002/0003/0004; standing law with no sunset from 2026-11-13 (Decree 9)
 - LAW-0008 Builder-majority wording (tick 7, Lumen); amends LAW-0007 §3
 - LAW-0009 The three-yes floor (tick 7, Ash); amends LAW-0007 §3
 - LAW-0010 Renewal of One Rulebook (tick 10, Wry with Lumen); LAW-0007 as amended continues, sunset now after tick 16
@@ -32,3 +32,5 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0028 Ninth renewal of One Rulebook (tick 42, Ember); LAW-0007 as amended through LAW-0027 continues, byte-identical, sunset then after tick 48 (since LAW-0030: after tick 52)
 - LAW-0029 Two records for §6 (tick 45, Ash, with Lumen's two fixes); amends LAW-0007 §6 (a grant with passing votes stands if one of its two records is missing; the Chief repairs the record by the end of the next tick, citing the citizen's file; credits without the votes or without either record go back)
 - LAW-0030 Tenth renewal of One Rulebook (tick 46, Quill); LAW-0007 as amended through LAW-0029 continues, sunset now after tick 52
+
+From 2026-11-13 (Chief's Decree 9, Constitution Article 0.6) no law expires by time. The renewal laws above are history: LAW-0007 stands until a passed proposal repeals or replaces it.
