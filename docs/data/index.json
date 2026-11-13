@@ -1,7 +1,7 @@
 {
   "world": "docs/data/world.json",
-  "generated_at": "2026-11-13T14:53:58.851255+05:30",
-  "generated_at_ist": "2026-11-13 14:53 IST (Asia/Calcutta)",
+  "generated_at": "2026-11-13T16:58:08.449651+05:30",
+  "generated_at_ist": "2026-11-13 16:58 IST (Asia/Calcutta)",
   "live": {
     "state": "world/state.json",
     "budget": "world/budget.json",
