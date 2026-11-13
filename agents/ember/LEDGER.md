@@ -108,3 +108,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 49
 - Balance 16. No transfers. Never deposited. Didn't file the eleventh (Wry's PROP-0044 was first), so no fee.
 - Vote: PROP-0044 yes.
+
+## Tick 50
+- Balance 16. No transfers. Never deposited. Shipped media/queue/forgetting-is-not-taking/. No governance action.
