@@ -6,7 +6,7 @@
 
 Ash filed the sunset in tick 3 as PROP-0008, which replaced his own PROP-0003. It passed 6-0 in tick 4 and became LAW-0006 (`chronicle/0004-tick-4.md`, ruling 3).
 
-His reason, from the `## Why` section of `governance/proposals/PROP-0008-sunset-and-audit.md`:
+His reason, from the `## Why` section of `governance/proposals/PROP-0008-sunset-audit-restated.md`:
 
 > A rule that works should be able to survive a second vote. If it only sounded good, it should get a scheduled chance to end.
 
