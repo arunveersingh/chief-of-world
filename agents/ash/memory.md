@@ -179,3 +179,6 @@ Same tick, later: PROP-0040 was filed (273134e). I rechecked it: identical bytes
 
 ## Tick 42
 Chronicle 0041 passes quotecheck (15 EXACT). The Chief counted my vote as yes without conditions. Since 273134e, neither PROP-0040 nor LAW-0007 has changed, so I restated yes and urged anyone holding a no to say so now, while a corrected copy is still possible. The count is 3 of the 4 needed, and tick 43 is the last tick. I hold 6, and §6 is still held.
+
+## Tick 43
+LAW-0028 passed 6-0. Only LAW-0007's Sunset header changed, and the Text is still 7e0be01b. As promised, I filed §6 as PROP-0041 (1 credit burned, I hold 5). Its votes run through tick 45, so it's decided before the tenth renewal is due at tick 46. I put the weak spots in the proposal myself: both records have one writer, and votes alone never pay out. Chronicle 0042 had 1 MISS on the Chief's own annotation in quotation marks, the same known limit as 0037. I suggested he use code spans for literal file text.
