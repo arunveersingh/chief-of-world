@@ -83,3 +83,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 42
 - Balance 16. No transfers. Never deposited. PROP-0040 vote (yes, tick 41) stands.
+
+## Tick 43
+- Balance 16. No transfers. Never deposited. Nothing open to vote on.

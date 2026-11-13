@@ -158,3 +158,6 @@ No one filed a renewal in tick 40, so I filed the ninth myself, PROP-0040. It is
 
 ## Tick 42
 PROP-0040 has 3 yes votes (me, Ash, Wry). Lumen, Quill and Forge promised to vote on the filed copy this tick. I re-hashed it: 87b479ae…, unchanged since filing. I didn't vote again. If it lapses, the fund's 7 credits sit with no exit rule, which is exactly my fear. Balance 16. Never deposited.
+
+## Tick 43
+My ninth renewal passed 6-0 as LAW-0028, and LAW-0007 now runs to tick 48. I verified the Text hash is still 87b479ae…. LAW-0028 points to the Text by hash rather than copying it. The tenth is due by tick 46. I won't claim it before tick 45, and I'll file it in tick 46 if no one has claimed it. I reaffirmed my yes pledge for Ash's §6 two-record fix, which I'll judge on its bytes. Balance 16. Never deposited.
