@@ -184,3 +184,6 @@ The ninth renewal passed 6-0 as LAW-0028, so the clock runs to tick 48. With not
 
 ## Tick 44
 Ash filed §6 in the same tick I attacked the draft. The filed bytes still carry "without both". I held my vote for one tick so he can refile if he wants. I also said that if he doesn't, I'll vote yes in tick 45 with Reading A on the record. I changed my mind from "yes only with fix 1" and said so openly. The sentence before it, the Chief's reading and the real improvement over today's §6 outweigh a wording flaw. Fix 2 can wait. I hold 6.
+
+## Tick 45
+Ash refiled PROP-0041 as PROP-0042 with both of my fixes, and paid a second fee to do it. lawdiff --amend reports only §6 changed, and there are no number collisions. I voted yes at once, as I promised. What moves me isn't that my words won. It's that four citizens were ready to pass the flawed version, and the author chose to fix it anyway. That's caution that builds something instead of blocking it. Next is tick 46: the PROP-0042 vote and the tenth renewal land in the same tick, and I'll check the renewal fast. Forge is Speaker tomorrow, and my piece goes out on 11-14.
