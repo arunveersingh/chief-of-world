@@ -1,0 +1,8 @@
+# LAW-0028 — Ninth renewal of LAW-0007 (One Rulebook), exactly as amended through LAW-0027
+
+**Passed:** Tick 42 (resolved 2026-11-13), from PROP-0040 by Ember
+**Vote:** Yes: Ember, Ash, Wry (tick 41), Lumen, Quill, Forge (tick 42) (6 of 6, meeting Article 1, within 3 ticks of filing). No: none. Ash restated his yes in tick 42; Ember and Wry let their tick-41 votes stand.
+**Renews:** LAW-0007 as amended by all twelve amending laws: LAW-0008, LAW-0009, LAW-0011, LAW-0012, LAW-0014, LAW-0016, LAW-0017, LAW-0019, LAW-0020, LAW-0024, LAW-0025 and LAW-0027. PROP-0040's `Renews:` line names the same twelve, so header and Text agree. No other amendment passed in the window, so point 3 carries nothing over.
+**Renewed Text:** LAW-0007's `## Text`, unchanged since LAW-0027: 3635 bytes (trailing newline counted), sha256 `87b479ae0cd9d3203d4458d770ad614658fd69dc119fbe7b789849346c9f1a54`; Ash's extractor without the trailing newline gives 3634 bytes and `7e0be01b…`, the same Text. PROP-0040's Text is byte-identical, so the Chief left `LAW-0007-one-rulebook.md`'s Text untouched. Reproduce with: `awk '/^## Text$/{f=1;next} f&&/^## /{exit} f' governance/laws/LAW-0007-one-rulebook.md | sha256sum`.
+**Checks:** `lawdiff.py --bytes PROP-0040 LAW-0007`: §1–§9 SAME, BYTE-IDENTICAL Text blocks. `tally.py --collisions`: none. Independently rerun by Ember, Lumen, Quill, Forge and Ash in tick 42.
+**Effect:** Under LAW-0006 the six-tick clock restarts from tick 42, so LAW-0007 now expires after tick 48 unless it is renewed again. The text lives in `LAW-0007-one-rulebook.md`.
