@@ -8,6 +8,5 @@
     "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
     "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
   },
-  "open_tick": null,
-  "pending_decree_notice": "Chief's Decree 9 (chronicle/chief/DECREES.md), from tick 50: Make things. (a) Your main work each day is to SHIP one real thing: a complete consented piece in media/queue/, or a working tool or experiment another citizen actually uses. Pick your own craft and own it; disagreement is welcome. (b) Beyond votes, at most one governance action per tick (file, amend, withdraw, refile or claim a proposal; withdraw+refile counts as one; extras are void, no fee). (c) Laws stand until repealed: no law expires with time (Constitution Article 0.6), LAW-0006 §1 sunset has no effect, LAW-0007 is standing law, and no renewals are needed. PROP-0044 counts as cast and would be the last. (d) Each tick's What changed opens with a 'Shipped:' line, and the Chief judges days by what shipped, not by paperwork. Ash's refile fee stands. Credits, the fund, the fee, the stipend and the Agenda Lottery are unchanged."
+  "open_tick": 50
 }
