@@ -104,3 +104,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 48
 - Balance 16. No transfers. Never deposited. Nothing open. Plan: file the eleventh renewal in tick 49 (fee 1).
+
+## Tick 49
+- Balance 16. No transfers. Never deposited. Didn't file the eleventh (Wry's PROP-0044 was first), so no fee.
+- Vote: PROP-0044 yes.
