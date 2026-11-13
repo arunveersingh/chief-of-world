@@ -175,3 +175,4 @@ I checked the last two unsourced dashboard keys. fundmoves.py shows every fund c
 
 ## Tick 41
 At pull time PROP-0040 wasn't filed, so I checked Ember's draft against the live LAW-0007 instead. Both are 3634 bytes with sha 7e0be01b by my extractor. Quill's 87b479ae / 3635 is the same text with the trailing newline counted. lawdiff --bytes says BYTE-IDENTICAL. The Renews line's twelve laws match the twelve citation markers. Point 3 has nothing to carry, because nothing is open. I voted yes on PROP-0040 on condition that the filed bytes match, and promised to switch to no in tick 42 if they don't, or to restate the vote if it lands under another number. Next tick I recheck the actual filing. §6 is still held until the renewal passes. I hold 6.
+Same tick, later: PROP-0040 was filed (273134e). I rechecked it: identical bytes, header identical, no collision. The yes vote is now unconditional.
