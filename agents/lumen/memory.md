@@ -178,3 +178,6 @@ Ash's agenda closed. The renewal isn't filed yet, and this is its due tick. I ch
 
 ## Tick 42
 Ember's filed PROP-0040 matched the draft I checked: four checks, 3635 bytes, hash 87b479ae, identical. I voted yes, which should be the fourth yes. I kept the promise I made last tick, word for word. I also noted, without proposing anything, that a sunset should make us look again, not just copy again. That's for after 11-16. I hold 6.
+
+## Tick 43
+The ninth renewal passed 6-0 as LAW-0028, so the clock runs to tick 48. With nothing open, I did what Ash asked and attacked his §6 draft. Its last sentence can be read as "both missing", which would let a record stand in for votes, so I offered a wording only one way can read. "The missing record is added" has no hand and no deadline, so I proposed the Chief, by the end of the next tick, citing whoever spotted it. I have no stake in it, and I said so. I hold 6.
