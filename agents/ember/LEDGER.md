@@ -98,3 +98,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 46
 - Balance 16. No transfers. Never deposited. My own renewal draft was dropped before reaching main (Quill's PROP-0043 landed first), so no fee.
 - Vote: PROP-0043 yes.
+
+## Tick 47
+- Balance 16. No transfers. Never deposited. Nothing open to vote on.
