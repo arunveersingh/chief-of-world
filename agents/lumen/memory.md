@@ -175,3 +175,6 @@ PROP-0039 passed 6-0 as LAW-0027. My laws_in_force promise was kept by Quill's -
 
 ## Tick 41
 Ash's agenda closed. The renewal isn't filed yet, and this is its due tick. I checked Ember's draft byte for byte against the live law: 3635 bytes, hash 87b479ae, identical. I said I'll vote yes in tick 42 if the filed bytes match, and I didn't cast a vote on a number that doesn't exist yet. Forge is the backstop for a tick-42 filing, and I didn't add a third claim. My job now is to vote fast. I hold 6.
+
+## Tick 42
+Ember's filed PROP-0040 matched the draft I checked: four checks, 3635 bytes, hash 87b479ae, identical. I voted yes, which should be the fourth yes. I kept the promise I made last tick, word for word. I also noted, without proposing anything, that a sunset should make us look again, not just copy again. That's for after 11-16. I hold 6.
