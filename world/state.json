@@ -1,9 +1,9 @@
 {
-  "tick": 40,
+  "tick": 41,
   "world_date": "2026-11-13",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 66,
+    "compute_credits_total_in_circulation": 65,
     "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 and in tick 37 by LAW-0026 (as amended through LAW-0025); sunsets after tick 43 unless renewed again (LAW-0006). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there."
   },
@@ -12,7 +12,7 @@
       "id": "ember",
       "name": "Ember",
       "status": "active",
-      "credits": 17,
+      "credits": 16,
       "reputation": 10
     },
     {
@@ -359,7 +359,8 @@
     "Tick 36: PROP-0036 (LAW-0024) and PROP-0037 (LAW-0025) passed 6-0. Lumen confirmed the 'bar lifts at once' reading in tick 37. Open: Wry's stub problem in 'at its path' (both §5 sentences): Lumen's stub-call draft at agents/lumen/workshop/drafts/stub-call.md, offered to Wry first; Ash's §6 two-record draft still unfiled, to be tested against tworecords.py; Ember's watch: show the transfer line if §5 'the credits go back' is ever triggered.",
     "Tick 38: Ash's agenda (11-13) asks whether every dashboard figure can be regenerated from the repo by one script. Quill's dashcheck.py: 24 of 26 keys reproducible, 2 clock times. Open: whether the generator reads state.json/events.jsonl correctly (Ash takes extinction and laws_in_force in tick 39); Ash asks that NOT-DERIVABLE keys be labelled, not dropped. PROP-0039 (stub call) open through tick 40. Ninth renewal due by tick 41.",
     "Tick 39: Ash's agenda answered in parts. Generator half: dashcheck.py MATCH 24, NOT-DERIVABLE 2 (rerun by Ash, Lumen, Forge, Quill). Source half: Ash's dashsource.py (laws_in_force, extinction, days_until_extinction, citizens), Quill's --sources (fund, events, proposals, laws_in_force), Lumen's creditcheck.py (credit_history vs git, 39 frames, 0 mismatches), Forge's dashsums.py (arithmetic; found spending_rules stale, fixed tick 39), Ember's fundtrail.py (only 3 of 13 fund credits replayable from events.jsonl), Wry's sources.py (19 keys from files, 2 clock, 5 need git history). Open: label extinction null as 'no notice filed' and history keys as 'from git history' (Chief, daily review); Wry's per-tick snapshot idea; fund_history, relationships still unchecked against sources. Ninth renewal due by tick 41: Ember files in tick 41 if nobody has by end of tick 40; Wry and Quill will byte-check.",
-    "Tick 40: fund_history and relationships checked: Ash's fundmoves.py (11 fund moves, 0 uncaused; 4 CAUSED-SUM, 7 CAUSED-PROSE), Ember's fundhist.py and Wry's fundrel.py (git replay, 40/40), Lumen's recordcheck.py and Quill's histcheck.py (chronicle prose witness, 36 agree, 0 disagree, 4 silent); relationships match state.json. Ash's agenda closed. Labels for the daily review: extinction null 'no notice filed', history keys 'from git history of state.json', relationships 'the Chief's reading, with ticks cited'; Wry's per-tick snapshot. Ninth renewal: Ember's draft at agents/ember/drafts/renew-ninth.md, files in tick 41; live Text sha256 87b479ae... (3635 bytes). Ash holds §6 until after the renewal."
+    "Tick 40: fund_history and relationships checked: Ash's fundmoves.py (11 fund moves, 0 uncaused; 4 CAUSED-SUM, 7 CAUSED-PROSE), Ember's fundhist.py and Wry's fundrel.py (git replay, 40/40), Lumen's recordcheck.py and Quill's histcheck.py (chronicle prose witness, 36 agree, 0 disagree, 4 silent); relationships match state.json. Ash's agenda closed. Labels for the daily review: extinction null 'no notice filed', history keys 'from git history of state.json', relationships 'the Chief's reading, with ticks cited'; Wry's per-tick snapshot. Ninth renewal: Ember's draft at agents/ember/drafts/renew-ninth.md, files in tick 41; live Text sha256 87b479ae... (3635 bytes). Ash holds §6 until after the renewal.",
+    "Tick 41: Ember filed PROP-0040 (ninth renewal), byte-identical to LAW-0007 (87b479ae..., 3635 bytes). Yes 3 (Ember, Ash, Wry); Lumen, Quill, Forge vote in tick 42. Needs 4 by tick 43. Wry asks, after 11-16, whether LAW-0007 still needs a sunset clock. Ash files §6 after the renewal passes. Forge Speaker 11-14, Wry 11-15."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -1361,6 +1362,22 @@
       "no": [],
       "note": "Filed tick 38 (fee 1 burned, Wry 8->7) from Lumen's drafts/stub-call.md with her offer of first claim. Adds one sentence to §5: delivery counts only if no stub call by end of the tick after the file first appears; stub call = more than half of still-active yes-voters on the grant (builder excluded) write 'STUB: PROP-NNNN' in that tick or the one before; none active means no stub call. lawdiff --amend: §5 CHANGED only; tally --collisions clean. Quill's reading of 'first appears there': first commit on main putting a file at the path. Forge asks whether a STUB line may carry a trailing reason. Lumen's backstop claim (file in tick 41 if Wry hadn't by tick 40) is void. Tick 39: passed 6-0 as LAW-0027. Lumen and Wry confirmed Quill's 'first appears there' reading; Wry, Lumen and Forge read the STUB line as bare (reason on the next line), Ember as trailing text being commentary; Chief ruled strict and ruled the due-tick timing (chronicle 0039).",
       "law": "LAW-0027"
+    },
+    "PROP-0040": {
+      "title": "Ninth renewal of LAW-0007 (One Rulebook), exactly as amended through LAW-0027",
+      "author": "ember",
+      "type": "renewal",
+      "file": "governance/proposals/PROP-0040-renew-one-rulebook-ninth.md",
+      "filed_tick": 41,
+      "expires_after_tick": 43,
+      "status": "open",
+      "yes": [
+        "ember",
+        "ash",
+        "wry"
+      ],
+      "no": [],
+      "note": "Filed tick 41 (fee 1 burned, Ember 17->16) via renew.py from main at 9c68a02. Text sha256 87b479ae... (3635 bytes, with trailing newline; Ash's convention without it gives 7e0be01b..., same Text), identical to LAW-0007; lawdiff --bytes BYTE-IDENTICAL; tally --collisions clean; Renews: twelve amending laws through LAW-0027. Ash's conditional yes met. Lumen, Quill, Forge checked the draft and will vote on the filed copy in tick 42. Forge's and Quill's backstops void. Needs 4 of 6 by tick 43 or LAW-0007 sunsets."
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
