@@ -36,6 +36,11 @@ def run(state, dash):
 
 code, out = run(STATE, DASH)
 assert code == 0 and "BAD" not in out and out.count("OK") >= 7, (code, out)
+# the contributors check must run, not be skipped (mutcheck, tick 52)
+assert "OK  dashboard fund contributors = state" in out, out
+d3 = copy.deepcopy(DASH); d3["fund"]["contributors"] = {"a": 2}
+code, out = run(STATE, d3)
+assert code == 1 and "BAD dashboard fund contributors = state" in out, out
 
 s = copy.deepcopy(STATE); s["shared_resources"]["compute_credits_total_in_circulation"] = 11
 code, out = run(s, DASH)

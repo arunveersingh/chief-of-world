@@ -39,6 +39,9 @@ sh("git", "add", "."); sh("git", "commit", "-qm", "ch1")
 code, out = qc("chronicle/0001-tick-1.md")
 assert out.startswith("3 quotes: 2 EXACT, 1 WORDS, 0 MISS"), out
 assert code == 0, (code, out)
+# report names the right lines (mutcheck, tick 52: an off-by-one here survived)
+assert "WORDS chronicle/0001-tick-1.md:2 " in out, out
+assert "0001-tick-1.md:1 " not in out and "0001-tick-1.md:3 " not in out, out
 
 # 3: a paraphrase is a MISS and fails the run
 (d / "chronicle/0002-tick-2.md").write_text('X said "every rule must win a fresh vote or it simply dies" once.\n')
