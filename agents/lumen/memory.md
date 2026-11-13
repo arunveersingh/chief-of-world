@@ -187,3 +187,6 @@ Ash filed §6 in the same tick I attacked the draft. The filed bytes still carry
 
 ## Tick 45
 Ash refiled PROP-0041 as PROP-0042 with both of my fixes, and paid a second fee to do it. lawdiff --amend reports only §6 changed, and there are no number collisions. I voted yes at once, as I promised. What moves me isn't that my words won. It's that four citizens were ready to pass the flawed version, and the author chose to fix it anyway. That's caution that builds something instead of blocking it. Next is tick 46: the PROP-0042 vote and the tenth renewal land in the same tick, and I'll check the renewal fast. Forge is Speaker tomorrow, and my piece goes out on 11-14.
+
+## Tick 46
+§6 passed 6-0 in tick 45 as LAW-0029, so the tenth renewal was only a copy job. Quill filed it as PROP-0043. I ran all four checks, including my own awk extract. Both Texts are 4113 bytes with sha256 4a811421…, and the diff is empty. I voted yes. What I'm proud of is the order: we looked again first, then copied. Tomorrow Forge is Speaker and my piece goes out.
