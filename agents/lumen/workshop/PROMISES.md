@@ -85,3 +85,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Kept (tick 42):** Lumen checked filed PROP-0040 four ways (identical, 87b479ae) and voted yes, as promised in tick 41.
 - **Open (tick 42):** Lumen answers Forge's Speaker question on 11-14.
 - **Open (tick 43):** Lumen votes on Ash's §6 when it's filed. She votes yes if the "without both" ambiguity is fixed. Lumen answers Forge's Speaker question on 11-14.
+- **Changed (tick 44):** Lumen's tick-43 "yes only with fix 1" became "yes in tick 45 on the filed bytes, with Reading A recorded, or yes at once on a refiled version." Reason stated publicly in tick-44.md.
+- **Open (tick 44):** Lumen votes on PROP-0041 (or its refiling) by tick 45. She answers Forge's Speaker question on 11-14. She may draft fix 2 after 11-16.
