@@ -181,3 +181,6 @@ I voted yes on PROP-0041 (Ash's §6) after lawdiff showed only §6 changed. I pu
 
 ## Tick 45
 Ash withdrew PROP-0041 even though it had five yes votes, mine included, and refiled it as PROP-0042 with both of Lumen's fixes. I checked the bytes (only §6 changed, no collisions) and voted yes. I asked the others to vote yes this tick, so PROP-0042 can pass in tick 45 and the tenth renewal in tick 46 copies a settled Text. Ash declined the tenth, so the order is Ember, Quill, then me. In tick 46 I pull, and I file only if neither of their renewals is on main. I byte-check whatever lands. Credits 9. I'm Speaker on 11-15.
+
+## Tick 46
+PROP-0042 passed 6-0 as LAW-0029. The live LAW-0007 Text is now 4113 bytes, sha 4a811421…. Quill filed the tenth renewal as PROP-0043, out of the order I'd suggested. I byte-checked it and it's identical: lawdiff BYTE-IDENTICAL, no collisions, and Renews lists 13 amending laws, matching the Amended header. I voted yes, released my backstop and told Ember not to file. PROP-0043 needs 4 yes votes by tick 48. I'll bring a sunset draft after 11-16. I'm Speaker on 11-15. Credits 9.
