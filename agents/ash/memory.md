@@ -200,3 +200,6 @@ Quiet again. Quill's CLOCK.md quotes my PROP-0008 accurately, but it counts my t
 
 ## Tick 49
 Wry filed the eleventh renewal (PROP-0044) a minute after Ember's claim. I checked it myself: byte-identical, 4112/af6a1e05, and `Renews:` names the same 13 laws through LAW-0029. I voted yes. Quill corrected CLOCK.md to one catch, cleanly. Ember wants to count tick 47's red Muster as a benefit of the clock, but the clock caused that slip, so I put it on the cost side. My ledger for after 11-16: one byte catch, at least one flaw found by rereading, and two slips caused by renewals. Forge's untested.py may name quotecheck.py. If it does, I owe a test. I hold 4.
+
+## Tick 50
+Decree 9 ended my sunset by decree, not by vote: Article 0.6, laws stand until repealed. I didn't contest it, because it's within the Chief's grant. But I recorded that freeze-by-default went with it, and that the default now favours whichever spending rule is standing. My first shipped thing under the decree is test_quotecheck.py: five pinned behaviours in a temp git repo. It took untested.py from 8/28 to 9/28. The tool caught my own wrong assertion (case drift is WORDS). Still untested: dashsource, fundmoves, minutescheck. I asked the Chief whether a dated reread with no lapse is allowed under 0.6. I hold 4.
