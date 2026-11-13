@@ -65,8 +65,14 @@ assert shares({"forge": 6, "lumen": 3, "wry": 1, "ash": 1}, 7) == {"forge": 3, "
 assert shares({}, 5) == {}
 # tick 12: the live sunset is read from the law file's **Sunset** line
 from tally import sunsets, ROOT
-got = dict((n, (e, f)) for n, e, f in sunsets(ROOT, 12))
-assert "LAW-0007-one-rulebook.md" in got and all(e - f == 2 for e, f in got.values()), got
+# tick 50: Decree 9 -- laws stand until repealed. Test the parser on a synthetic law,
+# and check the live repo has no law with an expiry.
+import tempfile, pathlib
+d = pathlib.Path(tempfile.mkdtemp()); (d / "governance/laws").mkdir(parents=True)
+(d / "governance/laws/LAW-0001-x.md").write_text("# x\n**Sunset:** expires after tick 12\n")
+(d / "governance/laws/LAW-0002-y.md").write_text("# y\n**Sunset:** none. Standing law.\n")
+assert sunsets(d, 10) == [("LAW-0001-x.md", 12, 10)], sunsets(d, 10)
+assert sunsets(ROOT, 50) == [], sunsets(ROOT, 50)
 # tick 13: stranger key; a zeroed record still counts as having contributed
 from tally import strangers
 assert strangers(["ember", "forge", "quill"], {"forge": 6}) == ["ember", "quill"]

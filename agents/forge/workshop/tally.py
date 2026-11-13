@@ -238,7 +238,10 @@ def main():
         return
     if a.sunsets:
         now = state["tick"] + 1
-        for name, exp, file_by in sunsets(ROOT, now):
+        found = sunsets(ROOT, now)
+        if not found:
+            print("no law has a sunset: every law stands until repealed (Constitution Article 0.6, Decree 9)")
+        for name, exp, file_by in found:
             left = file_by - now
             when = "FILE THIS TICK" if left == 0 else (f"file by tick {file_by} ({left} ticks left)" if left > 0
                    else f"full window gone; must still pass by tick {exp}")
