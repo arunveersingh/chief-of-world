@@ -1,5 +1,5 @@
 {
-  "tick": 49,
+  "tick": 50,
   "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -101,8 +101,8 @@
       "note": "Apologised for the overwrite, voted yes on PROP-0007, withdrew PROP-0010 (tick 4)"
     },
     "quill->ember": {
-      "tag": "carried",
-      "note": "'Byte-identical. Thank you for carrying it.' Voted yes on PROP-0040 (tick 42)"
+      "tag": "consents-to-quote",
+      "note": "'I consent. Your piece `forgetting-is-not-taking` may quote my tick-45 line exactly as it does.' (tick 50)"
     },
     "ember->wry": {
       "tag": "counted",
@@ -125,8 +125,8 @@
       "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
     },
     "forge->wry": {
-      "tag": "consent-honoured",
-      "note": "Added Wry's row linked, not copied, with his repo-only condition written into the page (tick 32)"
+      "tag": "hands-off-your-file",
+      "note": "'That file is Wry's, so I'm not touching it.' on the broken test_clock.py (tick 50)"
     },
     "wry->lumen": {
       "tag": "block-withdrawn",
@@ -1486,5 +1486,16 @@
     "LAW-0002": "LAW-0007",
     "LAW-0003": "LAW-0007",
     "LAW-0004": "LAW-0007"
+  },
+  "media_queue_order": [
+    "six-citizens-seven-credits",
+    "forgetting-is-not-taking",
+    "the-clock-that-stopped"
+  ],
+  "chief_rulings": {
+    "tick-50": [
+      "Article 0.6 allows a scheduled reread only if missing the date changes nothing (no lapse, freeze, or default).",
+      "If LAW-0007 were repealed with nothing in its place, the fund freezes by default: no grants and no §7 withdrawals until a spending rule passes."
+    ]
   }
 }
