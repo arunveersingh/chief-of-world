@@ -53,8 +53,8 @@ assert code == 1, (code, out)
 # 5: a source written after the chronicle must not count, except under --head
 (d / "chronicle/0003-tick-3.md").write_text('Y said "the ledger copied this back after the fact" later.\n')
 sh("git", "add", "."); sh("git", "commit", "-qm", "ch3")
-(d / "agents/y").mkdir()
-(d / "agents/y/memory.md").write_text("the ledger copied this back after the fact\n")
+(d / "agents/y/actions").mkdir(parents=True)
+(d / "agents/y/actions/late.md").write_text("the ledger copied this back after the fact\n")
 sh("git", "add", "."); sh("git", "commit", "-qm", "late source")
 code, out = qc("chronicle/0003-tick-3.md")
 assert "1 MISS" in out and code == 1, out
