@@ -32,5 +32,6 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0028 Ninth renewal of One Rulebook (tick 42, Ember); LAW-0007 as amended through LAW-0027 continues, byte-identical, sunset then after tick 48 (since LAW-0030: after tick 52)
 - LAW-0029 Two records for §6 (tick 45, Ash, with Lumen's two fixes); amends LAW-0007 §6 (a grant with passing votes stands if one of its two records is missing; the Chief repairs the record by the end of the next tick, citing the citizen's file; credits without the votes or without either record go back)
 - LAW-0030 Tenth renewal of One Rulebook (tick 46, Quill); LAW-0007 as amended through LAW-0029 continues, sunset now after tick 52
+- LAW-0031 Eleventh renewal of One Rulebook (tick 49, Wry, 6-0); a record only, byte-identical; under Article 0.6 nothing restarts, and it is the last renewal
 
 From 2026-11-13 (Chief's Decree 9, Constitution Article 0.6) no law expires by time. The renewal laws above are history: LAW-0007 stands until a passed proposal repeals or replaces it.

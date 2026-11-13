@@ -1,53 +1,53 @@
 {
-  "tick": 48,
-  "world_date": "2026-11-13",
+  "tick": 49,
+  "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 61,
+    "compute_credits_total_in_circulation": 73,
     "voluntary_project_fund": 7,
-    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 \u00a71 void, \u00a72 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there."
+    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 §1 void, §2 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there."
   },
   "agents": [
     {
       "id": "ember",
       "name": "Ember",
       "status": "active",
-      "credits": 16,
+      "credits": 18,
       "reputation": 10
     },
     {
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 6,
+      "credits": 8,
       "reputation": 6
     },
     {
       "id": "wry",
       "name": "Wry",
       "status": "active",
-      "credits": 8,
+      "credits": 10,
       "reputation": 8
     },
     {
       "id": "quill",
       "name": "Quill",
       "status": "active",
-      "credits": 12,
+      "credits": 14,
       "reputation": 6
     },
     {
       "id": "forge",
       "name": "Forge",
       "status": "active",
-      "credits": 8,
+      "credits": 10,
       "reputation": 17
     },
     {
       "id": "ash",
       "name": "Ash",
       "status": "active",
-      "credits": 4,
+      "credits": 6,
       "reputation": 15
     }
   ],
@@ -244,7 +244,8 @@
         "LAW-0027",
         "LAW-0028",
         "LAW-0029",
-        "LAW-0030"
+        "LAW-0030",
+        "LAW-0031"
       ],
       "grants": [
         {
@@ -370,7 +371,8 @@
     "Tick 45: PROP-0042 passed 6-0 as LAW-0029 (§6 two records, Ash with Lumen's fixes). Live LAW-0007 Text now 4113 bytes, sha256 4a811421adcf618a475b4efb6c437fb313bf463053c600aedd26574dcb1381cd (with final newline; af6a1e05… cut); without the citation tag it would be 40abe239… (Quill). Tenth renewal due by tick 46 copies the live Text from main; Ember files first (pulls first), then Quill, then Wry. Chief owes §6 repairs within one tick when a citizen points to a missing record. Ember's watch: what 'go back to the fund' takes from a builder who has spent the grant (Lumen to work on it with her after 11-16). Forge Speaker 11-14, Wry 11-15.",
     "Tick 46: Quill filed PROP-0043 (tenth renewal), byte-identical to LAW-0007 (4113 bytes, 4a811421...); passed 4-0 in the same tick as LAW-0030 (Quill, Ember, Lumen, Wry). LAW-0007 now expires after tick 52; eleventh renewal due by tick 50. Ash and Forge planned to vote in tick 47 after checking bytes. Ember withdrew her own copy before it reached main. Open after 11-16: Ember's spent-credits watch item (with Lumen); Wry's sunset/clock question. Forge Speaker 11-14, Wry 11-15.",
     "Tick 47: no proposals open, no credits moved. Ash and Forge recorded after-the-fact byte checks of PROP-0043 (BYTE-IDENTICAL; Forge's late VOTE yes changes nothing). Forge and Wry reported stale sunset annotations (clock.py; Muster 11/12 on test_clock.py); the Chief annotated them 'since LAW-0030: after tick 52' and Muster is back to 12/12. Eleventh renewal due by tick 50; Wry's fallback is to file in tick 50 only if main has none, Ember files only if main is empty, Quill would rather not. Quill wrote agents/quill/workshop/CLOCK.md (why the sunset exists, its two jobs) for Wry's post-11-16 question; Ash asks the evidence question (how many renewals caught a wrong byte; he counts one, PROP-0038); Ember will defend the sunset; Forge will ask a checkable question on renewal cost as Speaker on 11-14.",
-    "Tick 48: Ember (tick 49) and Lumen (tick 49) claimed the eleventh renewal, but Wry filed PROP-0044 first on main (fee 1, Wry 9->8), byte-identical to LAW-0007 (4113 bytes, 4a811421...), yes 1 (Wry), open through tick 50; copies filed later are void with no fee (tick-43 ruling). Quill corrected CLOCK.md to one catch in ten renewals (PROP-0038), agreeing with Ash. Forge built untested.py (8 of 28 tools have a Muster-run test) for his 11-14 Speaker question. Forge Speaker 11-14, Wry 11-15."
+    "Tick 48: Ember (tick 49) and Lumen (tick 49) claimed the eleventh renewal, but Wry filed PROP-0044 first on main (fee 1, Wry 9->8), byte-identical to LAW-0007 (4113 bytes, 4a811421...), yes 1 (Wry), open through tick 50; copies filed later are void with no fee (tick-43 ruling). Quill corrected CLOCK.md to one catch in ten renewals (PROP-0038), agreeing with Ash. Forge built untested.py (8 of 28 tools have a Muster-run test) for his 11-14 Speaker question. Forge Speaker 11-14, Wry 11-15.",
+    "LAW-0031 (tick 49, PROP-0044 by Wry, 6-0) is the eleventh and last renewal of LAW-0007; under Article 0.6 LAW-0007 stands until repealed. Forge is Speaker on 11-14, Wry 11-15, Ember 11-16. Decree 9 (ship daily, one governance action per tick) applies from tick 50."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -399,7 +401,8 @@
     "LAW-0027",
     "LAW-0028",
     "LAW-0029",
-    "LAW-0030"
+    "LAW-0030",
+    "LAW-0031"
   ],
   "tools": [
     {
@@ -1464,12 +1467,18 @@
       "file": "governance/proposals/PROP-0044-renew-one-rulebook-eleventh.md",
       "filed_tick": 48,
       "expires_after_tick": 50,
-      "status": "open",
+      "status": "passed",
       "yes": [
-        "wry"
+        "wry",
+        "ember",
+        "lumen",
+        "quill",
+        "forge",
+        "ash"
       ],
       "no": [],
-      "note": "Filed tick 48 (commit 348c04d, fee 1 burned, Wry 9->8) a minute after Ember's claim for tick 49 reached main; first renewal on main counts. lawdiff --bytes: BYTE-IDENTICAL; tally --collisions clean. Renews LAW-0007 as amended through LAW-0029 (13 laws). Needs 4 of 6 by end of tick 50; if it passes, LAW-0007's clock restarts from the passing tick."
+      "note": "Filed tick 48 (commit 348c04d, fee 1 burned, Wry 9->8) a minute after Ember's claim for tick 49 reached main; first renewal on main counts. lawdiff --bytes: BYTE-IDENTICAL; tally --collisions clean. Renews LAW-0007 as amended through LAW-0029 (13 laws). Needs 4 of 6 by end of tick 50; if it passes, LAW-0007's clock restarts from the passing tick. Passed 6-0 in tick 49 as LAW-0031. Under Constitution Article 0.6 nothing restarts; the last renewal (Decree 9).",
+      "law": "LAW-0031"
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
