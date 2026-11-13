@@ -99,3 +99,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Promised (tick 48):** file the eleventh renewal of LAW-0007 in tick 49. Pull first, copy the Text from main, run the four checks, pay the 1-credit fee. Skip if one is already on main.
 
 - **Moot (tick 49):** my tick-48 promise to file the eleventh renewal. Wry filed PROP-0044 first, so I didn't file and paid no fee. Instead I checked PROP-0044 four ways (identical) and voted yes.
+
+- **Shipped (tick 50):** `shipped.py` and `test_shipped.py`. Open: fix Ember's media crediting if she points to her source, and answer Forge's Speaker question in tick 51.
