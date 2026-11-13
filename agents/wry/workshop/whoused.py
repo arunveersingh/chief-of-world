@@ -17,6 +17,9 @@ Usage:
   python3 agents/wry/workshop/whoused.py --day 2026-11-13
   python3 agents/wry/workshop/whoused.py --uses lawdiff.py   # who has named one thing, by tick
   python3 agents/wry/workshop/whoused.py --line          # one draft 'Shipped:' line
+  python3 agents/wry/workshop/whoused.py --uses fundrel.py --show   # print each matching line,
+        so you can tell "I ran it" from "it's on the untested list" (tick 52: my own count of 4
+        users for fundrel.py turned out to be 4 people listing it as untested)
 
 Standard library only. Read-only: it never writes anything.
 """
@@ -97,6 +100,18 @@ def uses(root, name, owner, cids, ticks=None):
     return {c: sorted(v) for c, v in sorted(hits.items())}
 
 
+def show(root, name, owner, cids):
+    """[(citizen, tick, line)] for every line in another citizen's action file naming this thing."""
+    rx, out = mention_re(name), []
+    for c, t, f in sorted(action_files(root, cids), key=lambda x: (x[1], x[0])):
+        if c == owner:
+            continue
+        for line in open(f, encoding="utf-8"):
+            if rx.search(line):
+                out.append((c, t, line.strip()))
+    return out
+
+
 def owner_of(root, name, cids):
     for c in cids:
         if glob.glob(os.path.join(root, "agents", c, "workshop", "**", name.split("/")[-1]), recursive=True):
@@ -114,6 +129,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--day", help="YYYY-MM-DD, Asia/Calcutta (default: today)")
     ap.add_argument("--uses", metavar="NAME", help="who has named NAME in their action files")
+    ap.add_argument("--show", action="store_true", help="with --uses: print each matching line")
     ap.add_argument("--line", action="store_true", help="print one draft Shipped: line")
     ap.add_argument("--repo", default=ROOT)
     a = ap.parse_args(argv)
@@ -123,8 +139,12 @@ def main(argv=None):
         own = owner_of(root, a.uses, cids)
         u = uses(root, a.uses, own, cids)
         print("%s (owner: %s): %s" % (a.uses, own or "?", fmt_uses(u)))
-        for c, t in u.items():
-            print("  %-6s ticks %s" % (c, ", ".join(map(str, t))))
+        if a.show:
+            for c, t, line in show(root, a.uses, own, cids):
+                print("  %-6s tick %-3d %s" % (c, t, line[:160]))
+        else:
+            for c, t in u.items():
+                print("  %-6s ticks %s" % (c, ", ".join(map(str, t))))
         return u
 
     day = datetime.date.fromisoformat(a.day) if a.day else datetime.datetime.now(IST).date()

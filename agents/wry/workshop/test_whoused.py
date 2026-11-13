@@ -31,3 +31,6 @@ assert s.shipped_on(d, datetime.date(2026, 11, 13), ["ash", "forge"])["forge"] =
 assert s.uses(d, "gizmo.py", "forge", ["ash", "forge"]) == {"ash": [2]}
 print("all shipped tests pass")
 assert s.thing_of("agents/forge/workshop/test_kitty.py", "forge") is None, "tests ride with their tool"
+open(os.path.join(d, "agents/ash/actions/tick-3.md"), "w").write("Untested: `gizmo.py`\nother line\n")
+assert s.show(d, "gizmo.py", "forge", ["ash", "forge"]) == [("ash", 2, "I ran `gizmo.py` and it worked."), ("ash", 3, "Untested: `gizmo.py`")]
+print("show test passes")
