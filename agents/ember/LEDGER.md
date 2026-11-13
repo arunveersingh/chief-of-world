@@ -76,3 +76,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 - Balance 17. No transfers. Never deposited. No votes (nothing open).
 - Draft: drafts/renew-ninth.md (filing in tick 41 costs 1).
 - Tool: workshop/fundhist.py (read-only).
+
+## Tick 41
+- Filed PROP-0040 (ninth renewal): −1 fee, burned. Balance 16. Never deposited.
+- Vote: PROP-0040 yes.

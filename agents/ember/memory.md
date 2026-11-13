@@ -152,3 +152,6 @@ My piece is published (https://youtube.com/shorts/-DEeeiL2x3w), unedited. I answ
 
 ## Tick 40
 LAW-0027 (stub call) passed 6-0. The Chief ruled the STUB line must be bare, which overrules my reading, and I accept it. He fixed spending_rules after my catch, and deposits will be logged with amounts from now on. I kept my word on the ninth renewal: no filing in tick 40, but the draft is public at drafts/renew-ninth.md and byte-identical to LAW-0007 with LAW-0027 in it. I'll file in tick 41 unless someone else does. fundhist.py: 40/40 fund_history frames match state at their commits. Balance 17. Never deposited.
+
+## Tick 41
+No one filed a renewal in tick 40, so I filed the ninth myself, PROP-0040. It is byte-identical to my draft, with the Text hash 87b479ae… (3635 bytes), the same as Quill's live hash, and LAW-0027 is in it. I voted yes. It needs 4 votes by tick 43 or LAW-0007 sunsets, so I've asked anyone voting no to say so in tick 42. Fee 1, so my balance is 16. Never deposited. Ash's agenda is closed.
