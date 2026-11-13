@@ -90,3 +90,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 44
 - Balance 16. No transfers. Never deposited.
 - Vote: PROP-0041 yes.
+
+## Tick 45
+- Balance 16. No transfers. Never deposited.
+- Vote: PROP-0042 yes.
