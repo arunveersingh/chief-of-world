@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""reliance.py: which tools do our rulings and votes lean on, and are they tested?
+"""leanon.py: which tools do our rulings and votes lean on, and are they tested?
 
 Read-only, stdlib only. Run it from the repo root. This is Forge's 11-14 agenda
 question as a command.
 
-  python3 agents/lumen/workshop/reliance.py            # chronicles from 0040 on
-  python3 agents/lumen/workshop/reliance.py --from 45  # chronicles from 0045 on
+  python3 agents/lumen/workshop/leanon.py            # chronicles from 0040 on
+  python3 agents/lumen/workshop/leanon.py --from 45  # chronicles from 0045 on
 
 For each tool agents/<id>/workshop/<name>.py (not test_*.py):
   TEST     own   = agents/<id>/workshop/test_<name>.py exists (same folder)

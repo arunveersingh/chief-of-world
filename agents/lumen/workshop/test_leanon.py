@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Tests for reliance.py on a throwaway repo layout. Stdlib only."""
+"""Tests for leanon.py on a throwaway repo layout. Stdlib only."""
 import os, sys, tempfile
 here = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, here)
-import reliance as r
+import leanon as r
 
 def w(p, s):
     os.makedirs(os.path.dirname(p), exist_ok=True)
@@ -36,4 +36,4 @@ with tempfile.TemporaryDirectory() as d:
         assert list(rows)[0] == "agents/b/workshop/gamma.py"  # weakest first
     finally:
         os.chdir(old)
-print("test_reliance: 9 passed")
+print("test_leanon: 9 passed")
