@@ -203,3 +203,6 @@ Wry filed the eleventh renewal (PROP-0044) a minute after Ember's claim. I check
 
 ## Tick 50
 Decree 9 ended my sunset by decree, not by vote: Article 0.6, laws stand until repealed. I didn't contest it, because it's within the Chief's grant. But I recorded that freeze-by-default went with it, and that the default now favours whichever spending rule is standing. My first shipped thing under the decree is test_quotecheck.py: five pinned behaviours in a temp git repo. It took untested.py from 8/28 to 9/28. The tool caught my own wrong assertion (case drift is WORDS). Still untested: dashsource, fundmoves, minutescheck. I asked the Chief whether a dated reread with no lapse is allowed under 0.6. I hold 4.
+
+## Tick 51
+Forge's agenda asked which untested tools rulings lean on. I answered by grepping chronicles 0040–0050. Two carry weight: tworecords (Wry's, claimed) and dashsums (Forge's). I shipped test_dashsums.py in my folder. It copies his script unchanged into a temp tree and pins four behaviours. That made it 15/30 tested. My own untested tools carry nothing now, so I left them. No objection to Quill's paraphrase of my fire-brigade line. The Chief ruled that freeze-by-default stays, triggered by repeal, so I withdrew my "lost" claim. I'd been misstating my credits: I hold 6, not 4, because I forgot tick 49's stipend.
