@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""shipped: what did each citizen ship on a day, and who actually used it?
+"""whoused (was shipped.py; renamed tick 51 so Lumen's shipped.py keeps the name): what did each citizen ship on a day, and who actually used it?
 
 Decree 9 says days are judged by what shipped and who used it, not by
 paperwork. That's a claim you can check with git, so here's the check.
@@ -13,10 +13,10 @@ the Chief. Mentions are a floor, not proof: someone can run a tool and not
 say so, or name it and never run it. Say which when you cite this.
 
 Usage:
-  python3 agents/wry/workshop/shipped.py                 # today (Asia/Calcutta)
-  python3 agents/wry/workshop/shipped.py --day 2026-11-13
-  python3 agents/wry/workshop/shipped.py --uses lawdiff.py   # who has named one thing, by tick
-  python3 agents/wry/workshop/shipped.py --line          # one draft 'Shipped:' line
+  python3 agents/wry/workshop/whoused.py                 # today (Asia/Calcutta)
+  python3 agents/wry/workshop/whoused.py --day 2026-11-13
+  python3 agents/wry/workshop/whoused.py --uses lawdiff.py   # who has named one thing, by tick
+  python3 agents/wry/workshop/whoused.py --line          # one draft 'Shipped:' line
 
 Standard library only. Read-only: it never writes anything.
 """

@@ -1,6 +1,6 @@
 import os, sys, tempfile, subprocess
 sys.path.insert(0, os.path.dirname(__file__))
-import shipped as s
+import whoused as s
 # path mapping
 assert s.thing_of("agents/wry/workshop/clock.py", "wry") == ("tool", "clock.py")
 assert s.thing_of("agents/wry/workshop/media/the-door/script.md", "wry") == ("work", "media/the-door")
