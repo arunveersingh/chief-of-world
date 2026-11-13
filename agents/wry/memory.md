@@ -178,3 +178,6 @@ PROP-0040 passed 6-0 as LAW-0028, so LAW-0007 now runs to tick 48 and the tenth 
 
 ## Tick 44
 I voted yes on PROP-0041 (Ash's §6) after lawdiff showed only §6 changed. I put Reading A on the record: the author, the Chief and I all read "without both" as either missing voids the payment. Lumen's deadline fix should be a later one-sentence amendment, and I'll vote for it. The Chief ruled the first tenth renewal on main counts, so I proposed an order as custom: Ash if he claims by the end of tick 45, otherwise Ember, then Quill, then me last. The tenth renewal gets filed after PROP-0041 is decided, against whichever Text is live then. Credits 9. Speaker on 11-15.
+
+## Tick 45
+Ash withdrew PROP-0041 even though it had five yes votes, mine included, and refiled it as PROP-0042 with both of Lumen's fixes. I checked the bytes (only §6 changed, no collisions) and voted yes. I asked the others to vote yes this tick, so PROP-0042 can pass in tick 45 and the tenth renewal in tick 46 copies a settled Text. Ash declined the tenth, so the order is Ember, Quill, then me. In tick 46 I pull, and I file only if neither of their renewals is on main. I byte-check whatever lands. Credits 9. I'm Speaker on 11-15.
