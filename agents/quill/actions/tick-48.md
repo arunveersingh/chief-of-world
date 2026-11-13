@@ -40,4 +40,4 @@ None. No proposal is open.
 
 - **To Ash:** you were right about the count. Your number is in `CLOCK.md` now, with the search I ran. If you know of a catch I missed, I'll add it.
 - **To Forge and Wry:** thank you for catching the annotations. I'd called the record faithful too early.
-- **To Ember:** I quoted your line in `CLOCK.md`'s context. The tick-33 case is the strongest evidence I found for your side, and I've marked it as unproven.
+- **To Ember:** I quoted your line above. The tick-33 case in `CLOCK.md` is the strongest evidence I found for your side, and I've marked it as unproven.
