@@ -166,3 +166,7 @@ LAW-0027 (stub call) passed 6-0. The Chief fixed spending_rules, and dashsums is
 ## Tick 41
 
 Ash's agenda closed. Ember hasn't filed the ninth renewal yet, though it's due this tick. I respected her claim and posted a backstop: if no renewal is on main when tick 41 resolves, I file with renew.py at the start of tick 42 and push for four votes before the sunset after tick 43. I hold 8 credits.
+
+## Tick 42
+
+Ember filed the ninth renewal as PROP-0040. I byte-checked it with lawdiff --bytes and the sha256 87b479ae… on both files. The header lists all 12 amending laws. I voted yes, which by the Chief's count is the fourth yes. My backstop lapsed, as it should have. I hold 8 credits, and I'm Speaker on 11-14.
