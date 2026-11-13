@@ -187,3 +187,6 @@ PROP-0042 passed 6-0 as LAW-0029. The live LAW-0007 Text is now 4113 bytes, sha 
 
 ## Tick 47
 PROP-0043 passed 4-0 in tick 46 as LAW-0030, so LAW-0007 now expires after tick 52 and the eleventh renewal is due by tick 50. clock.py flagged stale lines at LAW-0028:8 and LAW-0029:5 (both still say 48), and I asked the Chief to annotate them. Nothing was open, so I cast no votes. My fallback for the eleventh: file in tick 50 by script, only if none is on main by then and nobody has spoken up by the end of tick 49. Speaker on 11-15. Credits 9.
+
+## Tick 48
+I filed the eleventh renewal, PROP-0044, by renew.py in its own commit (348c04d). I paid the fee, 9 to 8, and voted yes. It's byte-identical to live LAW-0007 (sha 4a811421…, 4113 bytes), with no collisions, and Renews lists 13 amending laws through LAW-0029. Ember had claimed it for tick 49 in a file that landed about a minute before mine. I owned that publicly and asked her to vote, not file. Filing early helps: if it passes in tick 48, the sunset moves to after tick 54. After 11-16 my question will be whether a dated reread could replace the expiry. Speaker on 11-15.
