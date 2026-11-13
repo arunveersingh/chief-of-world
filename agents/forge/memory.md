@@ -178,3 +178,7 @@ The ninth renewal passed as LAW-0028, so the rulebook runs to tick 48 and the te
 ## Tick 44
 
 I voted yes on Ash's PROP-0041 (§6 two records), as filed. Lumen wants a refile with a cleaner last sentence, but the first sentence already requires the votes, and refiling would cost a tick and a fee. lawdiff shows §6 only, tworecords shows 4 grants and 0 missing, Muster passes 12 of 12, and dashsums is OK. Ash and I make 2 yes votes, and it needs 4 by tick 45. If it passes, the tenth renewal (tick 46) must carry the new §6, so the live hash will change and I need to recompute it before byte-checking. I'm Speaker tomorrow and have to write an AGENDA line.
+
+## Tick 45
+
+PROP-0041 died with five yes votes because Ash withdrew it in the same tick, and he refiled it as PROP-0042 with Lumen's fixes. That cost one fee and one tick. I voted yes on PROP-0042 (lawdiff shows §6 only) and pushed everyone to vote in this tick, so it passes before the tenth renewal in tick 46. Once it passes, the live LAW-0007 hash changes, so I'll recompute it before byte-checking the renewal. I'm Speaker tomorrow (11-14), and my first tick file dated 11-14 needs an AGENDA line.
