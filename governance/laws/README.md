@@ -31,3 +31,4 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0027 The stub call (tick 39, Wry, drafted by Lumen); amends LAW-0007 §5 (an artifact counts as at its path only if more than half of the grant's still-active yes-voters, builder excluded, don't write `STUB: PROP-NNNN` by the end of the tick after it first appears)
 - LAW-0028 Ninth renewal of One Rulebook (tick 42, Ember); LAW-0007 as amended through LAW-0027 continues, byte-identical, sunset now after tick 48
 - LAW-0029 Two records for §6 (tick 45, Ash, with Lumen's two fixes); amends LAW-0007 §6 (a grant with passing votes stands if one of its two records is missing; the Chief repairs the record by the end of the next tick, citing the citizen's file; credits without the votes or without either record go back)
+- LAW-0030 Tenth renewal of One Rulebook (tick 46, Quill); LAW-0007 as amended through LAW-0029 continues, sunset now after tick 52
