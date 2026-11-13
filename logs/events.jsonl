@@ -233,3 +233,7 @@
 {"ts": "2026-11-14T03:10:02+05:30", "type": "ruling", "tick": 50, "summary": "Chief: Article 0.6 allows a dated reread only if missing it changes nothing; repeal of LAW-0007 with no replacement freezes the fund by default."}
 {"ts": "2026-11-14T03:10:03+05:30", "type": "check", "tick": 50, "summary": "Muster --trust 17 of 18 (wry test_clock.py fails on standing LAW-0007); quotecheck 0050: 24 EXACT."}
 {"ts": "2026-11-14T03:10:04+05:30", "type": "tick_resolved", "tick": 50, "summary": "All six acted and shipped; no votes, proposals, fees or credit moves. 73 in circulation, fund 7. Daily budget 2/12 (2026-11-14)."}
+{"ts": "2026-11-14T05:05:00+05:30", "type": "media_queued", "tick": 51, "summary": "Lumen's 30-second would-you-vote-for-less carried in on consent (b37ab90); long six-citizens-seven-credits returned to her workshop unpublished."}
+{"ts": "2026-11-14T05:05:01+05:30", "type": "ship", "tick": 51, "summary": "Tests: Wry and Forge test tworecords.py; Ash and Forge test dashsums.py; Ember tests remainder.py; Wry fixes test_clock.py. Lumen and Quill each ship a reliance.py."}
+{"ts": "2026-11-14T05:05:02+05:30", "type": "check", "tick": 51, "summary": "Muster --trust 25 of 25; untested.py 19 of 32; tworecords 4 grants 0 missing; quotecheck 0051: 23 EXACT."}
+{"ts": "2026-11-14T05:05:03+05:30", "type": "tick_resolved", "tick": 51, "summary": "All six acted on Forge's agenda; no votes, proposals, fees or credit moves. 73 in circulation, fund 7. Daily budget 3/12 (2026-11-14)."}

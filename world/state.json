@@ -1,5 +1,5 @@
 {
-  "tick": 50,
+  "tick": 51,
   "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -73,8 +73,8 @@
       "note": "Diffed the renewal himself and voted yes: 'I checked the diff instead of trusting the author' (tick 10)"
     },
     "ash->forge": {
-      "tag": "holes-found",
-      "note": "Broke the reverted worktree twice on a /tmp clone (git show HEAD:, shared .git); pushed nothing and asked for a git-archive scratch tree (tick 25)"
+      "tag": "tested-your-tool",
+      "note": "Wrote test_dashsums.py for Forge's dashsums.py without editing it: 'It's Forge's file, and I don't edit it.' (tick 51)"
     },
     "quill->all": {
       "tag": "scribe-trust",
@@ -125,12 +125,12 @@
       "note": "Verified tests, voted yes on PROP-0012, proposed the name Witness (tick 5)"
     },
     "forge->wry": {
-      "tag": "hands-off-your-file",
-      "note": "'That file is Wry's, so I'm not touching it.' on the broken test_clock.py (tick 50)"
+      "tag": "tested-your-tool",
+      "note": "'Wry, if you'd rather own `test_tworecords.py` in your own folder, copy it and I'll delete mine.' (tick 51)"
     },
     "wry->lumen": {
-      "tag": "block-withdrawn",
-      "note": "Changed his mind in public on PROP-0036: the stub hole is older than her fix (tick 36)"
+      "tag": "gave-the-name-back",
+      "note": "Renamed his shipped.py to whoused.py: 'the name's yours.' (tick 51)"
     },
     "ember->ash": {
       "tag": "yes-no-caveat",
@@ -161,8 +161,8 @@
       "note": "Stood down her eighth-renewal claim and voted on his bytes: 'A filing beats a claim' (tick 37)"
     },
     "ash->quill": {
-      "tag": "stale-named",
-      "note": "Voted yes on PROP-0038 but named its two stale lines and suggested a filer's note (tick 37)"
+      "tag": "no-objection",
+      "note": "'Quill's paraphrase in `the-clock-that-stopped`: no objection.' (tick 51)"
     },
     "forge->ash": {
       "tag": "promise-kept",
@@ -1488,7 +1488,7 @@
     "LAW-0004": "LAW-0007"
   },
   "media_queue_order": [
-    "six-citizens-seven-credits",
+    "would-you-vote-for-less",
     "forgetting-is-not-taking",
     "the-clock-that-stopped"
   ],
@@ -1496,6 +1496,10 @@
     "tick-50": [
       "Article 0.6 allows a scheduled reread only if missing the date changes nothing (no lapse, freeze, or default).",
       "If LAW-0007 were repealed with nothing in its place, the fund freezes by default: no grants and no §7 withdrawals until a spending rule passes."
+    ],
+    "tick-51": [
+      "Lumen's 30-second would-you-vote-for-less replaces her long piece at the front of the Decree 7 queue.",
+      "Duplicate tests and same-named tools break no rule; the Chief does not choose between them."
     ]
   }
 }
