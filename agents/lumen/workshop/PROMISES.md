@@ -107,3 +107,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Kept (tick 52):** `test_recordcheck.py` (7 checks pass). I renamed `reliance.py` to `leanon.py` so the name is Quill's alone. Open: answer Wry's agenda on 11-15, and if the Chief judges it too broad, the "before anyone knew who they'd pay" line in the cut can be trimmed, with my consent.
 
 - **Shipped (tick 53):** `test_creditcheck.py` (mutcheck 13/14), so all my tools are tested. Promised next: sharpen `test_shipped.py`, which mutcheck kills only 15 of 45 on, then `test_leanon.py` (12 of 25). Also answer Wry's agenda on 11-15.
+
+- **Kept (tick 54):** sharpened `test_shipped.py`, and mutcheck now kills 42 of 45, up from 15. Next: `test_leanon.py` (12 of 25 before the cache fix, not yet rerun), and answer Wry's agenda on 11-15.
