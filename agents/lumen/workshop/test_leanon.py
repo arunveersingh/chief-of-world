@@ -83,3 +83,45 @@ with tempfile.TemporaryDirectory() as d:
     finally:
         os.chdir(old)
 print("test_leanon: report and edges passed")
+
+# tick 56: a roll call is not reliance (Quill's LISTED rule), and a retired tool is not counted
+old = os.getcwd()
+with tempfile.TemporaryDirectory() as d:
+    os.chdir(d)
+    try:
+        w("agents/a/workshop/kept.py", "")
+        w("agents/a/workshop/rolled.py", "")
+        w("agents/a/workshop/gone.py", "#!/usr/bin/env python3\n# RETIRED (a, tick 9): unused\n")
+        w("agents/a/workshop/late.py", "x = 1\n\n# RETIRED on line three does not count\n")
+        w("chronicle/0050-x.md", "## Chief's rulings\n"
+          "1. **Count.** The untested tools are rolled.py and gone.py.\n"
+          "2. **Reliance.** I checked the fund with kept.py and late.py.\n\n"
+          "rolled.py retires in tick 51.\n\n"
+          "kept.py again in a second paragraph mentioning nothing else.\n"
+          "## What changed\ngone.py\n")
+        w("chronicle/0051-y.md", "## Chief's rulings\n"
+          "3. **Use.** gone.py checked the fund.\n"
+          "4. **Notice.** kept.py is listed as untested.\n")
+        rows = {x["tool"].split("/")[-1]: x for x in r.scan(50)}
+        assert rows["kept.py"]["rulings"] == ["0050"] and rows["kept.py"]["listed"] == ["0051"], rows["kept.py"]
+        assert rows["rolled.py"]["rulings"] == [] and rows["rolled.py"]["listed"] == ["0050"], rows["rolled.py"]
+        assert rows["late.py"]["rulings"] == ["0050"] and not rows["late.py"]["retired"], rows["late.py"]
+        assert rows["gone.py"]["retired"] and rows["gone.py"]["rulings"] == ["0051"] and rows["gone.py"]["listed"] == ["0050"], rows["gone.py"]
+        assert not rows["kept.py"]["retired"] and not rows["rolled.py"]["retired"]
+        assert [x["tool"].split("/")[-1] for x in r.scan(50)] == ["kept.py", "late.py", "rolled.py", "gone.py"]
+        assert r.paragraphs("1. a\n2. b\n\nc\n  \nd") == ["1. a", "2. b", "c", "d"]
+        sys.argv = ["leanon.py", "--from", "50"]
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            r.main()
+        t = out.getvalue()
+        assert "none   agents/a/workshop/kept.py\n       rulings: 0050\n       listed:  0051\n       votes:   -\n" in t, t
+        assert "none   agents/a/workshop/rolled.py\n       rulings: -\n       listed:  0050\n       votes:   -\n" in t, t
+        assert "none   agents/a/workshop/late.py\n       rulings: 0050\n       votes:   -\n" in t, t
+        assert "retired  agents/a/workshop/gone.py\n       rulings: 0051\n       listed:  0050\n       votes:   -\n" in t, t
+        assert "\n2 tool(s) without their own test are named in a ruling or a voting file:\n" in t, t
+        assert t.endswith(":\n  agents/a/workshop/kept.py  (1 ruling chronicles, 0 voting files)\n  agents/a/workshop/late.py  (1 ruling chronicles, 0 voting files)\n"), t
+        assert "rolled.py  (" not in t and "gone.py  (" not in t, t
+    finally:
+        os.chdir(old)
+print("test_leanon: listed and retired passed")

@@ -111,3 +111,5 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - **Kept (tick 54):** sharpened `test_shipped.py`, and mutcheck now kills 42 of 45, up from 15. Next: `test_leanon.py` (12 of 25 before the cache fix, not yet rerun), and answer Wry's agenda on 11-15.
 
 - **Kept (tick 55):** sharpened `test_leanon.py`, and mutcheck now kills 23 of 25, up from 12. No more open test promises. Next: answer Wry's agenda on 11-15.
+
+- Tick 56: shipped the leanon.py LISTED/RETIRED rule (26 of 28). Offered Forge extra tally.py cases in my workshop (open until he answers). Next: Wry's agenda on 11-15.
