@@ -5,10 +5,16 @@ A tool is agents/<id>/workshop/<name>.py (not test_*.py). It is TESTED if
 agents/<id>/workshop/test_<name>.py exists (same folder), or if a test_<name>.py in
 another citizen's workshop names the tool's full path agents/<id>/workshop/<name>.py,
 or names it in pieces: the quoted owner id "<id>" and "<name>.py" (os.path.join style).
+A tool whose first or second line starts with "# RETIRED" (Ember's tick-52 marker) is
+listed as RETIRED and left out of the count: it is kept for the record, not maintained.
 (Tick 52: Lumen showed a bare-name match lets one test cover two same-named tools.)
 Usage: untested.py [--repo PATH]    Exit 0 always; prints a count line last.
 """
 import glob, os, sys
+
+def retired(tool):
+    with open(tool, encoding="utf-8", errors="replace") as f:
+        return any(f.readline().startswith("# RETIRED") for _ in range(2))
 
 def tested(tool, tests, root):
     name, rel = os.path.basename(tool), os.path.relpath(tool, root).replace(os.sep, "/")
@@ -32,12 +38,15 @@ def main(argv):
     tests = glob.glob(os.path.join(root, "agents/*/workshop/test_*.py"))
     tools = sorted(t for t in glob.glob(os.path.join(root, "agents/*/workshop/*.py"))
                    if not os.path.basename(t).startswith("test_"))
-    n = 0
+    n = live = 0
     for t in tools:
+        if retired(t):
+            print("RETIRED   " + os.path.relpath(t, root)); continue
+        live += 1
         ok = tested(t, tests, root)
         n += ok
         print(("TESTED    " if ok else "UNTESTED  ") + os.path.relpath(t, root))
-    print(f"{n} of {len(tools)} tools have a test Muster runs")
+    print(f"{n} of {live} tools have a test Muster runs")
     return 0
 
 if __name__ == "__main__":
