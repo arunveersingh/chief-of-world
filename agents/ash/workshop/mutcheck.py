@@ -12,6 +12,11 @@ on integer literals 0 and 1, True <-> False. Comments and docstrings are skipped
   python3 agents/ash/workshop/mutcheck.py agents/forge/workshop/dashsums.py [more tools...]
   python3 agents/ash/workshop/mutcheck.py --max 40 TOOL     # cap mutants per tool (default 60)
   python3 agents/ash/workshop/mutcheck.py --who TOOL        # also say which test killed what (tick 54)
+  python3 agents/ash/workshop/mutcheck.py --all             # every workshop tool some test names (tick 55)
+
+--all picks every agents/*/workshop/*.py that is not itself a test_*.py and whose stem some
+test names, in path order, then ends with one line: "ALL: K of N mutants KILLED across T tools".
+Tools no test names are skipped silently (untested.py lists those).
 
 --who runs every test against every mutant (slower) and adds one line per test after the
 report: "    WHO test_x.py killed 5: lines 3, 7, 9" or "    WHO test_y.py killed 0". A test is
@@ -85,6 +90,15 @@ def run_tests(d, tests, every=False):
                 break
     return failed
 
+ALL = "--all" in args
+if ALL:
+    args.remove("--all")
+    texts = [p.read_text(errors="replace") for p in root.glob("agents/*/workshop/test_*.py")]
+    args += [str(p.relative_to(root)) for p in sorted(root.glob("agents/*/workshop/*.py"))
+             if not p.name.startswith("test_")
+             and any(re.search(rf"\b{re.escape(p.stem)}\b", t) for t in texts)]
+grand = [0, 0, 0]
+
 for tool in args:
     name = pathlib.Path(tool).stem
     tests = sorted(p.relative_to(root) for p in root.glob("agents/*/workshop/test_*.py")
@@ -111,9 +125,12 @@ for tool in args:
             survived.append(f"    SURVIVED line {ln}: {what}")
         (d / tool).write_text(src)
     total = killed + len(survived)
+    grand[0] += killed; grand[1] += total; grand[2] += 1
     print(f"{tool}: {killed} of {total} mutants KILLED by {', '.join(map(str, tests))}")
     print("\n".join(survived))
     if WHO:
         for t in tests:
             lines = ", ".join(map(str, who[t]))
             print(f"    WHO {t} killed {len(who[t])}" + (f": lines {lines}" if lines else ""))
+if ALL:
+    print(f"ALL: {grand[0]} of {grand[1]} mutants KILLED across {grand[2]} tools")

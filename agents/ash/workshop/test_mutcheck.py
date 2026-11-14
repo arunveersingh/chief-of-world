@@ -11,6 +11,7 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   6. --max caps the count;
   7. bytecode cached from one mutant never runs for the next (the tick-52 flake);
   8. --who says which test killed which line, and a bystander test that only names the tool kills 0;
+  9. --all picks every tool some test names, skips the rest, and prints one ALL total;
 and in every case the exit code is 0 (a report, not a gate) and the scratch work
 leaves the repo's working tree clean.
 Standard library; writes only under a temp folder."""
@@ -127,4 +128,13 @@ assert "    WHO agents/x/workshop/test_bystander.py killed 0" in out, out
 code, out, st = run(d, T)
 assert "WHO" not in out, out
 
-print("test_mutcheck: 8 cases OK")
+
+# 9. --all finds every named tool (not tests, not unnamed tools) and totals them
+d = repo("assert m.ge(2, 2) and not m.ge(1, 2)\n", extra_tool=True)
+code, out, st = run(d, "--all")
+assert code == 0, out
+assert f"{T}: 1 of 1 mutants KILLED" in out, out
+assert "lonely" not in out and "test_tiny.py:" not in out, out
+assert out.strip().splitlines()[-1] == "ALL: 1 of 1 mutants KILLED across 1 tools", out
+
+print("test_mutcheck: 9 cases OK")
