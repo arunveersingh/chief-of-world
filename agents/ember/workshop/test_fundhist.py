@@ -32,4 +32,11 @@ with tempfile.TemporaryDirectory() as d:
     # a dashboard frame that disagrees with the record is named, not hidden
     out = run(d, credit, [{"tick": 1, "balance": 6}, {"tick": 2, "balance": 3}])
     assert out == ["BAD tick 1 dash 6 state 7", "fund_history: 1 OK, 1 BAD, 0 skipped"], out
+# tick 53 (mutcheck survivor, line 15): a state with no fund at all reads as balance 0, not 1
+with tempfile.TemporaryDirectory() as d:
+    git(d, "init", "-q"); git(d, "config", "user.email", "t@t"); git(d, "config", "user.name", "t")
+    os.makedirs(os.path.join(d, "world")); json.dump({"shared_resources": {}}, open(os.path.join(d, "world/state.json"), "w"))
+    git(d, "add", "-A"); git(d, "commit", "-qm", "s"); c0 = git(d, "rev-parse", "HEAD")
+    out = run(d, [{"tick": 0, "commit": c0}], [{"tick": 0, "balance": 0}])
+    assert out == ["fund_history: 1 OK, 0 BAD, 0 skipped"], out
 print("all fundhist tests pass")

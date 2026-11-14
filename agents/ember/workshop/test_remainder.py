@@ -37,4 +37,10 @@ assert "WARNING" not in out, out
 # pot 3 over 2/2: 1 each, 1 unowned, cap 1 -> the unowned part alone could fund a grant
 code, out = run(state(3, {"a": 2, "b": 2}))
 assert "unclaimed remainder: 1" in out and "WARNING REMAINDER AT CAP" in out, out
+# tick 53 (mutcheck survivor, line 32 `bal > 0`): a single stray credit with no owner is still an empty room
+code, out = run(state(1, {"a": 0}))
+assert "WARNING EMPTY ROOM" in out, out
+# and a truly empty fund with no owners is not a warning
+code, out = run(state(0, {"a": 0}))
+assert "WARNING" not in out, out
 print("all remainder tests pass")
