@@ -27,4 +27,9 @@ r = fake([], "PROP-0099 passes")                             # event missing
 assert r.returncode == 1 and "event NO" in r.stdout, r
 r = fake([{"type": "grant", "summary": "PROP-0099 paid"}], "PROP-0099")  # loose event: counts, but WARN
 assert r.returncode == 0 and "WARN" in r.stdout, r
+# tick 52 mutant `and -> or` on strict-form line survived both tests; these kill it:
+r = fake([{"type": "grant", "proposal": "PROP-0099"}], "PROP-0099")  # right proposal, wrong type: WARN
+assert r.returncode == 0 and "WARN" in r.stdout, r
+r = fake([{"type": "grant_passed", "proposal": "PROP-0001", "summary": "PROP-0099"}], "PROP-0099")  # right type, wrong proposal: WARN
+assert r.returncode == 0 and "WARN" in r.stdout, r
 print("all tworecords tests pass")

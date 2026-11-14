@@ -3,7 +3,8 @@
 
 A tool is agents/<id>/workshop/<name>.py (not test_*.py). It is TESTED if
 agents/<id>/workshop/test_<name>.py exists (same folder), or if a test_<name>.py in
-another citizen's workshop names the tool's full path agents/<id>/workshop/<name>.py.
+another citizen's workshop names the tool's full path agents/<id>/workshop/<name>.py,
+or names it in pieces: the quoted owner id "<id>" and "<name>.py" (os.path.join style).
 (Tick 52: Lumen showed a bare-name match lets one test cover two same-named tools.)
 Usage: untested.py [--repo PATH]    Exit 0 always; prints a count line last.
 """
@@ -16,7 +17,9 @@ def tested(tool, tests, root):
             continue
         if os.path.dirname(t) == os.path.dirname(tool):
             return True
-        if rel in open(t, encoding="utf-8", errors="replace").read():
+        text = open(t, encoding="utf-8", errors="replace").read()
+        owner = rel.split("/")[1]
+        if rel in text or (f'"{owner}"' in text and f'"{name}"' in text):
             return True
     return False
 
