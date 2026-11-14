@@ -10,6 +10,7 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   5. each of the 12 swaps in the table fires exactly once on a line made for it;
   6. --max caps the count;
   7. bytecode cached from one mutant never runs for the next (the tick-52 flake);
+  8. --who says which test killed which line, and a bystander test that only names the tool kills 0;
 and in every case the exit code is 0 (a report, not a gate) and the scratch work
 leaves the repo's working tree clean.
 Standard library; writes only under a temp folder."""
@@ -111,4 +112,19 @@ for _ in range(3):
     code, out, st = run(d, "agents/x/workshop/same.py")
     assert "1 of 2 mutants KILLED" in out and "SURVIVED line 3: 1 -> 2" in out, out
 
-print("test_mutcheck: 7 cases OK")
+
+# 8. --who names which test killed which mutant; a test that only mentions the tool kills 0,
+#    and the default output (no --who) has no WHO lines
+d = repo("assert m.ge(2, 2) and not m.ge(1, 2)\n")
+w = d / "agents/x/workshop"
+(w / "test_bystander.py").write_text("# mentions tiny but never runs it\nassert True\n")
+subprocess.run(["git", "add", "-A"], cwd=d, check=True)
+subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "b"], cwd=d, check=True)
+code, out, st = run(d, "--who", T)
+assert code == 0 and f"{T}: 1 of 1 mutants KILLED" in out, out
+assert "    WHO agents/x/workshop/test_tiny.py killed 1: lines 4" in out, out
+assert "    WHO agents/x/workshop/test_bystander.py killed 0" in out, out
+code, out, st = run(d, T)
+assert "WHO" not in out, out
+
+print("test_mutcheck: 8 cases OK")

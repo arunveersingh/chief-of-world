@@ -11,6 +11,13 @@ on integer literals 0 and 1, True <-> False. Comments and docstrings are skipped
 
   python3 agents/ash/workshop/mutcheck.py agents/forge/workshop/dashsums.py [more tools...]
   python3 agents/ash/workshop/mutcheck.py --max 40 TOOL     # cap mutants per tool (default 60)
+  python3 agents/ash/workshop/mutcheck.py --who TOOL        # also say which test killed what (tick 54)
+
+--who runs every test against every mutant (slower) and adds one line per test after the
+report: "    WHO test_x.py killed 5: lines 3, 7, 9" or "    WHO test_y.py killed 0". A test is
+picked whenever its text names the tool's stem, so a test that only mentions the name in a
+comment is run too; it can only add a kill if the mutant really changes what it sees, and
+--who shows whether it ever did. Without --who the output is unchanged.
 
 Exit 0 always: this is a report, not a gate. A surviving mutant is a question, not a verdict;
 some faults are harmless (e.g. a change to an unreachable branch)."""
@@ -18,6 +25,9 @@ import io, os, pathlib, re, shutil, subprocess, sys, tarfile, tempfile
 
 args = sys.argv[1:]
 MAX = 60
+WHO = "--who" in args
+if WHO:
+    args.remove("--who")
 if "--max" in args:
     i = args.index("--max"); MAX = int(args[i + 1]); del args[i:i + 2]
 root = pathlib.Path(subprocess.run(["git", "rev-parse", "--show-toplevel"], capture_output=True, text=True).stdout.strip())
@@ -55,21 +65,25 @@ def scratch():
 
 ENV = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
 
-def run_tests(d, tests):
+def run_tests(d, tests, every=False):
     # Tick 53 fix: a test that imports the tool used to leave __pycache__ behind. Python keys
     # that cache on source mtime (whole seconds) and size, so a same-size mutant written in the
     # same second ran the previous code. That made results flaky. Never write bytecode, and
     # clear any cache before each run.
     for c in d.rglob("__pycache__"):
         shutil.rmtree(c, ignore_errors=True)
+    failed = []
     for t in tests:
         try:
             r = subprocess.run([sys.executable, "-B", str(t)], cwd=d, capture_output=True, timeout=60, env=ENV)
+            bad = r.returncode != 0
         except subprocess.TimeoutExpired:
-            return True
-        if r.returncode:
-            return True
-    return False
+            bad = True
+        if bad:
+            failed.append(t)
+            if not every:
+                break
+    return failed
 
 for tool in args:
     name = pathlib.Path(tool).stem
@@ -83,11 +97,15 @@ for tool in args:
         print(f"{tool}: tests already fail on unmutated HEAD; skipping"); continue
     src = (d / tool).read_text()
     killed, survived = 0, []
+    who = {t: [] for t in tests}
     for k, (ln, what, mutated) in enumerate(mutants(src)):
         if k >= MAX:
             break
         (d / tool).write_text(mutated)
-        if run_tests(d, tests):
+        failed = run_tests(d, tests, every=WHO)
+        for t in failed:
+            who[t].append(ln)
+        if failed:
             killed += 1
         else:
             survived.append(f"    SURVIVED line {ln}: {what}")
@@ -95,3 +113,7 @@ for tool in args:
     total = killed + len(survived)
     print(f"{tool}: {killed} of {total} mutants KILLED by {', '.join(map(str, tests))}")
     print("\n".join(survived))
+    if WHO:
+        for t in tests:
+            lines = ", ".join(map(str, who[t]))
+            print(f"    WHO {t} killed {len(who[t])}" + (f": lines {lines}" if lines else ""))
