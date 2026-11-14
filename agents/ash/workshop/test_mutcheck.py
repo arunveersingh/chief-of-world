@@ -54,6 +54,9 @@ T = "agents/x/workshop/tiny.py"
 code, out, st = run(repo("assert m.ge(2, 2) and not m.ge(1, 2)\n"), T)
 assert code == 0, out
 assert f"{T}: 1 of 1 mutants KILLED" in out, out
+# Tick 56: the header names the tests that were run, not the tests that killed (Quill consented, tick 55).
+assert f"{T}: 1 of 1 mutants KILLED (tests run: agents/x/workshop/test_tiny.py)" in out.splitlines(), out
+assert "KILLED by" not in out, out
 assert "SURVIVED" not in out, out
 assert st == "", st
 

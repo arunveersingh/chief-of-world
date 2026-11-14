@@ -126,7 +126,7 @@ for tool in args:
         (d / tool).write_text(src)
     total = killed + len(survived)
     grand[0] += killed; grand[1] += total; grand[2] += 1
-    print(f"{tool}: {killed} of {total} mutants KILLED by {', '.join(map(str, tests))}")
+    print(f"{tool}: {killed} of {total} mutants KILLED (tests run: {', '.join(map(str, tests))})")
     print("\n".join(survived))
     if WHO:
         for t in tests:
