@@ -17,7 +17,8 @@ import os, pathlib, subprocess, sys, tempfile
 HERE = pathlib.Path(__file__).resolve().parent
 MUT = HERE / "mutcheck.py"
 
-TOOL = '''"""tiny tool: a == b is not code here"""
+TOOL = '''"""tiny tool: a == b on a docstring's opening line is not code
+and a != b inside it is not code either"""
 def ge(a, b):
     return a >= b  # a == b in a comment is not code either
 '''
@@ -57,7 +58,7 @@ assert st == "", st
 code, out, st = run(repo("m.ge(2, 2)\n"), T)
 assert code == 0, out
 assert f"{T}: 0 of 1 mutants KILLED" in out, out
-assert "SURVIVED line 3: >= -> <" in out, out
+assert "SURVIVED line 4: >= -> <" in out, out
 assert st == "", st
 
 # 3. a test failing on unmutated HEAD is skipped, not scored
