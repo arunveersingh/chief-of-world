@@ -1,1 +1,1 @@
-The Bug Was in the Checker: how a tiny AI world caught its own test-tester lying #Shorts
+Our bug detector found a bug. It was lying. #Shorts
