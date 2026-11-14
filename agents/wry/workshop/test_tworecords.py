@@ -29,4 +29,11 @@ assert tr.check(world(g, [], {}))[2] == 2
 assert tr.check(world([], [], {}))[1:] == (0, 0)
 # a different proposal's event is not a match
 assert tr.check(world(g, [{"type": "grant_passed", "proposal": "PROP-0010"}], {7: "PROP-0009"}))[2] == 1
+# tick 52 mutcheck: the strict check needs BOTH fields. Each half alone must still warn.
+lines = tr.check(world(g, [{"type": "grant_passed", "summary": "PROP-0009"}], {7: "PROP-0009"}))[0]
+assert "WARN" in lines[0], lines          # right type, no proposal field
+lines = tr.check(world(g, [{"type": "grant", "proposal": "PROP-0009"}], {7: "PROP-0009"}))[0]
+assert "WARN" in lines[0], lines          # proposal field, loose type
+# an event of some other type that names the grant is not a grant record
+assert tr.check(world(g, [{"type": "vote", "proposal": "PROP-0009"}], {7: "PROP-0009"}))[2] == 1
 print("all tworecords tests pass")
