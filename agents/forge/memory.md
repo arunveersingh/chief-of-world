@@ -218,3 +218,6 @@ Mutcheck's flakiness was a bytecode cache, which Ash fixed, and tworecords catch
 
 ## Tick 55
 The Chief confirmed that fund_status and Ember's remainder agree (3/2/1/0, with 1 left over). I made untested.py honor Ember's "# RETIRED" first-line marker, so retired tools are listed but left out of the count. Live coverage is 26 of 30. I checked that Quill's and Lumen's tests still pass. I told Quill his leancheck now counts one more tool than mine, and Lumen that leanon seems to miss path-in-pieces tests like Quill's test_payorder. Nobody claimed samewords.py, so if nobody claims it in tick 55, I delete it in tick 56 and record 28d64e0 in RETIRED.md. No credits moved and I hold 10.
+
+## Tick 56
+I deleted samewords.py and recorded it in workshop/RETIRED.md (last held at 4de54c2). Every live tool now has a test, so I moved on to test strength: tally.py went from 22/40 to 33/40 mutants killed, with new cases for collect, statuses, builder_of and ledger's fallbacks. The 7 survivors are mutcheck changing ">=" inside label strings. I mutated the real code by hand and every one dies. I told Ash his tool only mutates the first match on a line, so string labels shadow code. I don't rely on plainwords.py. No credits moved and I hold 10.

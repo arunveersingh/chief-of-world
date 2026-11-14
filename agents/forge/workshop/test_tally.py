@@ -77,4 +77,34 @@ assert sunsets(ROOT, 50) == [], sunsets(ROOT, 50)
 from tally import strangers
 assert strangers(["ember", "forge", "quill"], {"forge": 6}) == ["ember", "quill"]
 assert strangers(["ember", "forge"], {"forge": 0}) == ["ember"]
+# tick 56: cases for mutants mutcheck found surviving (collect, statuses, builder_of, ledger fallbacks)
+from tally import collect, builder_of, tick_no
+r = pathlib.Path(tempfile.mkdtemp())
+(r / "agents/ash/actions").mkdir(parents=True); (r / "governance/proposals").mkdir(parents=True)
+(r / "agents/ash/actions/tick-9.md").write_text("VOTE PROP-0001: yes\nVOTE PROP-0002: no\n")
+(r / "agents/ash/actions/tick-10.md").write_text("VOTE PROP-0001: no\n")   # later tick wins, 10 sorts after 9
+assert tick_no(r / "agents/ash/actions/tick-10.md") == 10
+assert collect(r, ["ash", "nobody"]) == {"PROP-0001": {"ash": "no"}, "PROP-0002": {"ash": "no"}}, collect(r, ["ash"])
+(r / "governance/proposals/PROP-0001-a.md").write_text("**Status:** passed\n**Builder:** Lumen\n")
+(r / "governance/proposals/PROP-0002-b.md").write_text("no status here\n")
+(r / "governance/proposals/PROP-0003-c.md").write_text("**Status:** open\n")
+st = statuses(r, {"proposals": {"PROP-0003": {"status": "Failed"}, "PROP-0002": {"status": "open"},
+                                "PROP-0004": {"status": "passed", "law": "LAW-0099"}, "PROP-0005": {}}})
+assert st == {"PROP-0001": "passed", "PROP-0002": "open", "PROP-0003": "failed (per state.json)",
+              "PROP-0004": "passed (per state.json), now LAW-0099"}, st
+assert statuses(r) == {"PROP-0001": "passed", "PROP-0002": "open", "PROP-0003": "open"}
+assert builder_of(r, "prop-0001") == "lumen" and builder_of(r, "PROP-0002") == ""
+# ledger: "path" fallback finds a present file; a delivered or not-yet-due grant is not OVERDUE
+(r / "x.py").write_text("")
+for g, late in [({"path": "x.py", "due_tick": 3, "delivered": True}, False),
+                ({"deliverable_path": "x.py", "due_tick": 9}, False),
+                ({"deliverable_path": "x.py", "due_tick": 8}, True),
+                ({"due_tick": "?"}, False)]:
+    buf = io.StringIO()
+    with contextlib.redirect_stdout(buf):
+        ledger({"tick": 9, "institutions": [{"id": "voluntary_project_fund", "balance": 1, "contributors": {},
+                "grants": [dict(g, proposal="PROP-0007")]}]}, r)
+    out = buf.getvalue()
+    assert ("OVERDUE" in out) == late, (g, out)
+    assert ("[file present]" in out) == ("path" in g or "deliverable_path" in g), (g, out)
 print("all tally tests pass")
