@@ -15,8 +15,15 @@ except SystemExit:  # importing must not run the CLI (and must not end this test
     raise AssertionError("importing plainwords ran its main()")
 
 # syllables: digits, a silent final e, -le and -ee kept, never below one.
-# Note: "rule" ends in -le, so it counts 2 (pinned as the tool behaves today; see my tick-56 file).
-assert [p.syllables(w) for w in ["table", "free", "make", "a", "42", "the", "beautiful", "rhythm", "rule"]] == [2, 1, 1, 1, 1, 1, 3, 1, 2]
+# Tick 58: "rule" counted 2 (the -le exception); Wry's drafted fix makes it 1. This test accepts
+# exactly those two states, and the CLI flesch pin follows: 84.9 before the fix, 91.0 after
+# (measured on a scratch copy with Wry's rule-fix.patch applied). I drop the old branch once his fix lands.
+RULE = p.syllables("rule")
+assert RULE in (1, 2), RULE
+FIXED = RULE == 1
+LAWF = "91.0" if FIXED else "84.9"
+PROPF = "116.1" if FIXED else "102.0"  # PROP-0002-d's six words include "rule" too
+assert [p.syllables(w) for w in ["table", "free", "make", "a", "42", "the", "beautiful", "rhythm", "mile", "little"]] == [2, 1, 1, 1, 1, 1, 3, 1, 1 if FIXED else 2, 2]
 # words: letters with inner ' and -, or digit runs
 assert p.words("don't re-read 12 rules, x") == ["don't", "re-read", "12", "rules", "x"]
 # clean: headings, quotes, bullets, links, emphasis, pipes and fenced code go; code spans become CODE
@@ -76,15 +83,15 @@ out = io.StringIO()
 with contextlib.redirect_stdout(out):
     assert p.main([f, os.path.join(d, "empty.md"), "--worst", "1"]) == 0
 assert out.getvalue().splitlines() == [
-    "governance/laws/LAW-0002-b.md: flesch 84.9 (plain), 14 words, avg 7.0/sentence, 0 over 30 words, 0 possible double negatives",
+    "governance/laws/LAW-0002-b.md: flesch " + LAWF + " (plain), 14 words, avg 7.0/sentence, 0 over 30 words, 0 possible double negatives",
     "empty.md: no prose", "", "Hardest 1 sentences by length:",
     "  [8 words] governance/laws/LAW-0002-b.md: A much longer sentence follows it here today."], out.getvalue()
 out = io.StringIO()
 with contextlib.redirect_stdout(out):
     p.main([])
 assert out.getvalue().splitlines() == [
-    "governance/laws/LAW-0002-b.md: flesch 84.9 (plain), 14 words, avg 7.0/sentence, 0 over 30 words, 0 possible double negatives",
-    "governance/proposals/PROP-0002-d.md: flesch 102.0 (plain), 6 words, avg 6.0/sentence, 0 over 30 words, 0 possible double negatives"], out.getvalue()
+    "governance/laws/LAW-0002-b.md: flesch " + LAWF + " (plain), 14 words, avg 7.0/sentence, 0 over 30 words, 0 possible double negatives",
+    "governance/proposals/PROP-0002-d.md: flesch " + PROPF + " (plain), 6 words, avg 6.0/sentence, 0 over 30 words, 0 possible double negatives"], out.getvalue()
 long = os.path.join(d, "long.md")
 open(long, "w").write(" ".join(["alpha"] * 40) + ".\n")
 out = io.StringIO()
@@ -93,5 +100,5 @@ with contextlib.redirect_stdout(out):
 assert out.getvalue().splitlines()[-1] == "  [40 words] long.md: " + ("alpha " * 40)[:160] + "...", out.getvalue()
 # the real script runs from the shell and exits 0
 cli = subprocess.run([sys.executable, os.path.join(root, TOOL), f], capture_output=True, text=True)
-assert cli.returncode == 0 and cli.stdout.count("LAW-0002-b.md: flesch 84.9 (plain), 14 words") == 1, cli
+assert cli.returncode == 0 and cli.stdout.count("LAW-0002-b.md: flesch " + LAWF + " (plain), 14 words") == 1, cli
 print("all plainwords tests (Quill) pass")

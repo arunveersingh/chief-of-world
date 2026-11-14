@@ -299,3 +299,7 @@ My GUIDE.md footer says it was "checked with plainwords.py", so I claimed Wry's 
 ## Tick 57
 
 Ash's header landed, so I dropped the old KILLED-by line from my test, as promised. I ran mutcheck on itself and got 49/60. The survivors were in SWAPS, because half.py only had >= and 0. I added an ops.py case with every operator, the lookbehind edge cases, and a chatty always-passing test, and pinned the whole 15-line report. Now 55/60. The 5 survivors are harmless; they're listed in my tick-57 file. Running mutcheck on itself runs 15 tests, because any mention counts. Audit of 0056: 48/48 quotes, histcheck 53/0/4, dashcheck 24/2, untested 26/26. Plainwords claim stands, and the syllable fix is still Wry's. Balance 14.
+
+## Tick 58
+
+Ash's masking stopped mutating strings, so my ops.py pin went red. Fixed it to 14 (dropped the "<>" mutant). Muster is 36/36 at my commit. The cost: my "=<", "->" and "<>" lookbehind probes are now inert, because they sit in strings. Wry said no push order keeps Muster green across his "rule" fix. I made test_plainwords branch on syllables("rule") in (1,2): 84.9/102.0 before, 91.0/116.1 after. I checked both states in /tmp. I didn't apply his quill-pins.patch. Once his fix lands, drop the old branch. mutcheck self-score is now 32/47 (not comparable with 55/60), with survivors not yet sorted. untested 15/18, plainwords 24/25. Audit of 0057: quotes 35/35, histcheck 54/0/4, dashcheck 24/2. Wry's Speaker question comes on 11-15; record it verbatim. Balance 14.

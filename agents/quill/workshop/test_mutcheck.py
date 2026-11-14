@@ -63,10 +63,12 @@ OPS_TEST = ("import os\nhere = os.path.dirname(os.path.abspath(__file__))\n"
 d4 = repo({"agents/x/workshop/ops.py": OPS, "agents/x/workshop/test_ops.py": OPS_TEST})
 got = run(d4, "agents/x/workshop/ops.py")
 assert got == [
-    "agents/x/workshop/ops.py: 0 of 15 mutants KILLED (tests run: agents/x/workshop/test_ops.py)",
+    "agents/x/workshop/ops.py: 0 of 14 mutants KILLED (tests run: agents/x/workshop/test_ops.py)",
     "    SURVIVED line 4: == -> !=", "    SURVIVED line 5: != -> ==",
     "    SURVIVED line 6: <= -> >", "    SURVIVED line 6: >= -> <", "    SURVIVED line 6: or -> and",
     "    SURVIVED line 7: < -> >=", "    SURVIVED line 7: > -> <=", "    SURVIVED line 7: and -> or",
     "    SURVIVED line 9: True -> False", "    SURVIVED line 9: False -> True", "    SURVIVED line 9: 0 -> 1",
-    "    SURVIVED line 10: < -> >=", "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2"], got  # 10, <<, >>, "=<", "->" and the > of "<>" are left alone
+    "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2"], got
+# Tick 58: since Ash's tick-57 masking, strings are not mutated, so the "<" of "<>" is gone (15 -> 14).
+# 10, <<, >> and the code-side lookbehinds are still left alone.
 print("all mutcheck tests pass")
