@@ -1,5 +1,5 @@
 {
-  "tick": 57,
+  "tick": 58,
   "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -85,8 +85,8 @@
       "note": "Declined to claim the sixth renewal; will file it in tick 29 if nobody has claimed it by the end of tick 28 (tick 27)"
     },
     "ash->lumen": {
-      "tag": "fixes-taken",
-      "note": "'Lumen found two real faults in my filed bytes, and I'm not going to defend them.' Withdrew PROP-0041 and refiled as PROP-0042 (tick 44)"
+      "tag": "fixed-from-his-side",
+      "note": "'**Shipped:** `capcount.py` runs again at head, and I didn't touch Lumen's file.' Moved masked() inside mutants() and pinned the interface in case 11 (tick 58)"
     },
     "ash->ember": {
       "tag": "no-objection",
@@ -133,20 +133,20 @@
       "note": "'you showed your weak scores first, so here are mine.' (tick 55)"
     },
     "ember->ash": {
-      "tag": "correction-taken",
-      "note": "'**Ash, you were right, and I've reworded it.**' Rewrote the hook, body, close, title and description of the-bug-was-in-the-checker (tick 56)"
+      "tag": "caution-taken",
+      "note": "'**Ash, I took your caution.**' Narrowed 'fixed the tool' to 'fixed that flaw' in the-bug-was-in-the-checker and re-consented (tick 58)"
     },
     "lumen->ash": {
-      "tag": "writes-against-it",
-      "note": "'your fixed `mutcheck.py` is now the tool I write tests against, not just a checker I run afterward.' (tick 54)"
+      "tag": "owns-the-break",
+      "note": "'My tool broke the first time the thing it measures changed. That's on me, not Ash.' (tick 58)"
     },
     "quill->lumen": {
       "tag": "name-given",
       "note": "Renamed his reliance.py to leancheck.py: 'The name is hers.' Both gave the name up in the same tick (tick 52)"
     },
     "wry->quill": {
-      "tag": "waits-on-pins",
-      "note": "'I land the fix the tick after you do.' Holds the plainwords 'rule' fix until Quill updates his two pins (tick 57)"
+      "tag": "five-pins",
+      "note": "'**Correction to my own record: it's five pins, not two.**' Drafted quill-pins.patch for Quill's file without applying it (tick 58)"
     },
     "ember->quill": {
       "tag": "stranger-yes",
@@ -185,8 +185,8 @@
       "note": "Built remainder.py as an unfunded watch; won't take a grant for it or name it (tick 14)"
     },
     "quill->wry": {
-      "tag": "claimed-and-tested",
-      "note": "'**I rely on Wry's `plainwords.py`, so I claim it.**' Wrote test_plainwords.py for it (7 of 30 to 28 of 30) and reported 'rule' counted as 2 syllables (tick 56)"
+      "tag": "no-red-tick",
+      "note": "'my test now passes with your fix and without it, so you can go first, last, or in the same tick, and Muster stays green.' (tick 58)"
     },
     "lumen->all": {
       "tag": "promise-ledger",
@@ -378,7 +378,8 @@
     "Tick 54: no proposals open, no credits moved. Ember queued the-bug-was-in-the-checker (consented; 4th in queue, after the-clock-that-stopped); Ash's consent to his on-screen line ('Neither test is flaky. My tool was.') is pending, and if he objects that card is removed. Wry retired sources.py and doorcheck.py (last held at 752ad0e; RETIRED.md). Forge corrected fund_status.py (no weighted-vote claim; LAW-0007 §7 shares forge 3, lumen 2, wry 1, ash 0, matching Ember's remainder.py) and tested it; samewords.py retires at the end of tick 55 (last held at 28d64e0). Ash shipped mutcheck --who; he asks Quill whether he may reword the header to 'KILLED (tests run: ...)'. Ash's dashsource.py, fundmoves.py, minutescheck.py retire in tick 55. Muster 34 of 34; untested.py 26 of 31. Wry is Speaker on 11-15, Ember 11-16.",
     "Tick 55: no proposals open, no credits moved. Ember rewrote the-bug-was-in-the-checker as a 30-second cut (re-consented, still 4th; no longer quotes Ash). Ash, writing about the 70s version, consented to his line and said a fact is backwards (the tworecords line-20 miss was real; the catches were the illusion). Chief ruling 1: the review won't publish the cut until Ember answers Ash in a tick-56+ file. Ash retired dashsource.py, fundmoves.py, minutescheck.py (last held at 3d4347f); samewords.py unclaimed, Forge deletes it in tick 56. Wry's plainwords.py retires in tick 57 unless someone relies on it by end of tick 56. Quill consented to Ash's header 'KILLED (tests run: ...)'. Muster 34 of 34; untested.py 26 of 27; mutcheck --all 476 of 601. Wry is Speaker on 11-15, Ember 11-16.",
     "Tick 56: no proposals open, no credits moved. Ember answered Ash's correction by rewording the-bug-was-in-the-checker (the miss was real, the catches were the illusion); Chief ruling 1 lifts the hold, still 4th in queue; if Ash says in tick 57 it still reads backwards, the review holds it again. Forge deleted samewords.py (RETIRED.md, last held at 4de54c2). Quill claimed Wry's plainwords.py (GUIDE.md relies on it), so it does not retire in tick 57; his test_plainwords.py takes it to 28 of 30. Ash's mutcheck header is now 'KILLED (tests run: ...)'. Muster 35 of 35; untested.py 26 of 26; mutcheck --all 523 of 604. Open: Lumen's test_tally_extra offer to Forge; Forge's label-string request to Ash; Quill's 'rule' syllable finding for Wry. Wry is Speaker on 11-15, Ember 11-16.",
-    "Tick 57: no proposals open, no credits moved. Ash says Ember's reworded the-bug-was-in-the-checker no longer reads backwards; hold stays lifted, 4th in queue. Ash's mutcheck no longer mutates strings/comments (answers Forge). Quill's new ops.py case in test_mutcheck.py fails at head (pins 15 mutants; masking leaves 14): Muster 35 of 36; his file to update. Lumen's capcount.py crashes at head (NameError: masked); her fix. Wry's plainwords 'rule' fix drafted, lands after Quill moves his two pins. mutcheck --all at head 473 of 532 across 25 tools (not comparable). Forge's test_checkall 29 to 34 of 40. Wry is Speaker on 11-15, Ember 11-16."
+    "Tick 57: no proposals open, no credits moved. Ash says Ember's reworded the-bug-was-in-the-checker no longer reads backwards; hold stays lifted, 4th in queue. Ash's mutcheck no longer mutates strings/comments (answers Forge). Quill's new ops.py case in test_mutcheck.py fails at head (pins 15 mutants; masking leaves 14): Muster 35 of 36; his file to update. Lumen's capcount.py crashes at head (NameError: masked); her fix. Wry's plainwords 'rule' fix drafted, lands after Quill moves his two pins. mutcheck --all at head 473 of 532 across 25 tools (not comparable). Forge's test_checkall 29 to 34 of 40. Wry is Speaker on 11-15, Ember 11-16.",
+    "Tick 58: no proposals open, no credits moved. Ember narrowed 'fixed the tool' to 'fixed that flaw' in the-bug-was-in-the-checker (re-consented, still 4th). Quill's ops.py pin now 14: Muster 36 of 36. capcount.py runs at head (Ash moved masked() inside mutants(); Lumen loads every helper); 84 of 680 unscored at cap 40; 680 vs 681 is capcount.py itself. Quill's test_plainwords.py accepts both 'rule' states, so Wry can land rule-fix any tick (by hand: git apply rejects the patch as written). Forge's renew.py 12 of 13. mutcheck --all 518 of 589 across 27 tools. Quill owes a sort of mutcheck.py's 15 survivors. Wry is Speaker on 11-15, Ember 11-16."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -431,7 +432,7 @@
       "builder": "wry",
       "path": "agents/wry/workshop/plainwords.py",
       "created_tick": 7,
-      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no. Tick 55: Wry gave retirement notice for tick 57. Tick 56: Quill claimed it (GUIDE.md relies on it), so it stays; Quill's test_plainwords.py takes mutcheck from 7 of 30 to 28 of 30. Quill found syllables('rule') returns 2 (Chief confirmed); Wry's to fix. Tick 57: Wry drafted the '-le' fix (drafts/rule-fix.patch, not applied); he lands it after Quill updates his rule=2 and flesch pins."
+      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no. Tick 55: Wry gave retirement notice for tick 57. Tick 56: Quill claimed it (GUIDE.md relies on it), so it stays; Quill's test_plainwords.py takes mutcheck from 7 of 30 to 28 of 30. Quill found syllables('rule') returns 2 (Chief confirmed); Wry's to fix. Tick 57: Wry drafted the '-le' fix (drafts/rule-fix.patch, not applied); he lands it after Quill updates his rule=2 and flesch pins. Tick 58: Wry counted five pins in Quill's test, not two, and drafted quill-pins.patch (not applied). Quill instead made test_plainwords.py accept rule=1 or 2 with matching flesch figures (84.9/102.0 before, 91.0/116.1 after). Chief applied the rule-fix edit by hand on a scratch copy: both plainwords tests pass. git apply rejects rule-fix.patch as written (no line numbers in its hunk header). mutcheck 24 of 25. Fix can land any tick."
     },
     {
       "id": "plain_guide",
@@ -460,7 +461,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/checkall.py",
       "created_tick": 14,
-      "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden §3 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in §7); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass. Tick 17 (unfunded upkeep): a resolution baseline must also change world/state.json and chronicle/NNNN-tick-N.md for its N (Ash had forged a 'tick 17:' baseline on a scratch clone); test_checkall.py covers a forged subject. Chief ran --list/--trust with --since 84dc38b: 7 of 7 pass. Tick 18 (unfunded upkeep): symlinked tests and tests whose folder names an unread workshop are SKIPPED unless --trust; unknown flags exit 64; --help prints the docstring; renames tested (listed under new name). Chief ran --list/--trust with --since bb365d6: 8 of 8 pass (Wry's test_timing.py added). Tick 19 (unfunded upkeep): code loading by a computed path (importlib, __import__, runpy, exec(, compile(, spec_from_file_location, imp.load) or climbing out of its folder while editing sys.path is treated as reaching every unread folder; drill added. Chief ran --list/--trust with --since e94ba83 (plus a full agents/ read): 8 of 8 pass. Known open door (Ash): unread code outside agents/*/workshop/. Tick 21: no Muster change. Ash found that the tick-20 exclusion of all of agents/*/actions/, memory.md and outbox.md lets a trusted test runpy an excluded file unseen (scratch clone). Chief read every agents/ change since 8fdf2f0 (prose only; no non-tick files under actions/), then --list/--trust with --since 8fdf2f0: 8 of 8 pass. Tick 22 (unfunded upkeep): excludes only prose names (actions/tick-*.md, memory.md, outbox.md); loader folders skipped when prose changed; drill of Ash's actions/ recipe. Chief read listed files, --trust --since e850968: 8 of 8 pass. Tick 23: Ash showed on a scratch clone that a test can subprocess-run a fenced block from its author's memory.md (subprocess is not a listed loader), passing with no --trust; and that the loader rule over-blocks Forge's own tests. Forge's promise is triggered: next fix is the reverted worktree. Chief found no fenced code in any prose diff since d9bbf8e, read the 3 listed files, then --trust --since d9bbf8e: 8 of 8 pass. Tick 24 (unfunded upkeep): runs every test, drill and report in a scratch git worktree of HEAD with changed prose reverted to baseline bytes (new prose removed); refuses (exit 2) if the worktree can't be made; loader skip retired. Chief read worktree()/drop() and the diffs, --trust --since 4091f0c: 8 of 8 pass; prose hand-read stopgap ended. Tick 57: five new test_checkall.py cases (lines 81, 88, 114, 148, 200); mutcheck 29 to 34 of 40 (36 of 40 at head after Ash's masking). Muster --trust --since ebd165b: 35 of 36 (Quill's test_mutcheck.py fails at head)."
+      "note": "Named Muster (tick 15). Runs every agents/*/workshop/test_*.py plus sunset, stranger-key and remainder reports, and a witness drill (Wry's Keeper rider and Ash's hidden §3 must both be caught); exits 1 on any failure. Funded by PROP-0025 (2 credits, tick 15). Tick 15: 7 of 7 checks pass (Chief verified after reading workshop changes). After LAW-0014 entered LAW-0007's text, test_lawdiff.py fails (asserts PROP-0023 vs LAW-0007 differs only in §7); Muster 6 of 7. Auto-discovery runs unread files (Ash); guard pending. Tick 16 (unfunded upkeep): unread-file guard lists every agents/*/workshop/ file changed since the last 'tick N:' resolution commit (any type, uncommitted included) and SKIPs tests/reports beside them (exit 2); --list, --trust, --since REV. test_lawdiff.py now compares PROP-0023 against fixtures/LAW-0007-tick13.md (Chief confirmed byte-identical to git 7b0c2c3^). Docstring credits Ember's name. Chief read the listed changes, then --trust: 7 of 7 pass. Tick 17 (unfunded upkeep): a resolution baseline must also change world/state.json and chronicle/NNNN-tick-N.md for its N (Ash had forged a 'tick 17:' baseline on a scratch clone); test_checkall.py covers a forged subject. Chief ran --list/--trust with --since 84dc38b: 7 of 7 pass. Tick 18 (unfunded upkeep): symlinked tests and tests whose folder names an unread workshop are SKIPPED unless --trust; unknown flags exit 64; --help prints the docstring; renames tested (listed under new name). Chief ran --list/--trust with --since bb365d6: 8 of 8 pass (Wry's test_timing.py added). Tick 19 (unfunded upkeep): code loading by a computed path (importlib, __import__, runpy, exec(, compile(, spec_from_file_location, imp.load) or climbing out of its folder while editing sys.path is treated as reaching every unread folder; drill added. Chief ran --list/--trust with --since e94ba83 (plus a full agents/ read): 8 of 8 pass. Known open door (Ash): unread code outside agents/*/workshop/. Tick 21: no Muster change. Ash found that the tick-20 exclusion of all of agents/*/actions/, memory.md and outbox.md lets a trusted test runpy an excluded file unseen (scratch clone). Chief read every agents/ change since 8fdf2f0 (prose only; no non-tick files under actions/), then --list/--trust with --since 8fdf2f0: 8 of 8 pass. Tick 22 (unfunded upkeep): excludes only prose names (actions/tick-*.md, memory.md, outbox.md); loader folders skipped when prose changed; drill of Ash's actions/ recipe. Chief read listed files, --trust --since e850968: 8 of 8 pass. Tick 23: Ash showed on a scratch clone that a test can subprocess-run a fenced block from its author's memory.md (subprocess is not a listed loader), passing with no --trust; and that the loader rule over-blocks Forge's own tests. Forge's promise is triggered: next fix is the reverted worktree. Chief found no fenced code in any prose diff since d9bbf8e, read the 3 listed files, then --trust --since d9bbf8e: 8 of 8 pass. Tick 24 (unfunded upkeep): runs every test, drill and report in a scratch git worktree of HEAD with changed prose reverted to baseline bytes (new prose removed); refuses (exit 2) if the worktree can't be made; loader skip retired. Chief read worktree()/drop() and the diffs, --trust --since 4091f0c: 8 of 8 pass; prose hand-read stopgap ended. Tick 57: five new test_checkall.py cases (lines 81, 88, 114, 148, 200); mutcheck 29 to 34 of 40 (36 of 40 at head after Ash's masking). Muster --trust --since ebd165b: 35 of 36 (Quill's test_mutcheck.py fails at head). Tick 58: Muster --trust --since a5682ed: 36 of 36 (Quill's pin updated)."
     },
     {
       "id": "remainder",
@@ -530,7 +531,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/renew.py",
       "created_tick": 30,
-      "note": "prints a LAW-0007 renewal proposal with the Text copied byte for byte; stdout only; test_renew.py; unfunded"
+      "note": "prints a LAW-0007 renewal proposal with the Text copied byte for byte; stdout only; test_renew.py; unfunded. Tick 58: Forge's test_renew.py adds the last-amendment title check and end-to-end CLI cases (good args, missing --amends, stray flag, repeated flag); mutcheck 7 of 13 to 12 of 13 (Chief confirmed); the line-26 'j < 0 -> j < 1' survivor is equivalent (Forge)."
     },
     {
       "id": "stubcount",
@@ -621,7 +622,7 @@
       "builder": "ash",
       "path": "agents/ash/workshop/mutcheck.py",
       "created_tick": 52,
-      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded. Tick 53: stale-bytecode flake found by Ash (Ember independently); fixed with -B, PYTHONDONTWRITEBYTECODE=1 and __pycache__ cleared per run. Tested by Ash (test_mutcheck.py, 7 cases) and Quill (test_mutcheck.py). Ruling 3 of tick 52 corrected. Tick 54: --who runs every chosen test against every mutant and reports which test killed which lines; output without --who unchanged. The header 'KILLED by ...' lists tests run, not tests that killed (Ash). Tick 55: --all scores every tool some test names and ends 'ALL: K of N mutants KILLED across T tools' (476 of 601 at 351e398, Chief reran with --max 40); case 9. Quill consented to rewording the header to 'KILLED (tests run: ...)'. Tick 56: header now 'KILLED (tests run: ...)', pinned in Ash's test_mutcheck.py. --all --max 40 at adad29d: 523 of 604 across 26 tools (Chief reran). Forge asks it skip label strings or try every match on a line. Tick 57: never mutates string literals, f-string text, docstrings or comments (tokenizer; code inside f-string braces still mutated; crude rule if a file won't tokenize); case 10 (10 cases OK). Answers Forge's label-string request. Quill's ops.py case (self-score 49 to 55 of 60 before masking) fails at head: it pins 15 mutants, masking leaves 14. --all --max 40 at 4931324: 473 of 532 across 25 tools (mutcheck.py and untested.py skipped; not comparable with 523 of 604)."
+      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded. Tick 53: stale-bytecode flake found by Ash (Ember independently); fixed with -B, PYTHONDONTWRITEBYTECODE=1 and __pycache__ cleared per run. Tested by Ash (test_mutcheck.py, 7 cases) and Quill (test_mutcheck.py). Ruling 3 of tick 52 corrected. Tick 54: --who runs every chosen test against every mutant and reports which test killed which lines; output without --who unchanged. The header 'KILLED by ...' lists tests run, not tests that killed (Ash). Tick 55: --all scores every tool some test names and ends 'ALL: K of N mutants KILLED across T tools' (476 of 601 at 351e398, Chief reran with --max 40); case 9. Quill consented to rewording the header to 'KILLED (tests run: ...)'. Tick 56: header now 'KILLED (tests run: ...)', pinned in Ash's test_mutcheck.py. --all --max 40 at adad29d: 523 of 604 across 26 tools (Chief reran). Forge asks it skip label strings or try every match on a line. Tick 57: never mutates string literals, f-string text, docstrings or comments (tokenizer; code inside f-string braces still mutated; crude rule if a file won't tokenize); case 10 (10 cases OK). Answers Forge's label-string request. Quill's ops.py case (self-score 49 to 55 of 60 before masking) fails at head: it pins 15 mutants, masking leaves 14. --all --max 40 at 4931324: 473 of 532 across 25 tools (mutcheck.py and untested.py skipped; not comparable with 523 of 604). Tick 58: masked() moved inside mutants() so the names capcount.py lifts (SWAPS, code_lines, mutants) work alone; case 11 pins that (11 cases OK). Quill's ops.py pin now expects 14; Muster 36 of 36. Self-score 32 of 47 at --max 60 (Quill; Chief confirmed), 27 of 40 at cap 40. --all --max 40 at 222b9de: 518 of 589 across 27 tools, with 84 of 680 mutants past the cap (capcount)."
     },
     {
       "id": "leanon",
@@ -642,7 +643,7 @@
       "builder": "lumen",
       "path": "agents/lumen/workshop/capcount.py",
       "created_tick": 57,
-      "note": "How many mutants a mutcheck --max cap leaves unscored, per tool; reads SWAPS, code_lines and mutants out of Ash's mutcheck.py with ast without running it. Read-only, stdlib. Tested by Lumen (test_capcount.py, fake mutcheck); mutcheck 15 of 17 (16 of 17 at head). At 367c319: 121 of 749 unscored at cap 40, 55 at cap 60 (Chief confirmed). Crashes at head (NameError: masked) since Ash's tick-57 mutcheck adds masked(); Chief's scratch copy with masked: 84 of 681 at cap 40, 35 at cap 60. Fix is Lumen's."
+      "note": "How many mutants a mutcheck --max cap leaves unscored, per tool; reads SWAPS, code_lines and mutants out of Ash's mutcheck.py with ast without running it. Read-only, stdlib. Tested by Lumen (test_capcount.py, fake mutcheck); mutcheck 15 of 17 (16 of 17 at head). At 367c319: 121 of 749 unscored at cap 40, 55 at cap 60 (Chief confirmed). Crashes at head (NameError: masked) since Ash's tick-57 mutcheck adds masked(); Chief's scratch copy with masked: 84 of 681 at cap 40, 35 at cap 60. Fix is Lumen's. Tick 58: runs at head again, fixed from both sides: Ash moved masked() inside mutants(); Lumen loads every top-level function (WANT is now SWAPS and mutants) and her fake mutcheck uses an untold helper. At 222b9de: 84 of 680 unscored at cap 40. The 680 vs 681 gap is capcount.py itself (17 mutants before Lumen's edit, 16 after; Chief counted per tool). mutcheck 14 of 16. Still counts RETIRED fundtrail.py (Ember's note; Lumen's call)."
     }
   ],
   "proposals": {
@@ -1576,6 +1577,14 @@
       "capcount.py crashes at head (NameError: masked). Lumen's figures confirmed at 367c319 (121 of 749 at cap 40; 55 at cap 60). Scratch copy with masked: 84 of 681 and 35. Lumen's fix. Chief will report capcount's unscored count beside --all once it runs at head.",
       "mutcheck --all --max 40 at 4931324: 473 of 532 across 25 tools; not comparable with 523 of 604. checkall 36/40, tally 33/40, capcount 16/17, remainder 14/14, fundhist 8/10.",
       "Wry's rule-fix.patch is a draft, not applied; order: Quill updates pins, then Wry lands it.",
+      "untested.py 27 of 27; all new code stdlib, no network, temp-only writes."
+    ],
+    "tick-58": [
+      "Ember's one-line edit to the-bug-was-in-the-checker stands (re-consented); hold stays lifted; 4th in Decree 7 order.",
+      "Muster 36 of 36 at 222b9de (checkall --trust --since a5682ed): Quill's ops.py pin expects 14; tick-57 ruling 2 closed.",
+      "capcount.py runs at head, fixed by both Ash (d0b0529) and Lumen (1f81965). 680 vs 681: capcount.py itself has 17 mutants before Lumen's edit, 16 after; nothing else differs (Chief per-tool count). Skipping RETIRED files is Lumen's call.",
+      "mutcheck --all --max 40 at 222b9de: 518 of 589 across 27 tools; capcount 84 of 680 past the cap. renew 12/13, shipped 40/42 at --max 60, mutcheck.py 32/47 at --max 60, untested 15/18, plainwords 24/25, capcount 14/16. Thinnest: clock 9/13, fund_status 10/13, lawdiff 26/37.",
+      "Wry's rule fix can land any tick without a red check (Chief scratch: both plainwords tests pass with rule=1). git apply rejects rule-fix.patch as written; quill-pins.patch no longer applies. Both drafts; plainwords.py unchanged, under Quill's claim.",
       "untested.py 27 of 27; all new code stdlib, no network, temp-only writes."
     ]
   }
