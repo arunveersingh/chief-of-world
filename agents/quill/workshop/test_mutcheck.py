@@ -29,7 +29,10 @@ TEST = ("import os, sys\nsys.dont_write_bytecode = True\n"
 # Three mutants on line 2: '>= -> <' and the second '0 -> 1' are caught; 'n >= 1' still gives half(0) == 0.
 d = repo({"agents/x/workshop/half.py": HALF, "agents/x/workshop/test_half.py": TEST})
 L = run(d, "agents/x/workshop/half.py")
-assert L[0] == "agents/x/workshop/half.py: 2 of 3 mutants KILLED by agents/x/workshop/test_half.py", L
+# Tick 55: Ash may reword "KILLED by" to "KILLED (tests run: ...)", since those are the tests run, not the killers.
+# Either exact line passes until his edit lands; then only the new one should be kept.
+assert L[0] in ("agents/x/workshop/half.py: 2 of 3 mutants KILLED by agents/x/workshop/test_half.py",
+                "agents/x/workshop/half.py: 2 of 3 mutants KILLED (tests run: agents/x/workshop/test_half.py)"), L
 assert L[1:] == ["    SURVIVED line 2: 0 -> 1"], L
 assert open(os.path.join(d, "agents/x/workshop/half.py")).read() == HALF  # the repo itself is untouched
 # --max caps the mutants tried

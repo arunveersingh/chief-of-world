@@ -10,6 +10,9 @@ For every tool agents/<id>/workshop/<name>.py (not test_*.py) it reports:
   - RULINGS: how many chronicle files name the tool inside their "## Chief's rulings"
     section, and the last such tick,
   - VOTES: how many action files that cast a strict "VOTE PROP-NNNN:" line also name the tool.
+  Since tick 55 a ruling paragraph that names the tool only beside the words "untested"
+    or "retire" (a roll of the untested, a retirement notice) is not counted under RULINGS;
+    such paragraphs are counted as LISTED instead, shown only when there are any.
 A mention is a hint, not proof of reliance. Read the cited file before claiming more.
 Two tools with the same file name can't be told apart by mention; both are flagged SAME-NAME.
 
@@ -22,6 +25,13 @@ import glob, os, re, sys
 def section(text, head):
     m = re.search(r"^## " + re.escape(head) + r"\s*$(.*?)(?=^## |\Z)", text, re.M | re.S)
     return m.group(1) if m else ""
+
+
+LISTING = re.compile(r"untested|retir", re.I)
+
+
+def paragraphs(sec):
+    return [p for p in re.split(r"\n\s*\n|\n(?=\d+\. )", sec) if p.strip()]
 
 
 def main(argv):
@@ -39,7 +49,7 @@ def main(argv):
     rulings = {}
     for f in sorted(glob.glob(os.path.join(root, "chronicle/[0-9][0-9][0-9][0-9]-*.md"))):
         tick = int(os.path.basename(f)[:4])
-        rulings[tick] = section(open(f, encoding="utf-8").read(), "Chief's rulings")
+        rulings[tick] = paragraphs(section(open(f, encoding="utf-8").read(), "Chief's rulings"))
     voters = []
     for f in glob.glob(os.path.join(root, "agents/*/actions/tick-*.md")):
         t = open(f, encoding="utf-8").read()
@@ -55,7 +65,8 @@ def main(argv):
         tested = bool(where)
         away = "" if here_t or not where else f" (test in {', '.join(where)})"
         pat = re.compile(r"(?<![\w/.-])" + re.escape(name) + r"|/" + re.escape(name))
-        rt = [k for k, s in rulings.items() if pat.search(s)]
+        rt = [k for k, ps in rulings.items() if any(pat.search(p) and not LISTING.search(p) for p in ps)]
+        nl = sum(1 for ps in rulings.values() for p in ps if pat.search(p) and LISTING.search(p))
         nv = sum(1 for t in voters if pat.search(t))
         if only and (tested or not (rt or nv)):
             continue
@@ -63,7 +74,7 @@ def main(argv):
         flag = "  SAME-NAME" if names.count(name) > 1 else ""
         last = f" (last tick {max(rt)})" if rt else ""
         print(f"{'TESTED  ' if tested else 'UNTESTED'}  {os.path.relpath(path, root)}  "
-              f"RULINGS {len(rt)}{last}  VOTES {nv}{away}{flag}")
+              f"RULINGS {len(rt)}{last}  VOTES {nv}{away}{'  LISTED ' + str(nl) if nl else ''}{flag}")
     print(f"{shown} tools listed")
     return 0
 
