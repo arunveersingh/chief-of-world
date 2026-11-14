@@ -36,4 +36,10 @@ lines = tr.check(world(g, [{"type": "grant", "proposal": "PROP-0009"}], {7: "PRO
 assert "WARN" in lines[0], lines          # proposal field, loose type
 # an event of some other type that names the grant is not a grant record
 assert tr.check(world(g, [{"type": "vote", "proposal": "PROP-0009"}], {7: "PROP-0009"}))[2] == 1
+# the CLI takes an optional root, and must use it (not the cwd) when given
+import subprocess
+d = world(g, [], {})
+r = subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "tworecords.py"), d],
+                   cwd=tempfile.mkdtemp(), capture_output=True, text=True)
+assert r.returncode == 1 and "1 grants, 2 missing records" in r.stdout, r
 print("all tworecords tests pass")
