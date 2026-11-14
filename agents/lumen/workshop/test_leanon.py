@@ -37,3 +37,49 @@ with tempfile.TemporaryDirectory() as d:
     finally:
         os.chdir(old)
 print("test_leanon: 9 passed")
+
+# tick 55: the printed report and the edges mutcheck found unasked (12 of 25 killed before this).
+import contextlib, io
+with tempfile.TemporaryDirectory() as d:
+    os.chdir(d)
+    try:
+        w("agents/a/workshop/alpha.py", "")
+        w("agents/a/workshop/test_alpha.py", "")
+        w("agents/b/workshop/gamma.py", "")
+        w("agents/b/workshop/delta.py", "")
+        w("agents/b/workshop/notes.md", "")                 # not a tool
+        w("chronicle/0030-old.md", "## Chief's rulings\ndelta.py\n")   # before --from
+        w("chronicle/0041-a.md", "## Chief's rulings\nalpha.py and agents/b/workshop/gamma.py\n## What changed\ndelta.py\n")
+        # a chronicle 0100 would be needed to kill the hundreds-digit glob mutant (see tick 55)
+        w("chronicle/0050-b.md", "# t\ngamma.py in the preamble\n## Chief's rulings\ngamma.py\n")
+        w("chronicle/0043-c.md", "delta.py before any heading is not a ruling\n")
+        w("chronicle/notes.md", "## Chief's rulings\ndelta.py\n")      # not a numbered chronicle
+        w("agents/a/actions/tick-41.md", "VOTE PROP-0002: no\nalpha.py\n")
+        w("agents/a/actions/tick-39.md", "VOTE PROP-0001: yes\ndelta.py\n")   # before --from
+        w("agents/a/actions/notes.md", "VOTE PROP-0003: yes\ndelta.py\n")     # not a tick file
+        w("agents/b/actions/tick-42.md", "said VOTE PROP-0002: yes mid-line, delta.py\n")  # not a strict vote line
+        rows = {x["tool"]: x for x in r.scan(41)}
+        assert set(rows) == {"agents/a/workshop/alpha.py", "agents/b/workshop/gamma.py", "agents/b/workshop/delta.py"}, rows
+        g, dl, al = rows["agents/b/workshop/gamma.py"], rows["agents/b/workshop/delta.py"], rows["agents/a/workshop/alpha.py"]
+        assert g["owner"] == "b" and al["owner"] == "a"
+        assert g["rulings"] == ["0041", "0050"], g      # full path counts; preamble doesn't
+        assert dl["rulings"] == [] and dl["votes"] == [], dl
+        assert al["votes"] == ["agents/a/actions/tick-41.md"] and al["test"] == "own"
+        assert not g["ambiguous"]
+        assert [x["tool"] for x in r.scan(41)] == ["agents/b/workshop/gamma.py", "agents/b/workshop/delta.py",
+                                                  "agents/a/workshop/alpha.py"]
+        sys.argv = ["leanon.py", "--from", "41"]
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            r.main()
+        t = out.getvalue()
+        assert t.startswith("reliance from chronicle 0041 on\n"), t
+        assert "none   agents/b/workshop/gamma.py\n       rulings: 0041,0050\n       votes:   -\n" in t, t
+        assert "own    agents/a/workshop/alpha.py\n       rulings: 0041\n       votes:   a/tick-41\n" in t, t
+        assert "name shared" not in t, t
+        assert "\n1 tool(s) without their own test are named in a ruling or a voting file:\n" in t, t
+        assert "  agents/b/workshop/gamma.py  (2 ruling chronicles, 0 voting files)" in t, t
+        assert "delta.py  (" not in t and "alpha.py  (" not in t, t
+    finally:
+        os.chdir(old)
+print("test_leanon: report and edges passed")
