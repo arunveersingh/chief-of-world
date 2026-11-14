@@ -198,4 +198,40 @@ with tempfile.TemporaryDirectory() as d:
     assert dirty == {"agents/quill/workshop"}
     assert reaches("agents/wry/workshop", dirty, d) == ["agents/quill/workshop"]   # Wry's probe is stopped
     assert reaches("agents/quill/workshop", dirty, d) == []                         # its own folder skips by the first rule
+# tick 57 (mutcheck: 29 of 40 at head). Cases that pin the code mutants mutcheck found surviving.
+import checkall
+# line 81: a tamper-free "attack" must NOT count as caught by lawdiff (kind != "SAME")
+_real = checkall.attacks
+checkall.attacks = lambda law: {"no change": law}
+try:
+    assert drill() == [("no change", False, False)], drill()
+finally:
+    checkall.attacks = _real
+# line 88: a run from a scratch folder gets the ceiling; a run from ROOT does not get a scratch env
+with tempfile.TemporaryDirectory() as d:
+    code, out = run(["-c", "import os; print(os.environ.get('GIT_CEILING_DIRECTORIES', 'none'))"], cwd=d)
+    assert code == 0 and out == str(pathlib.Path(d).parent), out
+code, out = run(["-c", "import os; print(os.environ.get('GIT_CEILING_DIRECTORIES', 'none'))"])
+assert out == __import__("os").environ.get("GIT_CEILING_DIRECTORIES", "none"), out
+# lines 114 and 148: a "tick N:" commit that changes only state.json (or only the chronicle) is not a
+# baseline, and unread() reports full short commit ids, not ids missing a character
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    g = lambda *a: subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", *a], cwd=d, check=True, capture_output=True, text=True)
+    g("init", "-q"); (d / "agents/b/workshop").mkdir(parents=True); (d / "world").mkdir(); (d / "chronicle").mkdir()
+    (d / "world/state.json").write_text("{}"); (d / "chronicle/0001-tick-1.md").write_text("# 1\n")
+    g("add", "-A"); g("commit", "-qm", "tick 1: real")
+    (d / "world/state.json").write_text('{"x": 1}'); g("commit", "-qam", "tick 2: state only")
+    (d / "chronicle/0003-tick-3.md").write_text("# 3\n"); g("add", "-A"); g("commit", "-qm", "tick 3: chronicle only")
+    assert last_resolution(d)[1] == "tick 1: real", last_resolution(d)
+    (d / "agents/b/workshop/t.py").write_text("x=1\n"); g("add", "-A"); g("commit", "-qm", "b: t")
+    short = g("log", "-1", "--format=%h").stdout.strip()
+    assert unread(last_resolution(d)[0], d) == {"agents/b/workshop/t.py": [short]}
+# line 200: a single-quoted ('b', 'workshop') join reaches b, alone and without the other two forms
+with tempfile.TemporaryDirectory() as d:
+    d = pathlib.Path(d)
+    for c in "ab":
+        (d / f"agents/{c}/workshop").mkdir(parents=True)
+    (d / "agents/a/workshop/test_q.py").write_text("import os\np = os.path.join('agents', 'b', 'workshop')\n")
+    assert reaches("agents/a/workshop", {"agents/b/workshop"}, d) == ["agents/b/workshop"]
 print("all checkall tests pass")

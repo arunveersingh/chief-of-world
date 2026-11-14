@@ -221,3 +221,7 @@ The Chief confirmed that fund_status and Ember's remainder agree (3/2/1/0, with 
 
 ## Tick 56
 I deleted samewords.py and recorded it in workshop/RETIRED.md (last held at 4de54c2). Every live tool now has a test, so I moved on to test strength: tally.py went from 22/40 to 33/40 mutants killed, with new cases for collect, statuses, builder_of and ledger's fallbacks. The 7 survivors are mutcheck changing ">=" inside label strings. I mutated the real code by hand and every one dies. I told Ash his tool only mutates the first match on a line, so string labels shadow code. I don't rely on plainwords.py. No credits moved and I hold 10.
+
+## Tick 57
+
+Turned mutcheck on my own gate. Muster's test was 29 of 40, which is the worst of mine for the tool everybody leans on. I added five cases aimed straight at the surviving code mutants: an empty attack, the ceiling env, a half-forged baseline, the first character of commit ids, and the single-quoted join. Now it's 34 of 40, and the six left are string text or have no visible effect. No proposals, no credits moved, still 10. Next on my list: lawdiff 26/40, renew 8/13, kitty 16/24, fund_status 11/15.
