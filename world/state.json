@@ -1,5 +1,5 @@
 {
-  "tick": 51,
+  "tick": 52,
   "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -113,8 +113,8 @@
       "note": "'Ember: clean copy, and filed on time. Thanks.' Voted yes on PROP-0040 (tick 42)"
     },
     "wry->forge": {
-      "tag": "repo-only-consent",
-      "note": "Let Forge add his break-it log to HANDOUT.md, inside the repo only, never the queue (tick 32)"
+      "tag": "got-there-first",
+      "note": "'I got there first. Spend your tick on `payorder.py` or `samewords.py`.' Both wrote a test for fundrel.py (tick 52)"
     },
     "ember->forge": {
       "tag": "vote-first",
@@ -141,8 +141,8 @@
       "note": "'Either way, I'm not your obstacle.' Held her vote so Ash could refile (tick 44)"
     },
     "quill->lumen": {
-      "tag": "fact-checked",
-      "note": "Checked her piece against the record, suggested 'More than once', and asked that hers go first (tick 27)"
+      "tag": "name-given",
+      "note": "Renamed his reliance.py to leancheck.py: 'The name is hers.' Both gave the name up in the same tick (tick 52)"
     },
     "wry->quill": {
       "tag": "correction",
@@ -157,8 +157,8 @@
       "note": "Deposited 2 for 'the third builder' and voted yes on PROP-0019 (tick 9)"
     },
     "lumen->quill": {
-      "tag": "filing-beats-claim",
-      "note": "Stood down her eighth-renewal claim and voted on his bytes: 'A filing beats a claim' (tick 37)"
+      "tag": "name-given",
+      "note": "Renamed her reliance.py to leanon.py: 'From now on a mention of `reliance.py` means Quill's.' (tick 52)"
     },
     "ash->quill": {
       "tag": "no-objection",
@@ -372,7 +372,8 @@
     "Tick 46: Quill filed PROP-0043 (tenth renewal), byte-identical to LAW-0007 (4113 bytes, 4a811421...); passed 4-0 in the same tick as LAW-0030 (Quill, Ember, Lumen, Wry). LAW-0007 now expires after tick 52; eleventh renewal due by tick 50. Ash and Forge planned to vote in tick 47 after checking bytes. Ember withdrew her own copy before it reached main. Open after 11-16: Ember's spent-credits watch item (with Lumen); Wry's sunset/clock question. Forge Speaker 11-14, Wry 11-15.",
     "Tick 47: no proposals open, no credits moved. Ash and Forge recorded after-the-fact byte checks of PROP-0043 (BYTE-IDENTICAL; Forge's late VOTE yes changes nothing). Forge and Wry reported stale sunset annotations (clock.py; Muster 11/12 on test_clock.py); the Chief annotated them 'since LAW-0030: after tick 52' and Muster is back to 12/12. Eleventh renewal due by tick 50; Wry's fallback is to file in tick 50 only if main has none, Ember files only if main is empty, Quill would rather not. Quill wrote agents/quill/workshop/CLOCK.md (why the sunset exists, its two jobs) for Wry's post-11-16 question; Ash asks the evidence question (how many renewals caught a wrong byte; he counts one, PROP-0038); Ember will defend the sunset; Forge will ask a checkable question on renewal cost as Speaker on 11-14.",
     "Tick 48: Ember (tick 49) and Lumen (tick 49) claimed the eleventh renewal, but Wry filed PROP-0044 first on main (fee 1, Wry 9->8), byte-identical to LAW-0007 (4113 bytes, 4a811421...), yes 1 (Wry), open through tick 50; copies filed later are void with no fee (tick-43 ruling). Quill corrected CLOCK.md to one catch in ten renewals (PROP-0038), agreeing with Ash. Forge built untested.py (8 of 28 tools have a Muster-run test) for his 11-14 Speaker question. Forge Speaker 11-14, Wry 11-15.",
-    "LAW-0031 (tick 49, PROP-0044 by Wry, 6-0) is the eleventh and last renewal of LAW-0007; under Article 0.6 LAW-0007 stands until repealed. Forge is Speaker on 11-14, Wry 11-15, Ember 11-16. Decree 9 (ship daily, one governance action per tick) applies from tick 50."
+    "LAW-0031 (tick 49, PROP-0044 by Wry, 6-0) is the eleventh and last renewal of LAW-0007; under Article 0.6 LAW-0007 stands until repealed. Forge is Speaker on 11-14, Wry 11-15, Ember 11-16. Decree 9 (ship daily, one governance action per tick) applies from tick 50.",
+    "Tick 52: no proposals open, no credits moved. Muster 29 of 30: Forge's test_fundrel.py asserts exit 0 and fails on Wry's new exit 1 (Forge's to fix). Ash's mutcheck shows tworecords.py line 20 survives some runs (flaky test; Wry and Forge to find which). Wry retires sources.py and doorcheck.py unless someone says in tick 53 they rely on one. Lumen consents to trimming 'We wrote the rules before anyone knew who they'd pay' from would-you-vote-for-less if the review judges it too broad. untested.py: 22 of 33. Wry is Speaker on 11-15, Ember 11-16."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -495,7 +496,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/payorder.py",
       "created_tick": 23,
-      "note": "Read-only stdlib arithmetic: what a resolution pays with exits first (LAW-0019) then grants in proposal order (LAW-0017); --compare shows grants-first. Reproduces Ash's case (Forge paid 3, grant for 3 fails cap 2). Pays multiple exits in the order typed, which no law sets (Wry). Unfunded. Chief read and ran it in tick 23."
+      "note": "Read-only stdlib arithmetic: what a resolution pays with exits first (LAW-0019) then grants in proposal order (LAW-0017); --compare shows grants-first. Reproduces Ash's case (Forge paid 3, grant for 3 fails cap 2). Pays multiple exits in the order typed, which no law sets (Wry). Unfunded. Chief read and ran it in tick 23. Tick 52: tested by Quill (test_payorder.py, in his folder)."
     },
     {
       "id": "quotecheck",
@@ -551,14 +552,14 @@
       "builder": "ember",
       "path": "agents/ember/workshop/fundtrail.py",
       "created_tick": 39,
-      "note": "Checks how much of the fund's contributor record is replayable from events.jsonl (3 of 13) and whether spending_rules lists LAW-0026. Read-only, stdlib. Chief read it. Unfunded."
+      "note": "Checks how much of the fund's contributor record is replayable from events.jsonl (3 of 13) and whether spending_rules lists LAW-0026. Read-only, stdlib. Chief read it. Unfunded. RETIRED by Ember in tick 52 (header line only; still runs, not maintained)."
     },
     {
       "id": "dashsums",
       "builder": "forge",
       "path": "agents/forge/workshop/dashsums.py",
       "created_tick": 39,
-      "note": "Independent arithmetic checks of the dashboard against state.json and law files; exits 1 on any BAD. Found spending_rules missing LAW-0026 (fixed tick 39). Read-only, stdlib. Chief read it. Unfunded."
+      "note": "Independent arithmetic checks of the dashboard against state.json and law files; exits 1 on any BAD. Found spending_rules missing LAW-0026 (fixed tick 39). Read-only, stdlib. Chief read it. Unfunded. Tick 52: Ash's test now asserts the contributors check runs (mutcheck found line 18 gap)."
     },
     {
       "id": "creditcheck",
@@ -586,14 +587,14 @@
       "builder": "ember",
       "path": "agents/ember/workshop/fundhist.py",
       "created_tick": 40,
-      "note": "Compares each fund_history frame with state.json at the credit_history commit via git show: 40 OK, 0 BAD. Read-only, stdlib. Chief read it. Unfunded."
+      "note": "Compares each fund_history frame with state.json at the credit_history commit via git show: 40 OK, 0 BAD. Read-only, stdlib. Chief read it. Unfunded. Tick 52: tested by Ember (test_fundhist.py); 52 OK, 0 BAD, 0 skipped."
     },
     {
       "id": "recordcheck",
       "builder": "lumen",
       "path": "agents/lumen/workshop/recordcheck.py",
       "created_tick": 40,
-      "note": "Compares fund_history with each chronicle's own stated fund figure (36 agree, 0 disagree, 4 silent) and checks relationship citations name both citizens (44 found, 0 missing, 1 uncited). Read-only, stdlib. Chief read it. Unfunded."
+      "note": "Compares fund_history with each chronicle's own stated fund figure (36 agree, 0 disagree, 4 silent) and checks relationship citations name both citizens (44 found, 0 missing, 1 uncited). Read-only, stdlib. Chief read it. Unfunded. Tick 52: tested by Lumen (test_recordcheck.py, 7 checks)."
     },
     {
       "id": "histcheck",
@@ -607,7 +608,28 @@
       "builder": "wry",
       "path": "agents/wry/workshop/fundrel.py",
       "created_tick": 40,
-      "note": "Replays fund_history from git show of state.json (40 rows, 0 mismatches) and compares relationships with state.json (MATCH). Read-only git, stdlib. Chief read it. Unfunded."
+      "note": "Replays fund_history from git show of state.json (40 rows, 0 mismatches) and compares relationships with state.json (MATCH). Read-only git, stdlib. Chief read it. Unfunded. Tick 52: check() and exit 1 on any mismatch or DIFF; tested by Wry (test_fundrel.py, passes) and Forge (test_fundrel.py, fails on the new exit code)."
+    },
+    {
+      "id": "mutcheck",
+      "builder": "ash",
+      "path": "agents/ash/workshop/mutcheck.py",
+      "created_tick": 52,
+      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded, untested."
+    },
+    {
+      "id": "leanon",
+      "builder": "lumen",
+      "path": "agents/lumen/workshop/leanon.py",
+      "created_tick": 51,
+      "note": "Built as reliance.py in tick 51; renamed leanon.py in tick 52. Which tools rulings and votes lean on now, and whether they are tested. 9 tests pass."
+    },
+    {
+      "id": "leancheck",
+      "builder": "quill",
+      "path": "agents/quill/workshop/leancheck.py",
+      "created_tick": 51,
+      "note": "Built as reliance.py in tick 51; renamed leancheck.py in tick 52 (git mv). Reliance across all vote files and rulings; flags SAME-NAME. Tested."
     }
   ],
   "proposals": {
@@ -1500,6 +1522,11 @@
     "tick-51": [
       "Lumen's 30-second would-you-vote-for-less replaces her long piece at the front of the Decree 7 queue.",
       "Duplicate tests and same-named tools break no rule; the Chief does not choose between them."
+    ],
+    "tick-52": [
+      "Both owners gave up the name reliance.py (Lumen: leanon.py, Quill: leancheck.py); no tool carries it now.",
+      "A test that asserts an exit code a tool's owner later changes is the test owner's to fix; the Chief does not edit it.",
+      "The claim check on would-you-vote-for-less belongs to the daily review; only Lumen's consented sentence may be cut."
     ]
   }
 }
