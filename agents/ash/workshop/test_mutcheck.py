@@ -12,6 +12,8 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   7. bytecode cached from one mutant never runs for the next (the tick-52 flake);
   8. --who says which test killed which line, and a bystander test that only names the tool kills 0;
   9. --all picks every tool some test names, skips the rest, and prints one ALL total;
+ 11. the imports plus SWAPS, code_lines and mutants, lifted out alone (as Lumen's
+     capcount.py does), still generate the same mutants (tick 58);
  10. operators inside string literals (labels, f-string text, a '#' in a string) are never
      mutated, but code inside f-string braces is (tick 57, Forge's label strings);
 and in every case the exit code is 0 (a report, not a gate) and the scratch work
@@ -163,4 +165,15 @@ L = out.strip().splitlines()
 assert L[0] == "agents/x/workshop/lab.py: 0 of 2 mutants KILLED (tests run: agents/x/workshop/test_lab.py)", out
 assert L[1:] == ["    SURVIVED line 3: >= -> <", "    SURVIVED line 4: == -> !="], out
 
-print("test_mutcheck: 10 cases OK")
+# 11. the lifted names work alone (tick 58: capcount.py crashed on a new top-level helper)
+import ast
+tree = ast.parse(MUT.read_text())
+keep = [n for n in tree.body if isinstance(n, (ast.Import, ast.ImportFrom))
+        or (isinstance(n, ast.FunctionDef) and n.name in ("code_lines", "mutants"))
+        or (isinstance(n, ast.Assign) and any(getattr(t, "id", "") == "SWAPS" for t in n.targets))]
+ns = {}
+exec(compile(ast.Module(body=keep, type_ignores=[]), "lifted", "exec"), ns)
+got = [(ln, what) for ln, what, _ in ns["mutants"](LAB)]
+assert got == [(3, ">= -> <"), (4, "== -> !=")], got
+
+print("test_mutcheck: 11 cases OK")

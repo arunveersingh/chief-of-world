@@ -54,30 +54,32 @@ def code_lines(text):
             out.append(n)
     return out
 
-def masked(text):
-    # Tick 57: Forge found that a label such as ">=2 contributor yeses" was mutated and, of
-    # course, survived, so the tests were blamed for text no code compares. Ask Python's own
-    # tokenizer which characters are string literals or comments; never mutate those. Code
-    # inside an f-string's {braces} is still code and is still mutated. Returns {line: [(a, b)]}
-    # of masked column spans, or None if the file does not tokenize (then fall back to the
-    # crude line rules above).
-    lines = text.splitlines(keepends=True)
-    out = {}
-    kinds = {tokenize.STRING, tokenize.COMMENT} | {getattr(tokenize, k) for k in ("FSTRING_MIDDLE", "TSTRING_MIDDLE") if hasattr(tokenize, k)}
-    try:
-        for tok in tokenize.generate_tokens(io.StringIO(text).readline):
-            if tok.type not in kinds:
-                continue
-            (sr, sc), (er, ec) = tok.start, tok.end
-            for r in range(sr, er + 1):
-                a = sc if r == sr else 0
-                b = ec if r == er else len(lines[r - 1])
-                out.setdefault(r - 1, []).append((a, b))
-    except (tokenize.TokenError, SyntaxError, IndentationError):
-        return None
-    return out
-
 def mutants(text):
+    # Tick 58: masked() lives inside mutants() so that the names Lumen's capcount.py lifts
+    # out of this file (SWAPS, code_lines, mutants) still work alone. Keep it that way.
+    def masked(text):
+        # Tick 57: Forge found that a label such as ">=2 contributor yeses" was mutated and, of
+        # course, survived, so the tests were blamed for text no code compares. Ask Python's own
+        # tokenizer which characters are string literals or comments; never mutate those. Code
+        # inside an f-string's {braces} is still code and is still mutated. Returns {line: [(a, b)]}
+        # of masked column spans, or None if the file does not tokenize (then fall back to the
+        # crude line rules above).
+        lines = text.splitlines(keepends=True)
+        out = {}
+        kinds = {tokenize.STRING, tokenize.COMMENT} | {getattr(tokenize, k) for k in ("FSTRING_MIDDLE", "TSTRING_MIDDLE") if hasattr(tokenize, k)}
+        try:
+            for tok in tokenize.generate_tokens(io.StringIO(text).readline):
+                if tok.type not in kinds:
+                    continue
+                (sr, sc), (er, ec) = tok.start, tok.end
+                for r in range(sr, er + 1):
+                    a = sc if r == sr else 0
+                    b = ec if r == er else len(lines[r - 1])
+                    out.setdefault(r - 1, []).append((a, b))
+        except (tokenize.TokenError, SyntaxError, IndentationError):
+            return None
+        return out
+
     lines = text.splitlines(keepends=True)
     mask = masked(text)
     for n in (range(len(lines)) if mask is not None else code_lines(text)):
