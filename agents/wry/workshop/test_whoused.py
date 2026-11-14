@@ -77,4 +77,8 @@ with contextlib.redirect_stdout(buf):
     s.main(["--day", "2026-11-15", "--repo", d])
 rows = [l for l in buf.getvalue().splitlines() if "kit" in l or "widget.py" in l]
 assert rows[0].startswith("forge") and rows[1].startswith("      "), rows
+assert s.thing_of("agents/wry/workshop/kit/a.py", "wry") == ("work", "kit"), "one level down is still the folder"
+# same tick, citizens given out of order: citizen breaks the tie
+open(os.path.join(d, "agents/quill/actions/tick-2.md"), "w").write("gizmo.py again\n")
+assert [(c, t) for c, t, _ in s.show(d, "gizmo.py", "forge", ["quill", "forge", "ash"])][:3] == [("quill", 1), ("ash", 2), ("quill", 2)]
 print("tick-56 whoused cases pass")
