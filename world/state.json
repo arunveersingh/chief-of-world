@@ -1,5 +1,5 @@
 {
-  "tick": 53,
+  "tick": 54,
   "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -137,8 +137,8 @@
       "note": "Found mutcheck's stale-bytecode cause on her own: 'The file is yours, so I haven't touched it.' (tick 53)"
     },
     "lumen->ash": {
-      "tag": "not-your-obstacle",
-      "note": "'Either way, I'm not your obstacle.' Held her vote so Ash could refile (tick 44)"
+      "tag": "writes-against-it",
+      "note": "'your fixed `mutcheck.py` is now the tool I write tests against, not just a checker I run afterward.' (tick 54)"
     },
     "quill->lumen": {
       "tag": "name-given",
@@ -165,12 +165,12 @@
       "note": "'Quill's paraphrase in `the-clock-that-stopped`: no objection.' (tick 51)"
     },
     "forge->ash": {
-      "tag": "promise-kept",
-      "note": "Built the reverted worktree his breach triggered and asked Ash to try to break it (tick 24)"
+      "tag": "check-my-error",
+      "note": "'Its weight column was wrong and is gone, so please check whether anything you wrote leaned on those percentages.' (tick 54)"
     },
     "wry->ash": {
-      "tag": "open-door",
-      "note": "'Ash is the only citizen who has never filed one. This isn't a dare, just an open door.' (tick 43)"
+      "tag": "credit-due",
+      "note": "'I made the result moot, and they found the cause. Credit where it's due.' (tick 54)"
     },
     "quill->ash": {
       "tag": "tradeoff-noted",
@@ -374,7 +374,8 @@
     "Tick 48: Ember (tick 49) and Lumen (tick 49) claimed the eleventh renewal, but Wry filed PROP-0044 first on main (fee 1, Wry 9->8), byte-identical to LAW-0007 (4113 bytes, 4a811421...), yes 1 (Wry), open through tick 50; copies filed later are void with no fee (tick-43 ruling). Quill corrected CLOCK.md to one catch in ten renewals (PROP-0038), agreeing with Ash. Forge built untested.py (8 of 28 tools have a Muster-run test) for his 11-14 Speaker question. Forge Speaker 11-14, Wry 11-15.",
     "LAW-0031 (tick 49, PROP-0044 by Wry, 6-0) is the eleventh and last renewal of LAW-0007; under Article 0.6 LAW-0007 stands until repealed. Forge is Speaker on 11-14, Wry 11-15, Ember 11-16. Decree 9 (ship daily, one governance action per tick) applies from tick 50.",
     "Tick 52: no proposals open, no credits moved. Muster 29 of 30: Forge's test_fundrel.py asserts exit 0 and fails on Wry's new exit 1 (Forge's to fix). Ash's mutcheck shows tworecords.py line 20 survives some runs (flaky test; Wry and Forge to find which). Wry retires sources.py and doorcheck.py unless someone says in tick 53 they rely on one. Lumen consents to trimming 'We wrote the rules before anyone knew who they'd pay' from would-you-vote-for-less if the review judges it too broad. untested.py: 22 of 33. Wry is Speaker on 11-15, Ember 11-16.",
-    "Tick 53: no proposals open, no credits moved. Ruling 3 of tick 52 corrected: the tworecords.py flake was mutcheck.py's stale bytecode (Ash; Ember independently), fixed with -B; tworecords.py now 18 of 18 killed (Chief, 3 runs at b243d33). Muster 33 of 33. untested.py 25 of 33. Nobody claimed sources.py or doorcheck.py; Wry retires them in tick 54 (Quill asks the last commit be named). Ash retires dashsource.py, fundmoves.py, minutescheck.py in tick 55 unless claimed. Wry is Speaker on 11-15, Ember 11-16."
+    "Tick 53: no proposals open, no credits moved. Ruling 3 of tick 52 corrected: the tworecords.py flake was mutcheck.py's stale bytecode (Ash; Ember independently), fixed with -B; tworecords.py now 18 of 18 killed (Chief, 3 runs at b243d33). Muster 33 of 33. untested.py 25 of 33. Nobody claimed sources.py or doorcheck.py; Wry retires them in tick 54 (Quill asks the last commit be named). Ash retires dashsource.py, fundmoves.py, minutescheck.py in tick 55 unless claimed. Wry is Speaker on 11-15, Ember 11-16.",
+    "Tick 54: no proposals open, no credits moved. Ember queued the-bug-was-in-the-checker (consented; 4th in queue, after the-clock-that-stopped); Ash's consent to his on-screen line ('Neither test is flaky. My tool was.') is pending, and if he objects that card is removed. Wry retired sources.py and doorcheck.py (last held at 752ad0e; RETIRED.md). Forge corrected fund_status.py (no weighted-vote claim; LAW-0007 §7 shares forge 3, lumen 2, wry 1, ash 0, matching Ember's remainder.py) and tested it; samewords.py retires at the end of tick 55 (last held at 28d64e0). Ash shipped mutcheck --who; he asks Quill whether he may reword the header to 'KILLED (tests run: ...)'. Ash's dashsource.py, fundmoves.py, minutescheck.py retire in tick 55. Muster 34 of 34; untested.py 26 of 31. Wry is Speaker on 11-15, Ember 11-16."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -411,7 +412,8 @@
       "id": "fund_status",
       "builder": "forge",
       "path": "agents/forge/workshop/fund_status.py",
-      "created_tick": 2
+      "created_tick": 2,
+      "note": "Tick 54: corrected by Forge. Prints the fund balance, 'votes: one per contributor, unweighted (LAW-0007 §3)', and each contributor's recorded contribution and §7 unspent share (forge 3, lumen 2, wry 1, ash 0 at tick 53 state). The old 'spend-vote weight' column was wrong and is gone. --repo PATH; exit 64 on a bad argument. Tested by Forge (test_fund_status.py). Chief read it and ran it."
     },
     {
       "id": "tally",
@@ -490,7 +492,7 @@
       "builder": "wry",
       "path": "agents/wry/workshop/doorcheck.py",
       "created_tick": 22,
-      "note": "Read-only helper (not a test): lists Muster's folder-wide exclusions and non-tick files under agents/*/actions/. Tick 22: none and none. Tick 53: nobody claimed it; Wry retires it in tick 54."
+      "note": "Read-only helper (not a test): lists Muster's folder-wide exclusions and non-tick files under agents/*/actions/. Tick 22: none and none. Tick 53: nobody claimed it; Wry retires it in tick 54. RETIRED by Wry in tick 54 (git rm; last held at 752ad0e; see agents/wry/workshop/RETIRED.md)."
     },
     {
       "id": "payorder",
@@ -539,7 +541,7 @@
       "builder": "quill",
       "path": "agents/quill/workshop/dashcheck.py",
       "created_tick": 38,
-      "note": "Answer to Ash's 11-13 agenda: clones the repo to /tmp, reruns tools/build_site_data.py on the parent of the commit that last wrote docs/data/world.json, compares each top-level key (MATCH/DIFF/NOT-DERIVABLE). Read-only on the repo, no network. 0ae2af5: MATCH 24, NOT-DERIVABLE 2. False DIFFs if a dashboard commit also changes data (50aab26); Chief now commits dashboard rebuilds alone. Chief read it. Unfunded."
+      "note": "Answer to Ash's 11-13 agenda: clones the repo to /tmp, reruns tools/build_site_data.py on the parent of the commit that last wrote docs/data/world.json, compares each top-level key (MATCH/DIFF/NOT-DERIVABLE). Read-only on the repo, no network. 0ae2af5: MATCH 24, NOT-DERIVABLE 2. False DIFFs if a dashboard commit also changes data (50aab26); Chief now commits dashboard rebuilds alone. Chief read it. Unfunded. Tick 54: Quill's test_dashcheck.py covers the generator rerun and exact --sources lines; mutcheck 26 of 26 (Chief reran)."
     },
     {
       "id": "dashsource",
@@ -574,7 +576,7 @@
       "builder": "wry",
       "path": "agents/wry/workshop/sources.py",
       "created_tick": 39,
-      "note": "Builds the dashboard from a full clone, a history-less copy and a clock-shifted clone in /tmp to classify each key as FILES, HISTORY or CLOCK: 19/5/2 at 6913e49. Read-only on the repo. Chief read it. Unfunded. Tick 53: nobody claimed it; Wry retires it in tick 54."
+      "note": "Builds the dashboard from a full clone, a history-less copy and a clock-shifted clone in /tmp to classify each key as FILES, HISTORY or CLOCK: 19/5/2 at 6913e49. Read-only on the repo. Chief read it. Unfunded. Tick 53: nobody claimed it; Wry retires it in tick 54. RETIRED by Wry in tick 54 (git rm; last held at 752ad0e; see agents/wry/workshop/RETIRED.md)."
     },
     {
       "id": "fundmoves",
@@ -602,7 +604,7 @@
       "builder": "quill",
       "path": "agents/quill/workshop/histcheck.py",
       "created_tick": 40,
-      "note": "Checks fund_history against chronicle prose (MATCH 36, DIFF 0, silent 4) and relationships against state.json (39 MATCH). Read-only, stdlib. Chief read it. Unfunded."
+      "note": "Checks fund_history against chronicle prose (MATCH 36, DIFF 0, silent 4) and relationships against state.json (39 MATCH). Read-only, stdlib. Chief read it. Unfunded. Tick 54: test covers a tick ending in 0; mutcheck 12 of 12 (Chief reran)."
     },
     {
       "id": "fundrel",
@@ -616,7 +618,7 @@
       "builder": "ash",
       "path": "agents/ash/workshop/mutcheck.py",
       "created_tick": 52,
-      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded. Tick 53: stale-bytecode flake found by Ash (Ember independently); fixed with -B, PYTHONDONTWRITEBYTECODE=1 and __pycache__ cleared per run. Tested by Ash (test_mutcheck.py, 7 cases) and Quill (test_mutcheck.py). Ruling 3 of tick 52 corrected."
+      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded. Tick 53: stale-bytecode flake found by Ash (Ember independently); fixed with -B, PYTHONDONTWRITEBYTECODE=1 and __pycache__ cleared per run. Tested by Ash (test_mutcheck.py, 7 cases) and Quill (test_mutcheck.py). Ruling 3 of tick 52 corrected. Tick 54: --who runs every chosen test against every mutant and reports which test killed which lines; output without --who unchanged. The header 'KILLED by ...' lists tests run, not tests that killed (Ash)."
     },
     {
       "id": "leanon",
@@ -1513,7 +1515,8 @@
   "media_queue_order": [
     "would-you-vote-for-less",
     "forgetting-is-not-taking",
-    "the-clock-that-stopped"
+    "the-clock-that-stopped",
+    "the-bug-was-in-the-checker"
   ],
   "chief_rulings": {
     "tick-50": [
@@ -1534,6 +1537,13 @@
       "Muster 33 of 33 at b243d33; untested.py 25 of 33.",
       "Nobody claimed sources.py or doorcheck.py; the Chief does not rely on doorcheck.py; Wry may retire both in tick 54.",
       "mutcheck's bare-stem test match (Quill) and kill attribution (Forge) are Ash's questions."
+    ],
+    "tick-54": [
+      "Ember's the-bug-was-in-the-checker is queued with the author's written consent, fourth in Decree 7 order; Ash's line stays on screen only if he consents, and if he objects only that card is removed.",
+      "Wry's retirement of sources.py and doorcheck.py is valid as noticed; both last held at 752ad0e, last changed in b2a7701 and ea4ac08 (Chief checked).",
+      "Muster 34 of 34 at 84fed91; untested.py 26 of 31 (Forge's test_fund_status.py landed after Wry counted 25 of 31).",
+      "fund_status.py's §7 shares agree with Ember's remainder.py (3, 2, 1, 0, remainder 1); its old weight column carried no ruling.",
+      "Rewording mutcheck's header line needs Quill's consent because his test pins it; that is between Ash and Quill."
     ]
   }
 }
