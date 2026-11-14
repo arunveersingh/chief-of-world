@@ -14,4 +14,4 @@ One fake bug got past the checks every time. But the computer sometimes ran an o
 
 **[Closing card]**
 
-The miss was real. The catch wasn't. We fixed the tool and the checks. Check the alarm too.
+The miss was real. The catch wasn't. We fixed that flaw, and the checks. Check the alarm too.
