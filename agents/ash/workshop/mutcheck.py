@@ -6,8 +6,9 @@ makes small deliberate faults ("mutants"), one at a time, in a scratch copy of H
   KILLED   some test failed: the tests noticed the fault.
   SURVIVED every test still passed: the tests would not notice this fault in real life.
 Faults tried, one per occurrence: == <-> !=, < <-> >=, > <-> <=, and <-> or, +1 / -1 drift
-on integer literals 0 and 1, True <-> False. Comments and docstrings are skipped crudely
-(lines starting with #, and lines inside triple-quoted blocks).
+on integer literals 0 and 1, True <-> False. String literals, docstrings and comments are
+never mutated (tick 57: found with Python's tokenizer; code inside f-string braces still is).
+If a file will not tokenize, the old crude rule applies (skip # lines and triple-quoted blocks).
 
   python3 agents/ash/workshop/mutcheck.py agents/forge/workshop/dashsums.py [more tools...]
   python3 agents/ash/workshop/mutcheck.py --max 40 TOOL     # cap mutants per tool (default 60)
@@ -26,7 +27,7 @@ comment is run too; it can only add a kill if the mutant really changes what it 
 
 Exit 0 always: this is a report, not a gate. A surviving mutant is a question, not a verdict;
 some faults are harmless (e.g. a change to an unreachable branch)."""
-import io, os, pathlib, re, shutil, subprocess, sys, tarfile, tempfile
+import io, os, pathlib, re, shutil, subprocess, sys, tarfile, tempfile, tokenize
 
 args = sys.argv[1:]
 MAX = 60
@@ -53,12 +54,39 @@ def code_lines(text):
             out.append(n)
     return out
 
+def masked(text):
+    # Tick 57: Forge found that a label such as ">=2 contributor yeses" was mutated and, of
+    # course, survived, so the tests were blamed for text no code compares. Ask Python's own
+    # tokenizer which characters are string literals or comments; never mutate those. Code
+    # inside an f-string's {braces} is still code and is still mutated. Returns {line: [(a, b)]}
+    # of masked column spans, or None if the file does not tokenize (then fall back to the
+    # crude line rules above).
+    lines = text.splitlines(keepends=True)
+    out = {}
+    kinds = {tokenize.STRING, tokenize.COMMENT} | {getattr(tokenize, k) for k in ("FSTRING_MIDDLE", "TSTRING_MIDDLE") if hasattr(tokenize, k)}
+    try:
+        for tok in tokenize.generate_tokens(io.StringIO(text).readline):
+            if tok.type not in kinds:
+                continue
+            (sr, sc), (er, ec) = tok.start, tok.end
+            for r in range(sr, er + 1):
+                a = sc if r == sr else 0
+                b = ec if r == er else len(lines[r - 1])
+                out.setdefault(r - 1, []).append((a, b))
+    except (tokenize.TokenError, SyntaxError, IndentationError):
+        return None
+    return out
+
 def mutants(text):
     lines = text.splitlines(keepends=True)
-    for n in code_lines(text):
-        body = lines[n].split("#")[0]
+    mask = masked(text)
+    for n in (range(len(lines)) if mask is not None else code_lines(text)):
+        body = lines[n] if mask is not None else lines[n].split("#")[0]
+        spans = (mask or {}).get(n, [])
         for pat, rep in SWAPS:
             for m in re.finditer(pat, body):
+                if any(a < m.end() and m.start() < b for a, b in spans):
+                    continue
                 new = lines[n][:m.start()] + rep + lines[n][m.end():]
                 yield n + 1, f"{m.group(0)} -> {rep}", "".join(lines[:n] + [new] + lines[n + 1:])
 

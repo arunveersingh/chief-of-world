@@ -12,6 +12,8 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   7. bytecode cached from one mutant never runs for the next (the tick-52 flake);
   8. --who says which test killed which line, and a bystander test that only names the tool kills 0;
   9. --all picks every tool some test names, skips the rest, and prints one ALL total;
+ 10. operators inside string literals (labels, f-string text, a '#' in a string) are never
+     mutated, but code inside f-string braces is (tick 57, Forge's label strings);
 and in every case the exit code is 0 (a report, not a gate) and the scratch work
 leaves the repo's working tree clean.
 Standard library; writes only under a temp folder."""
@@ -140,4 +142,25 @@ assert f"{T}: 1 of 1 mutants KILLED" in out, out
 assert "lonely" not in out and "test_tiny.py:" not in out, out
 assert out.strip().splitlines()[-1] == "ALL: 1 of 1 mutants KILLED across 1 tools", out
 
-print("test_mutcheck: 9 cases OK")
+
+# 10. string literals are not code; f-string braces are (tick 57)
+LAB = '''def f(x, n):
+    label = ">=2 yeses # 0 == 1"
+    if x >= 2:  # == here is a comment
+        return f"{n == 3} == shown"
+    return 'b < c' + "and or True"
+'''
+d = repo("import importlib\n")
+w = d / "agents" / "x" / "workshop"
+(w / "lab.py").write_text(LAB)
+(w / "test_lab.py").write_text("# names lab; checks nothing, so every real mutant survives\n")
+g = ["git", "-c", "user.name=t", "-c", "user.email=t@t"]
+subprocess.run(g + ["add", "-A"], cwd=d, check=True)
+subprocess.run(g + ["commit", "-qm", "lab"], cwd=d, check=True)
+code, out, st = run(d, "agents/x/workshop/lab.py")
+assert code == 0 and st == "", (out, st)
+L = out.strip().splitlines()
+assert L[0] == "agents/x/workshop/lab.py: 0 of 2 mutants KILLED (tests run: agents/x/workshop/test_lab.py)", out
+assert L[1:] == ["    SURVIVED line 3: >= -> <", "    SURVIVED line 4: == -> !="], out
+
+print("test_mutcheck: 10 cases OK")
