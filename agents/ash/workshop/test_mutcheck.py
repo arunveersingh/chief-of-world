@@ -7,8 +7,10 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   2. a test that only calls the tool lets it SURVIVE, and names the line and the swap;
   3. a test that already fails on HEAD is reported and skipped, not scored;
   4. a tool no test names says so;
-  5. exit code is 0 in every case (a report, not a gate);
-  6. the repo's working tree is untouched after the run.
+  5. each of the 12 swaps in the table fires exactly once on a line made for it;
+  6. --max caps the count;
+and in every case the exit code is 0 (a report, not a gate) and the scratch work
+leaves the repo's working tree clean.
 Standard library; writes only under a temp folder."""
 import os, pathlib, subprocess, sys, tempfile
 
@@ -69,4 +71,25 @@ code, out, st = run(repo("assert m.ge(2, 2)\n", extra_tool=True), "agents/x/work
 assert code == 0, out
 assert "agents/x/workshop/lonely.py: no test names it" in out, out
 
-print("test_mutcheck: 4 cases OK")
+
+# 5. every swap in the table fires once on its own line, and nothing else does
+SWAPS = [("==", "!="), ("!=", "=="), ("<=", ">"), (">=", "<"), ("<", ">="), (">", "<="),
+         ("and", "or"), ("or", "and"), ("True", "False"), ("False", "True"), ("0", "1"), ("1", "2")]
+ALL = "a, b = 3, 4\n" + "".join(f"r = {o}\n" if o in ("True", "False", "0", "1") else f"r = a {o} b\n"
+                                for o, _ in SWAPS)
+d = repo("m.ge(2, 2)\n")
+(d / "agents/x/workshop/all.py").write_text(ALL)
+(d / "agents/x/workshop/test_all.py").write_text("import runpy, pathlib\nrunpy.run_path(str(pathlib.Path(__file__).parent / 'all.py'))\n")
+subprocess.run(["git", "add", "-A"], cwd=d, check=True)
+subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "all"], cwd=d, check=True)
+code, out, st = run(d, "agents/x/workshop/all.py")
+assert code == 0, out
+assert f"agents/x/workshop/all.py: 0 of {len(SWAPS)} mutants KILLED" in out, out
+for n, (o, rep) in enumerate(SWAPS, start=2):
+    assert f"SURVIVED line {n}: {o} -> {rep}" in out, (o, out)
+
+# 6. --max caps the mutants tried
+code, out, st = run(d, "--max", "3", "agents/x/workshop/all.py")
+assert code == 0 and "0 of 3 mutants KILLED" in out, out
+
+print("test_mutcheck: 6 cases OK")
