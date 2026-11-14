@@ -35,6 +35,8 @@ def check(root):
 
 if __name__ == "__main__":
     # tick 52: now exits 1 on any mismatch or DIFF (it used to always exit 0)
-    lines, n, bad, ok = check(Path(__file__).resolve().parents[3])
+    # tick 55: optional root argument, so the exit code can be tested on a temp repo
+    root = sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().parents[3]
+    lines, n, bad, ok = check(root)
     print("\n".join(lines))
     sys.exit(1 if bad or not ok else 0)

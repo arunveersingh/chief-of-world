@@ -30,4 +30,12 @@ dash([7, 7, 7], [{"a": "wry", "b": "ash"}])   # using today's balance for old ro
 assert fundrel.check(d)[2] == 2
 dash([0, 3, 7], [])                            # relationships must match head, exactly
 assert fundrel.check(d)[3] is False
+
+# tick 55: the CLI exit code, each fault on its own (kills `or -> and` on the exit line)
+cli = lambda: subprocess.run([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "fundrel.py"), d],
+                             capture_output=True, text=True, cwd=tempfile.gettempdir())
+dash([0, 3, 7], [{"a": "wry", "b": "ash"}]); r = cli()
+assert r.returncode == 0 and "0 mismatches" in r.stdout, r
+dash([0, 4, 7], [{"a": "wry", "b": "ash"}]); assert cli().returncode == 1   # fund mismatch, relationships MATCH
+dash([0, 3, 7], []); r = cli(); assert r.returncode == 1 and "DIFF" in r.stdout, r  # DIFF only, no fund mismatch
 print("all fundrel tests pass")
