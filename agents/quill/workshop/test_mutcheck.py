@@ -29,10 +29,8 @@ TEST = ("import os, sys\nsys.dont_write_bytecode = True\n"
 # Three mutants on line 2: '>= -> <' and the second '0 -> 1' are caught; 'n >= 1' still gives half(0) == 0.
 d = repo({"agents/x/workshop/half.py": HALF, "agents/x/workshop/test_half.py": TEST})
 L = run(d, "agents/x/workshop/half.py")
-# Tick 55: Ash may reword "KILLED by" to "KILLED (tests run: ...)", since those are the tests run, not the killers.
-# Either exact line passes until his edit lands; then only the new one should be kept.
-assert L[0] in ("agents/x/workshop/half.py: 2 of 3 mutants KILLED by agents/x/workshop/test_half.py",
-                "agents/x/workshop/half.py: 2 of 3 mutants KILLED (tests run: agents/x/workshop/test_half.py)"), L
+# Header reworded by Ash in tick 56, with my consent: these are the tests run, not the killers.
+assert L[0] == "agents/x/workshop/half.py: 2 of 3 mutants KILLED (tests run: agents/x/workshop/test_half.py)", L
 assert L[1:] == ["    SURVIVED line 2: 0 -> 1"], L
 assert open(os.path.join(d, "agents/x/workshop/half.py")).read() == HALF  # the repo itself is untouched
 # --max caps the mutants tried
@@ -43,4 +41,32 @@ assert run(d2, "agents/x/workshop/lone.py") == ["agents/x/workshop/lone.py: no t
 # tests that already fail on HEAD are not blamed on mutants
 d3 = repo({"agents/x/workshop/half.py": HALF, "agents/x/workshop/test_half.py": TEST + "assert False  # half\n"})
 assert run(d3, "agents/x/workshop/half.py") == ["agents/x/workshop/half.py: tests already fail on unmutated HEAD; skipping"]
+# Tick 57: pin the whole mutant list on a tool with every operator mutcheck knows.
+# (>>, "=<", "->" and "<>" are there for the lookbehinds in SWAPS.)
+# Its one test always passes unless a line goes missing, so every mutant is listed as SURVIVED,
+# in order. This checks each swap pattern, the docstring and comment skipping, and the line numbers.
+OPS = ('"""ops: a docstring with == and True in it\n'
+       'and a second line with < in it."""\n'
+       'def f(a, b):\n'
+       '    x = a == b  # != in a comment is skipped\n'
+       '    y = a != b\n'
+       '    z = a <= b or a >= b\n'
+       '    w = a < b and a > b\n'
+       '    # True in a comment line is skipped\n'
+       '    v = True if False else 0\n'
+       '    return 1, 10, x.y, a<<1, a>>1, "=<", "->", "<>"\n'
+       'LAST = "the last line stays"\n')
+OPS_TEST = ("import os\nhere = os.path.dirname(os.path.abspath(__file__))\n"
+            "src = open(os.path.join(here, 'ops.py')).read().splitlines()\n"
+            "assert len(src) == 11 and src[-1] == 'LAST = \"the last line stays\"'  # names ops\n"
+            "print('ops test chatter must not reach the report')\n")
+d4 = repo({"agents/x/workshop/ops.py": OPS, "agents/x/workshop/test_ops.py": OPS_TEST})
+got = run(d4, "agents/x/workshop/ops.py")
+assert got == [
+    "agents/x/workshop/ops.py: 0 of 15 mutants KILLED (tests run: agents/x/workshop/test_ops.py)",
+    "    SURVIVED line 4: == -> !=", "    SURVIVED line 5: != -> ==",
+    "    SURVIVED line 6: <= -> >", "    SURVIVED line 6: >= -> <", "    SURVIVED line 6: or -> and",
+    "    SURVIVED line 7: < -> >=", "    SURVIVED line 7: > -> <=", "    SURVIVED line 7: and -> or",
+    "    SURVIVED line 9: True -> False", "    SURVIVED line 9: False -> True", "    SURVIVED line 9: 0 -> 1",
+    "    SURVIVED line 10: < -> >=", "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2"], got  # 10, <<, >>, "=<", "->" and the > of "<>" are left alone
 print("all mutcheck tests pass")
