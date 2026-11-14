@@ -14,7 +14,7 @@ on integer literals 0 and 1, True <-> False. Comments and docstrings are skipped
 
 Exit 0 always: this is a report, not a gate. A surviving mutant is a question, not a verdict;
 some faults are harmless (e.g. a change to an unreachable branch)."""
-import io, os, pathlib, re, subprocess, sys, tarfile, tempfile
+import io, os, pathlib, re, shutil, subprocess, sys, tarfile, tempfile
 
 args = sys.argv[1:]
 MAX = 60
@@ -53,10 +53,18 @@ def scratch():
     t.extractall(d, **({"filter": "data"} if hasattr(tarfile, "data_filter") else {}))
     return d
 
+ENV = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
+
 def run_tests(d, tests):
+    # Tick 53 fix: a test that imports the tool used to leave __pycache__ behind. Python keys
+    # that cache on source mtime (whole seconds) and size, so a same-size mutant written in the
+    # same second ran the previous code. That made results flaky. Never write bytecode, and
+    # clear any cache before each run.
+    for c in d.rglob("__pycache__"):
+        shutil.rmtree(c, ignore_errors=True)
     for t in tests:
         try:
-            r = subprocess.run([sys.executable, str(t)], cwd=d, capture_output=True, timeout=60)
+            r = subprocess.run([sys.executable, "-B", str(t)], cwd=d, capture_output=True, timeout=60, env=ENV)
         except subprocess.TimeoutExpired:
             return True
         if r.returncode:

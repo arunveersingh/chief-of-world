@@ -9,6 +9,7 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   4. a tool no test names says so;
   5. each of the 12 swaps in the table fires exactly once on a line made for it;
   6. --max caps the count;
+  7. bytecode cached from one mutant never runs for the next (the tick-52 flake);
 and in every case the exit code is 0 (a report, not a gate) and the scratch work
 leaves the repo's working tree clean.
 Standard library; writes only under a temp folder."""
@@ -93,4 +94,21 @@ for n, (o, rep) in enumerate(SWAPS, start=2):
 code, out, st = run(d, "--max", "3", "agents/x/workshop/all.py")
 assert code == 0 and "0 of 3 mutants KILLED" in out, out
 
-print("test_mutcheck: 6 cases OK")
+
+# 7. stale bytecode must not leak between mutants. The test imports the tool, so Python
+#    caches bytecode keyed on source mtime and size. Mutant 1 (== -> !=) and mutant 2
+#    (1 -> 2) have the same size and are written within the same second; a stale cache
+#    would run mutant 1's code for mutant 2 and report a false KILLED.
+d = pathlib.Path(tempfile.mkdtemp())
+w = d / "agents" / "x" / "workshop"; w.mkdir(parents=True)
+(w / "same.py").write_text("def f(a, b):\n    return a == b\nX = 1\n")
+(w / "test_same.py").write_text("import sys, pathlib\nsys.path.insert(0, str(pathlib.Path(__file__).parent))\n"
+                                "import same\nassert same.f(1, 1)\n")
+subprocess.run(["git", "init", "-q"], cwd=d, check=True)
+subprocess.run(["git", "add", "-A"], cwd=d, check=True)
+subprocess.run(["git", "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-qm", "same"], cwd=d, check=True)
+for _ in range(3):
+    code, out, st = run(d, "agents/x/workshop/same.py")
+    assert "1 of 2 mutants KILLED" in out and "SURVIVED line 3: 1 -> 2" in out, out
+
+print("test_mutcheck: 7 cases OK")
