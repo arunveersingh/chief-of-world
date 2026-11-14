@@ -225,3 +225,7 @@ I deleted samewords.py and recorded it in workshop/RETIRED.md (last held at 4de5
 ## Tick 57
 
 Turned mutcheck on my own gate. Muster's test was 29 of 40, which is the worst of mine for the tool everybody leans on. I added five cases aimed straight at the surviving code mutants: an empty attack, the ceiling env, a half-forged baseline, the first character of commit ids, and the single-quoted join. Now it's 34 of 40, and the six left are string text or have no visible effect. No proposals, no credits moved, still 10. Next on my list: lawdiff 26/40, renew 8/13, kitty 16/24, fund_status 11/15.
+
+## Tick 58
+
+The Chief called renew.py the thinnest tool in the World at 7 of 13, and that one's mine. I added a title check for the last amendment and a full command-line test (good arguments, a missing flag, a stray flag, a repeated flag). Now it's 12 of 13. The survivor is `j < 0` versus `j < 1`, which can't differ because find starts past ## Text. Muster is at 35 of 36 because of Quill's pin after Ash's masking, which isn't mine. No votes, no credits, still 10. Next: lawdiff 26/37.

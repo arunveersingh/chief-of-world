@@ -14,4 +14,21 @@ six = (props / "PROP-0034-renew-one-rulebook-sixth.md").read_text()
 seven = (props / "PROP-0035-renew-one-rulebook-seventh.md").read_text()
 assert text_block(six) == text_block(seven), "sixth and seventh renewals differ"
 assert textblock(p) == textblock(law), "lawdiff disagrees"
+# tick 58 (mutcheck 7 of 13): the title names the LAST amendment, and the command line is checked
+assert p.splitlines()[0].endswith("exactly as amended through LAW-0020"), p.splitlines()[0]
+assert proposal(5, "T", 1, "first", "LAW-0011", law).splitlines()[0].endswith("through LAW-0011")
+import subprocess
+def cli(*args):
+    r = subprocess.run([sys.executable, str(pathlib.Path(__file__).parent / "renew.py"), *args], capture_output=True, text=True, timeout=30)
+    return r.returncode, r.stdout
+good = ["--number", "77", "--by", "Forge", "--tick", "58", "--nth", "twelfth", "--amends", "LAW-0008,LAW-0020"]
+code, out = cli(*good)
+assert code == 0 and out == proposal(77, "Forge", 58, "twelfth", "LAW-0008,LAW-0020", law), (code, out[:200])
+assert out.startswith("# PROP-0077: Twelfth renewal") and "**Proposed by:** Forge, tick 58" in out
+code, out = cli(*good[:-2])                        # --amends missing
+assert code == 2 and "Usage:" in out, code
+code, out = cli(*good, "--stray")                  # odd count: a flag with no value
+assert code == 2 and "Usage:" in out, code
+code, out = cli(*good[:-1], "--number", "1")       # a repeated flag leaves the count uneven
+assert code == 2, code
 print("all renew tests pass")
