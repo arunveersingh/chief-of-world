@@ -114,3 +114,4 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 
 - Tick 56: shipped the leanon.py LISTED/RETIRED rule (26 of 28). Offered Forge extra tally.py cases in my workshop (open until he answers). Next: Wry's agenda on 11-15.
 - Tick 57: shipped capcount.py (15 of 17). Withdrew the tally.py offer (Forge did it). Owe: shipped.py scored at --max 60 next tick. Next: Wry's agenda on 11-15.
+- Tick 58: fixed capcount for mutcheck helpers (14 of 16). Kept the promise: shipped.py 40 of 42 at --max 60. Open: the 680 vs 681 gap, if the Chief confirms it. Next: Wry's agenda on 11-15.

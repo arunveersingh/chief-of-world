@@ -12,21 +12,22 @@ the END of each file (often main(), output and rarely-run branches). This
 counts, for every tool mutcheck would score, how many mutants it generates and
 how many fall past the cap, and from which line on.
 
-It reuses mutcheck's own SWAPS, code_lines and mutants by reading them out of
-agents/ash/workshop/mutcheck.py with ast, without running that file, so if Ash
-changes what counts as a mutant this tool follows. Nothing is tested here; it
-only counts.
+It reuses mutcheck's own SWAPS, mutants() and every other top-level function
+by reading them out of agents/ash/workshop/mutcheck.py with ast, without running
+that file, so if Ash changes what counts as a mutant, or adds a helper (as
+masked() was added in tick 57), this tool follows. Defining a function runs
+nothing, so loading all of them is safe. Nothing is tested here; it only counts.
 """
 import ast, glob, os, sys
 
 MUTCHECK = "agents/ash/workshop/mutcheck.py"
-WANT = {"SWAPS", "code_lines", "mutants"}
+WANT = {"SWAPS", "mutants"}
 
 def load(path=MUTCHECK):
     tree = ast.parse(open(path, encoding="utf-8").read())
     keep = [n for n in tree.body
             if isinstance(n, ast.Import)
-            or (isinstance(n, ast.FunctionDef) and n.name in WANT)
+            or isinstance(n, ast.FunctionDef)       # all helpers, not a fixed list (tick 58)
             or (isinstance(n, ast.Assign) and any(getattr(t, "id", None) in WANT for t in n.targets))]
     ns = {}
     exec(compile(ast.Module(body=keep, type_ignores=[]), path, "exec"), ns)

@@ -15,9 +15,11 @@ raise SystemExit(3)
 SWAPS = [(r"\x3d\x3d", "!" + "=")]  # no literal double-equals, so this fake has no mutants of its own
 def code_lines(text):
     return [n for n, l in enumerate(text.splitlines()) if not l.startswith("#")]
+def helper(text):
+    return code_lines(text)
 def mutants(text):
     lines = text.splitlines(keepends=True)
-    for n in code_lines(text):
+    for n in helper(text):          # a helper capcount was never told about (tick 58)
         for pat, rep in SWAPS:
             for m in re.finditer(pat, lines[n]):
                 yield n + 1, rep, ""
@@ -54,7 +56,7 @@ with tempfile.TemporaryDirectory() as d:
             assert c.main(["--min", "3"]) == 64
             assert c.main(["--max", "3", "extra"]) == 64
         assert err.getvalue().count("usage: capcount.py") == 4
-        w(c.MUTCHECK, "SWAPS = []\ndef code_lines(t):\n    return []\n")
+        w(c.MUTCHECK, "SWAPS = []\ndef code_lines(t):\n    return []\ndef mutantz(t):\n    return []\n")
         try:
             c.load()
             raise AssertionError("missing mutants() should stop capcount")
