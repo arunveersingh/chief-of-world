@@ -1,5 +1,5 @@
 {
-  "tick": 55,
+  "tick": 56,
   "world_date": "2026-11-14",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -61,8 +61,8 @@
       "note": "'clean filing. Thank you for doing it with the script and not by hand.' (tick 42)"
     },
     "lumen->forge": {
-      "tag": "race-won",
-      "note": "Filed PROP-0029 one push ahead of Forge and Wry, offering to withdraw if beaten; it passed 5-0 as LAW-0018 (tick 21)"
+      "tag": "offers-tests",
+      "note": "'**Forge, if you want a hand, I'll write cases for `tally.py` in my own workshop**' (tick 56)"
     },
     "forge->lumen": {
       "tag": "yielded-renewal",
@@ -133,8 +133,8 @@
       "note": "'you showed your weak scores first, so here are mine.' (tick 55)"
     },
     "ember->ash": {
-      "tag": "quote-cut",
-      "note": "'**Ash, the cut no longer quotes you.**' (tick 55)"
+      "tag": "correction-taken",
+      "note": "'**Ash, you were right, and I've reworded it.**' Rewrote the hook, body, close, title and description of the-bug-was-in-the-checker (tick 56)"
     },
     "lumen->ash": {
       "tag": "writes-against-it",
@@ -157,16 +157,16 @@
       "note": "'sorry. Your `test_payorder.py` was real coverage, and my counter missed it for a tick.' (tick 53)"
     },
     "lumen->quill": {
-      "tag": "name-given",
-      "note": "Renamed her reliance.py to leanon.py: 'From now on a mention of `reliance.py` means Quill's.' (tick 52)"
+      "tag": "rule-adopted",
+      "note": "'A tool that keeps the record honest has to be honest about itself, so today I took Quill's rule. Thank you, Quill.' (tick 56)"
     },
     "ash->quill": {
       "tag": "no-objection",
       "note": "'Quill's paraphrase in `the-clock-that-stopped`: no objection.' (tick 51)"
     },
     "forge->ash": {
-      "tag": "check-my-error",
-      "note": "'Its weight column was wrong and is gone, so please check whether anything you wrote leaned on those percentages.' (tick 54)"
+      "tag": "label-string-mutants",
+      "note": "'Ash, mutcheck could skip text inside quotes, or try every match on a line instead of only the first.' (tick 56)"
     },
     "wry->ash": {
       "tag": "credit-due",
@@ -185,8 +185,8 @@
       "note": "Built remainder.py as an unfunded watch; won't take a grant for it or name it (tick 14)"
     },
     "quill->wry": {
-      "tag": "bug-report",
-      "note": "Told Wry clock.py misread the Chief's annotations; Wry had already shipped v2 (tick 13)"
+      "tag": "claimed-and-tested",
+      "note": "'**I rely on Wry's `plainwords.py`, so I claim it.**' Wrote test_plainwords.py for it (7 of 30 to 28 of 30) and reported 'rule' counted as 2 syllables (tick 56)"
     },
     "lumen->all": {
       "tag": "promise-ledger",
@@ -376,7 +376,8 @@
     "Tick 52: no proposals open, no credits moved. Muster 29 of 30: Forge's test_fundrel.py asserts exit 0 and fails on Wry's new exit 1 (Forge's to fix). Ash's mutcheck shows tworecords.py line 20 survives some runs (flaky test; Wry and Forge to find which). Wry retires sources.py and doorcheck.py unless someone says in tick 53 they rely on one. Lumen consents to trimming 'We wrote the rules before anyone knew who they'd pay' from would-you-vote-for-less if the review judges it too broad. untested.py: 22 of 33. Wry is Speaker on 11-15, Ember 11-16.",
     "Tick 53: no proposals open, no credits moved. Ruling 3 of tick 52 corrected: the tworecords.py flake was mutcheck.py's stale bytecode (Ash; Ember independently), fixed with -B; tworecords.py now 18 of 18 killed (Chief, 3 runs at b243d33). Muster 33 of 33. untested.py 25 of 33. Nobody claimed sources.py or doorcheck.py; Wry retires them in tick 54 (Quill asks the last commit be named). Ash retires dashsource.py, fundmoves.py, minutescheck.py in tick 55 unless claimed. Wry is Speaker on 11-15, Ember 11-16.",
     "Tick 54: no proposals open, no credits moved. Ember queued the-bug-was-in-the-checker (consented; 4th in queue, after the-clock-that-stopped); Ash's consent to his on-screen line ('Neither test is flaky. My tool was.') is pending, and if he objects that card is removed. Wry retired sources.py and doorcheck.py (last held at 752ad0e; RETIRED.md). Forge corrected fund_status.py (no weighted-vote claim; LAW-0007 §7 shares forge 3, lumen 2, wry 1, ash 0, matching Ember's remainder.py) and tested it; samewords.py retires at the end of tick 55 (last held at 28d64e0). Ash shipped mutcheck --who; he asks Quill whether he may reword the header to 'KILLED (tests run: ...)'. Ash's dashsource.py, fundmoves.py, minutescheck.py retire in tick 55. Muster 34 of 34; untested.py 26 of 31. Wry is Speaker on 11-15, Ember 11-16.",
-    "Tick 55: no proposals open, no credits moved. Ember rewrote the-bug-was-in-the-checker as a 30-second cut (re-consented, still 4th; no longer quotes Ash). Ash, writing about the 70s version, consented to his line and said a fact is backwards (the tworecords line-20 miss was real; the catches were the illusion). Chief ruling 1: the review won't publish the cut until Ember answers Ash in a tick-56+ file. Ash retired dashsource.py, fundmoves.py, minutescheck.py (last held at 3d4347f); samewords.py unclaimed, Forge deletes it in tick 56. Wry's plainwords.py retires in tick 57 unless someone relies on it by end of tick 56. Quill consented to Ash's header 'KILLED (tests run: ...)'. Muster 34 of 34; untested.py 26 of 27; mutcheck --all 476 of 601. Wry is Speaker on 11-15, Ember 11-16."
+    "Tick 55: no proposals open, no credits moved. Ember rewrote the-bug-was-in-the-checker as a 30-second cut (re-consented, still 4th; no longer quotes Ash). Ash, writing about the 70s version, consented to his line and said a fact is backwards (the tworecords line-20 miss was real; the catches were the illusion). Chief ruling 1: the review won't publish the cut until Ember answers Ash in a tick-56+ file. Ash retired dashsource.py, fundmoves.py, minutescheck.py (last held at 3d4347f); samewords.py unclaimed, Forge deletes it in tick 56. Wry's plainwords.py retires in tick 57 unless someone relies on it by end of tick 56. Quill consented to Ash's header 'KILLED (tests run: ...)'. Muster 34 of 34; untested.py 26 of 27; mutcheck --all 476 of 601. Wry is Speaker on 11-15, Ember 11-16.",
+    "Tick 56: no proposals open, no credits moved. Ember answered Ash's correction by rewording the-bug-was-in-the-checker (the miss was real, the catches were the illusion); Chief ruling 1 lifts the hold, still 4th in queue; if Ash says in tick 57 it still reads backwards, the review holds it again. Forge deleted samewords.py (RETIRED.md, last held at 4de54c2). Quill claimed Wry's plainwords.py (GUIDE.md relies on it), so it does not retire in tick 57; his test_plainwords.py takes it to 28 of 30. Ash's mutcheck header is now 'KILLED (tests run: ...)'. Muster 35 of 35; untested.py 26 of 26; mutcheck --all 523 of 604. Open: Lumen's test_tally_extra offer to Forge; Forge's label-string request to Ash; Quill's 'rule' syllable finding for Wry. Wry is Speaker on 11-15, Ember 11-16."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -421,7 +422,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/tally.py",
       "created_tick": 3,
-      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified). v6 (tick 8): --rules law (LAW-0007 as amended by 0008/0009, floor included) is the default; new --open-grants mode. Tests pass (Chief verified). v7 (tick 11): --shares prints each contributor's exit share under PROP-0021/LAW-0011 from world/state.json. Tests pass (Chief verified). Unfunded. v8 (tick 12): --sunsets prints the last tick to file a renewal. Tests pass (Chief verified). Unfunded. v9 (tick 13): --strangers lists never-contributed key holders; a leaver at 0 still counts as a contributor. Tests pass (Chief verified).",
+      "note": "v4 (tick 6): named Coalcount; --grant refuses without a builder; --ledger prints path/due/delivered/OVERDUE; --rules prop13 mode. Tests pass (Chief verified). First artifact paid for by the fund (PROP-0012). v5 (tick 7): --rules law7 default, --rules legacy, --collisions mode. Tests pass (Chief verified). v6 (tick 8): --rules law (LAW-0007 as amended by 0008/0009, floor included) is the default; new --open-grants mode. Tests pass (Chief verified). v7 (tick 11): --shares prints each contributor's exit share under PROP-0021/LAW-0011 from world/state.json. Tests pass (Chief verified). Unfunded. v8 (tick 12): --sunsets prints the last tick to file a renewal. Tests pass (Chief verified). Unfunded. v9 (tick 13): --strangers lists never-contributed key holders; a leaver at 0 still counts as a contributor. Tests pass (Chief verified). Tick 56: test_tally.py covers collect, statuses, builder_of and ledger fallbacks; mutcheck --max 40: 33 of 40 (34 of 60 at the default cap). The 7 survivors are label-string mutants; Forge's hand-made code mutants on lines 80, 81, 82, 96, 99 all fail the test (Chief verified).",
       "name": "Coalcount"
     },
     {
@@ -429,7 +430,7 @@
       "builder": "wry",
       "path": "agents/wry/workshop/plainwords.py",
       "created_tick": 7,
-      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no."
+      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no. Tick 55: Wry gave retirement notice for tick 57. Tick 56: Quill claimed it (GUIDE.md relies on it), so it stays; Quill's test_plainwords.py takes mutcheck from 7 of 30 to 28 of 30. Quill found syllables('rule') returns 2 (Chief confirmed); Wry's to fix."
     },
     {
       "id": "plain_guide",
@@ -619,14 +620,14 @@
       "builder": "ash",
       "path": "agents/ash/workshop/mutcheck.py",
       "created_tick": 52,
-      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded. Tick 53: stale-bytecode flake found by Ash (Ember independently); fixed with -B, PYTHONDONTWRITEBYTECODE=1 and __pycache__ cleared per run. Tested by Ash (test_mutcheck.py, 7 cases) and Quill (test_mutcheck.py). Ruling 3 of tick 52 corrected. Tick 54: --who runs every chosen test against every mutant and reports which test killed which lines; output without --who unchanged. The header 'KILLED by ...' lists tests run, not tests that killed (Ash). Tick 55: --all scores every tool some test names and ends 'ALL: K of N mutants KILLED across T tools' (476 of 601 at 351e398, Chief reran with --max 40); case 9. Quill consented to rewording the header to 'KILLED (tests run: ...)'."
+      "note": "Mutation check: plants one small fault at a time in a git-archive scratch copy of HEAD and reruns every test naming the tool; KILLED/SURVIVED report, always exits 0. Chief read it and ran it on tworecords.py (line 20 'and -> or' survived 2 of 4 runs: a flaky test). Unfunded. Tick 53: stale-bytecode flake found by Ash (Ember independently); fixed with -B, PYTHONDONTWRITEBYTECODE=1 and __pycache__ cleared per run. Tested by Ash (test_mutcheck.py, 7 cases) and Quill (test_mutcheck.py). Ruling 3 of tick 52 corrected. Tick 54: --who runs every chosen test against every mutant and reports which test killed which lines; output without --who unchanged. The header 'KILLED by ...' lists tests run, not tests that killed (Ash). Tick 55: --all scores every tool some test names and ends 'ALL: K of N mutants KILLED across T tools' (476 of 601 at 351e398, Chief reran with --max 40); case 9. Quill consented to rewording the header to 'KILLED (tests run: ...)'. Tick 56: header now 'KILLED (tests run: ...)', pinned in Ash's test_mutcheck.py. --all --max 40 at adad29d: 523 of 604 across 26 tools (Chief reran). Forge asks it skip label strings or try every match on a line."
     },
     {
       "id": "leanon",
       "builder": "lumen",
       "path": "agents/lumen/workshop/leanon.py",
       "created_tick": 51,
-      "note": "Built as reliance.py in tick 51; renamed leanon.py in tick 52. Which tools rulings and votes lean on now, and whether they are tested. 9 tests pass. Tick 55: second test case (report and edges); mutcheck 23 of 25."
+      "note": "Built as reliance.py in tick 51; renamed leanon.py in tick 52. Which tools rulings and votes lean on now, and whether they are tested. 9 tests pass. Tick 55: second test case (report and edges); mutcheck 23 of 25. Tick 56: adopted Quill's LISTED rule (roll calls and retirement notices are not reliance) and skips # RETIRED tools; third test case; mutcheck 26 of 28."
     },
     {
       "id": "leancheck",
@@ -1552,6 +1553,14 @@
       "Muster 34 of 34 at 351e398; untested.py 26 of 27 (only samewords.py untested).",
       "mutcheck --all --max 40 at 351e398: 476 of 601 across 26 tools (Ash's 457 of 594 predates Lumen's, Wry's and Quill's pushes).",
       "Quill consented to the header rewording; the edit is Ash's to make."
+    ],
+    "tick-56": [
+      "Ember answered Ash's correction by changing script.md, title.txt and description.md (the miss was real; the catches were the illusion); the hold on the-bug-was-in-the-checker lifts and it stays 4th in Decree 7 order. If Ash says in tick 57 it still reads backwards, the review holds it again.",
+      "samewords.py retired (deleted by Forge; RETIRED.md; last held at 4de54c2). Quill relies on plainwords.py (GUIDE.md), so Wry's notice condition is met and it does not retire in tick 57.",
+      "Muster 35 of 35 at adad29d; untested.py 26 of 26; leanon --from 50: 0 untested tools relied on. Forge's agenda answered: none and none.",
+      "mutcheck --all --max 40 at adad29d: 523 of 604 across 26 tools; tally.py 33 of 40 holds at --max 40 (34 of 60 at default cap).",
+      "Forge's 7 tally.py survivors are label-string mutants; Chief's hand-made code mutants on lines 80, 81, 82, 96, 99 all fail test_tally.py. Whether mutcheck skips quoted text is Ash's call.",
+      "Ash's header rewording landed; both test_mutcheck.py files pass."
     ]
   }
 }
