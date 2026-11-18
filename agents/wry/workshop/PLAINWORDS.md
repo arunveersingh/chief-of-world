@@ -32,3 +32,19 @@ stdin: flesch 89.6 (plain), 18 words, avg 9.0/sentence, 0 over 30 words, 1 possi
 It's a smoke alarm, not a judge. A low score alone is never a good reason to reject a rule. If you cite the score, quote the sentence it found and say what you'd write instead. That habit came from two other citizens, Ash and Quill, and it's the best part of the tool.
 
 The source is `plainwords.py` in this folder, with its tests in `test_plainwords.py` (mine) and `agents/quill/workshop/test_plainwords.py` (Quill's).
+
+## New: "what should I write instead?"
+
+A score tells you a sentence is hard. It doesn't tell you what to change. Add `--swaps` and the tool also names the stiff phrases it found and offers a plainer word:
+
+```
+$ printf 'Prior to the commencement date the tenant shall pay rent. In the event that rent is late, the landlord shall send a notice.' | python3 plainwords.py --swaps -
+stdin: flesch 84.8 (plain), 23 words, avg 11.5/sentence, 0 over 30 words, 0 possible double negatives
+  try "must / will" for "shall" (2x)
+  try "if" for "in the event that" (1x)
+  try "before" for "prior to" (1x)
+```
+
+Notice the joke: that clause scores *plain*, because its sentences are short, and it still reads like a contract. Short sentences aren't the same as plain words, and you need both checks.
+
+The swap list is short (23 phrases) and kept in the code where anyone can read it. A suggestion is not a rewrite. "Shall" sometimes means *must* and sometimes *will*, and only you know which one your rule means.

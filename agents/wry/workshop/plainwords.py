@@ -15,6 +15,7 @@ Usage:
   python3 agents/wry/workshop/plainwords.py FILE [...]   # specific files
   python3 agents/wry/workshop/plainwords.py --worst 5    # 5 hardest sentences overall
   python3 plainwords.py - < notice.txt                   # any text on stdin, from anywhere
+  python3 plainwords.py --swaps - < lease.txt            # also suggest plain words for stiff ones
 
 It works on any plain text or Markdown, not just World files: a lease clause,
 a club rule, a school notice, a terms page you pasted in. See PLAINWORDS.md.
@@ -30,6 +31,24 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")
 LONG = 30
 NEG = r"(?:not|no|never|none|nobody|nothing|neither|nor|cannot|can't|won't|don't|doesn't|isn't|aren't|without)"
 DOUBLE_NEG = re.compile(r"\b%s\b(?:\W+\w+){0,4}?\W+(?:%s\b|un\w+|in(?:valid|eligible|active)\b)" % (NEG, NEG), re.I)
+# Stiff phrase -> plainer word. A suggestion, not a rewrite: read the sentence first.
+SWAPS = [
+    ("notwithstanding", "despite"), ("aforementioned", "this / these"), ("heretofore", "until now"),
+    ("hereinafter", "from now on"), ("in the event that", "if"), ("prior to", "before"),
+    ("subsequent to", "after"), ("pursuant to", "under"), ("in accordance with", "under"),
+    ("with respect to", "about"), ("in order to", "to"), ("for the purpose of", "to"),
+    ("commence", "start"), ("terminate", "end"), ("utilize", "use"), ("remuneration", "pay"),
+    ("sufficient", "enough"), ("endeavour", "try"), ("endeavor", "try"), ("forthwith", "now"),
+    ("in lieu of", "instead of"), ("shall", "must / will"), ("deemed", "treated as"),
+]
+SWAP_RE = [(re.compile(r"\b%s\b" % re.escape(a), re.I), a, b) for a, b in SWAPS]
+
+
+def swaps(text):
+    """[(phrase, suggestion, count)] for stiff phrases found, most frequent first."""
+    t = clean(text)
+    found = [(a, b, len(r.findall(t))) for r, a, b in SWAP_RE]
+    return sorted([x for x in found if x[2]], key=lambda x: (-x[2], x[0]))
 
 
 def clean(text):
@@ -106,21 +125,26 @@ def main(argv=None):
     ap.add_argument("files", nargs="*")
     ap.add_argument("--worst", type=int, default=0)
     ap.add_argument("--all", action="store_true", help="include superseded laws and closed proposals")
+    ap.add_argument("--swaps", action="store_true", help="suggest plain words for stiff phrases")
     a = ap.parse_args(argv)
     files = a.files or default_files(a.all)
     pool = []
     for f in files:
         if f == "-":
-            r, name = score(sys.stdin.read()), "stdin"
+            text, name = sys.stdin.read(), "stdin"
         else:
-            r = score(open(f, encoding="utf-8").read())
+            text = open(f, encoding="utf-8").read()
             name = os.path.relpath(f, ROOT) if os.path.isabs(f) else f
+        r = score(text)
         if not r:
             print(f"{name}: no prose"); continue
         print(f"{name}: flesch {r['flesch']} ({label(r['flesch'])}), "
               f"{r['words']} words, avg {r['avg']}/sentence, "
               f"{len(r['long'])} over {LONG} words, {len(r['double_neg'])} possible double negatives")
         pool += [(len(words(s)), name, s) for s in r["all"]]
+        if a.swaps:
+            for phrase, plain, n in swaps(text):
+                print(f"  try \"{plain}\" for \"{phrase}\" ({n}x)")
     if a.worst:
         print(f"\nHardest {a.worst} sentences by length:")
         for n, name, s in sorted(pool, reverse=True)[: a.worst]:

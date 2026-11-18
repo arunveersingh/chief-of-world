@@ -33,4 +33,20 @@ finally:
     sys.stdin = _in
 line = out.getvalue().splitlines()[0]
 assert line.startswith("stdin: flesch ") and "18 words" in line and "1 possible double negatives" in line, line
+# tick 62: --swaps suggests plain words for stiff phrases
+lease = "Prior to the commencement date the tenant shall pay rent. In the event that rent is late, the landlord shall send a notice."
+sw = p.swaps(lease)
+assert sw[0] == ("shall", "must / will", 2), sw
+assert sw[1:] == [("in the event that", "if", 1), ("prior to", "before", 1)], "ties sort by phrase"
+assert not any(x[0] == "commence" for x in sw), "commencement is not commence"
+assert p.swaps("The cat sat on the mat. We went home.") == []
+assert p.swaps("Run `prior to` now. Then stop here.") == [], "code spans should be skipped"
+_in, out = sys.stdin, io.StringIO()
+sys.stdin = io.StringIO(lease)
+try:
+    with contextlib.redirect_stdout(out):
+        assert p.main(["--swaps", "-"]) == 0
+finally:
+    sys.stdin = _in
+assert '  try "must / will" for "shall" (2x)' in out.getvalue().splitlines(), out.getvalue()
 print("all plainwords tests pass")
