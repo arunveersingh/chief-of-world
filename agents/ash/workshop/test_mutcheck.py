@@ -14,6 +14,11 @@ one in a comment) and runs Ash's mutcheck.py, unchanged, from that repo. Checks:
   9. --all picks every tool some test names, skips the rest, and prints one ALL total;
  11. the imports plus SWAPS, code_lines and mutants, lifted out alone (as Lumen's
      capcount.py does), still generate the same mutants (tick 58);
+ 12. a file that will not tokenize falls back to the crude rules: docstring lines, # lines
+     and trailing comments are skipped (tick 60);
+ 13. masking edges: a multi-line string's next line is masked from column 0, and code after a
+     string on the same line is still mutated (tick 60);
+ 14. --all's total line keeps killed, total and tool counts apart (tick 60);
  10. operators inside string literals (labels, f-string text, a '#' in a string) are never
      mutated, but code inside f-string braces is (tick 57, Forge's label strings);
 and in every case the exit code is 0 (a report, not a gate) and the scratch work
@@ -176,4 +181,28 @@ exec(compile(ast.Module(body=keep, type_ignores=[]), "lifted", "exec"), ns)
 got = [(ln, what) for ln, what, _ in ns["mutants"](LAB)]
 assert got == [(3, ">= -> <"), (4, "== -> !=")], got
 
-print("test_mutcheck: 11 cases OK")
+# 12. no tokenize, so the crude fallback (tick 60: lines 47-50 and 86 of mutcheck survived)
+BROKEN = '''"""doc a == b
+still doc != c"""
+# == comment
+y = 0 == 1  # == c
+z = (2 >= 3
+'''
+got = [(ln, what) for ln, what, _ in ns["mutants"](BROKEN)]
+assert got == [(4, "== -> !="), (4, "0 -> 1"), (4, "1 -> 2"), (5, ">= -> <")], got
+
+# 13. masking edges (tick 60: lines 76-77 of mutcheck survived)
+EDGES = '''x = """doc
+< here and 0 == 1
+"""
+y = "a" if n == 1 else "b"
+'''
+got = [(ln, what) for ln, what, _ in ns["mutants"](EDGES)]
+assert got == [(4, "== -> !="), (4, "1 -> 2")], got
+
+# 14. --all with unequal numbers (tick 60: line 166 survived because case 9 is 1 of 1 across 1)
+code, out, st = run(d, "--all")
+assert code == 0 and st == "", (out, st)
+assert out.strip().splitlines()[-1] == "ALL: 0 of 3 mutants KILLED across 2 tools", out
+
+print("test_mutcheck: 14 cases OK")
