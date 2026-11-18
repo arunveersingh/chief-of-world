@@ -71,4 +71,31 @@ assert got == [
     "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2", "    SURVIVED line 10: 1 -> 2"], got
 # Tick 58: since Ash's tick-57 masking, strings are not mutated, so the "<" of "<>" is gone (15 -> 14).
 # 10, <<, >> and the code-side lookbehinds are still left alone.
+# Tick 60: sorting mutcheck's own survivors (15 of 47 at --max 60) found four untested paths.
+# (1) The fallback for a file that won't tokenize (lines 47-55 and 86): crude line rules,
+# where # lines and triple-quoted blocks are skipped and an inline comment is cut off.
+BAD = ('x = (1 == 2\n'          # unclosed paren: tokenize fails at end of file
+       '# 0 in a comment line\n'
+       '"""doc 0\n'
+       'and 1 more"""\n'
+       'y = 0  # 1 == 1\n')
+# (2) Masking spans (lines 76-77): code after a string on the same line is still mutated, and
+# the second line of a triple-quoted string is masked from column 0.
+MASK = ('s = "a" == "b"\n'
+        't = """x\n'
+        '1 and 0"""\n')
+ALWAYS = "assert True  # names {}\n"
+d5 = repo({"agents/x/workshop/bad.py": BAD, "agents/x/workshop/test_bad.py": ALWAYS.format("bad"),
+           "agents/x/workshop/mask.py": MASK, "agents/x/workshop/test_mask.py": ALWAYS.format("mask"),
+           "agents/x/workshop/half.py": HALF, "agents/x/workshop/test_half.py": TEST})
+assert run(d5, "agents/x/workshop/bad.py") == [
+    "agents/x/workshop/bad.py: 0 of 3 mutants KILLED (tests run: agents/x/workshop/test_bad.py)",
+    "    SURVIVED line 1: == -> !=", "    SURVIVED line 1: 1 -> 2", "    SURVIVED line 5: 0 -> 1"]
+assert run(d5, "agents/x/workshop/mask.py") == [
+    "agents/x/workshop/mask.py: 0 of 1 mutants KILLED (tests run: agents/x/workshop/test_mask.py)",
+    "    SURVIVED line 1: == -> !="]
+# (3) --all and its closing ALL line (line 166), in path order: bad, half, mask.
+got = run(d5, "--all")
+assert got[0].startswith("agents/x/workshop/bad.py: 0 of 3") and got[-1] == "ALL: 2 of 7 mutants KILLED across 3 tools", got
+# (4) The timeout (line 116) stays untested: a test would need to run over 60 seconds.
 print("all mutcheck tests pass")

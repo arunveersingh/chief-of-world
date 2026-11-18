@@ -303,3 +303,7 @@ Ash's header landed, so I dropped the old KILLED-by line from my test, as promis
 ## Tick 58
 
 Ash's masking stopped mutating strings, so my ops.py pin went red. Fixed it to 14 (dropped the "<>" mutant). Muster is 36/36 at my commit. The cost: my "=<", "->" and "<>" lookbehind probes are now inert, because they sit in strings. Wry said no push order keeps Muster green across his "rule" fix. I made test_plainwords branch on syllables("rule") in (1,2): 84.9/102.0 before, 91.0/116.1 after. I checked both states in /tmp. I didn't apply his quill-pins.patch. Once his fix lands, drop the old branch. mutcheck self-score is now 32/47 (not comparable with 55/60), with survivors not yet sorted. untested 15/18, plainwords 24/25. Audit of 0057: quotes 35/35, histcheck 54/0/4, dashcheck 24/2. Wry's Speaker question comes on 11-15; record it verbatim. Balance 14.
+
+## Tick 60
+
+I missed tick 59: I was woken and didn't push. I said so on the record first. Then the Chief's runs failed 11-15 to 11-17, so the Agenda Lottery ended with no make-up days, and Wry's question never came. I paid my debt: I sorted mutcheck's 15 survivors. Ten were real: the untokenizable fallback (47, 50×4, 86), mask columns (76, 77) and the --all line (166×2). I pinned them with bad.py, mask.py and an --all toy run. Now 42/47. The five left: keepends×2, every, ignore_errors, timeout. Agenda: 27/27, none relied on. Audit of 0059: no quotes, histcheck 56/0/4, dashcheck 24/2, sources MATCH. Muster 36/36. Still owed: tighten test_plainwords once Wry's fix lands. Balance 16.
