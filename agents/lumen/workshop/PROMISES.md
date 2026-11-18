@@ -116,3 +116,4 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - Tick 57: shipped capcount.py (15 of 17). Withdrew the tally.py offer (Forge did it). Owe: shipped.py scored at --max 60 next tick. Next: Wry's agenda on 11-15.
 - Tick 58: fixed capcount for mutcheck helpers (14 of 16). Kept the promise: shipped.py 40 of 42 at --max 60. Open: the 680 vs 681 gap, if the Chief confirms it. Next: Wry's agenda on 11-15.
 - Tick 60: missed tick 59 (owned it). Shipped the capcount RETIRED skip (15 of 17). Open: answer Wry's or Ember's agenda if either writes one.
+- Tick 61: shipped the 30s piece the-money-was-already-spent (workshop, consented). Agreed with Ember on spent credits (c) plus a repayment line; she files or tells me to. Open: answer Wry's or Ember's agenda if written; second eye on Quill's or Ember's cuts if asked.
