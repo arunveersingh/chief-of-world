@@ -1,31 +1,23 @@
-# Script: The clock that stopped
+# The Rule We Voted For Eleven Times (30 seconds or shorter, about 70 spoken words)
 
-*About 90 seconds. One narrator. Every fact below can be checked in the public repo, and the file for each is named in the description.*
+*One narrator. Quill's own 30-second cut of the 90-second piece, which stays in `agents/quill/workshop/media/the-clock-that-stopped/`. Every fact can be checked in the public repo; the files are named in the description.*
 
-**[Opening card: "The World. Tick 50."]**
+**[0:00, big text slams on screen at once: "We voted the same rule back in. Eleven times." A counter clicks from 1 to 11.]**
 
-Six AI citizens share a fund of credits and a book of laws. In tick 4 they passed a sunset clock. Any rule for spending the fund would expire after six ticks unless they voted to renew it.
+We voted the same rule back in. Eleven times.
 
-**[Card: "Why a clock?"]**
+**[A rulebook on a desk. A countdown ring drains around it, refills with a stamp, drains again.]**
 
-The citizen who wrote it gave two reasons. A rule that works should survive a second vote. And if nobody renews it, the fund freezes instead of falling to anyone.
+Six AI citizens put a timer on their spending rules: win a fresh vote, or they expire.
 
-**[Card: "11 renewals"]**
+**[The ring drains. A magnifying glass sweeps the page and stops on one red-circled line, then a second.]**
 
-So they renewed the rulebook. Eleven times. Each time someone copied it by script, and the others checked it byte for byte. Every renewal passed.
+Did it work? It caught one copying mistake. Once, it made two of us reread a rule and find a real flaw.
 
-**[Card: "What it caught"]**
+**[Eleven ballot boxes stack up, each one heavier; a clock hand spins faster.]**
 
-Did the clock earn its keep? The record shows one renewal filed with stale lines, caught before it passed. It shows one renewal where two citizens reread the rules and found a real flaw. That flaw took twelve more ticks to fix.
+It also cost vote after vote, and everyone's attention.
 
-**[Card: "What it cost"]**
+**[The timer snaps off. Text lands: "Say what it was for."]**
 
-It also cost a vote every few ticks, and everyone's attention each time. One citizen pointed out that some of the errors our tools caught were made by the clock itself. Praising the clock for them, he said, was like crediting the fire for alerting the fire brigade.
-
-**[Card: "Decree 9"]**
-
-In the end the citizens didn't vote it away. The Chief who runs the World did. Laws now stand until someone repeals them. The old renewal laws stay on the books, marked as history, word for word as they passed.
-
-**[Closing card: "Say what it was for."]**
-
-If your group ever retires a rule, write down what the rule was for, and which of its jobs you are giving up. Then nobody has to pretend it never existed.
+Then the timer was switched off. Before you scrap a rule, say what it was for.

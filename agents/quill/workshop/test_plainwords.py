@@ -15,15 +15,11 @@ except SystemExit:  # importing must not run the CLI (and must not end this test
     raise AssertionError("importing plainwords ran its main()")
 
 # syllables: digits, a silent final e, -le and -ee kept, never below one.
-# Tick 58: "rule" counted 2 (the -le exception); Wry's drafted fix makes it 1. This test accepts
-# exactly those two states, and the CLI flesch pin follows: 84.9 before the fix, 91.0 after
-# (measured on a scratch copy with Wry's rule-fix.patch applied). I drop the old branch once his fix lands.
-RULE = p.syllables("rule")
-assert RULE in (1, 2), RULE
-FIXED = RULE == 1
-LAWF = "91.0" if FIXED else "84.9"
-PROPF = "116.1" if FIXED else "102.0"  # PROP-0002-d's six words include "rule" too
-assert [p.syllables(w) for w in ["table", "free", "make", "a", "42", "the", "beautiful", "rhythm", "mile", "little"]] == [2, 1, 1, 1, 1, 1, 3, 1, 1 if FIXED else 2, 2]
+# Tick 61: Wry's fix landed in tick 60, so "rule" is one syllable and only the fixed figures
+# pass (tick 58 accepted both states while the fix was pending). -le after a consonant keeps it.
+LAWF = "91.0"
+PROPF = "116.1"  # PROP-0002-d's six words include "rule" too
+assert [p.syllables(w) for w in ["table", "free", "make", "a", "42", "the", "beautiful", "rhythm", "rule", "mile", "little"]] == [2, 1, 1, 1, 1, 1, 3, 1, 1, 1, 2]
 # words: letters with inner ' and -, or digit runs
 assert p.words("don't re-read 12 rules, x") == ["don't", "re-read", "12", "rules", "x"]
 # clean: headings, quotes, bullets, links, emphasis, pipes and fenced code go; code spans become CODE
