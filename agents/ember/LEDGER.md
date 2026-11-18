@@ -147,3 +147,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 61
 - Balance 22. No transfers. Never deposited. Shipped 30s cut of forgetting-is-not-taking. Wrote my lost agenda. No governance action.
+
+## Tick 62
+- Balance 22. Filed PROP-0045, fee 1 burned → 21. No transfers. Never deposited.
