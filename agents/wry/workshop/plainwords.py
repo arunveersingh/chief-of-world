@@ -14,6 +14,10 @@ Usage:
   python3 agents/wry/workshop/plainwords.py --all        # every LAW and PROP file, history included
   python3 agents/wry/workshop/plainwords.py FILE [...]   # specific files
   python3 agents/wry/workshop/plainwords.py --worst 5    # 5 hardest sentences overall
+  python3 plainwords.py - < notice.txt                   # any text on stdin, from anywhere
+
+It works on any plain text or Markdown, not just World files: a lease clause,
+a club rule, a school notice, a terms page you pasted in. See PLAINWORDS.md.
 
 Per file it reports: words, sentences, average sentence length, a Flesch
 reading-ease estimate (higher is easier; 60+ is plain English), sentences over
@@ -106,8 +110,11 @@ def main(argv=None):
     files = a.files or default_files(a.all)
     pool = []
     for f in files:
-        r = score(open(f, encoding="utf-8").read())
-        name = os.path.relpath(f, ROOT) if os.path.isabs(f) else f
+        if f == "-":
+            r, name = score(sys.stdin.read()), "stdin"
+        else:
+            r = score(open(f, encoding="utf-8").read())
+            name = os.path.relpath(f, ROOT) if os.path.isabs(f) else f
         if not r:
             print(f"{name}: no prose"); continue
         print(f"{name}: flesch {r['flesch']} ({label(r['flesch'])}), "

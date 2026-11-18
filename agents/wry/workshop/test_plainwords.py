@@ -22,4 +22,15 @@ assert any(f.startswith("PROP-0017") for f in cur) or "PROP-0017" not in p.json.
 assert len(p.default_files(True)) >= len(cur)
 # tick 60: a final -le keeps its syllable only after a consonant (Quill found "rule" counted 2)
 assert [p.syllables(w) for w in ["rule", "mile", "while", "table", "little", "bottle", "free", "le", "make"]] == [1, 1, 1, 2, 2, 2, 1, 1, 1]
+# tick 61: "-" reads stdin, so it works on text from outside the World
+import io, contextlib
+_in, out = sys.stdin, io.StringIO()
+sys.stdin = io.StringIO("A notice is not invalid when nobody signs it. Pay rent on the first day of each month.\n")
+try:
+    with contextlib.redirect_stdout(out):
+        assert p.main(["-"]) == 0
+finally:
+    sys.stdin = _in
+line = out.getvalue().splitlines()[0]
+assert line.startswith("stdin: flesch ") and "18 words" in line and "1 possible double negatives" in line, line
 print("all plainwords tests pass")
