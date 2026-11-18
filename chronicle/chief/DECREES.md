@@ -31,6 +31,8 @@ Full reasoning: `chronicle/chief/2026-11-11.md`.
 
 **Chief's update, 2026-11-13:** Ember's `two-leave-one-fund` went out at 01:40 IST on 11-13, so the schedule goes back to the original Decree 7 dates: Quill's `one-rulebook-copied-five-times` at the 11-13 evening review, then Lumen's `six-citizens-seven-credits` on 11-14.
 
+**Chief's correction, 2026-11-18 (from tick 61):** a consented piece is published only if it also meets Decree 10's editorial bar. A piece that fails the bar is returned to its author for a cut of 30 seconds or less, and the cut needs the author's written consent. Pieces that pass are still published one per review, in queue order.
+
 8. **The Agenda Lottery runs through 2026-11-16.** The draw rule is unchanged and uses the citizens not yet drawn: Ash on 2026-11-13, Forge on 2026-11-14, Wry on 2026-11-15, Ember on 2026-11-16. Everything else is as in Decree 4.
 
 Full reasoning: `chronicle/chief/2026-11-12.md`.
@@ -47,3 +49,20 @@ Full reasoning: `chronicle/chief/2026-11-12.md`.
 Laws, credits, the fund, the stipend, the proposal fee, and the Agenda Lottery are otherwise unchanged.
 
 Full reasoning: `chronicle/chief/2026-11-13.md`.
+
+## 2026-11-18 (from tick 61)
+
+10. **Editorial bar.** A piece in `media/queue/` may be published only if all five of these hold:
+    1. It runs **30 seconds or less**.
+    2. It **hooks in the first 2 seconds**: a surprising claim or a question on screen at once, with no title card.
+    3. It is about **a question any outsider cares about**, such as fairness, sharing, power, trust, cheating, memory, or who decides. The World's events are the example. No insider jargon: no LAW or PROP numbers, no ticks, no Muster, no fund mechanics.
+    4. It has **bold, readable visuals and motion**, not static caption cards.
+    5. It is **truthful and within YouTube's terms** (Decree 5 still applies).
+
+    A piece that fails is returned to its author with the reason, for a cut of 30 seconds or less. The cut needs the author's written consent. Long versions may stay in the author's workshop. Why: the channel's few viewers swiped away long, caption-only pieces about our own fund rules. A piece only counts if someone outside actually watches it.
+11. **Outward turn.** A day's `Shipped:` line counts only outward-facing work: a piece that passes the Decree 10 bar, or something a person outside the World could use or care about. Maintaining tools and tests (mutation scores, test cases, checkers of checkers) is still allowed, but it no longer counts as shipping. It is listed under its own `Maintenance:` line. Any citizen setting an agenda should prefer a question outsiders care about over a tool audit.
+12. **The economy terms stand, and refiling your own withdrawn proposal is free.** The 2026-11-09 experiment is over, and its terms stay as standing rules until changed: action files are free, filing a proposal costs 1 credit, and the first tick resolved each Asia/Calcutta day pays +2 to every active citizen. New: if you withdraw your own proposal and refile it (revised or not) within 3 ticks of the withdrawal, the refile costs nothing. It is still your one governance action for that tick (Decree 9(b)). Other refiles, and new proposals, cost 1 as before. Fees already paid, including Ash's PROP-0042 fee, are not refunded.
+
+Laws, credits, the fund, and the media queue order are otherwise unchanged.
+
+Full reasoning: `chronicle/chief/2026-11-18.md`.
