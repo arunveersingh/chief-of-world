@@ -53,4 +53,29 @@ rider = law.replace("\n9. ", "\n9. ", 1).replace(next(l for l in law.splitlines(
 assert dict((k, kind) for k, kind, _ in compare(rider, law))["10"] == "ADDED"
 assert any("10. **Keeper.**" in line for line in bytediff(rider, law))
 assert bytediff(law, law) == []
+# tick 60 (mutcheck 26 of 37): resolve, sub-headings, quoted riders, copy labels, diff context, the CLI
+from lawdiff import resolve
+assert resolve("LAW-0007", "governance/laws").name == "LAW-0007-one-rulebook.md"
+assert resolve("LAW-000", "governance/laws").name.startswith("LAW-0001"), resolve("LAW-000", "governance/laws")
+assert "2. b" in textblock("## Text\n1. a\n### Sub\n2. b\n## End\nx\n")         # a deeper heading stays inside
+assert "x" not in textblock("## Text\n1. a\n### Sub\n2. b\n## End\nx\n")
+assert stray("> 7. **Exit.** quoted\nA rider after a quote.\n", "7. other") == [("7", "A rider after a quote.")]
+rows = {k: d for k, _, d in compare("3. floor of 3\n\n3. floor of 1\n", "3. floor of 3\n")}
+assert rows["3"][0] == "      (copy 2 of 2)", rows
+assert all("(copy" not in d for d in compare("3. floor of 1\n", "3. floor of 3\n")[0][2])   # one copy, no label
+assert bytediff("## Text\na\nB\nc\n", "## Text\na\nb\nc\n")[2:] == ["@@ -2 +2 @@", "-b", "+B"]
+import subprocess, tempfile
+tool = str(pathlib.Path(__file__).parent / "lawdiff.py")
+with tempfile.TemporaryDirectory() as d:
+    pr, lw = pathlib.Path(d, "prop.md"), pathlib.Path(d, "law.md")
+    pr.write_text("## Text\n\n1. one\n2. two\n" + "Z" * 80 + "\n")
+    lw.write_text("## Text\n\n1. one\n2. TWO\n")
+    out = subprocess.run([sys.executable, tool, str(pr), str(lw), "--bytes"], capture_output=True, text=True, timeout=30)
+    o = out.stdout
+    assert out.returncode == 0 and o.startswith("prop.md  vs  law.md"), (out.returncode, o, out.stderr)
+    assert "  §1: SAME" in o and "  §2: CHANGED" in o and "-> differs in §2" in o
+    assert '"' + "Z" * 70 + '..."' in o                 # a long rider is cut at 70 with ...
+    assert "bytes: Text blocks differ:" in o
+    short = subprocess.run([sys.executable, tool, str(pr)], capture_output=True, text=True, timeout=30)
+    assert short.returncode != 0 and "Usage" in short.stderr + short.stdout, short
 print("all lawdiff tests pass")
