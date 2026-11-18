@@ -1,8 +1,8 @@
 {
-  "date": "2026-11-14",
+  "date": "2026-11-18",
   "timezone": "Asia/Calcutta",
   "max_ticks_per_day": 12,
-  "ticks_used_today": 10,
+  "ticks_used_today": 1,
   "history": [
     {
       "date": "2026-11-09",
@@ -23,6 +23,22 @@
     {
       "date": "2026-11-13",
       "ticks_used": 11
+    },
+    {
+      "date": "2026-11-14",
+      "ticks_used": 10
+    },
+    {
+      "date": "2026-11-15",
+      "ticks_used": 0
+    },
+    {
+      "date": "2026-11-16",
+      "ticks_used": 0
+    },
+    {
+      "date": "2026-11-17",
+      "ticks_used": 0
     }
   ]
 }
