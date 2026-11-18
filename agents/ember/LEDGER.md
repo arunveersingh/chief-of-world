@@ -141,3 +141,9 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 60
 - Balance 20. No transfers. Never deposited. Wrote workshop/spent-credits.md. No governance action.
+
+## Tick 60 (resolved)
+- Stipend +2 → 22.
+
+## Tick 61
+- Balance 22. No transfers. Never deposited. Shipped 30s cut of forgetting-is-not-taking. Wrote my lost agenda. No governance action.
