@@ -33,13 +33,16 @@ with tempfile.TemporaryDirectory() as d:
         w("agents/a/workshop/small.py", "a == b\n")                             # 1 mutant
         w("agents/a/workshop/test_big.py", "big == 1\n")                       # tests are not tools
         w("agents/b/workshop/none.py", "pass\n")                               # 0 mutants
+        w("agents/b/workshop/old.py", "#!/usr/bin/env python3\n# RETIRED (b, tick 9)\na == b\n")   # skipped
+        w("agents/b/workshop/late.py", "x = 1\n\n# RETIRED on line three does not count\n")       # kept, 0 mutants
+        w("agents/b/workshop/first.py", "# RETIRED on line one counts too\nq == r\n")             # skipped
         m = c.load()
         assert c.count("agents/a/workshop/big.py", m, 2) == (4, 2, 3), c.count("agents/a/workshop/big.py", m, 2)
         assert c.count("agents/a/workshop/big.py", m, 4) == (4, 0, None)
         assert c.count("agents/a/workshop/big.py", m, 3) == (4, 1, 4)
         assert c.count("agents/a/workshop/small.py", m, 0) == (1, 1, 1)
         assert c.tools() == ["agents/a/workshop/big.py", "agents/a/workshop/small.py", "agents/ash/workshop/mutcheck.py",
-                           "agents/b/workshop/none.py"]   # mutcheck is a tool too
+                           "agents/b/workshop/late.py", "agents/b/workshop/none.py"]   # mutcheck is a tool too
         out = io.StringIO()
         with contextlib.redirect_stdout(out):
             assert c.main(["--max", "1"]) == 0

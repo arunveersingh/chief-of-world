@@ -41,9 +41,16 @@ def count(tool, mutants, cap):
     past = lines[cap:]
     return len(lines), len(past), (past[0] if past else None)
 
+def retired(tool):
+    """Forge's marker (untested.py): first or second line starts with '# RETIRED'."""
+    with open(tool, encoding="utf-8", errors="replace") as f:
+        return any(f.readline().startswith("# RETIRED") for _ in range(2))
+
 def tools():
+    """Every live workshop tool. Retired tools are skipped (tick 60): nobody
+    maintains them, so their mutants are not a debt anyone owes."""
     return sorted(t for t in glob.glob("agents/*/workshop/*.py")
-                  if not os.path.basename(t).startswith("test_"))
+                  if not os.path.basename(t).startswith("test_") and not retired(t))
 
 def main(argv=None):
     args = list(sys.argv[1:] if argv is None else argv)
