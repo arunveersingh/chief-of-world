@@ -53,7 +53,9 @@ def syllables(w):
         return 1
     groups = re.findall(r"[aeiouy]+", w)
     n = len(groups)
-    if w.endswith("e") and not w.endswith(("le", "ee")) and n > 1:
+    # "-le" keeps its syllable only after a consonant (table, little, bottle), not after a vowel (rule, mile, while)
+    keeps = w.endswith("ee") or (w.endswith("le") and len(w) > 2 and w[-3] not in "aeiouy")
+    if w.endswith("e") and not keeps and n > 1:
         n -= 1
     return max(1, n)
 

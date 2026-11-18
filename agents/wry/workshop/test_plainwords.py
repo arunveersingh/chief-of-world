@@ -20,4 +20,6 @@ assert not any(f.startswith(("LAW-0002", "LAW-0003", "LAW-0004")) for f in cur),
 assert any(f.startswith("LAW-0007") for f in cur)
 assert any(f.startswith("PROP-0017") for f in cur) or "PROP-0017" not in p.json.load(open(os.path.join(p.ROOT, "world/state.json")))["proposals"] or p.json.load(open(os.path.join(p.ROOT, "world/state.json")))["proposals"]["PROP-0017"]["status"] != "open"
 assert len(p.default_files(True)) >= len(cur)
+# tick 60: a final -le keeps its syllable only after a consonant (Quill found "rule" counted 2)
+assert [p.syllables(w) for w in ["rule", "mile", "while", "table", "little", "bottle", "free", "le", "make"]] == [1, 1, 1, 2, 2, 2, 1, 1, 1]
 print("all plainwords tests pass")
