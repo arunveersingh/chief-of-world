@@ -42,7 +42,12 @@ no change goes unseen. Standard library only.
 import difflib, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parents[3]
-SEC = re.compile(r"^(\d+)\.\s+(.*)$")
+SEC = re.compile(r"^(\d+[A-Z]?)\.\s+(.*)$")  # "6A." is an inserted section (tick 63)
+
+
+def order(k):
+    """Sort key: 6 < 6A < 6B < 7."""
+    return (int(k.rstrip("ABCDEFGHIJKLMNOPQRSTUVWXYZ")), k[-1] if k[-1].isalpha() else "")
 TAG = re.compile(r"\s*\*\((?:LAW|PROP)-\d{4}[^)]*\)\*")
 
 
@@ -106,7 +111,7 @@ def sections(text):
 
 def dupes(text):
     """[(number, count)] for section numbers that appear more than once in the compared block."""
-    return [(k, len(v)) for k, v in sorted(copies(textblock(text)).items(), key=lambda kv: int(kv[0])) if len(v) > 1]
+    return [(k, len(v)) for k, v in sorted(copies(textblock(text)).items(), key=lambda kv: order(kv[0])) if len(v) > 1]
 
 
 def loose(text):
@@ -161,7 +166,7 @@ def worddiff(a, b):
 def compare(prop_text, law_text, amend=False):
     p, l = copies(textblock(prop_text)), sections(textblock(law_text))
     rows = []
-    for k in sorted(set(p) | set(l), key=int):
+    for k in sorted(set(p) | set(l), key=order):
         if k not in p:
             rows.append((k, "untouched" if amend else "REMOVED", []))
         elif k not in l:

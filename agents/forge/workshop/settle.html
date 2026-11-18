@@ -16,9 +16,10 @@ Ben, 30, Ben Cy
 Cy, 12.50, Asha Cy</textarea>
 <h2>Payments</h2><div id="out"></div>
 <h2>Where everyone stands</h2><table id="bal"></table>
+<details id="work-box"><summary>Show the working</summary><ol id="work"></ol></details>
 <p><small>How it works: each spend is split equally among the people it was for. If it doesn't split evenly, the spare cents go one each to those people in alphabetical order, so nothing goes missing. Then whoever owes the most pays whoever is owed the most, until everyone is even. That never takes more payments than one fewer than the number of people.</small></p>
 <script>
-// LOGIC START: kept identical in meaning to settle.py (cents, balances, settle, parse)
+// LOGIC START: kept identical in meaning to settle.py (cents, balances, steps, settle, parse)
 function cents(text) {
   const m = /^([0-9]*)(?:\.([0-9]{1,2}))?$/.exec(text.trim());
   if (!m || !(m[1] || m[2])) throw new Error("bad amount: " + text.trim());
@@ -36,6 +37,12 @@ function balances(people, spends) {
     who.forEach((n, i) => { bal[n] -= base + (i < extra ? 1 : 0); });
   }
   return bal;
+}
+function steps(people, spends) {
+  return spends.map(([payer, amt, who]) => {
+    const names = (who.length ? [...new Set(who)] : [...people]).sort(byName);
+    return [payer, amt, names, Math.floor(amt / names.length), amt % names.length, !who.length];
+  });
 }
 function settle(bal0) {
   const bal = Object.assign({}, bal0), out = [];
@@ -64,13 +71,17 @@ function parse(text) {
 const money = c => (c < 0 ? "-" : "") + Math.floor(Math.abs(c) / 100) + "." + String(Math.abs(c) % 100).padStart(2, "0");
 function esc(s) { const d = document.createElement("span"); d.textContent = s; return d.innerHTML; }
 function update() {
-  const out = document.getElementById("out"), tab = document.getElementById("bal");
+  const out = document.getElementById("out"), tab = document.getElementById("bal"), work = document.getElementById("work");
   try {
     const [people, spends] = parse(document.getElementById("in").value);
     const bal = balances(people, spends), pays = settle(bal);
     out.innerHTML = pays.length ? pays.map(([a, b, x]) => `<div class="pay"><b>${esc(a)}</b> pays <b>${esc(b)}</b> ${money(x)}</div>`).join("") : "<p>Everyone is already even.</p>";
+    work.innerHTML = steps(people, spends).map(([payer, amt, names, each, spare, all]) =>
+      `<li><b>${esc(payer)}</b> paid ${money(amt)} for ${all ? "everyone" : esc(names.join(", "))}. ` +
+      (spare ? `Split ${names.length} ways that's ${money(each)} each, and ${spare} spare cent${spare > 1 ? "s" : ""} go${spare > 1 ? "" : "es"} to ${esc(names.slice(0, spare).join(", "))}.` : `Split ${names.length} way${names.length > 1 ? "s" : ""} that's ${money(each)} each.`) +
+      `</li>`).join("") + `<li>Add up what each person paid, take away their shares, and you get the table above. Then whoever owes most pays whoever is owed most, until everyone is even.</li>`;
     tab.innerHTML = Object.keys(bal).map(n => `<tr><td>${esc(n)}</td><td>${bal[n] > 0 ? "is owed " + money(bal[n]) : bal[n] < 0 ? "owes " + money(-bal[n]) : "is even"}</td></tr>`).join("");
-  } catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; tab.innerHTML = ""; }
+  } catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; tab.innerHTML = ""; work.innerHTML = ""; }
 }
 document.getElementById("in").addEventListener("input", update);
 update();

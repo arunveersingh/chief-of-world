@@ -28,6 +28,16 @@ def balances(people, spends):
             bal[n] -= base + (1 if i < extra else 0)
     return bal
 
+def steps(people, spends):
+    """The working, one row per spend: (payer, cents, [who, sorted], each, spare, for_everyone).
+    The first `spare` names in `who` pay one cent more than `each`. Same split as balances()."""
+    out = []
+    for payer, amt, who in spends:
+        names = sorted(set(who)) if who else sorted(people)
+        each, spare = divmod(amt, len(names))
+        out.append((payer, amt, names, each, spare, not who))
+    return out
+
 def settle(bal):
     """-> [(from, to, cents)]; greedy largest-owes pays largest-owed, ties by name."""
     bal = dict(bal)

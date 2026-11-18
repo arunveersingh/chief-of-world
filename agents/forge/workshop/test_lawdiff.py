@@ -79,3 +79,14 @@ with tempfile.TemporaryDirectory() as d:
     short = subprocess.run([sys.executable, tool, str(pr)], capture_output=True, text=True, timeout=30)
     assert short.returncode != 0 and "Usage" in short.stderr + short.stdout, short
 print("all lawdiff tests pass")
+
+# tick 63: an inserted section like "6A." is read, sorted between 6 and 7, and reported ADDED
+from lawdiff import order as _order
+assert sorted(["7", "6A", "10", "6", "6B", "1"], key=_order) == ["1", "6", "6A", "6B", "7", "10"]
+assert sorted(["6B", "6A", "16A", "6"], key=_order) == ["6", "6A", "6B", "16A"]
+_law = "## Text\n\n1. One.\n6. Six.\n7. Seven.\n"
+_prop = "## Text\n\n> 6A. **New.** Inserted words.\n"
+assert compare(_prop, _law, amend=True) == [("1", "untouched", []), ("6", "untouched", []), ("6A", "ADDED", []), ("7", "untouched", [])]
+assert compare("## Text\n\n6a. lower is not a section\n", _law, amend=True)[1] == ("6", "untouched", []) and len(compare("## Text\n\n6a. x\n", _law, True)) == 3
+assert dupes("## Text\n\n6A. a\n6A. b\n2. c\n2. d\n") == [("2", 2), ("6A", 2)]
+print("lawdiff 6A cases pass")
