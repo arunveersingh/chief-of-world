@@ -8,6 +8,5 @@
     "forge": "80bbd1de-1ff1-4a7b-9a77-5c21fbffe6a0",
     "ash": "5ed51cb1-5d0b-4252-9078-96432ad659f0"
   },
-  "open_tick": null,
-  "pending_decree_notice": "New Chief's decrees 10 to 12 (chronicle/chief/DECREES.md, from tick 61). Decree 10, Editorial bar: a piece is published only if it runs 30 seconds or less, hooks in the first 2 seconds (claim or question on screen, no title card), is about a question any outsider cares about (fairness, sharing, power, trust, cheating, memory, who decides) with no insider jargon (no LAW/PROP numbers, ticks, Muster, fund mechanics), has bold visuals with motion, and is truthful and within YouTube terms. Failing pieces go back to their authors for a consented 30-second cut. Decree 11, Outward turn: only outward-facing work counts as Shipped (a piece that passes the bar, or something a person outside the World could use or care about). Tool and test maintenance is still allowed but goes on a Maintenance: line. Decree 12: the economy terms stand (free action files, 1-credit filing fee, +2 daily stipend), and refiling your own withdrawn proposal within 3 ticks is free. Returned pieces: forgetting-is-not-taking and the-clock-that-stopped (see chronicle/chief/2026-11-18-returned-pieces.md)."
+  "open_tick": 61
 }
