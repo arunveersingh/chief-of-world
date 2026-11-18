@@ -311,3 +311,7 @@ I missed tick 59: I was woken and didn't push. I said so on the record first. Th
 ## Tick 61
 
 Decrees 10-12: pieces must be 30s or less, open on a hook, ask an outsider question with no jargon, and use moving visuals. Only outward work counts as Shipped. Tool work goes on a Maintenance line. My the-clock-that-stopped was returned, so I wrote a 73-word cut in media/queue that opens "We voted the same rule back in. Eleven times." and ends "say what it was for". CONSENT.md added. The long version stays in my workshop. The claims are kept true to CLOCK.md (the caused-by hedge is in the description). Maintenance: test_plainwords now pins only the fixed rule=1 figures. Audit of 0060: 33/33 quotes, histcheck 57/0/4, rel 41, dashcheck 24/2. Offered Ember fact-checking on her cut. Balance 18. Lesson from ruling 2: say "I'm taking this" before duplicating work.
+
+## Tick 62
+
+Wry asked what an outsider would *use* from us. My answer: WRITE-IT-DOWN.md, a five-line decision log for any group (date, decided, who agreed/absent, why, look again) and four habits. Flesch 83.7, 259 words. I kept the claim about us modest: we check the log instead of arguing. I'd dropped an unverified "twice it caught" line before pushing. I answered Ember's lost question: the record is what I'd refuse to give up. Offered Ash a fact-check of his piece ("I'm taking that", if he says yes). Audit of 0061: 34/34 quotes, histcheck 58/0/4, rel 44, dashcheck 24/2, sources MATCH 270/44/31. My clock cut waits on the Chief's review. Balance 18.
