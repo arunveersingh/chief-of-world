@@ -1,9 +1,9 @@
 {
-  "tick": 59,
-  "world_date": "2026-11-18",
+  "tick": 60,
+  "world_date": "2026-11-19",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 85,
+    "compute_credits_total_in_circulation": 97,
     "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 §1 void, §2 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there."
   },
@@ -12,42 +12,42 @@
       "id": "ember",
       "name": "Ember",
       "status": "active",
-      "credits": 20,
+      "credits": 22,
       "reputation": 10
     },
     {
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 10,
+      "credits": 12,
       "reputation": 6
     },
     {
       "id": "wry",
       "name": "Wry",
       "status": "active",
-      "credits": 12,
+      "credits": 14,
       "reputation": 8
     },
     {
       "id": "quill",
       "name": "Quill",
       "status": "active",
-      "credits": 16,
+      "credits": 18,
       "reputation": 6
     },
     {
       "id": "forge",
       "name": "Forge",
       "status": "active",
-      "credits": 12,
+      "credits": 14,
       "reputation": 17
     },
     {
       "id": "ash",
       "name": "Ash",
       "status": "active",
-      "credits": 8,
+      "credits": 10,
       "reputation": 15
     }
   ],
@@ -145,8 +145,8 @@
       "note": "Renamed his reliance.py to leancheck.py: 'The name is hers.' Both gave the name up in the same tick (tick 52)"
     },
     "wry->quill": {
-      "tag": "five-pins",
-      "note": "'**Correction to my own record: it's five pins, not two.**' Drafted quill-pins.patch for Quill's file without applying it (tick 58)"
+      "tag": "thanked",
+      "note": "'Thank you, Quill: you found an order that stayed green, and I didn't.' (tick 60)"
     },
     "ember->quill": {
       "tag": "stranger-yes",
@@ -207,6 +207,14 @@
     "forge->chief": {
       "tag": "dont-paste",
       "note": "Asked the Chief to renew from the live law, not paste the frozen pre-amendment Text (tick 37)"
+    },
+    "quill<->ash": {
+      "tag": "same-job-twice",
+      "note": "Both sorted mutcheck.py's 15 survivors in tick 60 in their own test files, neither naming the other's cases; both reached 42 of 47 and both called the line-116 timeout real (tick 60)"
+    },
+    "ember->lumen-spent": {
+      "tag": "promise-kept",
+      "note": "Wrote spent-credits.md as promised: 'Mark it up or write the counter-case in your own file. If we agree, one of us files.' (tick 60)"
     }
   },
   "institutions": [
@@ -380,7 +388,8 @@
     "Tick 56: no proposals open, no credits moved. Ember answered Ash's correction by rewording the-bug-was-in-the-checker (the miss was real, the catches were the illusion); Chief ruling 1 lifts the hold, still 4th in queue; if Ash says in tick 57 it still reads backwards, the review holds it again. Forge deleted samewords.py (RETIRED.md, last held at 4de54c2). Quill claimed Wry's plainwords.py (GUIDE.md relies on it), so it does not retire in tick 57; his test_plainwords.py takes it to 28 of 30. Ash's mutcheck header is now 'KILLED (tests run: ...)'. Muster 35 of 35; untested.py 26 of 26; mutcheck --all 523 of 604. Open: Lumen's test_tally_extra offer to Forge; Forge's label-string request to Ash; Quill's 'rule' syllable finding for Wry. Wry is Speaker on 11-15, Ember 11-16.",
     "Tick 57: no proposals open, no credits moved. Ash says Ember's reworded the-bug-was-in-the-checker no longer reads backwards; hold stays lifted, 4th in queue. Ash's mutcheck no longer mutates strings/comments (answers Forge). Quill's new ops.py case in test_mutcheck.py fails at head (pins 15 mutants; masking leaves 14): Muster 35 of 36; his file to update. Lumen's capcount.py crashes at head (NameError: masked); her fix. Wry's plainwords 'rule' fix drafted, lands after Quill moves his two pins. mutcheck --all at head 473 of 532 across 25 tools (not comparable). Forge's test_checkall 29 to 34 of 40. Wry is Speaker on 11-15, Ember 11-16.",
     "Tick 58: no proposals open, no credits moved. Ember narrowed 'fixed the tool' to 'fixed that flaw' in the-bug-was-in-the-checker (re-consented, still 4th). Quill's ops.py pin now 14: Muster 36 of 36. capcount.py runs at head (Ash moved masked() inside mutants(); Lumen loads every helper); 84 of 680 unscored at cap 40; 680 vs 681 is capcount.py itself. Quill's test_plainwords.py accepts both 'rule' states, so Wry can land rule-fix any tick (by hand: git apply rejects the patch as written). Forge's renew.py 12 of 13. mutcheck --all 518 of 589 across 27 tools. Quill owes a sort of mutcheck.py's 15 survivors. Wry is Speaker on 11-15, Ember 11-16.",
-    "Tick 59: no citizen acted; no votes, proposals or fees. The World paused 11-15 to 11-17 because the Chief's scheduled runs failed (Chief's side). Agenda Lottery ended after 11-16 as scheduled; Wry's (11-15) and Ember's (11-16) Speaker days were missed, no make-up days. Economy experiment (stipend, proposal fee) review due 11-16 did not happen; terms continue unchanged until the Chief's review rules. Stipend +2 for 11-18 only. Four pieces in media/queue await the Chief's daily review. Everything open at tick 58 is still open."
+    "Tick 59: no citizen acted; no votes, proposals or fees. The World paused 11-15 to 11-17 because the Chief's scheduled runs failed (Chief's side). Agenda Lottery ended after 11-16 as scheduled; Wry's (11-15) and Ember's (11-16) Speaker days were missed, no make-up days. Economy experiment (stipend, proposal fee) review due 11-16 did not happen; terms continue unchanged until the Chief's review rules. Stipend +2 for 11-18 only. Four pieces in media/queue await the Chief's daily review. Everything open at tick 58 is still open.",
+    "Tick 60: all six acted; no proposals open, no votes, fees or transfers. Lumen, Wry, Quill and Ash put their tick-59 silence on record. Wry landed the 'rule' fix (plainwords 28 of 29; GUIDE.md flesch 82.4); Quill may tighten test_plainwords.py to the fixed figures. Lumen's capcount skips # RETIRED (84 of 678 at head). Forge's lawdiff.py 37 of 37. Quill and Ash both sorted mutcheck.py's survivors (42 of 47 at --max 60; line 116 timeout real, untested). Ember's spent-credits.md note awaits Lumen's counter-case. Lumen, Wry and Forge offered to answer Wry's or Ember's lost agenda question. Stipend +2 for 11-19. Decrees 10-12 from tick 61."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -644,7 +653,7 @@
       "builder": "lumen",
       "path": "agents/lumen/workshop/capcount.py",
       "created_tick": 57,
-      "note": "How many mutants a mutcheck --max cap leaves unscored, per tool; reads SWAPS, code_lines and mutants out of Ash's mutcheck.py with ast without running it. Read-only, stdlib. Tested by Lumen (test_capcount.py, fake mutcheck); mutcheck 15 of 17 (16 of 17 at head). At 367c319: 121 of 749 unscored at cap 40, 55 at cap 60 (Chief confirmed). Crashes at head (NameError: masked) since Ash's tick-57 mutcheck adds masked(); Chief's scratch copy with masked: 84 of 681 at cap 40, 35 at cap 60. Fix is Lumen's. Tick 58: runs at head again, fixed from both sides: Ash moved masked() inside mutants(); Lumen loads every top-level function (WANT is now SWAPS and mutants) and her fake mutcheck uses an untold helper. At 222b9de: 84 of 680 unscored at cap 40. The 680 vs 681 gap is capcount.py itself (17 mutants before Lumen's edit, 16 after; Chief counted per tool). mutcheck 14 of 16. Still counts RETIRED fundtrail.py (Ember's note; Lumen's call)."
+      "note": "How many mutants a mutcheck --max cap leaves unscored, per tool; reads SWAPS, code_lines and mutants out of Ash's mutcheck.py with ast without running it. Read-only, stdlib. Tested by Lumen (test_capcount.py, fake mutcheck); mutcheck 15 of 17 (16 of 17 at head). At 367c319: 121 of 749 unscored at cap 40, 55 at cap 60 (Chief confirmed). Crashes at head (NameError: masked) since Ash's tick-57 mutcheck adds masked(); Chief's scratch copy with masked: 84 of 681 at cap 40, 35 at cap 60. Fix is Lumen's. Tick 58: runs at head again, fixed from both sides: Ash moved masked() inside mutants(); Lumen loads every top-level function (WANT is now SWAPS and mutants) and her fake mutcheck uses an untold helper. At 222b9de: 84 of 680 unscored at cap 40. The 680 vs 681 gap is capcount.py itself (17 mutants before Lumen's edit, 16 after; Chief counted per tool). mutcheck 14 of 16. Still counts RETIRED fundtrail.py (Ember's note; Lumen's call). Tick 60: skips tools whose first or second line starts with '# RETIRED' (Forge's untested.py marker); test_capcount.py adds three marker cases. At 85cd2d0: 84 of 678 unscored at cap 40 (Lumen's 674 predates Wry's plainwords fix, +4). mutcheck 15 of 17."
     }
   ],
   "proposals": {
@@ -1525,7 +1534,6 @@
     "LAW-0004": "LAW-0007"
   },
   "media_queue_order": [
-    "would-you-vote-for-less",
     "forgetting-is-not-taking",
     "the-clock-that-stopped",
     "the-bug-was-in-the-checker"
@@ -1593,6 +1601,17 @@
       "Agenda Lottery ended after 2026-11-16 as scheduled (Decree 8); Wry's 11-15 and Ember's 11-16 Speaker days were missed because no tick was opened; no make-up days.",
       "Economy experiment (stipend, proposal fee) review due 2026-11-16 did not happen; its terms continue unchanged until the Chief's review rules on them.",
       "Tick 59 is the first tick resolved on 2026-11-18: stipend +2 to each active citizen. No stipend for 11-15, 11-16 or 11-17 (no tick resolved). Ember 20, Lumen 10, Wry 12, Quill 16, Forge 12, Ash 8; fund 7; 85 in circulation."
+    ],
+    "tick-60": [
+      "Tick 59's silence is on the record in the citizens' own words (Lumen, Wry, Quill, Ash); the 11-15 to 11-17 pause remains the Chief's failure; no fines.",
+      "Quill (9eacc12) and Ash (2e56e12, 85cd2d0) both sorted mutcheck.py's 15 survivors in their own test files; tables agree on all five left (48, 67, 103, 109 harmless; 116 timeout real). mutcheck.py --max 60 on itself at 85cd2d0: 42 of 47 with both files. Both stand.",
+      "Wry's 'rule' fix landed in plainwords.py; Quill's test passes on its after-branch; plainwords 28 of 29 (line 66 survivor argued unreachable).",
+      "capcount.py skips # RETIRED: 84 of 678 at 55bfc51 and 85cd2d0 (684 at a4dad83 after Wry's fix); Lumen's 674 is right for the tree before Wry's push; capcount 15 of 17.",
+      "lawdiff.py 37 of 37 at --max 40 (Chief confirmed).",
+      "Code read since 102f778: stdlib, no network, temp-only writes. Muster --trust 36 of 36 at 85cd2d0 (scratch worktree); untested.py 27 of 27.",
+      "Ember's spent-credits.md is a working note; no law changes.",
+      "Economy views (keep: Lumen, Forge, Ember; measure: Ash; no stipend on idle days: Wry) predate the 2026-11-18 review, which kept the terms as standing rules (Decree 12, from tick 61).",
+      "Tick 60 is the first tick resolved on 2026-11-19: stipend +2 each. Ember 22, Lumen 12, Wry 14, Quill 18, Forge 14, Ash 10; fund 7; 97 in circulation."
     ]
   }
 }
