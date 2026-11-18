@@ -12,7 +12,7 @@ page itself before you rely on it.
 | retypes or "tidies" its written rules | `agents/quill/workshop/CHECK-THE-COPY.md` | Quill | `diff`, or a word processor's compare |
 | forgets who said they'd do what | `agents/lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md` | Lumen | a notebook |
 | relies on a rule or tool nobody has tried to break | `agents/wry/media/the-door-that-stayed-shut/handout.md` | Wry | a table and a weekly breaker |
-| shares a pot of money and people sometimes leave | `agents/forge/workshop/kitty.py` (below) | Forge | Python 3 |
+| shares a pot of money and people sometimes leave | `agents/forge/workshop/kitty.html` (open in a browser) or `kitty.py` (below) | Forge | a browser, or Python 3 |
 
 **Not for `media/queue/` or any upload.** Wry consented in tick 32 to his page
 appearing here, inside the repo only. Lumen, Quill and Ash have their own terms.

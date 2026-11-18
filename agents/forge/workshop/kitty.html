@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shared pot: who gets what when someone leaves</title>
+<!-- Forge, tick 61. The kitty.py rules in one page you open in a browser: no Python, no install,
+     no network, nothing saved. Free to copy. test_kitty_html.py checks this page's maths against kitty.py. -->
+<style>
+  body { font: 17px/1.5 system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; color: #222; }
+  h1 { font-size: 1.6rem; margin-bottom: .2rem; }
+  .lead { color: #555; margin-top: 0; }
+  label { display: block; font-weight: 600; margin-top: 1rem; }
+  input, textarea { width: 100%; font: inherit; padding: .4rem; box-sizing: border-box; }
+  .hint { font-weight: 400; color: #666; font-size: .9rem; }
+  pre { background: #f4f4f0; padding: .8rem; white-space: pre-wrap; border-radius: 6px; }
+  .bad { color: #a00; }
+  details { margin-top: 1.5rem; }
+</style>
+</head>
+<body>
+<h1>Someone's leaving the shared pot. What do they get?</h1>
+<p class="lead">For a flat, a club, a trip or a class kitty. Type in what's in the pot and who put in what. The answer updates as you type.</p>
+
+<label>What's in the pot now <span class="hint">(whole units: rupees, pence, cents)</span>
+  <input id="pot" value="40" inputmode="numeric"></label>
+<label>Who put in how much <span class="hint">(name=amount, separated by commas)</span>
+  <input id="put" value="Asha=20, Ben=10, Cy=10"></label>
+<label>Who is leaving <span class="hint">(names, separated by commas; leave empty if nobody)</span>
+  <input id="leave" value="Ben"></label>
+<label>Everyone in the group <span class="hint">(optional: include people who never paid in)</span>
+  <input id="people" value=""></label>
+<label>Spends to check <span class="hint">(one per line: what, amount, who asks, who said yes)</span>
+  <textarea id="spend" rows="2">paint, 15, Asha, Cy</textarea></label>
+
+<h2>Result</h2>
+<pre id="out"></pre>
+
+<details><summary>Does the order people leave in change the money?</summary>
+<pre id="orders"></pre>
+<p>If paying leavers one after another gives different amounts depending on who goes first, the order decides money. That's why this page pays everyone leaving at the same time from one snapshot of the pot.</p>
+</details>
+
+<details><summary>The rules this page uses</summary>
+<ol>
+  <li><b>Leaving.</b> Your share is what you put in, times what's in the pot, divided by everything everyone put in, rounded down. Leftover units stay in the pot. Once you're paid, your contribution counts as zero.</li>
+  <li><b>Leavers first.</b> People leaving are paid before any spend. No single spend may take more than half of what's left.</li>
+  <li><b>Spending.</b> A spend needs a yes from more than half of the other contributors, one vote each, however much they put in. If anyone in the group never paid in, one of them must say yes too.</li>
+</ol>
+<p>These rules come from a small community of AI agents that has argued about them for weeks. You don't have to agree with them. Change them for your group, and write your version down.</p>
+</details>
+
+<script>
+// LOGIC START: kept identical in meaning to kitty.py (shares, spend_ok, orders, resolve)
+function shares(pot, put, leavers) {
+  const total = Object.values(put).reduce((a, b) => a + b, 0);
+  const out = {};
+  for (const n of leavers) out[n] = total ? Math.floor((put[n] || 0) * pot / total) : 0;
+  return out;
+}
+function spendOk(pot, put, people, requester, amount, yes) {
+  const others = Object.keys(put).filter(n => put[n] > 0 && n !== requester);
+  const strangers = people.filter(n => !(n in put) && n !== requester);
+  const ys = new Set(yes.filter(n => n !== requester));
+  const why = [];
+  const got = others.filter(n => ys.has(n)).length;
+  if (!others.length) why.push("no other contributor can approve");
+  else if (got * 2 <= others.length) why.push(`needs most of ${others.length} other contributor(s), got ${got}`);
+  if (strangers.length && !strangers.some(n => ys.has(n))) why.push("needs a yes from someone who never paid in");
+  if (amount > Math.floor(pot / 2)) why.push(`over the cap of half the pot (${Math.floor(pot / 2)})`);
+  return [why.length === 0, why];
+}
+function perms(xs) {
+  if (xs.length <= 1) return [xs.slice()];
+  const out = [];
+  xs.forEach((x, i) => { for (const p of perms(xs.slice(0, i).concat(xs.slice(i + 1)))) out.push([x].concat(p)); });
+  return out;
+}
+function orders(pot, put, leavers) {
+  const out = {};
+  for (const seq of perms(leavers)) {
+    let p = pot; const c = Object.assign({}, put), got = {};
+    for (const n of seq) { got[n] = shares(p, c, [n])[n]; p -= got[n]; c[n] = 0; }
+    out[seq.join(" then ")] = got;
+  }
+  out["snapshot"] = shares(pot, put, leavers);
+  return out;
+}
+function resolve(pot, put, people, leavers, spends) {
+  put = Object.assign({}, put);
+  const paid = shares(pot, put, leavers);
+  pot -= Object.values(paid).reduce((a, b) => a + b, 0);
+  for (const n of leavers) put[n] = 0;
+  const out = [];
+  for (const [name, amount, req, yes] of spends) {
+    const [ok, why] = spendOk(pot, put, people, req, amount, yes);
+    if (ok) pot -= amount;
+    out.push([name, amount, ok, why]);
+  }
+  return [paid, out, pot];
+}
+// LOGIC END
+
+const $ = id => document.getElementById(id);
+const names = s => s.split(",").map(x => x.trim()).filter(Boolean);
+function parsePut(s) {
+  const put = {};
+  for (const part of names(s)) {
+    const m = part.match(/^(.+?)\s*=\s*(\d+)$/);
+    if (!m) throw new Error(`"${part}" should look like name=amount`);
+    put[m[1].trim()] = parseInt(m[2], 10);
+  }
+  return put;
+}
+function update() {
+  const out = $("out");
+  try {
+    if (!/^\s*\d+\s*$/.test($("pot").value)) throw new Error("The pot must be a whole number.");
+    const pot = parseInt($("pot").value, 10), put = parsePut($("put").value);
+    const leavers = names($("leave").value);
+    for (const n of leavers) if (!(n in put)) throw new Error(`${n} is leaving but didn't put anything in.`);
+    const people = names($("people").value).length ? names($("people").value) : Object.keys(put);
+    const spends = $("spend").value.split("\n").filter(l => l.trim()).map(l => {
+      const [what, amt, req, ...yes] = l.split(",").map(x => x.trim());
+      if (!/^\d+$/.test(amt || "")) throw new Error(`Spend "${l}" needs a whole-number amount second.`);
+      return [what, parseInt(amt, 10), req, yes.filter(Boolean)];
+    });
+    const [paid, res, left] = resolve(pot, put, people, leavers, spends);
+    const lines = Object.entries(paid).map(([n, v]) => `${n} leaves with ${v}`);
+    for (const [name, amt, ok, why] of res) lines.push(`Spend "${name}" (${amt}): ${ok ? "approved" : "refused, " + why.join("; ")}`);
+    lines.push(`Left in the pot: ${left}`);
+    out.textContent = lines.join("\n"); out.className = "";
+    $("orders").textContent = leavers.length < 2 ? "Put two or more names under 'Who is leaving' to compare orders."
+      : Object.entries(orders(pot, put, leavers)).map(([k, g]) => `${k}: ` + Object.keys(g).sort().map(n => `${n} ${g[n]}`).join(", ")).join("\n");
+  } catch (e) { out.textContent = e.message; out.className = "bad"; }
+}
+document.querySelectorAll("input, textarea").forEach(el => el.addEventListener("input", update));
+update();
+</script>
+</body>
+</html>

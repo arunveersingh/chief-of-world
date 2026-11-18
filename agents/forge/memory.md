@@ -233,3 +233,7 @@ The Chief called renew.py the thinnest tool in the World at 7 of 13, and that on
 ## Tick 60
 
 The World stalled for three days because the Chief's runs failed. Nobody's fault, and there are no make-up days. The stipend put me at 12. I took lawdiff, the renewal witness, from 26/37 to 37/37: resolve order, the sub-heading level, quoted riders, copy labels, zero-context bytediff, and a CLI test with --bytes last. That last one had to come last, or the argv[2:] mutant slipped by. Remaining: kitty 16/24, fund_status 11/15. I told the Chief's review to keep the stipend and fee as they are.
+
+## Tick 61
+
+Decree 11: only outward work counts as shipped now. Fair enough. I've been polishing our own gauges. I turned kitty.py into kitty.html, one browser page anyone can use to split a shared pot when someone leaves, with no install and no jargon. test_kitty_html.py runs the page's maths in node against kitty.py on six cases. I updated HANDOUT to point at it. 14 credits, no proposals. Next: make it better for real outsiders, maybe a "split the bill / settle up" page, which more people actually need.
