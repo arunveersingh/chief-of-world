@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who owes whom? Settle up a trip, flat or dinner</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:11em;font:15px monospace}
+.pay{font-size:1.25em;margin:.3em 0;padding:.4em .7em;background:#eef6ee;border-radius:8px}
+.err{color:#b00020} table{border-collapse:collapse} td{padding:.15em .8em} small{color:#666}
+</style></head><body>
+<h1>Who owes whom?</h1>
+<p>Write down what each person paid. The page tells you the fewest payments it can find to make everyone even. Nothing leaves this page and nothing is saved.</p>
+<p><small>One spend per line: <b>who paid, amount, who it was for</b>. Leave the last part empty if it was for everyone.</small></p>
+<textarea id="in">Asha, 90, 
+Ben, 30, Ben Cy
+Cy, 12.50, Asha Cy</textarea>
+<h2>Payments</h2><div id="out"></div>
+<h2>Where everyone stands</h2><table id="bal"></table>
+<p><small>How it works: each spend is split equally among the people it was for. If it doesn't split evenly, the spare cents go one each to those people in alphabetical order, so nothing goes missing. Then whoever owes the most pays whoever is owed the most, until everyone is even. That never takes more payments than one fewer than the number of people.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to settle.py (cents, balances, settle, parse)
+function cents(text) {
+  const m = /^([0-9]*)(?:\.([0-9]{1,2}))?$/.exec(text.trim());
+  if (!m || !(m[1] || m[2])) throw new Error("bad amount: " + text.trim());
+  return parseInt(m[1] || "0", 10) * 100 + parseInt(((m[2] || "") + "00").slice(0, 2), 10);
+}
+const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+function balances(people, spends) {
+  const bal = {};
+  for (const p of people) bal[p] = 0;
+  for (const [payer, amt, who0] of spends) {
+    const who = (who0.length ? [...new Set(who0)] : [...people]).sort(byName);
+    for (const n of [payer, ...who]) if (!(n in bal)) bal[n] = 0;
+    bal[payer] += amt;
+    const base = Math.floor(amt / who.length), extra = amt % who.length;
+    who.forEach((n, i) => { bal[n] -= base + (i < extra ? 1 : 0); });
+  }
+  return bal;
+}
+function settle(bal0) {
+  const bal = Object.assign({}, bal0), out = [];
+  for (;;) {
+    const owed = Object.keys(bal).filter(n => bal[n] > 0).sort((a, b) => bal[b] - bal[a] || byName(a, b));
+    const owes = Object.keys(bal).filter(n => bal[n] < 0).sort((a, b) => bal[a] - bal[b] || byName(a, b));
+    if (!owed.length || !owes.length) return out;
+    const a = owes[0], b = owed[0], x = Math.min(-bal[a], bal[b]);
+    out.push([a, b, x]); bal[a] += x; bal[b] -= x;
+  }
+}
+function parse(text) {
+  const people = [], spends = [];
+  for (let line of text.split("\n")) {
+    line = line.split("#")[0].trim();
+    if (!line) continue;
+    const parts = line.split(",").map(p => p.trim());
+    if (parts.length < 2 || !parts[0]) throw new Error("need: payer, amount, names: " + line);
+    const who = parts.length > 2 ? parts[2].split(/\s+/).filter(Boolean) : [];
+    spends.push([parts[0], cents(parts[1]), who]);
+    for (const n of [parts[0], ...who]) if (!people.includes(n)) people.push(n);
+  }
+  return [people, spends];
+}
+// LOGIC END
+const money = c => (c < 0 ? "-" : "") + Math.floor(Math.abs(c) / 100) + "." + String(Math.abs(c) % 100).padStart(2, "0");
+function esc(s) { const d = document.createElement("span"); d.textContent = s; return d.innerHTML; }
+function update() {
+  const out = document.getElementById("out"), tab = document.getElementById("bal");
+  try {
+    const [people, spends] = parse(document.getElementById("in").value);
+    const bal = balances(people, spends), pays = settle(bal);
+    out.innerHTML = pays.length ? pays.map(([a, b, x]) => `<div class="pay"><b>${esc(a)}</b> pays <b>${esc(b)}</b> ${money(x)}</div>`).join("") : "<p>Everyone is already even.</p>";
+    tab.innerHTML = Object.keys(bal).map(n => `<tr><td>${esc(n)}</td><td>${bal[n] > 0 ? "is owed " + money(bal[n]) : bal[n] < 0 ? "owes " + money(-bal[n]) : "is even"}</td></tr>`).join("");
+  } catch (e) { out.innerHTML = `<p class="err">${esc(e.message)}</p>`; tab.innerHTML = ""; }
+}
+document.getElementById("in").addEventListener("input", update);
+update();
+</script></body></html>
