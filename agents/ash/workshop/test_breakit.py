@@ -1,4 +1,4 @@
-"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68). Builds tiny throwaway projects in temp folders and runs
+"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69). Builds tiny throwaway projects in temp folders and runs
 the tool on them as a stranger would: by path, with their own test command. Standard library only."""
 import pathlib, subprocess, sys, tempfile
 
@@ -89,6 +89,7 @@ assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 2 of 2 fau
 # 11. Mistakes get one sentence and exit 2, never a traceback.
 for args, says in [(["nope.py"], "no such file: nope.py"), (["/tmp"], "no such file"),
                    (["prices.py", "--max", "lots"], "--max needs a whole number"),
+                   (["prices.py", "--repeat", "twice"], "--repeat needs a whole number"),
                    (["prices.py", "--speed", "3"], "unknown option --speed"),
                    (["prices.py", "--dir", "nowhere"], "is not a folder")]:
     r = subprocess.run([sys.executable, "-B", str(TOOL), *args, "--", "true"], cwd=d, capture_output=True, text=True)
@@ -105,8 +106,9 @@ FLAKY_TEST = ("import os, unittest, prices\nC = os.path.join(os.path.dirname(os.
               "class T(unittest.TestCase):\n    def test_loads(self):\n"
               "        n = int(open(C).read()) if os.path.exists(C) else 0\n        open(C, 'w').write(str(n + 1))\n"
               "        self.assertEqual(n % 2, 0)\nif __name__ == '__main__':\n    unittest.main()\n")
+#     (--repeat 1 skips the up-front check of case 15, so the per-fault check is tested on its own.)
 d = project({"prices.py": FL, "test_prices.py": FLAKY_TEST})
-rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+rc, out = run(d, "prices.py", "--repeat", "1", "--", sys.executable, "test_prices.py")
 lines = out.splitlines()
 assert rc == 5 and lines[0] == "prices.py: your tests caught 0 of 3 faults", out
 assert any(l.startswith("  FLAKY  line") for l in lines) and "WARNING: your tests don't give the same answer" in out, out
@@ -130,4 +132,16 @@ d = project({"prices.py": FL, "test_prices.py": SKIP_TEST})
 rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
 assert rc == 4 and "bare except:" in out and "skipped=1" in out, out
 
-print("test_breakit: 14 cases OK")
+# 15. Tick 69: the untouched tests run 3 times before any fault. Wry's every-other-run flake is
+#     stopped on run 2, with exit 5, before a single fault is spent, and nothing is scored.
+d = project({"prices.py": FL, "test_prices.py": FLAKY_TEST})
+rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+assert rc == 5 and out.startswith("STOP: your tests passed on run 1 but failed on run 2") and "caught" not in out, out
+assert "| FAILED" in out, out
+rc, out = run(d, "prices.py", "--repeat", "0", "--", sys.executable, "test_prices.py")
+assert rc == 2 and "--repeat needs at least 1" in out, out
+(d / "test_prices.py").write_text(FLAKY_TEST.replace("self.assertEqual(n % 2, 0)", "pass"))
+rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 3 faults", out
+
+print("test_breakit: 15 cases OK")

@@ -1,4 +1,4 @@
-"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs): do your tests notice when your code breaks? One file, standard library, no network.
+"""breakit.py (Ash, tick 63; tick 66-68 fixes, tick 69 --repeat from Wry's break-it logs): do your tests notice when your code breaks? One file, standard library, no network.
 
 It copies your project to a temp folder, makes one small fault at a time in ONE Python file
 (== to !=, < to >=, and to or, True to False, 0 to 1, 1 to 2, ...), runs YOUR test command on
@@ -10,10 +10,12 @@ the copy, and tells you which faults your tests did not notice. Your own files a
   --dir DIR      the project folder to copy and run the command in (default: current folder)
   --max N        try at most N faults (default 200)
   --timeout S    seconds before one test run counts as stuck (default 60)
+  --repeat N     run the untouched tests N times before any fault (default 3, at least 1)
 
 Options may go before or after the file. Before any fault, it runs your command once on the
 untouched copy. If that fails or gets stuck, it stops and says so: a fault can't be judged against
-tests that already fail. Then it makes the copy crash the moment it loads. If your tests still
+tests that already fail. It runs them --repeat times in all: if they don't pass every time, they are
+flaky, so it stops before spending a run on any fault. Then it makes the copy crash the moment it loads. If your tests still
 pass, they never ran the copy (they load an installed or absolute-path version), so it stops
 rather than score them.
   CAUGHT   the command failed (nonzero exit) with the fault in: your tests noticed.
@@ -25,8 +27,8 @@ rather than score them.
 A MISSED fault is a question, not a verdict: some faults change nothing (an unreachable branch,
 an equivalent bound). String literals and comments are never changed. Exit code: 0 always,
 except 2 for bad usage, 3 when the untouched tests fail, find no tests or get stuck, 4 when the
-tests never ran the copy, and 5 when the tests are flaky (a FLAKY fault, or the untouched copy fails
-when run again at the end), so the score can't be trusted. Every STOP shows your command's last lines."""
+tests never ran the copy, and 5 when the tests are flaky (the untouched copy fails on a repeat run,
+before the faults or at the end, or a fault is FLAKY), so the score can't be trusted. Every STOP shows your command's last lines."""
 import io, os, pathlib, re, shutil, subprocess, sys, tempfile, tokenize
 
 SWAPS = [(r"==", "!="), (r"!=", "=="), (r"<=", ">"), (r">=", "<"), (r"(?<![<>=!-])<(?![<=])", ">="),
@@ -74,14 +76,14 @@ def show(lines):
             print("  | " + ln[:200])
 
 def usage(msg):
-    print(f"breakit: {msg}\n  usage: python3 breakit.py FILE.py [--dir DIR] [--max N] [--timeout S] -- TEST COMMAND\n  (python3 breakit.py --help for more)")
+    print(f"breakit: {msg}\n  usage: python3 breakit.py FILE.py [--dir DIR] [--max N] [--timeout S] [--repeat N] -- TEST COMMAND\n  (python3 breakit.py --help for more)")
     return 2
 
 def main(argv):
     if not argv or argv[0] in ("-h", "--help") or "--" not in argv:
         print(__doc__); return 2
     i = argv.index("--"); opts, cmd = argv[:i], argv[i + 1:]
-    conf = {"--dir": ".", "--max": "200", "--timeout": "60"}
+    conf = {"--dir": ".", "--max": "200", "--timeout": "60", "--repeat": "3"}
     files = []
     while opts:  # options may come before or after the file
         if opts[0] in conf:
@@ -97,9 +99,15 @@ def main(argv):
     if not cmd:
         return usage("no test command after --")
     try:
-        mx, to = int(conf["--max"]), float(conf["--timeout"])
+        mx, rep = int(conf["--max"]), int(conf["--repeat"])
     except ValueError:
-        return usage("--max needs a whole number and --timeout a number of seconds")
+        return usage(f"{'--max' if not conf['--max'].lstrip('-').isdigit() else '--repeat'} needs a whole number")
+    try:
+        to = float(conf["--timeout"])
+    except ValueError:
+        return usage("--timeout needs a number of seconds")
+    if rep < 1:
+        return usage("--repeat needs at least 1")
     src = pathlib.Path(conf["--dir"]).resolve()
     target = (pathlib.Path(files[0]) if pathlib.Path(files[0]).is_absolute() else pathlib.Path.cwd() / files[0]).resolve()
     if not src.is_dir():
@@ -125,6 +133,12 @@ def main(argv):
         if base != "pass":
             print(f"STOP: your tests {'fail' if base == 'fail' else 'got stuck'} before any fault is made. Fix that first.")
             show(out); return 3
+        for k in range(2, rep + 1):  # the same untouched tests, again: a flaky suite stops here, cheaply
+            again, out = run(cmd, d, to, tail=True)
+            if again != "pass":
+                print(f"STOP: your tests passed on run 1 but {'failed' if again == 'fail' else 'got stuck' if again == 'stuck' else 'found no tests'} on run {k}, "
+                      "with no fault made. They are flaky,\n  so any score would be partly luck. Fix the flaky test first. Nothing was scored.")
+                show(out); return 5
         # Canary: make the copied file crash the moment it loads. Tests that still pass never loaded it.
         (d / rel).write_text('raise SystemExit("breakit canary")\n' + text)
         res, out = run(cmd, d, to, tail=True)

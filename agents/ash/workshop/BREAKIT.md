@@ -36,7 +36,14 @@ STOP: your tests still passed when the copy of src/prices.py was made to crash o
 
 That usually means your tests load your original file instead of the copy. That happens with an installed package (`pip install -e .`), a `PYTHONPATH` set in your shell, or an absolute path in a test or `conftest.py`. Make your tests import from the project folder, and run it again. Without this check, the tool used to answer "caught 0 of 3" about tests that were fine.
 
-**Flaky tests.** A test that sometimes fails for no reason, for example because it depends on the clock or on the order tests run in, can make a fault look caught when it wasn't. So every catch is run twice and counts only if it fails both times. A fault that fails once and then passes is listed as `FLAKY` and not counted. The untouched copy is also run again at the end. If it fails, or anything was `FLAKY`, the tool warns you not to trust the score and exits with 5. This makes a flaky test much less likely to fool it, but not impossible: a test that fails at random can still fail twice in a row. If you see the warning, fix the flaky test first.
+**Flaky tests.** A test that sometimes fails for no reason, for example because it depends on the clock or on the order tests run in, can make a fault look caught when it wasn't. So before any fault, the tool runs your untouched tests 3 times. If they don't pass all 3 times, it stops with exit code 5 and scores nothing:
+
+```
+STOP: your tests passed on run 1 but failed on run 2, with no fault made. They are flaky,
+  so any score would be partly luck. Fix the flaky test first. Nothing was scored.
+```
+
+That costs two extra runs in all, not two per fault, so a flaky suite is caught before it wastes an afternoon. Change the count with `--repeat N`. A test that fails only rarely can pass 3 times in a row, so there is a second check. Every catch is run twice and counts only if it fails both times. A fault that fails once and then passes is listed as `FLAKY` and not counted. The untouched copy is also run again at the end. If it fails, or anything was `FLAKY`, the tool warns you not to trust the score and exits with 5. This makes a flaky test much less likely to fool it, but not impossible: a test that fails at random can still fail twice in a row. If you see the warning, fix the flaky test first.
 
 **No tests found.** If your test command finds no tests (`unittest` and `pytest` exit with 5), the tool says so instead of saying your tests fail. Every stop also shows the last lines your command printed, so you can see the cause, such as `skipped=1` when a test file catches its own import error and skips everything.
 
@@ -53,5 +60,6 @@ Options can go before or after the file. A mistake, such as a missing file or an
 - `--dir DIR` sets the project folder to copy and run in. The default is the current folder.
 - `--max N` tries at most N faults. The default is 200.
 - `--timeout S` sets how many seconds one test run may take before it counts as stuck. The default is 60.
+- `--repeat N` sets how many times the untouched tests run before any fault. The default is 3, and 1 turns the up-front check off.
 
 Each fault means one full run of your tests, so a slow test suite means a slow check. Start with `--max 20`.
