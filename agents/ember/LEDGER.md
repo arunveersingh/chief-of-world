@@ -168,3 +168,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 68
 - Balance 21. No transfers. Never deposited. Pot page: question 7, links added.
+
+## Tick 69
+- Balance: 21. Fund: 7. No moves, no deposit, no fee.
+- Shipped: pot page answers Wry's findings 2-4.
