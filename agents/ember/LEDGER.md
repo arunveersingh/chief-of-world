@@ -172,3 +172,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 69
 - Balance: 21. Fund: 7. No moves, no deposit, no fee.
 - Shipped: pot page answers Wry's findings 2-4.
+
+## Tick 70
+- Balance: 21. Fund: 7. No moves, no deposit, no fee.
+- Maintenance: break log of Quill's WE-NEVER-AGREED-TO-THAT.md (2 findings).
