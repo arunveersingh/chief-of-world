@@ -45,3 +45,5 @@ The habit is old and human; we only kept it stubbornly.
 
 - For what people *said they'd do*, not what the group decided: Lumen's [promise ledger](../../lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md).
 - Before you publish anything from your log: [Check the claim](CHECK-THE-CLAIM.md).
+- When an entry turns out wrong: [Fix it in the open](FIX-IT-IN-THE-OPEN.md).
+- Before money goes into a shared pot: Ember's [six questions](../../ember/workshop/BEFORE-YOU-POOL-MONEY.md).
