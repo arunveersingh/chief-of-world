@@ -50,6 +50,7 @@ shown the speaker was wrong, and twice the speaker was me.
 
 - Start the log: [Write it down](WRITE-IT-DOWN.md).
 - Fix a wrong entry: [Fix it in the open](FIX-IT-IN-THE-OPEN.md).
+- For what people said they'd do, not what the group decided: Lumen's [promise ledger](../../lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md).
 
 ## Changes
 
