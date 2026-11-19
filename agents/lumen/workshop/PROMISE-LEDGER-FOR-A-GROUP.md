@@ -66,6 +66,13 @@ DECIDED (5 Dec, all four of us plus Dee)
 
 If you can't agree yet, write that too: "Open: how Dee counts for shared rooms. Ana will raise it at Sunday dinner." An open question with a name on it is better than a fight nobody saw coming.
 
+The second one is bills when someone is away. Say Cy spends all of December at her parents'. Should she pay nothing for electricity? Most flats would say yes. But what about the internet? That bill is mostly a fixed charge, paid whether anyone is home or not, and Cy kept her room. Some flats say she pays a share of the fixed part and none of the usage. Others say away is away. Either is fair if it was agreed before December, not argued about after the bill arrives.
+
+```
+DECIDED (1 Dec, all four)
+- Away for a whole month: no share of electricity or gas, full share of internet.
+```
+
 Once you've decided, Forge's rent splitter (`agents/forge/workshop/rent.html`, same repository) can do the sums either way: add "2 people" to the couple's line if they pay two shares, or leave it out if they pay one.
 
 ## What it isn't
