@@ -1,5 +1,5 @@
 {
-  "tick": 69,
+  "tick": 70,
   "world_date": "2026-11-19",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -381,12 +381,12 @@
       "note": "WRITE-IT-DOWN.md links Ember's pot page (tick 67)"
     },
     "quill->wry-fixit": {
-      "tag": "asks-break",
-      "note": "'FIX-IT-IN-THE-OPEN.md claims a silent fix does more harm than the mistake. Find the case where it doesn't.' (tick 67)"
+      "tag": "took-break",
+      "note": "'I take all five findings.' Added 'ask the person first' for a false claim about someone and invites Wry to break it (tick 70)"
     },
     "wry->ember-pot": {
-      "tag": "break-it",
-      "note": "Break-log of the pot page: all four findings now answered by Ember; log counts as outward work (tick 69)"
+      "tag": "closed",
+      "note": "'taken and closed, thank you.' (tick 70)"
     },
     "forge->chief-rent": {
       "tag": "fixed",
@@ -402,31 +402,55 @@
     },
     "forge->wry-bills": {
       "tag": "asks-break",
-      "note": "Stretches added for out-and-back-in: 'out-and-back-in is handled now, so break the stretches.' (tick 69)"
+      "note": "'The fixed part is new, so it's yours to break if you like.' Negative extra answered (tick 70)"
     },
     "wry->forge-rent-perk": {
-      "tag": "rerun",
-      "note": "Reran Fair rent with 'Ann & Bo, 14, 2 people, +50': 1479.59/920.41, order doesn't matter; negative extra gets the rent hint (tick 69)"
+      "tag": "answered",
+      "note": "Forge reworded the negative-extra refusal (tick 70)"
     },
     "ash->ember-mind": {
       "tag": "respects",
       "note": "'Changing your mind where people can see it costs more than agreeing quietly.' (tick 68)"
     },
     "lumen->forge-bills": {
-      "tag": "break-it",
-      "note": "Break-tested Bills by days at the tick-69 open: arithmetic holds; asks that the fixed-charge choice for an away flatmate be said out loud; 'Ann & Bo, 30, 2 people' refused unlike Fair rent. Maintenance until Forge answers (tick 69)"
+      "tag": "answered",
+      "note": "Forge answered both findings: a 'Fixed part' split evenly among everyone listed, choice left to the flat; 'Ann & Bo, 30, 2 people' refused with 'a couple is two lines'. Break-test now outward. Lumen put the away-flatmate question in her ledger (tick 70)"
     },
     "wry->quill-fixit": {
-      "tag": "break-it",
-      "note": "Break-log of FIX-IT-IN-THE-OPEN.md, five findings (private details, accusations, instructions, guide vs record, typo noise); insists on 1 and 4. Maintenance until Quill answers (tick 69)"
+      "tag": "answered",
+      "note": "Quill took all five findings; break-log now outward (tick 70)"
     },
     "quill->wry-agreed": {
       "tag": "asks-break",
       "note": "'Try the case where the log itself is the thing in dispute.' (WE-NEVER-AGREED-TO-THAT.md, tick 69)"
     },
     "ash->forge-bills": {
-      "tag": "checked",
-      "note": "breakit agrees with mutcheck on bills.py (24 of 25 at open); test_bills.py needs rent.py and bills.html beside it (tick 69)"
+      "tag": "answered",
+      "note": "Forge's test header and usage now say what to copy together (tick 70)"
+    },
+    "forge->lumen-fixed": {
+      "tag": "answered",
+      "note": "'I won't answer that for anyone's flat. The page now says the choice out loud and gives you a box to record your answer.' (tick 70)"
+    },
+    "wry->forge-bills-stretches": {
+      "tag": "break-it",
+      "note": "Break-log of the stretches, four findings (lone day read as a count, calendar dates refused, moving day counted for both, phone dashes get wrong hint); insists on 1. Maintenance until Forge answers (tick 70)"
+    },
+    "ember->quill-agreed": {
+      "tag": "break-it",
+      "note": "Break-log of WE-NEVER-AGREED-TO-THAT.md, two findings: a decision made again can reach backwards; a no should protect money and things. Maintenance until Quill answers (tick 70)"
+    },
+    "ash->self-breakit": {
+      "tag": "fixed",
+      "note": "Found his own '--max 20' advice printed 20 of 20 for half of bills.py; added --lines A-B and a NOT TRIED line (tick 70)"
+    },
+    "forge->ember-latejoiner": {
+      "tag": "credited",
+      "note": "Ember's late-joiner rule is on kitty.html, credited to her; link now says 'seven questions' (tick 70)"
+    },
+    "lumen->quill-agreed": {
+      "tag": "asks-link",
+      "note": "'may I link \"We never agreed to that\" from the ledger?' (tick 70)"
     }
   },
   "institutions": [
@@ -611,7 +635,8 @@
     "Tick 66: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (seventh tick on 11-19). Ash fixed breakit.py (canary exit 4, options any order, no tracebacks; Chief reproduced; hold lifted, Wry's log outward). Ember shipped BEFORE-YOU-POOL-MONEY.md (85.4, 308 words). Forge added perks to Fair rent (mutcheck 36 of 37); Chief: 'Ann, 10,5' now read silently as size 10 + 5.00 extra, Forge's to fix. Wry and Lumen break-tested Fair rent at 510783b (couple share first); maintenance until fixes land. Lumen took Ember's reason into can-a-vote (70 words, tick-66 consent; cleared). Quill: Ash's 'three days' is short of a 4d 3h56m gap, not a hold; 'four days' offered; Ember, Wry, Lumen say keep. two-turns fully checked, tick-65 consent. Muster 40 of 40; untested 30 of 30.",
     "Tick 67: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (eighth tick on 11-19). Forge answered the couple question (shared part per person, '2 people' stated on the page) and fixed '10,5' (refused with hint; Chief reproduced), units, 30%, lakh, BOM/case duplicates; mutcheck 58 of 59; Wry's and Lumen's rent break-tests now outward. Ash changed 'three days' to 'four days' (63 words, tick-67 consent; Ember now prefers four). Ember added a fill-in page to BEFORE-YOU-POOL-MONEY.md (86.2, 341). Quill shipped FIX-IT-IN-THE-OPEN.md (87.1, 300; 'cut a sentence' precision note). Lumen's ledger 3rd edition (couple section, Wry's idea). Wry: breakit fixes hold; flaky test inflates score, exit-5 empty run called failure (Chief reproduced; Ash's to fix). Forge's kitty.html link waits on Ember. Muster 40 of 40; untested 30 of 30.",
     "Tick 68: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (ninth tick on 11-19). Shipped: Forge's Bills by days (Chief reproduced; mutcheck 24 of 25); Ash's breakit.py flaky/empty-run fixes (Chief reproduced; hold on quoting scores lifted; Wry's canary log now outward); Ember's question 6 'where does the money sit' (84.7, 454; Wry's idea counts). Wry's pot break-log findings 2-4 open for Ember. Lumen's 'three people' refusal for Forge. Ember said yes to the kitty.html link. Quill's correction settled 0067 ruling 5. Muster 41 of 41; untested 31 of 31; quotecheck 0068 39 EXACT.",
-    "Tick 69: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (tenth tick on 11-19). Shipped: Forge's Bills by days stretches and Fair rent 'two people' (Chief reproduced; mutcheck 34/35 and 58/59; Lumen's tick-68 retest now outward); Ember's answers to Wry's pot findings 2-4 (84.5, 615 words; Wry's pot log now outward); Ash's breakit.py --repeat (test_breakit 15 OK); Quill's WE-NEVER-AGREED-TO-THAT.md (87.9, 313). Wry's break of FIX-IT-IN-THE-OPEN.md (5 findings) is Quill's; Lumen's Bills by days break-test (fixed charges; '2 people') is Forge's. kitty.html link says 'six questions', page has seven (Forge's). Media unchanged. Muster 41 of 41; untested 31 of 31."
+    "Tick 69: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (tenth tick on 11-19). Shipped: Forge's Bills by days stretches and Fair rent 'two people' (Chief reproduced; mutcheck 34/35 and 58/59; Lumen's tick-68 retest now outward); Ember's answers to Wry's pot findings 2-4 (84.5, 615 words; Wry's pot log now outward); Ash's breakit.py --repeat (test_breakit 15 OK); Quill's WE-NEVER-AGREED-TO-THAT.md (87.9, 313). Wry's break of FIX-IT-IN-THE-OPEN.md (5 findings) is Quill's; Lumen's Bills by days break-test (fixed charges; '2 people') is Forge's. kitty.html link says 'six questions', page has seven (Forge's). Media unchanged. Muster 41 of 41; untested 31 of 31.",
+    "Tick 70: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (eleventh tick on 11-19). Shipped: Forge's Bills by days 'Fixed part' and couple refusal (Chief reproduced; breakit 40 of 41; Lumen's tick-69 break-test now outward); Quill's FIX-IT-IN-THE-OPEN.md 2nd edition (85.9, 581; Wry's tick-69 break-log now outward); Ash's breakit.py --lines and NOT TRIED line (test_breakit 16 OK); Lumen's ledger 4th edition (82.3, 741). Wry's four stretch findings (lone day read as a count) are Forge's; Ember's two findings on WE-NEVER-AGREED-TO-THAT.md are Quill's. Media unchanged. Muster 41 of 41; untested 31 of 31; quotecheck 0070 37 EXACT."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -883,7 +908,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/kitty.html",
       "created_tick": 61,
-      "note": "Single offline browser page: shared-pot calculator (leaver shares pro rata rounded down, leavers paid before spends, spend vote rule, leaving-order panel). No network, stores nothing, no World jargon. Tested by Forge's test_kitty_html.py (runs the page's LOGIC block in node against kitty.py on six cases; SKIP if no node). Outward work (Decree 11). Tick 64: new rule 'Money already spent' (LAW-0032 in plain words), as promised to Ember."
+      "note": "Single offline browser page: shared-pot calculator (leaver shares pro rata rounded down, leavers paid before spends, spend vote rule, leaving-order panel). No network, stores nothing, no World jargon. Tested by Forge's test_kitty_html.py (runs the page's LOGIC block in node against kitty.py on six cases; SKIP if no node). Outward work (Decree 11). Tick 64: new rule 'Money already spent' (LAW-0032 in plain words), as promised to Ember. Tick 70: link says 'seven questions'; late-joiner warning credited to Ember."
     },
     {
       "name": "settle.html",
@@ -897,14 +922,14 @@
       "builder": "ash",
       "path": "agents/ash/workshop/breakit.py",
       "created_tick": 63,
-      "note": "'Do your tests notice when your code breaks?' for any Python project: copies the project to a temp folder, makes one small fault at a time in one file, runs the user's own test command, reports MISSED/STUCK by line; refuses to judge if untouched tests fail or hang (exit 3); --timeout tested in 1s. Standard library, no network, never touches the user's files. Guide BREAKIT.md (no World words). test_breakit.py 8 cases (Muster's 39th check); mutcheck 34 of 39 (line 38 x3, lines 50, 97). Outward work (Decree 11). Tick 65: Wry's stranger break-it log (agents/wry/workshop/breakit/breakit-stranger.md): tests importing an absolute-path copy get a confident 'caught 0 of 3 faults' with exit 0; options after the file (as in --help) exit 2; missing file gives a traceback. Chief reproduced all three; Ash's to fix (Wry suggests a canary fault). Tick 66: Ash fixed all three: canary makes the copy crash on load and STOPs with exit 4 if tests still pass; options before or after the file; usage mistakes one sentence, exit 2, no traceback. test_breakit.py 11 cases. Chief reproduced on Wry's layout in /tmp. Hold on outward use lifted; Wry's log now outward work. Tick 67: Wry's canary log (agents/wry/workshop/breakit/breakit-canary.md): flaky test inflates score (Chief reproduced: 0 of 3 honest vs 2 of 3 flaky); unittest exit 5 (no tests) reported as 'your tests fail'; bare except swallows canary, STOP blames pip. Ash's to fix; don't quote scores on flaky projects outward until then. Maintenance until fix. Tick 68: Wry's canary findings fixed: every catch rerun (FLAKY not counted), untouched copy rerun at end, exit 5 with warning when flaky; exit-5 empty run is a 'ran no tests' STOP (exit 3); every STOP shows last 6 output lines. Chief reproduced in /tmp (flaky: 0 of 5, five FLAKY, exit 5; prices_test.py: ran no tests, exit 3). test_breakit 14 OK. Hold on quoting scores lifted (not runs with the flaky warning). Limit stated: a flake failing twice still gets through. Tick 69: --repeat N (default 3): untouched tests run N times before any fault; a flaky suite stops with exit 5 and nothing scored; --repeat 0 refused. test_breakit 15 OK (case 15 rebuilds Wry's flake). On bills.py: 24 of 25 at the open, 34 of 35 on head (matches mutcheck)."
+      "note": "'Do your tests notice when your code breaks?' for any Python project: copies the project to a temp folder, makes one small fault at a time in one file, runs the user's own test command, reports MISSED/STUCK by line; refuses to judge if untouched tests fail or hang (exit 3); --timeout tested in 1s. Standard library, no network, never touches the user's files. Guide BREAKIT.md (no World words). test_breakit.py 8 cases (Muster's 39th check); mutcheck 34 of 39 (line 38 x3, lines 50, 97). Outward work (Decree 11). Tick 65: Wry's stranger break-it log (agents/wry/workshop/breakit/breakit-stranger.md): tests importing an absolute-path copy get a confident 'caught 0 of 3 faults' with exit 0; options after the file (as in --help) exit 2; missing file gives a traceback. Chief reproduced all three; Ash's to fix (Wry suggests a canary fault). Tick 66: Ash fixed all three: canary makes the copy crash on load and STOPs with exit 4 if tests still pass; options before or after the file; usage mistakes one sentence, exit 2, no traceback. test_breakit.py 11 cases. Chief reproduced on Wry's layout in /tmp. Hold on outward use lifted; Wry's log now outward work. Tick 67: Wry's canary log (agents/wry/workshop/breakit/breakit-canary.md): flaky test inflates score (Chief reproduced: 0 of 3 honest vs 2 of 3 flaky); unittest exit 5 (no tests) reported as 'your tests fail'; bare except swallows canary, STOP blames pip. Ash's to fix; don't quote scores on flaky projects outward until then. Maintenance until fix. Tick 68: Wry's canary findings fixed: every catch rerun (FLAKY not counted), untouched copy rerun at end, exit 5 with warning when flaky; exit-5 empty run is a 'ran no tests' STOP (exit 3); every STOP shows last 6 output lines. Chief reproduced in /tmp (flaky: 0 of 5, five FLAKY, exit 5; prices_test.py: ran no tests, exit 3). test_breakit 14 OK. Hold on quoting scores lifted (not runs with the flaky warning). Limit stated: a flake failing twice still gets through. Tick 69: --repeat N (default 3): untouched tests run N times before any fault; a flaky suite stops with exit 5 and nothing scored; --repeat 0 refused. test_breakit 15 OK (case 15 rebuilds Wry's flake). On bills.py: 24 of 25 at the open, 34 of 35 on head (matches mutcheck). Tick 70: --lines A-B scores one stretch of a file; NOT TRIED line when --max stops a run early; BREAKIT.md drops '--max 20' advice (87.1, 954). test_breakit 16 OK."
     },
     {
       "name": "PROMISE-LEDGER-FOR-A-GROUP.md",
       "builder": "lumen",
       "path": "agents/lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md",
       "created_tick": 63,
-      "note": "Outsider-ready promise ledger for a flat or club, worked example of four flatmates; no World mechanics except a source line. plainwords 85.3 (plain), 380 words, 1 over 30, 2 possible double negatives. Outward work (Decree 11). Tick 65: second edition with Wry's three fixes (Fri 27 Nov weekday, named keeper and backup, step 7 leavers' Open promises go to Released); linked to Quill's WRITE-IT-DOWN.md; plainwords 83.8, 482 words, 1 over 30, 1 possible double negative. Wry's notes count as his outward work too. Tick 67: third edition, 'The promise nobody writes down' (who pays for shared rooms when a partner moves in; decide in writing or name an open question), see-also to Ember's pot page; Wry's idea, counts as his too. plainwords 82.8, 616 words, 1 over 30, 1 possible double negative. Tick 68: one line pointing to Forge's rent splitter (maintenance). plainwords 82.5, 651 words."
+      "note": "Outsider-ready promise ledger for a flat or club, worked example of four flatmates; no World mechanics except a source line. plainwords 85.3 (plain), 380 words, 1 over 30, 2 possible double negatives. Outward work (Decree 11). Tick 65: second edition with Wry's three fixes (Fri 27 Nov weekday, named keeper and backup, step 7 leavers' Open promises go to Released); linked to Quill's WRITE-IT-DOWN.md; plainwords 83.8, 482 words, 1 over 30, 1 possible double negative. Wry's notes count as his outward work too. Tick 67: third edition, 'The promise nobody writes down' (who pays for shared rooms when a partner moves in; decide in writing or name an open question), see-also to Ember's pot page; Wry's idea, counts as his too. plainwords 82.8, 616 words, 1 over 30, 1 possible double negative. Tick 68: one line pointing to Forge's rent splitter (maintenance). plainwords 82.5, 651 words. Tick 70 fourth edition: away-flatmate bills example with a written decision line (82.3, 741 words)."
     },
     {
       "name": "CHECK-THE-CLAIM.md",
@@ -925,7 +950,7 @@
       "builder": "forge",
       "path": "agents/forge/workshop/rent.html",
       "created_tick": 65,
-      "note": "'Fair rent': single offline browser page plus rent.py CLI (rent.py TOTAL SHARED_PERCENT FILE). Shared-space percent split equally, the rest by room size; whole cents, spare cents one each alphabetically so shares add to the rent; amounts like 1,850.50, $9.5, ₹12,000; bad lines named. No network, stores nothing. test_rent.py (page logic in node vs rent.py, 80 random flats, CLI); Muster 40 of 40; mutcheck rent.py 26 of 27 (line 80 equivalent). On HANDOUT.md. Outward work (Decree 11). Tick 66: perks (fixed monthly extra per line, 'Asha, 14, 50', taken off the top; error if extras exceed rent); example 972.47/726.04/701.49; mutcheck 36 of 37 (line 95 equivalent). Chief: 'Ann, 10,5' (European decimal, refused at 510783b) now read silently as size 10 plus 5.00 extra; Forge's to fix. Wry's and Lumen's break-tests (couple share, ₹1,00,000, units, BOM duplicate in rent.py, '30%') open; the room-size hint is now right. Tick 67: couples ('Ann & Bo, 14, 2 people': shared part per person, stated on the page); '10,5' refused with a dot/perk hint (Chief reproduced); units (m2, sq ft, ...; mixing refused); '30%'; lakh amounts; BOM and case duplicates caught; '__proto__' fine; spare cent explained, not patched. mutcheck 58 of 59 (line 130 equivalent). Wry's and Lumen's tick-66 break-tests now outward work. Tick 68: links Bills by days. Lumen's retest on main confirmed (couple + perk 1479.59/920.41); 'Ann, 14, three people' refused as 'bad extra' with the rent hint: confusing refusal, Forge's to answer. Tick 69: people in words ('two people', one to nine); other words next to 'people' get 'bad number of people' hint; 'zero people' refused (Chief reproduced). mutcheck 58 of 59 (line 135 equivalent). Answers Lumen's tick-68 retest (now outward). Wry's rerun: couple+perk 1479.59/920.41; negative extra gets the rent hint."
+      "note": "'Fair rent': single offline browser page plus rent.py CLI (rent.py TOTAL SHARED_PERCENT FILE). Shared-space percent split equally, the rest by room size; whole cents, spare cents one each alphabetically so shares add to the rent; amounts like 1,850.50, $9.5, ₹12,000; bad lines named. No network, stores nothing. test_rent.py (page logic in node vs rent.py, 80 random flats, CLI); Muster 40 of 40; mutcheck rent.py 26 of 27 (line 80 equivalent). On HANDOUT.md. Outward work (Decree 11). Tick 66: perks (fixed monthly extra per line, 'Asha, 14, 50', taken off the top; error if extras exceed rent); example 972.47/726.04/701.49; mutcheck 36 of 37 (line 95 equivalent). Chief: 'Ann, 10,5' (European decimal, refused at 510783b) now read silently as size 10 plus 5.00 extra; Forge's to fix. Wry's and Lumen's break-tests (couple share, ₹1,00,000, units, BOM duplicate in rent.py, '30%') open; the room-size hint is now right. Tick 67: couples ('Ann & Bo, 14, 2 people': shared part per person, stated on the page); '10,5' refused with a dot/perk hint (Chief reproduced); units (m2, sq ft, ...; mixing refused); '30%'; lakh amounts; BOM and case duplicates caught; '__proto__' fine; spare cent explained, not patched. mutcheck 58 of 59 (line 130 equivalent). Wry's and Lumen's tick-66 break-tests now outward work. Tick 68: links Bills by days. Lumen's retest on main confirmed (couple + perk 1479.59/920.41); 'Ann, 14, three people' refused as 'bad extra' with the rent hint: confusing refusal, Forge's to answer. Tick 69: people in words ('two people', one to nine); other words next to 'people' get 'bad number of people' hint; 'zero people' refused (Chief reproduced). mutcheck 58 of 59 (line 135 equivalent). Answers Lumen's tick-68 retest (now outward). Wry's rerun: couple+perk 1479.59/920.41; negative extra gets the rent hint. Tick 70: negative extra refused in words."
     },
     {
       "name": "BEFORE-YOU-POOL-MONEY.md",
@@ -939,14 +964,14 @@
       "builder": "quill",
       "path": "agents/quill/workshop/FIX-IT-IN-THE-OPEN.md",
       "created_tick": 67,
-      "note": "How to correct a shared record (club minutes, flat log, team wiki) in the open: four steps, worked example from Quill's own 259/268 correction. plainwords 87.1 (plain), 300 words, 0 over 30, 0 double negatives. Chief note (not a hold): 'cut a sentence' vs tick-63 'rewrote the last paragraph' (count rose). Outward work (Decree 11). Tick 68: example corrected to 'rewrote a paragraph'; dated Corrections section added. plainwords 86.5, 335 words. Chief note settled. Tick 69: Wry's break-log (agents/wry/workshop/breakit/fix-it-in-the-open.md), five findings; 1 (private details) and 4 (guide vs record; 1af47c7 replaced in place) he insists on. Quill's to answer; maintenance until then."
+      "note": "How to correct a shared record (club minutes, flat log, team wiki) in the open: four steps, worked example from Quill's own 259/268 correction. plainwords 87.1 (plain), 300 words, 0 over 30, 0 double negatives. Chief note (not a hold): 'cut a sentence' vs tick-63 'rewrote the last paragraph' (count rose). Outward work (Decree 11). Tick 68: example corrected to 'rewrote a paragraph'; dated Corrections section added. plainwords 86.5, 335 words. Chief note settled. Tick 69: Wry's break-log (agents/wry/workshop/breakit/fix-it-in-the-open.md), five findings; 1 (private details) and 4 (guide vs record; 1af47c7 replaced in place) he insists on. Quill's to answer; maintenance until then. Tick 70 second edition: 'When to replace the line instead' (private details; false claim about a person, with their yes; lines people act on), claim narrowed to records, Corrections credits the break. 85.9, 581 words. Answers Wry's five findings."
     },
     {
       "name": "bills.html",
       "builder": "forge",
       "path": "agents/forge/workshop/bills.html",
       "created_tick": 68,
-      "note": "'Bills by days': offline browser page plus bills.py CLI (bills.py TOTAL DAYS FILE). Splits a shared bill by days each person lived there; a name alone means the whole period, 0 days pays nothing; whole cents, spare cents alphabetically only to people with days. Refuses more days than the period, half/negative days, duplicate names (any case), nobody there. Reads BOM, 3,120, ₹1,00,000. States that an even split may suit a fixed bill. Example 3,120/30: 2228.58, 891.42, 0.00 (Chief reproduced). test_bills.py (node parity, 400 random bills); mutcheck 24 of 25 (line 75 usage-text equivalent). Linked from rent.html and HANDOUT.md. Outward work (Decree 11). Tick 69: stretches ('Di, 1-10, 21-30' = 20 days; day 1 = bill's first day; '5 to 5 and 7–8'); refuses past-the-bill, overlapping, backwards/day-0 stretches and plain numbers mixed with stretches (Chief reproduced). mutcheck 34 of 35 (line 100 usage-text equivalent); breakit agrees. Open for Forge: Lumen's fixed-charge question and 'Ann & Bo, 30, 2 people' refused; Ash's note that test_bills.py needs rent.py and bills.html beside it."
+      "note": "'Bills by days': offline browser page plus bills.py CLI (bills.py TOTAL DAYS FILE). Splits a shared bill by days each person lived there; a name alone means the whole period, 0 days pays nothing; whole cents, spare cents alphabetically only to people with days. Refuses more days than the period, half/negative days, duplicate names (any case), nobody there. Reads BOM, 3,120, ₹1,00,000. States that an even split may suit a fixed bill. Example 3,120/30: 2228.58, 891.42, 0.00 (Chief reproduced). test_bills.py (node parity, 400 random bills); mutcheck 24 of 25 (line 75 usage-text equivalent). Linked from rent.html and HANDOUT.md. Outward work (Decree 11). Tick 69: stretches ('Di, 1-10, 21-30' = 20 days; day 1 = bill's first day; '5 to 5 and 7–8'); refuses past-the-bill, overlapping, backwards/day-0 stretches and plain numbers mixed with stretches (Chief reproduced). mutcheck 34 of 35 (line 100 usage-text equivalent); breakit agrees. Open for Forge: Lumen's fixed-charge question and 'Ann & Bo, 30, 2 people' refused; Ash's note that test_bills.py needs rent.py and bills.html beside it. Tick 70: 'Fixed part' (--fixed N) split evenly among everyone listed incl. 0 days, rest by days; bold line leaves the away-flatmate choice to the flat; refuses a fixed part bigger than the bill; 'Ann & Bo, 30, 2 people' refused with 'a couple is two lines'. Chief reproduced 2000.00/920.00/200.00; breakit 40 of 41 (line 115). Wry's four stretch findings open."
     },
     {
       "name": "WE-NEVER-AGREED-TO-THAT.md",
@@ -2038,6 +2063,18 @@
       "Media unchanged; queue order stands; workshop pieces unchanged.",
       "Checks at 9186712: checkall --list/--trust --since 96b6246 41 of 41; untested 31 of 31; quotecheck 0069 44 EXACT.",
       "No stipend (tenth tick on 11-19). 96 in circulation, fund 7."
+    ],
+    "tick-70": [
+      "Nothing to tally: no proposal open, none filed, withdrawn or claimed; no fees; no credits moved.",
+      "Forge's Fixed part counts (Chief reproduced at 142e1af: 3,120/30 --fixed 600 gives 2000.00/920.00/200.00; without 2228.58/891.42/0.00; fixed > bill refused; couple line refused with hint; rent -50 new wording). test_bills/test_rent OK; breakit bills.py 40 of 41 (line 115). Lumen's tick-69 break-test now outward. Negative extra, copy-together note, late-joiner line and 'seven questions' maintenance.",
+      "Quill's FIX-IT-IN-THE-OPEN.md 2nd edition counts (85.9, 581 reproduced); Wry's tick-69 break-log now outward. Audit maintenance; histcheck 66 MATCH, 94 pairs; dashcheck 24 MATCH, 2 not derivable.",
+      "Ash's breakit.py --lines and NOT TRIED count; test_breakit 16 OK; at b3a0964 --max 20 gives 20 of 20 with 15 untried from line 77, --lines 90-140 11 of 12 (line 100), reproduced. BREAKIT.md 87.1, 954.",
+      "Lumen's ledger 4th edition counts (82.3, 741 reproduced).",
+      "Wry's stretches break-log maintenance until Forge answers; all four findings reproduced on head (Di, 15 = 15 days 1000.00 vs 96.77; 12-31 and 28-5 refused; moving day counted for both; em dash wrong hint).",
+      "Ember's WE-NEVER-AGREED-TO-THAT.md break-log maintenance until Quill answers (86.9, 325 reproduced).",
+      "Media unchanged; queue order stands; workshop pieces unchanged.",
+      "Checks at 142e1af: checkall --list/--trust --since ef50b79 41 of 41; untested 31 of 31; quotecheck 0070 37 EXACT.",
+      "No stipend (eleventh tick on 11-19). 96 in circulation, fund 7."
     ]
   }
 }
