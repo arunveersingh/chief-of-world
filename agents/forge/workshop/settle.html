@@ -10,7 +10,7 @@ h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:11em;font:15px
 </style></head><body>
 <h1>Who owes whom?</h1>
 <p>Write down what each person paid. The page tells you the fewest payments it can find to make everyone even. Nothing leaves this page and nothing is saved.</p>
-<p><small>One spend per line: <b>who paid, amount, who it was for</b>. Leave the last part empty if it was for everyone.</small></p>
+<p><small>One spend per line: <b>who paid, amount, who it was for</b>. Leave the last part empty if it was for everyone. Amounts like 1,000 or $20 are fine.</small></p>
 <textarea id="in">Asha, 90, 
 Ben, 30, Ben Cy
 Cy, 12.50, Asha Cy</textarea>
@@ -54,16 +54,28 @@ function settle(bal0) {
     out.push([a, b, x]); bal[a] += x; bal[b] -= x;
   }
 }
+const LINE = /^([^,]*),\s*[$€£₹]?\s*((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]*)(?:\.[0-9]*)?)\s*(?:,(.*))?$/;
+const NUMBERISH = /^[0-9.,]+$/;
 function parse(text) {
   const people = [], spends = [];
-  for (let line of text.split("\n")) {
-    line = line.split("#")[0].trim();
+  const lines = text.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const num = i + 1, line = lines[i].split("#")[0].trim();
     if (!line) continue;
-    const parts = line.split(",").map(p => p.trim());
-    if (parts.length < 2 || !parts[0]) throw new Error("need: payer, amount, names: " + line);
-    const who = parts.length > 2 ? parts[2].split(/\s+/).filter(Boolean) : [];
-    spends.push([parts[0], cents(parts[1]), who]);
-    for (const n of [parts[0], ...who]) if (!people.includes(n)) people.push(n);
+    const m = LINE.exec(line);
+    if (!line.includes(",") || !line.split(",")[0].trim())
+      throw new Error(`line ${num}: write it as: who paid, amount, who it was for: ${line}`);
+    const second = line.slice(line.indexOf(",") + 1).trim();
+    if (!m) throw new Error(`line ${num}: bad amount: ${second} (write 12.50 or 1,000)`);
+    const payer = m[1].trim(), amount = m[2], rest = m[3] || "";
+    let amt;
+    try { amt = cents(amount.split(",").join("")); }
+    catch (e) { throw new Error(`line ${num}: bad amount: ${amount || second} (write 12.50 or 1,000)`); }
+    const who = rest.split(/\s+/).filter(Boolean);
+    for (const n of [payer, ...who])
+      if (NUMBERISH.test(n)) throw new Error(`line ${num}: ${n} looks like part of a number, not a name (write amounts like 1000 or 1,000)`);
+    spends.push([payer, amt, who]);
+    for (const n of [payer, ...who]) if (!people.includes(n)) people.push(n);
   }
   return [people, spends];
 }

@@ -32,6 +32,18 @@ assert settle({"a": 5}) == [] and settle({"a": -5}) == []     # lopsided input s
 assert settle({"a": -7, "b": 3, "c": 4}) == [("a", "c", 4), ("a", "b", 3)]
 # comments, blank lines, bad lines
 assert parse("# trip\n\nA, 1 # snack\n") == (["A"], [("A", 100, [])])
+# Wry's break-it log (tick 63): a thousands comma and a currency sign
+assert parse("Ann, 1,000") == (["Ann"], [("Ann", 100000, [])])
+assert parse("Ann, $20\nBen, 0") == (["Ann", "Ben"], [("Ann", 2000, []), ("Ben", 0, [])])
+assert parse("Ann, 1,000, Ben Cy")[1] == [("Ann", 100000, ["Ben", "Cy"])]
+assert parse("Ann, €3.5, Bo")[1] == [("Ann", 350, ["Bo"])] and parse("Ann, ₹1,234,567.89")[1] == [("Ann", 123456789, [])]
+assert parse("Ann, 5,")[1] == [("Ann", 500, [])] and parse("Ann,5,Bo")[1] == [("Ann", 500, ["Bo"])]
+for bad, words in [("Ann, 1,00", "00 looks like part of a number"), ("Ann, 1, 000 Ben", "000 looks like"),
+                   ("Ann, 1,0000", "0000 looks like"), ("Ann, 12.345", "bad amount: 12.345"), ("Ann, x", "bad amount: x"),
+                   ("Ann, $$5", "bad amount"), ("Ann", "write it as"), ("\n, 5", "line 2: write it as"), ("1, 5", "1 looks like"),
+                   ("Ann, x, Bo", "bad amount: x, Bo ("), ("Ann, 1., Bo", "bad amount: 1. ("), ("Ann, $, Bo, Cy", "bad amount: $, Bo, Cy (")]:
+    try: parse(bad); raise AssertionError(bad)
+    except ValueError as e: assert words in str(e) and str(e).startswith("line "), (bad, str(e))
 for bad in ["A", ", 5", "A, x"]:
     try: parse(bad); raise AssertionError(bad)
     except ValueError: pass
@@ -68,6 +80,14 @@ with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False) as f:
     f.write("Asha, 90, \nBen, 30, Ben Cy\nCy, 12.50, Asha Cy\n")
 r = subprocess.run([sys.executable, str(HERE / "settle.py"), f.name], capture_output=True, text=True)
 assert r.returncode == 0 and r.stdout == "Cy pays Asha 38.75\nBen pays Asha 15.00\n", r.stdout
+with open(f.name, "w") as g:
+    g.write("Ann, 1,000\nBen, 0\n")
+r = subprocess.run([sys.executable, str(HERE / "settle.py"), f.name], capture_output=True, text=True)
+assert r.returncode == 0 and r.stdout == "Ben pays Ann 500.00\n" and "000 pays" not in r.stdout, r.stdout
+with open(f.name, "w") as g:
+    g.write("Ann, 20 dollars\n")
+r = subprocess.run([sys.executable, str(HERE / "settle.py"), f.name], capture_output=True, text=True)
+assert r.returncode == 1 and r.stderr == "settle: line 1: bad amount: 20 dollars (write 12.50 or 1,000)\n" and "Traceback" not in r.stderr, r.stderr
 r = subprocess.run([sys.executable, str(HERE / "settle.py")], capture_output=True, text=True)
 assert r.returncode == 2 and "Usage:" in r.stdout
 os.unlink(f.name)
@@ -80,7 +100,7 @@ node = shutil.which("node")
 if not node:
     print("SKIP settle.html: node not installed (settle.py is tested)"); sys.exit(0)
 logic = page.split("// LOGIC START", 1)[1].split("\n", 1)[1].split("// LOGIC END", 1)[0]
-ALL = CASES + ["Asha, 90, \nBen, 30, Ben Cy\nCy, 12.50, Asha Cy", "a, 1.00, c b a", "x, 101, z y", "a, 10, b b"]
+ALL = CASES + ["Ann, 1,000", "Ann, $20\nBen, 0", "Ann, 1,000, Ben Cy", "Ann, €3.5, Bo", "Ann, ₹1,234,567.89\nBo, 1", "Ann,5,Bo", "Ann, 5,", "Asha, 90, \nBen, 30, Ben Cy\nCy, 12.50, Asha Cy", "a, 1.00, c b a", "x, 101, z y", "a, 10, b b"]
 js = logic + "\nconst C = " + json.dumps(ALL) + """;
 console.log(JSON.stringify(C.map(t => { const [p, s] = parse(t); const b = balances(p, s); return [p, b, settle(b), steps(p, s)]; })));"""
 r = subprocess.run([node, "-e", js], capture_output=True, text=True, timeout=30)
@@ -93,4 +113,12 @@ for text, (p, b, pays, st) in zip(ALL, json.loads(r.stdout)):
 js = logic + '\nfor (const t of ["", ".", "1.234", "a", "-1"]) { try { cents(t); console.log("ok " + t); } catch (e) { console.log(e.message); } }'
 r = subprocess.run([node, "-e", js], capture_output=True, text=True, timeout=30)
 assert r.stdout.count("bad amount") == 5, r.stdout
+BAD = ["Ann, 1,00", "Ann, 1, 000 Ben", "Ann, 1,0000", "Ann, 12.345", "Ann, x", "Ann, $$5", "Ann", "\n, 5", "1, 5", "Ann, 20 dollars", "Ann, .", "Ann, x, Bo", "Ann, 1., Bo", "Ann, $, Bo, Cy"]
+js = logic + "\nfor (const t of " + json.dumps(BAD) + ") { try { parse(t); console.log('ok'); } catch (e) { console.log(e.message); } }"
+r = subprocess.run([node, "-e", js], capture_output=True, text=True, timeout=30)
+want = []
+for b in BAD:
+    try: parse(b); want.append("ok")
+    except ValueError as e: want.append(str(e))
+assert r.stdout.splitlines() == want, (r.stdout, want)
 print("all settle tests pass")
