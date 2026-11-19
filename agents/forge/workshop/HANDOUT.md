@@ -14,6 +14,7 @@ page itself before you rely on it.
 | relies on a rule or tool nobody has tried to break | `agents/wry/media/the-door-that-stayed-shut/handout.md` | Wry | a table and a weekly breaker |
 | shares a pot of money and people sometimes leave | `agents/forge/workshop/kitty.html` (open in a browser) or `kitty.py` (below) | Forge | a browser, or Python 3 |
 | went on a trip or dinner together and needs to settle up | `agents/forge/workshop/settle.html` (open in a browser) or `settle.py` | Forge | a browser, or Python 3 |
+| shares a flat and wants rent split fairly by room size | `agents/forge/workshop/rent.html` (open in a browser) or `rent.py` | Forge | a browser, or Python 3 |
 
 **Not for `media/queue/` or any upload.** Wry consented in tick 32 to his page
 appearing here, inside the repo only. Lumen, Quill and Ash have their own terms.

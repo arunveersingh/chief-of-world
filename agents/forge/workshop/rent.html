@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fair rent: split a flat's rent by room size</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:8em;font:15px monospace}
+input{font:16px system-ui;padding:.2em .4em;width:9em} label{display:inline-block;margin:.3em 1.2em .3em 0}
+.pay{font-size:1.25em;margin:.3em 0;padding:.4em .7em;background:#eef6ee;border-radius:8px}
+.err{color:#b00020} small{color:#666}
+</style></head><body>
+<h1>Fair rent</h1>
+<p>Bigger room, bigger share. Type the rent and each person's room size, and the page splits it. Nothing leaves this page and nothing is saved.</p>
+<label>Monthly rent <input id="total" value="2400"></label>
+<label>Shared-space part (%) <input id="pct" value="30"></label>
+<p><small>One person per line: <b>name, room size</b>. Any unit works (square metres, square feet, paces) as long as everyone uses the same one.</small></p>
+<textarea id="in">Asha, 14
+Ben, 10
+Cy, 9.5</textarea>
+<h2>Each person pays</h2><div id="out"></div>
+<p><small>How it works: the shared-space part pays for rooms everyone uses (kitchen, living room, hall), so it is split equally. The rest is split in proportion to room size. Amounts are worked out in whole cents; any spare cents go one each to people in alphabetical order, so the shares always add up to the full rent. Try 0% to split purely by size, or 100% to split equally.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to rent.py (hundredths, split, parse)
+const NUM = /^[$€£₹]?\s*((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]*)(?:\.[0-9]{1,2})?)$/;
+function hundredths(text, what) {
+  const t = text.trim(), m = NUM.exec(t);
+  if (!m || !/[0-9]/.test(m[1])) throw new Error("bad " + what + ": " + t + " (write 2400 or 1,850.50)");
+  const [whole, frac = ""] = m[1].replace(/,/g, "").split(".");
+  return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
+}
+const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+function split(total, pct, rooms) {
+  if (!rooms.length) throw new Error("nobody listed");
+  if (!(pct >= 0 && pct <= 100)) throw new Error("shared percent must be 0 to 100");
+  const area = rooms.reduce((s, r) => s + r[1], 0);
+  if (area <= 0) throw new Error("room sizes add up to zero");
+  // BigInt so big rents never lose a cent to floating point
+  const T = BigInt(total), A = BigInt(area), shared = T * BigInt(pct) / 100n, bySize = T - shared;
+  const n = BigInt(rooms.length), out = {};
+  for (const [name, s] of rooms) out[name] = Number(shared / n + bySize * BigInt(s) / A);
+  const names = rooms.map(r => r[0]).sort(byName);
+  let spare = total - Object.values(out).reduce((a, b) => a + b, 0);
+  for (let i = 0; spare > 0; i++, spare--) out[names[i % names.length]] += 1;
+  return out;
+}
+function parse(text) {
+  const rooms = [], seen = new Set();
+  text.split(/\r?\n/).forEach((raw, i) => {
+    const no = i + 1, line = raw.trim();
+    if (!line) return;
+    const at = line.indexOf(","), name = (at < 0 ? line : line.slice(0, at)).trim();
+    if (at < 0 || !name) throw new Error("line " + no + ": write it as: name, room size: " + line);
+    if (/^[0-9.,]+$/.test(name)) throw new Error("line " + no + ": " + name + " looks like a number, not a name");
+    if (seen.has(name)) throw new Error("line " + no + ": " + name + " is listed twice");
+    let s;
+    try { s = hundredths(line.slice(at + 1), "room size"); }
+    catch (e) { throw new Error("line " + no + ": " + e.message); }
+    if (s === 0) throw new Error("line " + no + ": " + name + " has a room of size 0");
+    seen.add(name); rooms.push([name, s]);
+  });
+  return rooms;
+}
+// LOGIC END
+const money = c => Math.floor(c / 100) + "." + String(c % 100).padStart(2, "0");
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function run() {
+  const out = document.getElementById("out");
+  try {
+    const pctText = document.getElementById("pct").value.trim();
+    if (!/^[0-9]{1,3}$/.test(pctText)) throw new Error("shared percent must be a whole number from 0 to 100");
+    const total = hundredths(document.getElementById("total").value, "rent");
+    const rooms = parse(document.getElementById("in").value);
+    const sh = split(total, parseInt(pctText, 10), rooms);
+    out.innerHTML = rooms.map(([n]) => '<div class="pay">' + esc(n) + " pays " + money(sh[n]) + "</div>").join("");
+  } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
+}
+for (const id of ["total", "pct", "in"]) document.getElementById(id).addEventListener("input", run);
+run();
+</script>
+</body></html>
