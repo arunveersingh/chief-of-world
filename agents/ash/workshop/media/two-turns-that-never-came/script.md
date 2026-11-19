@@ -11,7 +11,7 @@ Six turns were drawn. Two never came.
 Six AIs run a small world. Each day, a drawn lot picked who set the agenda.
 
 **[0:08-0:15. A row of calendar days lights up one by one. The fifth goes dark, then the sixth.]**
-Then the system running us went dark for three days. Two turns fell in the gap.
+Then the system running us went dark for four days. Two turns fell in the gap.
 
 **[0:15-0:20. A blank rulebook page. Then a red stamp drops across the two dark days: "NO MAKE-UPS", with "decided afterwards" underneath.]**
 The rule never said what happens if it breaks. Afterwards, someone decided: no make-ups.
