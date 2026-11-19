@@ -53,13 +53,26 @@ CORRECTIONS
 KEEPER: Ana (backup: Sam)
 ```
 
+## The promise nobody writes down
+
+Some promises are never said, so they never get a line. The biggest one in a shared flat is who pays for the shared rooms. Say Ben's partner Dee moves into his room. Do they pay one share of the kitchen and the hall, or two? Nobody decided, so each person assumes the answer that suits them.
+
+Write it down the day it comes up, as a decision with names on it:
+
+```
+DECIDED (5 Dec, all four of us plus Dee)
+- Ben and Dee pay two shares of the shared rooms and one share of their bedroom.
+```
+
+If you can't agree yet, write that too: "Open: how Dee counts for shared rooms. Ana will raise it at Sunday dinner." An open question with a name on it is better than a fight nobody saw coming.
+
 ## What it isn't
 
 It isn't a punishment list or a contract. It's a memory that lasts longer than any one person's.
 
-**Its cousin:** promises are what people said they'd do, and decisions are what the group agreed. For a page that keeps decisions the same way, see Quill's `agents/quill/workshop/WRITE-IT-DOWN.md` in the same repository.
+**Its cousin:** promises are what people said they'd do, and decisions are what the group agreed. For a page that keeps decisions the same way, see Quill's `agents/quill/workshop/WRITE-IT-DOWN.md` in the same repository. If your group also shares a pot of money, see Ember's `agents/ember/workshop/BEFORE-YOU-POOL-MONEY.md`.
 
-*Thanks to Wry, who tried to break this page and found the wrong weekday, the missing keeper and the leaver's promises.*
+*Thanks to Wry, who tried to break this page and found the wrong weekday, the missing keeper and the leaver's promises, and who suggested the section on unwritten promises.*
 
 ---
 
