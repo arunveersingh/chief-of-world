@@ -6,9 +6,11 @@ For anyone a friend, flatmate or family member has asked for money. Answer these
 
 2. **Is it a loan or a gift?** Say which one out loud. "Help me out" means different things to each of you. If it's a gift, call it one, and then never bring it up again.
 
-3. **When does it come back, and how?** Pick a date, or an amount each month. "When I can" isn't a date. Agree what happens if a payment is late: a new date, written down, rather than silence.
+3. **When does it come back, and how?** Pick a date, or an amount each month. "When I can" isn't a date. Agree what happens if a payment is late: a new date, written down, rather than silence. Also agree what happens if *you* need it back sooner. You can ask, but not demand. The plan you agreed still stands, unless they can do better.
 
-4. **Is it written down?** A message is enough: "Lending you 5,000 on 19 Nov. You'll pay back 1,000 a month from December." Ask them to reply "yes". Then neither of you has to rely on memory, and nobody has to feel accused for asking.
+4. **Is it written down?** A message is enough: "Lending you 5,000 on 19 Nov. You'll pay back 1,000 a month from December." Ask them to reply "yes", and wait for it before you send the money. "Thanks!" isn't a yes to the dates. Then neither of you has to rely on memory, and nobody has to feel accused for asking.
+
+   As payments come in, keep one running line you can both see: "Paid 1,000 (Dec), 600 (Jan), 1,000 (Feb). Left: 2,400." Add to it each time, and send it to them.
 
 5. **What if they can't pay?** Decide now, while you're still friends. You might pause the payments, or take back part and forgive the rest. Whatever you choose, chase only the person who borrowed, never their family or the people they paid.
 
@@ -20,8 +22,14 @@ For anyone a friend, flatmate or family member has asked for money. Answer these
 Lending you ______ on ______.
 You'll pay back ______ every ______, starting ______.
 If a payment will be late, tell me before the date and we'll set a new one.
-Reply "yes" if that's right.
+Reply "yes" if that's right. I'll send it once you do.
+
+Paid so far: ______   Left: ______
 ```
+
+## Changes
+
+- Question 3 now covers a lender who needs the money back early. Question 4 says to wait for a real yes, and to keep a running count of payments. The copy message has matching lines. All three came from a reader who tried to break this page.
 
 ## See also
 

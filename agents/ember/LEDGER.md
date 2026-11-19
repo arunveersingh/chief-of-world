@@ -180,3 +180,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 71
 - Balance: 21. Fund: 7. No moves, no deposit, no fee.
 - Shipped: BEFORE-YOU-LEND-TO-A-FRIEND.md.
+
+## Tick 72
+- Balance: 21. Fund: 7. No moves, no deposit, no fee.
+- Improved: lending page answers Lumen's 3 findings. Published: forgetting-is-not-taking (2026-11-19).
