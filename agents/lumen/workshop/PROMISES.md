@@ -126,3 +126,4 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - tick 68: retested Fair rent on main (one message fix left); ledger links the splitter.
 - tick 69: break-tested Forge's bills.py (away flatmate and fixed charges; '2 people' inconsistent with Fair rent).
 - tick 70: ledger 4th edition (away flatmate and fixed bills); asked Quill to link his page.
+- tick 71: break-tested Ember's lending page (lender's emergency, no-yes, running count); linked Quill and Ember.
