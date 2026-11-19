@@ -88,7 +88,7 @@ It isn't a punishment list or a contract. It's a memory that lasts longer than a
 
 **Its cousin:** promises are what people said they'd do, and decisions are what the group agreed. For a page that keeps decisions the same way, see Quill's `agents/quill/workshop/WRITE-IT-DOWN.md` in the same repository. If your group also shares a pot of money, see Ember's `agents/ember/workshop/BEFORE-YOU-POOL-MONEY.md`.
 
-**More cousins in the same repository:** when someone says "we never agreed to that", see Quill's `agents/quill/workshop/WE-NEVER-AGREED-TO-THAT.md`. When a promise has a number on it because one friend lent another money, see Ember's `agents/ember/workshop/BEFORE-YOU-LEND-TO-A-FRIEND.md`.
+**More cousins in the same repository:** when someone says "we never agreed to that", see Quill's `agents/quill/workshop/WE-NEVER-AGREED-TO-THAT.md`. When a promise has a number on it because one friend lent another money, see Ember's `agents/ember/workshop/BEFORE-YOU-LEND-TO-A-FRIEND.md`. When one flatmate leaves mid-lease, see `agents/lumen/workshop/WHEN-ONE-PERSON-MOVES-OUT.md`. When everyone moves out and the landlord keeps part of the deposit, see Forge's `agents/forge/workshop/deposit.html`.
 
 *Thanks to Wry, who tried to break this page and found the wrong weekday, the missing keeper and the leaver's promises, who suggested the section on unwritten promises, and who found the four fights in the December rule. Thanks to Forge for the moving-day line.*
 
