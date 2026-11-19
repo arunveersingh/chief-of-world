@@ -8,9 +8,14 @@ Usage: bills.py TOTAL DAYS FILE [--fixed AMOUNT]
   FILE   one person per line: name, days they lived there in that period.
          A name alone means the whole period. e.g.
            Asha
-           Ben, 12      (moved in on the 19th of a 30-day month)
+           Ben, 12 days (moved in on the 19th of a 30-day month)
            Cy, 0        (away the whole time, pays nothing)
            Di, 1-10, 21-30   (away in the middle: days 1 to 10 and 21 to 30)
+           Ed, day 15   (stayed one night only)
+         Day 1 is the bill's first day, not the 1st of the month. A number on
+         its own (Ben, 12) is refused unless it is 0: write 12 days or day 12.
+         A day counts for everyone who slept there, so a moving day written
+         into two people's stretches counts for both.
          A couple is two lines, one per person.
   --fixed AMOUNT  the part of the bill that is charged whatever anyone uses
          (internet's monthly fee, a standing charge). It is split evenly
@@ -24,22 +29,26 @@ import sys
 
 from rent import hundredths
 
-DAYCOUNT = r"\s*([0-9]{1,4})\s*(?:days?)?\s*"
-STRETCH = r"([0-9]{1,4})\s*(?:-|–|to)\s*([0-9]{1,4})"
+DAYCOUNT = r"\s*([0-9]{1,4})\s*days?\s*"
+BARE = r"\s*([0-9]{1,4})\s*"
+DASH = r"(?:-|–|—|−|‑|‒|to)"
+STRETCH = r"([0-9]{1,4})(?:\s*" + DASH + r"\s*([0-9]{1,4}))?"
+FROM1 = "day 1 is the bill's first day, not the 1st of the month"
 
 
 def stretches(no, text, period):
-    """'1-10, 21-30' -> number of days; day 1 is the first day of the bill."""
+    """'1-10, 21-30' or '15' -> number of days; day 1 is the first day of the bill."""
     spans = []
     for part in re.split(r",\s*|\s+and\s+", text.strip(), flags=re.I):
         m = re.fullmatch(STRETCH, part.strip(), re.I)
         if not m:
-            raise ValueError("line %d: bad stretch: %s (write days like 1-10, 21-30)" % (no, part.strip()))
-        a, b = int(m.group(1)), int(m.group(2))
+            raise ValueError("line %d: bad stretch: %s (write days like 1-10, 21-30, or day 15)" % (no, part.strip()))
+        a = int(m.group(1))
+        b = int(m.group(2)) if m.group(2) else a
         if a < 1 or b < a:
-            raise ValueError("line %d: bad stretch: %s (days run from 1, and the first day comes first)" % (no, part.strip()))
+            raise ValueError("line %d: bad stretch: %s (%s, and the first day comes first)" % (no, part.strip(), FROM1))
         if b > period:
-            raise ValueError("line %d: %s runs past day %d, the last day of the bill" % (no, part.strip(), period))
+            raise ValueError("line %d: %s runs past day %d, the last day of the bill (%s)" % (no, part.strip(), period, FROM1))
         spans.append((a, b))
     spans.sort()
     for (a1, b1), (a2, b2) in zip(spans, spans[1:]):
@@ -86,14 +95,21 @@ def parse(text, period):
             raise ValueError("line %d: %s is listed twice" % (no, name))
         if comma:
             m = re.fullmatch(DAYCOUNT, rest, re.I)
+            bare = re.fullmatch(BARE, rest)
             if re.search(r"\b(?:people|persons?)\b", rest, re.I):
                 raise ValueError("line %d: bad days: %s (put each person on their own line; a couple is two lines)" % (no, rest.strip()))
-            if not m and re.search(r"[0-9]\s*(?:-|–|to)\s*[0-9]", rest, re.I):
-                d = stretches(no, rest, period)
-            elif not m:
-                raise ValueError("line %d: bad days: %s (write a whole number of days, like 12)" % (no, rest.strip()))
-            else:
+            if m:
                 d = int(m.group(1))
+            elif bare and 0 < int(bare.group(1)) <= period:
+                n = int(bare.group(1))
+                c = "%d day%s" % (n, "" if n == 1 else "s")
+                raise ValueError("line %d: %s, %d could mean %s or only day %d (write %s, or day %d)" % (no, name, n, c, n, c, n))
+            elif bare:
+                d = int(bare.group(1))
+            elif re.match(r"\s*days?\s*(?=[0-9])", rest, re.I) or re.search(r"[0-9]\s*" + DASH + r"\s*[0-9]", rest, re.I):
+                d = stretches(no, re.sub(r"^\s*days?\s*", "", rest, flags=re.I), period)
+            else:
+                raise ValueError("line %d: bad days: %s (write a whole number of days, like 12 days)" % (no, rest.strip()))
         else:
             d = period
         if d > period:

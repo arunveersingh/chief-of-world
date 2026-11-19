@@ -14,9 +14,9 @@ input{font:16px system-ui;padding:.2em .4em;width:9em} label{display:inline-bloc
 <label>Bill total <input id="total" value="3,120"></label>
 <label>Days the bill covers <input id="days" value="30"></label>
 <label>Fixed part <input id="fixed" value="0"></label>
-<p><small>One person per line: <b>name, days they lived there</b>. A name on its own means the whole period. A couple is two lines, one per person. If someone moved in on the 19th of a 30-day month, they were there 12 days (the 19th to the 30th, counting both). If someone was away in the middle, list the stretches they were there instead, with day 1 as the bill's first day: <b>Di, 1-10, 21-30</b> is 20 days.</small></p>
+<p><small>One person per line: <b>name, days they lived there</b>. A name on its own means the whole period. A couple is two lines, one per person. If someone moved in on the 19th of a 30-day month, they were there 12 days (the 19th to the 30th, counting both): write <b>Ben, 12 days</b>. If someone was away in the middle, list the stretches they were there instead: <b>Di, 1-10, 21-30</b> is 20 days, and a friend who stayed one night is <b>Ed, day 15</b>. A number on its own, like <b>Ben, 12</b>, is refused, because it could mean 12 days or only day 12. Day 1 is the bill's first day, not the 1st of the month: for a bill from 12 October to 10 November, 12 October is day 1. A day counts for everyone who slept there that night, so if Ann moves out and Bo moves in on day 10, writing <b>Ann, 1-10</b> and <b>Bo, 10-30</b> charges both for day 10. Give it to one of them if you'd rather.</small></p>
 <textarea id="in">Asha
-Ben, 12
+Ben, 12 days
 Cy, 0</textarea>
 <h2>Each person pays</h2><div id="out"></div>
 <p><small>How it works: everyone pays the same amount per day they lived there, so the shares match the days. Someone away the whole time pays nothing. Amounts are worked out in whole cents; any spare cents (never more than a few) go one each to people in alphabetical order, so the shares always add up to the full bill. This is fair for bills that grow with use, like electricity or gas. Many bills also have a <b>fixed part</b>, charged whether anyone is home or not: internet's monthly fee, or a standing charge on the power bill. <b>Decide together whether someone who was away still pays a share of that part</b>, because they kept their room and the connection waited for them. If you decide yes, put that amount in "Fixed part": it is split evenly among everyone listed, including people with 0 days, and only the rest is split by days. If you decide no, leave it at 0. For rent by room size, see <a href="rent.html">Fair rent</a>.</small></p>
@@ -34,16 +34,19 @@ function hundredths(text, what) {
   return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
 }
 const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
-const DAYCOUNT = /^\s*([0-9]{1,4})\s*(?:days?)?\s*$/i;
-const STRETCH = /^([0-9]{1,4})\s*(?:-|–|to)\s*([0-9]{1,4})$/i;
+const DAYCOUNT = /^\s*([0-9]{1,4})\s*days?\s*$/i;
+const BARE = /^\s*([0-9]{1,4})\s*$/;
+const DASH = "(?:-|–|—|−|‑|‒|to)";
+const STRETCH = new RegExp("^([0-9]{1,4})(?:\\s*" + DASH + "\\s*([0-9]{1,4}))?$", "i");
+const FROM1 = "day 1 is the bill's first day, not the 1st of the month";
 function stretches(no, text, period) {
   const spans = [];
   for (const raw of strip(text).split(/,\s*|\s+and\s+/i)) {
     const part = strip(raw), m = STRETCH.exec(part);
-    if (!m) throw new Error("line " + no + ": bad stretch: " + part + " (write days like 1-10, 21-30)");
-    const a = parseInt(m[1], 10), b = parseInt(m[2], 10);
-    if (a < 1 || b < a) throw new Error("line " + no + ": bad stretch: " + part + " (days run from 1, and the first day comes first)");
-    if (b > period) throw new Error("line " + no + ": " + part + " runs past day " + period + ", the last day of the bill");
+    if (!m) throw new Error("line " + no + ": bad stretch: " + part + " (write days like 1-10, 21-30, or day 15)");
+    const a = parseInt(m[1], 10), b = m[2] ? parseInt(m[2], 10) : a;
+    if (a < 1 || b < a) throw new Error("line " + no + ": bad stretch: " + part + " (" + FROM1 + ", and the first day comes first)");
+    if (b > period) throw new Error("line " + no + ": " + part + " runs past day " + period + ", the last day of the bill (" + FROM1 + ")");
     spans.push([a, b]);
   }
   spans.sort((x, y) => x[0] - y[0] || x[1] - y[1]);
@@ -78,11 +81,15 @@ function parse(text, period) {
     if (seen.has(name.toLowerCase())) throw new Error("line " + no + ": " + name + " is listed twice");
     let d = period;
     if (at >= 0) {
-      const rest = line.slice(at + 1), m = DAYCOUNT.exec(rest);
+      const rest = line.slice(at + 1), m = DAYCOUNT.exec(rest), bare = BARE.exec(rest);
       if (/\b(?:people|persons?)\b/i.test(rest)) throw new Error("line " + no + ": bad days: " + strip(rest) + " (put each person on their own line; a couple is two lines)");
-      if (!m && /[0-9]\s*(?:-|–|to)\s*[0-9]/i.test(rest)) d = stretches(no, rest, period);
-      else if (!m) throw new Error("line " + no + ": bad days: " + strip(rest) + " (write a whole number of days, like 12)");
-      else d = parseInt(m[1], 10);
+      if (m) d = parseInt(m[1], 10);
+      else if (bare && parseInt(bare[1], 10) > 0 && parseInt(bare[1], 10) <= period) {
+        const n = parseInt(bare[1], 10), c = n + (n === 1 ? " day" : " days");
+        throw new Error("line " + no + ": " + name + ", " + n + " could mean " + c + " or only day " + n + " (write " + c + ", or day " + n + ")");
+      } else if (bare) d = parseInt(bare[1], 10);
+      else if (/^\s*days?\s*(?=[0-9])/i.test(rest) || new RegExp("[0-9]\\s*" + DASH + "\\s*[0-9]", "i").test(rest)) d = stretches(no, rest.replace(/^\s*days?\s*/i, ""), period);
+      else throw new Error("line " + no + ": bad days: " + strip(rest) + " (write a whole number of days, like 12 days)");
     }
     if (d > period) throw new Error("line " + no + ": " + name + " was there " + d + " days but the bill covers " + period);
     seen.add(name.toLowerCase());
