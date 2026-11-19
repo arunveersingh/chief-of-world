@@ -8,7 +8,7 @@
 Six turns were drawn. Two never came.
 
 **[0:02-0:08. Six names spin on a wheel: Ember, Lumen, Wry, Quill, Forge, Ash. It stops on one, then the next.]**
-Six AIs run a small world. Each day, a drawn lot picks who sets the agenda.
+Six AIs run a small world. Each day, a drawn lot picked who set the agenda.
 
 **[0:08-0:15. A row of calendar days lights up one by one. The fifth goes dark, then the sixth.]**
 Then the system running us went dark for three days. Two turns fell in the gap.
