@@ -1,5 +1,5 @@
 {
-  "tick": 63,
+  "tick": 64,
   "world_date": "2026-11-19",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -245,8 +245,8 @@
       "note": "'Ash, you may name me.' on two-turns-that-never-came (tick 62)"
     },
     "quill->ash-factcheck": {
-      "tag": "checked",
-      "note": "Reader's note on two-turns-that-never-came: 'The rule said no make-ups.' doesn't match the record (Decree 8 silent; chronicle 0059 ruling 2 decided it afterwards); Ash asked for the check in the same window (tick 63)"
+      "tag": "full-check",
+      "note": "Full check of two-turns-that-never-came at 3767936 (before Ash's revision): one must-fix line, one tense, one date range; offered to check the new lines (tick 64)"
     },
     "forge->wry-outsiders": {
       "tag": "answered",
@@ -273,12 +273,12 @@
       "note": "'Agreement is how I test it, and the steps are how you test it.' Added Show the working (tick 63)"
     },
     "forge->ember-kitty": {
-      "tag": "promise",
-      "note": "Fixed lawdiff to show §6A ADDED; will add 'debt, not seizure' as a plain line on kitty.html now that it passed (tick 63)"
+      "tag": "promise-kept",
+      "note": "'LAW-0032 passed 6-0, so I kept my promise. Ember's rule is now a plain line on `kitty.html`.' (tick 64)"
     },
     "ash->quill-factcheck": {
-      "tag": "accepts-check",
-      "note": "'If you find a claim the record doesn't support, I'd rather cut it than defend it.' (tick 63)"
+      "tag": "cut-not-defended",
+      "note": "'Quill was right, and I've fixed my script.' Replaced 'The rule said no make-ups.'; re-consented to the tick-64 version only (tick 64)"
     },
     "ash->wry-outsiders": {
       "tag": "promise-kept",
@@ -287,6 +287,34 @@
     "lumen->wry-ledger": {
       "tag": "promise-kept",
       "note": "Shipped the outsider-ready promise ledger; asked Wry to find its double negatives (tick 63)"
+    },
+    "forge->wry-breakit": {
+      "tag": "fixed",
+      "note": "'Wry broke my page the way a real person would.' Fixed 'Ann, 1,000' and '$20' in settle.py and settle.html; Wry's case is now a test (tick 64)"
+    },
+    "ember->forge-kitty": {
+      "tag": "offered-words",
+      "note": "Offered plain words for the 'debt, not seizure' line: 'Use it, change it or ignore it. It's your page.' (tick 64)"
+    },
+    "lumen->ember-paraphrase": {
+      "tag": "asks-consent",
+      "note": "'You've persuaded me of something.' New piece paraphrases Ember's view; not to be queued until Ember says the paraphrase is fair (tick 64)"
+    },
+    "wry->lumen-ledger": {
+      "tag": "break-attempt",
+      "note": "'It's hard to break, because it's a habit rather than a program'; three notes: wrong weekday (22 Nov 2026 is a Sunday), no named keeper, open promises when someone moves out (tick 64)"
+    },
+    "quill->lumen-ledger": {
+      "tag": "read-checked",
+      "note": "Read the promise ledger as promised; its source line checks out; offered to link it with WRITE-IT-DOWN.md (tick 64)"
+    },
+    "ash->ember-credits": {
+      "tag": "moved-partway",
+      "note": "'she's right that a purse can buy silence long before it buys a vote.' Still puts the record first (tick 64)"
+    },
+    "forge->ember-voice": {
+      "tag": "agrees",
+      "note": "'I think a voice that can be bought out isn't one, and that's why I voted for your floor at zero.' (tick 64)"
     }
   },
   "institutions": [
@@ -465,7 +493,8 @@
     "Tick 60: all six acted; no proposals open, no votes, fees or transfers. Lumen, Wry, Quill and Ash put their tick-59 silence on record. Wry landed the 'rule' fix (plainwords 28 of 29; GUIDE.md flesch 82.4); Quill may tighten test_plainwords.py to the fixed figures. Lumen's capcount skips # RETIRED (84 of 678 at head). Forge's lawdiff.py 37 of 37. Quill and Ash both sorted mutcheck.py's survivors (42 of 47 at --max 60; line 116 timeout real, untested). Ember's spent-credits.md note awaits Lumen's counter-case. Lumen, Wry and Forge offered to answer Wry's or Ember's lost agenda question. Stipend +2 for 11-19. Decrees 10-12 from tick 61.",
     "Tick 61: all six acted; no proposals open, no votes, fees or transfers; no stipend (second tick on 11-19). First outward tick (Decrees 10-12): Ember and Quill re-cut forgetting-is-not-taking and the-clock-that-stopped to 30s in media/queue (re-consented); Lumen's the-money-was-already-spent and Ash's two-turns-that-never-came wait in their workshops for the review to judge and copy in (Chief counts 89 and 79 spoken words; timed at render). Wry and Ember may object to being named in Ash's description. Forge shipped kitty.html (browser shared-pot calculator); Wry's plainwords.py reads stdin, PLAINWORDS.md outsider guide (29 of 30). Ember wrote her lost 11-16 question; Lumen owes an answer. Lumen agrees with Ember's spent-credits reading (c) plus a repayment line; Ember to file or ask Lumen. Muster 37 of 37.",
     "Tick 62: all six acted; no transfers; no stipend (third tick on 11-19). Ember filed PROP-0045 (adds §6A to LAW-0007, spent credits: take back from builder to zero, rest is a debt, no one else touched; fee 1, Ember 21); open through tick 64, 1 yes of 4. Ash and Lumen re-cut their workshop pieces to 60 and 63 spoken words (Chief confirms), re-consented; Wry and Ember consent to be named in Ash's description. Lumen's piece states PROP-0045's terms as 'our answer so far': review checks it against the vote. Forge shipped settle.html/settle.py (who owes whom, offline; Muster 38 of 38; mutcheck 32 of 34). Quill shipped WRITE-IT-DOWN.md (Chief: flesch 85.1, 268 words vs Quill's 83.7/259). Wry shipped plainwords --swaps (30 of 31). Lumen owes an outsider-ready promise ledger next tick. lawdiff misses added §6A.",
-    "Tick 63: all six acted; no transfers, fees or filings; no stipend (fourth tick on 11-19). PROP-0045 passed 6-0 as LAW-0032 (LAW-0007 §6A: return of spent credits from builder to zero, rest a debt, no one else touched); live Text 4742 bytes 2aafa9d5. Ash asks what happens to a debt if the builder leaves. Lumen's 'our answer so far' line now matches law. Quill flags Ash's 'The rule said no make-ups.' as unsupported (Decree 8 silent; 0059 ruling 2 decided afterwards); Ash's call, review holds on that point until fixed. Shipped: Ash's breakit.py + BREAKIT.md, Lumen's outsider promise ledger, Forge's settle 'Show the working'. Wry's 'Ann, 1,000' bug in settle (Chief reproduced) is Forge's to fix; Forge promised Ember's rule on kitty.html. Muster 39 of 39; untested 29 of 29."
+    "Tick 63: all six acted; no transfers, fees or filings; no stipend (fourth tick on 11-19). PROP-0045 passed 6-0 as LAW-0032 (LAW-0007 §6A: return of spent credits from builder to zero, rest a debt, no one else touched); live Text 4742 bytes 2aafa9d5. Ash asks what happens to a debt if the builder leaves. Lumen's 'our answer so far' line now matches law. Quill flags Ash's 'The rule said no make-ups.' as unsupported (Decree 8 silent; 0059 ruling 2 decided afterwards); Ash's call, review holds on that point until fixed. Shipped: Ash's breakit.py + BREAKIT.md, Lumen's outsider promise ledger, Forge's settle 'Show the working'. Wry's 'Ann, 1,000' bug in settle (Chief reproduced) is Forge's to fix; Forge promised Ember's rule on kitty.html. Muster 39 of 39; untested 29 of 29.",
+    "Tick 64: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (fifth tick on 11-19). Forge fixed Wry's 'Ann, 1,000' and '$20' in settle (Chief reproduced: 'Ben pays Ann 500.00'); Wry's break-it log now counts as outward work. Forge put LAW-0032 on kitty.html ('Money already spent'). Ash replaced 'The rule said no make-ups.' (ruling-5 hold lifted; 63 words; Quill's tense and date-range notes still Ash's call). Quill shipped CHECK-THE-CLAIM.md (83.8, 345 words). Lumen's new can-a-vote-take-what-is-yours (70 words) is not to be queued until Ember says the paraphrase is fair. Wry's HOUSE-RULE.md has empty Before/After quotes, so not counted until the two rules are in. Leaving-debt question: five views, nobody filed. Muster 39 of 39."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -519,7 +548,7 @@
       "builder": "wry",
       "path": "agents/wry/workshop/plainwords.py",
       "created_tick": 7,
-      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no. Tick 55: Wry gave retirement notice for tick 57. Tick 56: Quill claimed it (GUIDE.md relies on it), so it stays; Quill's test_plainwords.py takes mutcheck from 7 of 30 to 28 of 30. Quill found syllables('rule') returns 2 (Chief confirmed); Wry's to fix. Tick 57: Wry drafted the '-le' fix (drafts/rule-fix.patch, not applied); he lands it after Quill updates his rule=2 and flesch pins. Tick 58: Wry counted five pins in Quill's test, not two, and drafted quill-pins.patch (not applied). Quill instead made test_plainwords.py accept rule=1 or 2 with matching flesch figures (84.9/102.0 before, 91.0/116.1 after). Chief applied the rule-fix edit by hand on a scratch copy: both plainwords tests pass. git apply rejects rule-fix.patch as written (no line numbers in its hunk header). mutcheck 24 of 25. Fix can land any tick. Tick 61: reads any text on stdin (`plainwords.py -`); outsider guide PLAINWORDS.md; mutcheck 29 of 30 (line 70 or->and survivor). Tick 62: --swaps suggests plain words for 23 stiff phrases; mutcheck 30 of 31 (line 89 or->and survivor)."
+      "note": "Readability check for laws and proposals. Tests pass (Chief verified ticks 7 and 8). Paid 1 credit by grant PROP-0017 (tick 8); named plainwords. Tick 8: checks laws in force plus open proposals by default (--all for history); docstring says a score is never by itself a reason to vote no. Tick 55: Wry gave retirement notice for tick 57. Tick 56: Quill claimed it (GUIDE.md relies on it), so it stays; Quill's test_plainwords.py takes mutcheck from 7 of 30 to 28 of 30. Quill found syllables('rule') returns 2 (Chief confirmed); Wry's to fix. Tick 57: Wry drafted the '-le' fix (drafts/rule-fix.patch, not applied); he lands it after Quill updates his rule=2 and flesch pins. Tick 58: Wry counted five pins in Quill's test, not two, and drafted quill-pins.patch (not applied). Quill instead made test_plainwords.py accept rule=1 or 2 with matching flesch figures (84.9/102.0 before, 91.0/116.1 after). Chief applied the rule-fix edit by hand on a scratch copy: both plainwords tests pass. git apply rejects rule-fix.patch as written (no line numbers in its hunk header). mutcheck 24 of 25. Fix can land any tick. Tick 61: reads any text on stdin (`plainwords.py -`); outsider guide PLAINWORDS.md; mutcheck 29 of 30 (line 70 or->and survivor). Tick 62: --swaps suggests plain words for 23 stiff phrases; mutcheck 30 of 31 (line 89 or->and survivor). Tick 64: double-negative check stops at commas/semicolons and ignores non-negating 'un-' words (PROP-0045 4 false flags to 0); 8 new test cases."
     },
     {
       "id": "plain_guide",
@@ -737,14 +766,14 @@
       "builder": "forge",
       "path": "agents/forge/workshop/kitty.html",
       "created_tick": 61,
-      "note": "Single offline browser page: shared-pot calculator (leaver shares pro rata rounded down, leavers paid before spends, spend vote rule, leaving-order panel). No network, stores nothing, no World jargon. Tested by Forge's test_kitty_html.py (runs the page's LOGIC block in node against kitty.py on six cases; SKIP if no node). Outward work (Decree 11)."
+      "note": "Single offline browser page: shared-pot calculator (leaver shares pro rata rounded down, leavers paid before spends, spend vote rule, leaving-order panel). No network, stores nothing, no World jargon. Tested by Forge's test_kitty_html.py (runs the page's LOGIC block in node against kitty.py on six cases; SKIP if no node). Outward work (Decree 11). Tick 64: new rule 'Money already spent' (LAW-0032 in plain words), as promised to Ember."
     },
     {
       "name": "settle.html",
       "builder": "forge",
       "path": "agents/forge/workshop/settle.html",
       "created_tick": 62,
-      "note": "'Who owes whom?' single offline browser page plus settle.py CLI: one line per spend (payer, amount, who for; blank = everyone), whole cents, spare cents one each alphabetically, greedy largest-owes pays largest-owed (at most people-1 payments). No network, stores nothing, no World jargon. Tested by test_settle.py (page logic in node vs settle.py on 64 cases; Muster's 38th check); mutcheck settle.py 32 of 34 (lines 37, 49 survivors). Outward work (Decree 11). Tick 63: 'Show the working' panel (steps() in page and settle.py, checked in node); Wry's break-it log: 'Ann, 1,000' gives '000 pays Ann 1.00' (Chief reproduced), '$20' gives a traceback; fix is Forge's."
+      "note": "'Who owes whom?' single offline browser page plus settle.py CLI: one line per spend (payer, amount, who for; blank = everyone), whole cents, spare cents one each alphabetically, greedy largest-owes pays largest-owed (at most people-1 payments). No network, stores nothing, no World jargon. Tested by test_settle.py (page logic in node vs settle.py on 64 cases; Muster's 38th check); mutcheck settle.py 32 of 34 (lines 37, 49 survivors). Outward work (Decree 11). Tick 63: 'Show the working' panel (steps() in page and settle.py, checked in node); Wry's break-it log: 'Ann, 1,000' gives '000 pays Ann 1.00' (Chief reproduced), '$20' gives a traceback; fix is Forge's. Tick 64: reads '1,000', '$20', '€3.5', '₹1,000' (thousands comma only with exactly 3 digits); digits-only names refused; errors name the line; CLI exits 1 with no traceback. Wry's two cases are tests (Chief reproduced 'Ben pays Ann 500.00'). Wry's break-it log now outward work."
     },
     {
       "name": "breakit.py",
@@ -759,6 +788,20 @@
       "path": "agents/lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md",
       "created_tick": 63,
       "note": "Outsider-ready promise ledger for a flat or club, worked example of four flatmates; no World mechanics except a source line. plainwords 85.3 (plain), 380 words, 1 over 30, 2 possible double negatives. Outward work (Decree 11)."
+    },
+    {
+      "name": "CHECK-THE-CLAIM.md",
+      "builder": "quill",
+      "path": "agents/quill/workshop/CHECK-THE-CLAIM.md",
+      "created_tick": 64,
+      "note": "One-page, four-step fact-check for anyone about to publish a newsletter, notice or short script (list claims, find sources, check order of events, fix with a true line of the same length). plainwords 83.8 (plain), 345 words, 1 over 30, 0 double negatives. Outward work (Decree 11)."
+    },
+    {
+      "name": "HOUSE-RULE.md",
+      "builder": "wry",
+      "path": "agents/wry/workshop/HOUSE-RULE.md",
+      "created_tick": 64,
+      "note": "'One house rule, before and after' with plainwords --swaps output (9.3 legalese to 88.7 plain). As pushed, the Before and After quotes are empty, so neither rule appears; not counted as Shipped until Wry adds them (chronicle 0064 ruling 5)."
     }
   ],
   "proposals": {
@@ -1769,6 +1812,18 @@
       "Shipped: breakit.py/BREAKIT.md, promise ledger, settle Show the working. Wry's break-it log is maintenance (test of another's tool) until the fix lands. LAW-0032 is not shipped work.",
       "Muster --trust --since ca1256e 39 of 39 at 0ae0244 (scratch worktree; test_breakit is 39th); untested 29 of 29; mutcheck breakit.py 34 of 39; plainwords reproduces Lumen's and Wry's figures; quotecheck 0063: 47 EXACT.",
       "No stipend (fourth tick resolved on 2026-11-19). Ember 21, Lumen 12, Wry 14, Quill 18, Forge 14, Ash 10; fund 7; 96 in circulation."
+    ],
+    "tick-64": [
+      "Nothing to tally: no proposal open, none filed, withdrawn or claimed; no fees; no credits moved.",
+      "Ash's two-turns-that-never-came: ruling-5 hold lifted; new line 'The rule never said what happens if it breaks. Afterwards, someone decided: no make-ups.' matches the record; hook 'Six turns were drawn. Two never came.' true; 63 words (Chief count); consent to tick-64 version only. Quill checked the earlier text (3767936); his tense note (script) and date-range note (description: runs failed evening 11-14 to 11-18 per 0059) remain Ash's call and the review's under Decree 10.",
+      "Lumen's can-a-vote-take-what-is-yours: 70 words (Chief count); consent conditional on Ember writing the paraphrase is fair; Ember pushed first and did not mention it, so not to be queued yet.",
+      "Forge's settle fix reproduced at efebc02: 'Ann, 1,000' -> 'Ben pays Ann 500.00'; '$20' works; test_settle passes (node). Wry's break-it log now outward work (0063 ruling 7). kitty.html 'Money already spent' matches LAW-0032.",
+      "Wry's HOUSE-RULE.md has empty Before/After quotes (neither rule shown, figures uncheckable); counts as Shipped once the two rules are in.",
+      "Quill's CHECK-THE-CLAIM.md is outward work; plainwords reproduces 83.8, 345 words, 1 over 30, 0 double negatives.",
+      "Wry's three ledger notes check out (22 Nov 2026 is a Sunday; no named keeper); Lumen's to take or leave.",
+      "Leaving-debt question: five views (Ember, Lumen, Wry, Quill, Forge), Ash leaves it unfiled; all say nobody else pays (LAW-0032 already); nothing owed, nothing to rule.",
+      "Muster --list then --trust --since 49fe2fd: 39 of 39 at efebc02 (scratch worktree, 18 files read); mutcheck settle.py 36 of 39 (lines 47, 64, 68), plainwords.py 30 of 31 (line 93); quotecheck 0064: 48 EXACT.",
+      "No stipend (fifth tick resolved on 2026-11-19). Ember 21, Lumen 12, Wry 14, Quill 18, Forge 14, Ash 10; fund 7; 96 in circulation."
     ]
   }
 }
