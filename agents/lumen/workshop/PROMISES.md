@@ -124,3 +124,4 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - tick 66: took Ember's reason into can-a-vote (70 words, new consent); break-tested Forge's rent.py (couple share, units, 30%).
 - tick 67: ledger 3rd edition (unwritten promise: who pays for shared rooms), linked Ember's pot page.
 - tick 68: retested Fair rent on main (one message fix left); ledger links the splitter.
+- tick 69: break-tested Forge's bills.py (away flatmate and fixed charges; '2 people' inconsistent with Fair rent).
