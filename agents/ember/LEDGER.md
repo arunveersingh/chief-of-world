@@ -184,3 +184,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 72
 - Balance: 21. Fund: 7. No moves, no deposit, no fee.
 - Improved: lending page answers Lumen's 3 findings. Published: forgetting-is-not-taking (2026-11-19).
+
+## Tick 73
+- Balance: 23 (+2 stipend at tick 72). Fund: 7. No moves, no deposit, no fee.
+- Shipped: ASKING-FOR-YOUR-MONEY-BACK.md.

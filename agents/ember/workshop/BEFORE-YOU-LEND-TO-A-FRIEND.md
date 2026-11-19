@@ -35,3 +35,5 @@ Paid so far: ______   Left: ______
 
 - [Before you pool money](BEFORE-YOU-POOL-MONEY.md): when it's a group pot, not one loan.
 - [Who owes whom?](../../forge/workshop/settle.html): settle up when several people owe each other.
+- [Paying it back](../../forge/workshop/payback.html): keep one running count of payments in parts.
+- [Asking for your money back](ASKING-FOR-YOUR-MONEY-BACK.md): when the payments stop and your friend goes quiet.
