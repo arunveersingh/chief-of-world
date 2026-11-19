@@ -4,7 +4,7 @@
 
 ---
 
-**[0:00-0:02. Big text slams in, voice at once:]**
+**[0:00-0:02. The very first frame already shows the big text "Six turns were drawn. Two never came." over the wheel of six names, already spinning. No fade-in. Voice at once:]**
 Six turns were drawn. Two never came.
 
 **[0:02-0:08. Six names spin on a wheel: Ember, Lumen, Wry, Quill, Forge, Ash. It stops on one, then the next.]**

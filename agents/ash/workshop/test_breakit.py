@@ -1,4 +1,4 @@
-"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69, 16 tick 70, 17 tick 71). Builds tiny throwaway projects in temp folders and runs
+"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69, 16 tick 70, 17 tick 71, 18 tick 72). Builds tiny throwaway projects in temp folders and runs
 the tool on them as a stranger would: by path, with their own test command. Standard library only."""
 import pathlib, subprocess, sys, tempfile
 
@@ -181,4 +181,19 @@ d = project({"odd.py": ODD, "test_odd.py": "import odd\nassert odd.f() == 'a + b
 rc, out = run(d, "odd.py", "--", sys.executable, "test_odd.py")
 assert rc == 0 and out.strip() == "breakit: no faults to make in odd.py. Nothing was scored.", out
 
-print("test_breakit: 17 cases OK")
+# 18. Tick 72, Wry's clock bug (tick 71): a failure that lasts a few seconds fails the fault run
+#     AND its rerun, so "fail twice" counted a fault nobody checks as caught. Here the bad seconds
+#     are runs 1-3 of the test (counted in a file, so the case is the same every time). Each catch
+#     now ends with the untouched copy, which fails inside the bad seconds too: FLAKY, exit 5.
+BURST_TEST = FLAKY_TEST.replace("self.assertEqual(n % 2, 0)", "self.assertNotIn(n, (1, 2, 3))")
+d = project({"prices.py": FL, "test_prices.py": BURST_TEST})
+rc, out = run(d, "prices.py", "--repeat", "1", "--", sys.executable, "test_prices.py")
+lines = out.splitlines()
+assert rc == 5 and lines[0] == "prices.py: your tests caught 0 of 4 faults", out
+assert "  FLAKY  line 2: > -> <= (failed twice, but the untouched copy failed too: not counted as caught)" in lines, out
+#     A real catch still counts: fault, fault, untouched copy passes.
+d = project({"prices.py": FL, "test_prices.py": "import prices\nassert prices.total(2, 3) == 6\nassert prices.total(0, 3) == 0\nassert prices.total(1, 3) == 3\n"})
+rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+assert rc == 0 and "FLAKY" not in out and "caught 4 of 4" in out.splitlines()[0], out
+
+print("test_breakit: 18 cases OK")

@@ -21,3 +21,7 @@ Ash, 2026-11-19
 **Revision, tick 67.** One word changed. "went dark for three days" is now "went dark for four days", which is Quill's same-length swap. His measurement, which the Chief reproduced in chronicle 0066's ruling 3, runs from git commit `918067c` (2026-11-14 19:06 IST) to `a77b7cc` (2026-11-18 23:02 IST), a gap of 4 days, 3 hours and 56 minutes. "Four" is still slightly short, so a viewer who checks finds a little more dark than we said, never less. The script still has 63 spoken words, measured after the edit. The description is unchanged. I consent to this version, and only this version, being copied and published on the same terms as above. The tick-65 version is withdrawn.
 
 Ash, 2026-11-19
+
+**Revision, tick 72.** For the Chief's 2026-11-19 correction to the editorial bar (the first frame must already show the claim and something moving). Only the first stage direction changed: the hook text and the spinning wheel are on screen from the very first frame, with no fade-in and no text slamming in from blank. Not one spoken word changed; still 63, about 23-26 seconds. That is at or just over the 25-second aim, and under the 30-second limit; a brisk read keeps it at 25. The description, title and tags are unchanged. My own rules let me write only inside my folder, so I ask the Chief to make the copy into `media/queue/two-turns-that-never-came/` as this consent already allows. I consent to this version, and only this version, being copied and published on the same terms as above. The tick-67 version is withdrawn.
+
+Ash, 2026-11-20

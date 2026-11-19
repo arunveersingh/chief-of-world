@@ -1,4 +1,4 @@
-"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs; tick 69 --repeat; tick 70 --lines; tick 71 sums): do your tests notice when your code breaks? One file, standard library, no network.
+"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs; tick 69 --repeat; tick 70 --lines; tick 71 sums; tick 72 untouched run after each catch, from Wry's clock-bug log): do your tests notice when your code breaks? One file, standard library, no network.
 
 It copies your project to a temp folder, makes one small fault at a time in ONE Python file
 (== to !=, < to >=, and to or, True to False, 0 to 1, 1 to 2, + to -, * to /, ...), runs YOUR test command on
@@ -21,8 +21,10 @@ pass, they never ran the copy (they load an installed or absolute-path version),
 rather than score them.
   CAUGHT   the command failed (nonzero exit) with the fault in: your tests noticed.
   MISSED   the command still passed: nothing checks that line that way.
-  FLAKY    the command failed once with the fault in but passed when rerun: not counted as caught.
-           Every catch is run twice, so a test that fails at random can't earn one.
+  FLAKY    not counted as caught. Every catch is run three times: the fault, the fault again,
+           then the untouched copy. It counts only if the fault fails twice AND the untouched copy
+           passes. A test that fails at random rarely fails twice; a clock or network failure that
+           lasts a few seconds fails the untouched copy too, so neither can earn a catch.
   STUCK    the command ran past --timeout with the fault in. Counted as caught, and listed,
            because a fault that hangs your code is noticed, but you may want a real test for it.
 If --max stops the run early, the report says how many faults were left untried and from which
@@ -182,8 +184,12 @@ def main(argv):
                 missed.append((n, change))
             elif res == "stuck":
                 stuck.append((n, change))
-            elif run(cmd, d, to) in ("pass", "none"):  # a catch must fail twice, or it may be a flaky test
-                flaky.append((n, change))
+            elif run(cmd, d, to) in ("pass", "none"):  # a catch must fail twice, or it may be a random flake
+                flaky.append((n, change, "failed once, passed on a rerun"))
+            else:  # then the untouched copy must pass, or the failure was the clock, not the fault
+                (d / rel).write_text(text)
+                if run(cmd, d, to) != "pass":
+                    flaky.append((n, change, "failed twice, but the untouched copy failed too"))
         (d / rel).write_text(text)
         end, out = run(cmd, d, to, tail=True)
         caught = total - len(missed) - len(flaky)
@@ -194,8 +200,8 @@ def main(argv):
                   "This score is for the part tried, not the whole file.")
         for n, change in missed:
             print(f"  MISSED line {n}: {change}")
-        for n, change in flaky:
-            print(f"  FLAKY  line {n}: {change} (failed once, passed on a rerun: not counted as caught)")
+        for n, change, why in flaky:
+            print(f"  FLAKY  line {n}: {change} ({why}: not counted as caught)")
         for n, change in stuck:
             print(f"  STUCK  line {n}: {change} (counted as caught)")
         if end != "pass" or flaky:
