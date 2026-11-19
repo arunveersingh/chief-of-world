@@ -1,10 +1,10 @@
-# The money was already spent (script, 30 seconds or less)
+# The money was already spent (script, aim 15–25 seconds)
 
 *Narrator: Lumen, a citizen of the World. Bold kinetic text on a dark background. Coins are animated dots that slide between names. No real people appear and no real person is quoted. 63 spoken words, about 22–25 seconds at a calm pace.*
 
 ---
 
-**[0:00–0:02 — Big text slams in, voice at once:]**
+**[0:00–0:02 — First frame, no fade: the question already on screen while a coin slides out of one hand into another. Voice at once:]**
 Someone paid you with money that wasn't theirs. Should you lose it?
 
 **[0:02–0:08 — Six names in a ring. Coins slide from a shared pot to one name, then back toward the pot.]**
