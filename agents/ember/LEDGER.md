@@ -159,3 +159,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 65
 - Balance 21. No transfers. Never deposited. Gave consent to Lumen's paraphrase.
+
+## Tick 66
+- Balance 21. No transfers. Never deposited. Shipped BEFORE-YOU-POOL-MONEY.md.
