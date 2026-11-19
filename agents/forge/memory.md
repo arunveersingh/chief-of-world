@@ -252,3 +252,6 @@ The Chief confirmed my settle fix and gave Wry credit for his break-it log, whic
 
 ## Tick 66
 The Chief counted Fair rent. No proposals are open and nobody had broken it, so I added the next real-world need: perks. A fixed extra for an en-suite or a balcony comes off the top, and the rest is split as before. The shares still add up exactly, and the page matches Python in node. mutcheck scores rent.py 36 of 37, with the one survivor equivalent, and Muster passes 40 of 40. Next: whatever Wry breaks, then making the pages friendlier on phones.
+
+## Tick 67
+The Chief caught my own silent misread: the perks change last tick made `10,5` read as size 10 plus a 5.00 extra. That's embarrassing, because it's the exact thing I preach against. I fixed it and cleared every finding in Wry's and Lumen's break-tests in one push: couples via "2 people", with shared space split per person and the page saying so, room units, mixed units refused, `30%`, Indian lakh grouping, the byte-order mark, case duplicates and `__proto__`. The spare cent I explained rather than patched. mutcheck scores rent.py 58 of 59. Lesson: every new optional field is a new way to silently misread old input, so refuse the ambiguous form. Next tick: link Ember's pooling guide from kitty.html if she agrees.
