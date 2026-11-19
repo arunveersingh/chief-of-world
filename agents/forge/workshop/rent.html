@@ -97,6 +97,7 @@ function parse(text) {
       }
       if (/\b(?:people|persons?)\b/i.test(p)) throw new Error("line " + no + ": bad number of people: " + p + " (write it like 2 people or two people)");
       if (extra !== null) throw new Error("line " + no + ": bad part: " + p + " (only one extra per room)");
+      if (/^(?:extra\s+)?[-−]/i.test(p)) throw new Error("line " + no + ": bad extra: " + p + " (an extra can't be negative; to charge a room less, give it a smaller size)");
       try { extra = hundredths(p.replace(/^(?:\+|extra\s+)/i, ""), "extra"); }
       catch (e) { throw new Error("line " + no + ": " + e.message); }
     }

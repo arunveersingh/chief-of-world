@@ -2,7 +2,7 @@
 """Split a shared bill (electricity, gas, internet) by the days each person
 was actually living there. Offline, no network.
 
-Usage: bills.py TOTAL DAYS FILE
+Usage: bills.py TOTAL DAYS FILE [--fixed AMOUNT]
   TOTAL  the whole bill, e.g. 3,120 or 84.50
   DAYS   how many days the bill covers, a whole number like 30 or 92
   FILE   one person per line: name, days they lived there in that period.
@@ -11,6 +11,13 @@ Usage: bills.py TOTAL DAYS FILE
            Ben, 12      (moved in on the 19th of a 30-day month)
            Cy, 0        (away the whole time, pays nothing)
            Di, 1-10, 21-30   (away in the middle: days 1 to 10 and 21 to 30)
+         A couple is two lines, one per person.
+  --fixed AMOUNT  the part of the bill that is charged whatever anyone uses
+         (internet's monthly fee, a standing charge). It is split evenly
+         among everyone listed, even people who were away; the rest is split
+         by days. Leave it out to split the whole bill by days.
+
+Needs rent.py beside it (it reads amounts the same way Fair rent does).
 """
 import re
 import sys
@@ -41,20 +48,25 @@ def stretches(no, text, period):
     return sum(b - a + 1 for a, b in spans)
 
 
-def split(total, people):
-    """total in cents, people = [(name, days)]. Each pays in proportion to
-    their days. Spare cents go one each, alphabetically, to people with days."""
+def split(total, people, fixed=0):
+    """total and fixed in cents, people = [(name, days)]. The fixed part is
+    split evenly among everyone listed; the rest in proportion to days.
+    Spare cents go one each, alphabetically: the fixed part's to anyone
+    listed, the rest's to people with days."""
+    if fixed > total:
+        raise ValueError("the fixed part is more than the whole bill")
+    use = total - fixed
     days = sum(d for _, d in people)
-    if days <= 0:
+    if days <= 0 and use > 0:
         raise ValueError("nobody was there for any days")
-    out = {n: total * d // days for n, d in people}
-    spare = total - sum(out.values())
-    names = sorted(n for n, d in people if d > 0)
-    i = 0
-    while spare > 0:
-        out[names[i % len(names)]] += 1
-        spare -= 1
-        i += 1
+    each = fixed // len(people)
+    out = {n: each + (use * d // days if use else 0) for n, d in people}
+    everyone = sorted(n for n, _ in people)
+    for i in range(fixed - each * len(people)):
+        out[everyone[i % len(everyone)]] += 1
+    present = sorted(n for n, d in people if d > 0)
+    for i in range(total - sum(out.values())):
+        out[present[i % len(present)]] += 1
     return out
 
 
@@ -74,6 +86,8 @@ def parse(text, period):
             raise ValueError("line %d: %s is listed twice" % (no, name))
         if comma:
             m = re.fullmatch(DAYCOUNT, rest, re.I)
+            if re.search(r"\b(?:people|persons?)\b", rest, re.I):
+                raise ValueError("line %d: bad days: %s (put each person on their own line; a couple is two lines)" % (no, rest.strip()))
             if not m and re.search(r"[0-9]\s*(?:-|–|to)\s*[0-9]", rest, re.I):
                 d = stretches(no, rest, period)
             elif not m:
@@ -96,17 +110,19 @@ def money(c):
 
 
 def main(argv):
-    if len(argv) != 4 or not re.fullmatch(r"[0-9]{1,4}", argv[2].strip()) or int(argv[2]) == 0:
+    if len(argv) not in (4, 6) or (len(argv) == 6 and argv[4] != "--fixed") \
+            or not re.fullmatch(r"[0-9]{1,4}", argv[2].strip()) or int(argv[2]) == 0:
         print(__doc__.split("\n\n", 1)[1].rstrip())
-        if len(argv) == 4:
+        if len(argv) in (4, 6):
             print("bills: DAYS is a whole number of days, at least 1, like 30")
         return 2
     try:
         total = hundredths(argv[1], "bill")
+        fixed = hundredths(argv[5], "fixed part") if len(argv) == 6 else 0
         period = int(argv[2])
         with open(argv[3], encoding="utf-8-sig") as f:
             people = parse(f.read(), period)
-        shares = split(total, people)
+        shares = split(total, people, fixed)
     except (ValueError, OSError) as e:
         print("bills: %s" % e)
         return 1

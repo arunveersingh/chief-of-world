@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Tests for bills.py and the logic inside bills.html (run in node when present)."""
+"""Tests for bills.py and the logic inside bills.html (run in node when present).
+Copy rent.py, bills.py, bills.html and this file together: bills.py reads amounts
+with rent.py's hundredths(), and the last part of this test reads bills.html."""
 import json
 import os
 import pathlib
@@ -47,6 +49,14 @@ cases = {
     "Ann, -3": "line 1: bad days: -3 (write a whole number of days, like 12)",
     "": "nobody listed",
 }
+# the fixed part: split evenly among everyone listed, even the away flatmate
+eq(bills.split(312000, [("Asha", 30), ("Ben", 12), ("Cy", 0)], 60000), {"Asha": 200000, "Ben": 92000, "Cy": 20000}, "fixed")
+eq(bills.split(100000, [("Asha", 30), ("Ben", 12), ("Cy", 0)], 100000), {"Asha": 33334, "Ben": 33333, "Cy": 33333}, "all fixed")
+eq(bills.split(500, [("c", 0), ("b", 0), ("a", 0)], 500), {"a": 167, "b": 167, "c": 166}, "all away, all fixed")
+eq(bills.split(10, [("b", 0), ("a", 3), ("c", 3)], 4), {"a": 5, "b": 1, "c": 4}, "fixed spare to anyone, use spare to present")
+eq(bills.split(312000, [("Asha", 30), ("Ben", 12), ("Cy", 0)], 0), ex, "fixed 0 is the old split")
+eq(err(bills.split, 100, [("a", 1)], 101), "the fixed part is more than the whole bill", "fixed over")
+eq(err(bills.split, 100, [("a", 0)], 99), "nobody was there for any days", "away with usage left")
 # stretches: someone away in the middle, or out and back in
 eq(bills.parse("Di, 1-10, 21-30\nEd, 5 to 5 and 7–8\nFi, 21-30, 1-10", 30), [("Di", 20), ("Ed", 3), ("Fi", 20)], "stretches")
 eq(bills.parse("Di, 1-30", 30), [("Di", 30)], "whole stretch")
@@ -58,6 +68,8 @@ cases.update({
     "Di, 0-3": "line 1: bad stretch: 0-3 (days run from 1, and the first day comes first)",
     "Di, 1-10, 12": "line 1: bad stretch: 12 (write days like 1-10, 21-30)",
     "Di, 1-10, half": "line 1: bad stretch: half (write days like 1-10, 21-30)",
+    "Ann & Bo, 30, 2 people": "line 1: bad days: 30, 2 people (put each person on their own line; a couple is two lines)",
+    "Ann & Bo, 1-10, two persons": "line 1: bad days: 1-10, two persons (put each person on their own line; a couple is two lines)",
 })
 for t, want in cases.items():
     eq(err(bills.parse, t, 30), want, repr(t))
@@ -77,6 +89,13 @@ for _ in range(400):
         assert abs(sh[n] * days - total * d) <= days, (total, people)
         if d == 0:
             eq(sh[n], 0, "zero days")
+    fixed = rng.randint(0, total)
+    shf = bills.split(total, people, fixed)
+    eq(sum(shf.values()), total, "sum with fixed")
+    k = len(people)
+    for n, d in people:
+        exact = fixed * days + (total - fixed) * d * k  # times k*days
+        assert abs(shf[n] * k * days - exact) <= 2 * k * days, (total, fixed, people)
 
 # the command line
 with tempfile.TemporaryDirectory() as tmp:
@@ -95,6 +114,18 @@ with tempfile.TemporaryDirectory() as tmp:
     eq((run("lots", "30", f).returncode, run("lots", "30", f).stdout), (1, "bills: bad bill: lots (write 2400 or 1,850.50)\n"), "bad bill")
     eq(run("10", "10", f).stdout, "bills: line 2: Ben was there 12 days but the bill covers 10\n", "period")
     eq(run("10", "10", os.path.join(tmp, "missing")).returncode, 1, "missing file")
+    r = run("3,120", "30", f, "--fixed", "600")
+    eq((r.returncode, r.stdout), (0, "Asha pays 2000.00 (30 of 30 days)\nBen pays 920.00 (12 of 30 days)\nCy pays 200.00 (0 of 30 days)\n"), "cli fixed")
+    eq(run("3,120", "30", f, "--fixed", "4000").stdout, "bills: the fixed part is more than the whole bill\n", "cli fixed over")
+    eq(run("3,120", "30", f, "--fixed", "lots").stdout, "bills: bad fixed part: lots (write 2400 or 1,850.50)\n", "cli fixed bad")
+    r = run("3,120", "30", f, "--fxed", "600")
+    eq(r.returncode, 2, "misspelt flag")
+    assert "bills: DAYS" in r.stdout and r.stdout.startswith("Usage:"), r.stdout
+    eq(run("3,120", "30", f, "--fixed").returncode, 2, "flag without amount")
+    f2 = os.path.join(tmp, "away.txt")
+    with open(f2, "w") as fh:
+        fh.write("Asha, 0\nBen\n")
+    eq(run("1", "30", f2).stdout, "Asha pays 0.00 (0 of 30 days)\nBen pays 1.00 (30 of 30 days)\n", "no flag means no fixed part")
 
 page = (HERE / "bills.html").read_text(encoding="utf-8")
 script = page.split("<script>", 1)[1]
@@ -107,7 +138,7 @@ logic = page.split("// LOGIC START", 1)[1].split("\n", 1)[1].split("// LOGIC END
 js = logic + """
 const texts = @TEXTS@, splits = @SPLITS@;
 const p = texts.map(t => { try { return parse(t, 30); } catch (e) { return e.message; } });
-const s = splits.map(([t, ppl]) => { try { return split(t, ppl); } catch (e) { return e.message; } });
+const s = splits.map(([t, ppl, fx]) => { try { return split(t, ppl, fx); } catch (e) { return e.message; } });
 const ex = split(312000, parse("Asha\\nBen, 12\\nCy, 0", 30));
 console.log(JSON.stringify([p, s, ex]));
 """
@@ -115,10 +146,13 @@ texts = list(cases) + ["Ann, 12 days\nBo, 1 day\nCy,3", "\ufeffAnn\n\n  Bo  ", "
                        "Ann, 30\r\nBo, 0", "Ann ,  7 DAYS ", "Ann, 0012",
                        "Di, 1-10, 21-30\nEd, 5 to 5 and 7–8\nFi, 21-30, 1-10", "Di, 1-30", "Di,1 TO 3 AND 5-6", "Di, 3-4,5-6", "Di, 1-2,  3-4"]
 splits = [[10000, [["Asha", 30], ["Ben", 12], ["Cy", 0]]], [100, [["b", 1], ["a", 1], ["c", 1]]], [1, [["z", 0], ["b", 5], ["a", 5]]],
-          [100, [["a", 0]]], [10 ** 12 + 7, [["x", 7], ["y", 11], ["w", 13]]]]
+          [100, [["a", 0]]], [10 ** 12 + 7, [["x", 7], ["y", 11], ["w", 13]]],
+          [312000, [["Asha", 30], ["Ben", 12], ["Cy", 0]], 60000], [500, [["c", 0], ["b", 0], ["a", 0]], 500],
+          [10, [["b", 0], ["a", 3], ["c", 3]], 4], [100, [["a", 1]], 101], [100, [["a", 0]], 99], [7, [["__proto__", 0], ["z", 2]], 3]]
 for _ in range(30):
     ppl = [["p%d" % i, rng.randint(0, 90)] for i in range(rng.randint(1, 6))]
-    splits.append([rng.randint(0, 10 ** 9), ppl])
+    t = rng.randint(0, 10 ** 9)
+    splits.append([t, ppl, rng.choice([0, rng.randint(0, t)])])
 r = subprocess.run([node, "-e", js.replace("@TEXTS@", json.dumps(texts)).replace("@SPLITS@", json.dumps(splits))],
                    capture_output=True, text=True, timeout=30)
 assert r.returncode == 0, r.stderr
@@ -129,8 +163,8 @@ for t in texts:
     except ValueError as e: want_p.append(str(e))
 eq(got_p, want_p, "node parse")
 want_s = []
-for t, ppl in splits:
-    try: want_s.append(bills.split(t, [tuple(x) for x in ppl]))
+for t, ppl, *fx in splits:
+    try: want_s.append(bills.split(t, [tuple(x) for x in ppl], *fx))
     except ValueError as e: want_s.append(str(e))
 eq(got_s, want_s, "node split")
 eq(got_ex, ex, "node page example")

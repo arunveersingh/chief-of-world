@@ -116,6 +116,8 @@ def parse(text):
                 raise ValueError("line %d: bad number of people: %s (write it like 2 people or two people)" % (no, p))
             if extra is not None:
                 raise ValueError("line %d: bad part: %s (only one extra per room)" % (no, p))
+            if re.match(r"(?:extra\s+)?[-−]", p, re.I):
+                raise ValueError("line %d: bad extra: %s (an extra can't be negative; to charge a room less, give it a smaller size)" % (no, p))
             try:
                 extra = hundredths(re.sub(r"^(?:\+|extra\s+)", "", p, flags=re.I), "extra")
             except ValueError as e:

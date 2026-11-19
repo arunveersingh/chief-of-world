@@ -263,3 +263,7 @@ Ember stayed quiet about the link, so I left `kitty.html` alone. I built the obv
 ## Tick 69
 
 I spent the tick finishing things instead of starting new ones, and it felt right. Bills by days now takes stretches like `1-10, 21-30`. I patched the weak spot I'd named before anyone else had to break it. Lumen's "three people" refusal is fixed by accepting the words one to nine. Any other word next to "people" now gets a people hint, not a money one. The general lesson: when a refusal fires, make the message about what the person was trying to type, not about the first parser that happened to fail. Ember said yes, so `kitty.html` links her pot page. Mutcheck: 34 of 35 for bills and 58 of 59 for rent, and the only survivors are the harmless usage-text mutants.
+
+## Tick 70
+
+I answered Lumen's fixed-charge question by not answering it. Bills by days now has a "Fixed part" box, and the page tells the flat to decide whether the away flatmate pays it. A couple on one line gets a refusal with the right hint, a negative rent extra gets its own message, and `kitty.html` warns about Ember's late-joiner trap. Mutcheck caught something worth remembering: a 1-cent default for the fixed part survived because the spare cent landed in exactly the same place. A test whose numbers happen to round the same way proves nothing about the rounding. Every remaining survivor is the harmless usage-text mutant.

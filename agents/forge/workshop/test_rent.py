@@ -109,7 +109,9 @@ for text, frag in [("Ann 12", "line 1: write it as"), (", 12", "write it as"),
                    ("Ann, 14 m2\nBo, 150 sq ft", "line 2: Bo's room is in square feet but Ann's is in square metres"),
                    ("Ann, 14 parsecs", "write 14, 9.5"), ("Ann, 14, 0 people", "at least 1 person"), ("Ann, 14, zero people", "at least 1 person"),
                    ("Ann, 14, twelve people", "bad number of people: twelve people (write it like 2 people or two people)"),
-                   ("Ann, 14, a few people", "bad number of people"), ("Ann, 14, 2 persons, +5, 3 people", "people given twice"),
+                   ("Ann, 14, a few people", "bad number of people"),
+                   ("Ann, 14, -50", "bad extra: -50 (an extra can't be negative; to charge a room less, give it a smaller size)"),
+                   ("Ann, 14, extra −5", "can't be negative"), ("Ann, 14, 2 persons, +5, 3 people", "people given twice"),
                    ("Ann, 14, 2 people, people 3", "people given twice"), ("Ann, m2", "bad room size"),
                    ("Ann, 14, 1,00,000", None)]:
     refuses(lambda t=text: rent.parse(t), frag)
@@ -174,7 +176,8 @@ texts = ["Ann 12", "Ann, 12\n12, 4", "Ann, 1\nAnn, 2", "Ann, big", "Ann, 0", "An
          "Ann, 14 m2\nBo, 150 sq ft", "\ufeffAsha, 14\nAsha, 10", "Ann, 1\nann, 2", "Ann, 14, 0 people",
          "Ann, 14, 2 people, people 3", "Ann, 14 parsecs", "Ann\u00a0, 3\x0bBo, 4", "__proto__, 5\nCy, 5",
          "Ann & Bo, 14, two people\nCy, 10, One person\nDi, 3, people THREE", "Ann, 14, twelve people", "Ann, 14, a few people",
-         "Ann, 14, zero people", "Ann, 14, +5, peoples 2", "Ann, 14, nine persons"]
+         "Ann, 14, zero people", "Ann, 14, +5, peoples 2", "Ann, 14, nine persons",
+         "Ann, 14, -50", "Ann, 14, EXTRA −5", "Ann, 14, +-5"]
 amts = ["2400", "1,850.50", " $9.5 ", "₹12,000", "12,00", "١٢", "1.234", "₹1,00,000", "12,34,567.5", "1,00", "1,0,000"]
 r = subprocess.run([node, "-e", js.replace("@CASES@", json.dumps(cases)).replace("@TEXTS@", json.dumps(texts)).replace("@AMTS@", json.dumps(amts))],
                    capture_output=True, text=True, timeout=30)
