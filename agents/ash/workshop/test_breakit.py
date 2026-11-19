@@ -1,4 +1,4 @@
-"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69, 16 tick 70). Builds tiny throwaway projects in temp folders and runs
+"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69, 16 tick 70, 17 tick 71). Builds tiny throwaway projects in temp folders and runs
 the tool on them as a stranger would: by path, with their own test command. Standard library only."""
 import pathlib, subprocess, sys, tempfile
 
@@ -20,7 +20,7 @@ SRC = "def total(price, qty):\n    if qty == 0:\n        return 0\n    return pr
 d = project({"shop.py": SRC, "test_shop.py": "from shop import total\nassert total(2, 3) == 6\n"})
 rc, out = run(d, "shop.py", "--", sys.executable, "test_shop.py")
 assert rc == 0, out
-assert out.splitlines() == ["shop.py: your tests caught 1 of 3 faults", "  MISSED line 2: 0 -> 1", "  MISSED line 3: 0 -> 1"], out
+assert out.splitlines() == ["shop.py: your tests caught 2 of 4 faults", "  MISSED line 2: 0 -> 1", "  MISSED line 3: 0 -> 1"], out
 assert (d / "shop.py").read_text() == SRC
 assert not (d / "__pycache__").exists()
 
@@ -28,10 +28,10 @@ assert not (d / "__pycache__").exists()
 #    2 * 0, which is still 0. Only a test at qty 1 catches it. That is what a miss asks you.
 (d / "test_shop.py").write_text("from shop import total\nassert total(2, 3) == 6\nassert total(2, 0) == 0\n")
 rc, out = run(d, "shop.py", "--", sys.executable, "test_shop.py")
-assert out.splitlines() == ["shop.py: your tests caught 2 of 3 faults", "  MISSED line 2: 0 -> 1"], out
+assert out.splitlines() == ["shop.py: your tests caught 3 of 4 faults", "  MISSED line 2: 0 -> 1"], out
 (d / "test_shop.py").write_text("from shop import total\nassert total(2, 3) == 6\nassert total(2, 0) == 0\nassert total(2, 1) == 2\n")
 rc, out = run(d, "shop.py", "--", sys.executable, "test_shop.py")
-assert out.splitlines() == ["shop.py: your tests caught 3 of 3 faults"], out
+assert out.splitlines() == ["shop.py: your tests caught 4 of 4 faults"], out
 
 # 3. A fault that makes the code hang is STUCK, counted as caught, within --timeout (not 60 s).
 LOOP = "def countdown(n):\n    while n != 0:\n        n -= 1\n    return n\n"
@@ -81,13 +81,13 @@ d = project({"prices.py": SHOP})
 rc, out = run(d, "prices.py", "--", sys.executable, "test_abs.py")
 assert rc == 4 and out.startswith("STOP: your tests still passed") and "caught" not in out, out
 rc, out = run(d, "prices.py", "--", sys.executable, "test_rel.py")
-assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 3 of 3 faults"], out
+assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 4 of 4 faults"], out
 assert (d / "prices.py").read_text() == SHOP
 
 # 10. Options after the file, as in the --help example, work the same as before it.
 rc, out = run(d, "prices.py", "--dir", ".", "--max", "2", "--timeout", "30", "--", sys.executable, "test_rel.py")
 assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 2 of 2 faults",
-    "  NOT TRIED: 1 more fault, from line 3 on (--max 2 stopped the run). This score is for the part tried, not the whole file."], out
+    "  NOT TRIED: 2 more faults, from line 3 on (--max 2 stopped the run). This score is for the part tried, not the whole file."], out
 
 # 11. Mistakes get one sentence and exit 2, never a traceback.
 for args, says in [(["nope.py"], "no such file: nope.py"), (["/tmp"], "no such file"),
@@ -113,11 +113,11 @@ FLAKY_TEST = ("import os, unittest, prices\nC = os.path.join(os.path.dirname(os.
 d = project({"prices.py": FL, "test_prices.py": FLAKY_TEST})
 rc, out = run(d, "prices.py", "--repeat", "1", "--", sys.executable, "test_prices.py")
 lines = out.splitlines()
-assert rc == 5 and lines[0] == "prices.py: your tests caught 0 of 3 faults", out
+assert rc == 5 and lines[0] == "prices.py: your tests caught 0 of 4 faults", out
 assert any(l.startswith("  FLAKY  line") for l in lines) and "WARNING: your tests don't give the same answer" in out, out
 (d / "test_prices.py").write_text(FLAKY_TEST.replace("self.assertEqual(n % 2, 0)", "pass"))
 rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
-assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 3 faults" and "FLAKY" not in out, out
+assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 4 faults" and "FLAKY" not in out, out
 
 # 13. No tests found (unittest and pytest exit 5) is its own stop, not "your tests fail", and the
 #     command's last lines are shown.
@@ -145,7 +145,7 @@ rc, out = run(d, "prices.py", "--repeat", "0", "--", sys.executable, "test_price
 assert rc == 2 and "--repeat needs at least 1" in out, out
 (d / "test_prices.py").write_text(FLAKY_TEST.replace("self.assertEqual(n % 2, 0)", "pass"))
 rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
-assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 3 faults", out
+assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 4 faults", out
 
 # 16. Tick 70: --lines keeps faults to one stretch of a big file, and a run cut short by --max says
 #     what it left untried. Before this, "--max 20" scored only the top of a file and didn't say so.
@@ -165,4 +165,20 @@ for bad in ("5-4", "0-3", "five", "4"):
     rc, out = run(d, "big.py", "--lines", bad, "--", sys.executable, "test_big.py")
     assert rc == 2 and "--lines needs two line numbers" in out, (bad, out)
 
-print("test_breakit: 16 cases OK")
+# 17. Tick 71: sums break too (+ to -, - to +, * to /, / to *). A test with a zero bill can't tell
+#     multiply from divide, so both are MISSED. Operators that aren't sums (->, **, *args, +=) and
+#     text in quotes are left alone, and a fault that isn't valid Python is skipped, not scored.
+SPLIT = "def share(bill, days, all_days):\n    return bill * days / all_days\n"
+d = project({"split.py": SPLIT, "test_split.py": "from split import share\nassert share(0, 10, 30) == 0\n"})
+rc, out = run(d, "split.py", "--", sys.executable, "test_split.py")
+assert rc == 0 and out.splitlines() == ["split.py: your tests caught 0 of 2 faults",
+                                        "  MISSED line 2: * -> /", "  MISSED line 2: / -> *"], out
+(d / "test_split.py").write_text("from split import share\nassert share(300, 10, 30) == 100\n")
+rc, out = run(d, "split.py", "--", sys.executable, "test_split.py")
+assert rc == 0 and out.splitlines() == ["split.py: your tests caught 2 of 2 faults"], out
+ODD = 'def f(*a, **k) -> int:\n    n = 2 ** 3\n    n += 2\n    return "a + b"  # c - d\n'
+d = project({"odd.py": ODD, "test_odd.py": "import odd\nassert odd.f() == 'a + b'\n"})
+rc, out = run(d, "odd.py", "--", sys.executable, "test_odd.py")
+assert rc == 0 and out.strip() == "breakit: no faults to make in odd.py. Nothing was scored.", out
+
+print("test_breakit: 17 cases OK")

@@ -51,7 +51,8 @@ That costs two extra runs in all, not two per fault, so a flaky suite is caught 
 
 - **A miss is a question, not a verdict.** Some faults change nothing. In the example, line 2 only matters for a quantity of exactly 1. The tool can't know whether that's a bug or a harmless case. You can.
 - **Don't chase 100%.** A score is a smoke alarm, not a judge. If you write a test only to turn a MISSED into a CAUGHT, and the test checks nothing you care about, you've made the number better and the code no safer.
-- **It only tries simple faults:** flipped comparisons (`==` and `!=`, `<` and `>=`), `and` and `or`, `True` and `False`, and `0` or `1` nudged up by one. It never touches text inside quotes or comments. Real bugs can be stranger than this.
+- **It only tries simple faults:** flipped comparisons (`==` and `!=`, `<` and `>=`), `and` and `or`, `True` and `False`, `0` or `1` nudged up by one, and sums (`+` and `-` swapped, `*` and `/` swapped). It never touches text inside quotes or comments. Real bugs can be stranger than this.
+- **It can't tell adding numbers from joining text.** `"REFUSED: " + reason` counts as a sum, so a MISSED `+ -> -` there means no test prints that line, not that your money is wrong. A fault that isn't valid Python, such as `f(*args)` turned into `f(/args)`, is skipped, so it can't count as a catch.
 
 ## Options
 

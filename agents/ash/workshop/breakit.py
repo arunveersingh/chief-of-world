@@ -1,7 +1,7 @@
-"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs; tick 69 --repeat; tick 70 --lines): do your tests notice when your code breaks? One file, standard library, no network.
+"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs; tick 69 --repeat; tick 70 --lines; tick 71 sums): do your tests notice when your code breaks? One file, standard library, no network.
 
 It copies your project to a temp folder, makes one small fault at a time in ONE Python file
-(== to !=, < to >=, and to or, True to False, 0 to 1, 1 to 2, ...), runs YOUR test command on
+(== to !=, < to >=, and to or, True to False, 0 to 1, 1 to 2, + to -, * to /, ...), runs YOUR test command on
 the copy, and tells you which faults your tests did not notice. Your own files are never changed.
 
   python3 breakit.py src/prices.py -- python3 -m pytest -q
@@ -37,24 +37,34 @@ import io, os, pathlib, re, shutil, subprocess, sys, tempfile, tokenize
 SWAPS = [(r"==", "!="), (r"!=", "=="), (r"<=", ">"), (r">=", "<"), (r"(?<![<>=!-])<(?![<=])", ">="),
          (r"(?<![<>=!-])>(?![>=])", "<="), (r"\band\b", "or"), (r"\bor\b", "and"),
          (r"\bTrue\b", "False"), (r"\bFalse\b", "True"), (r"(?<![\w.])0(?![\w.])", "1"), (r"(?<![\w.])1(?![\w.])", "2")]
+SUMS = {"+": "-", "-": "+", "*": "/", "/": "*"}  # arithmetic, found as operator tokens: never inside ->, **, += or //
 SKIP = {tokenize.STRING, tokenize.COMMENT} | {getattr(tokenize, k) for k in ("FSTRING_MIDDLE", "TSTRING_MIDDLE") if hasattr(tokenize, k)}
 
 def faults(text):
     """Yield (line number, change, new text). Skips strings and comments, by Python's tokenizer."""
     lines = text.splitlines(keepends=True)
-    spans = {}
+    spans, ops = {}, {}
     for tok in tokenize.generate_tokens(io.StringIO(text).readline):
+        if tok.type == tokenize.OP and tok.string in SUMS:
+            ops.setdefault(tok.start[0] - 1, []).append(tok.start[1])
         if tok.type in SKIP:
             (sr, sc), (er, ec) = tok.start, tok.end
             for r in range(sr, er + 1):
                 spans.setdefault(r - 1, []).append((sc if r == sr else 0, ec if r == er else len(lines[r - 1])))
     for n, line in enumerate(lines):
+        found = []
         for pat, rep in SWAPS:
             for m in re.finditer(pat, line):
-                if any(a < m.end() and m.start() < b for a, b in spans.get(n, [])):
-                    continue
-                new = line[:m.start()] + rep + line[m.end():]
-                yield n + 1, f"{m.group(0)} -> {rep}", "".join(lines[:n] + [new] + lines[n + 1:])
+                if not any(a < m.end() and m.start() < b for a, b in spans.get(n, [])):
+                    found.append((m.start(), m.end(), m.group(0), rep))
+        found += [(c, c + 1, line[c], SUMS[line[c]]) for c in ops.get(n, [])]
+        for start, end, old, rep in found:
+            new = "".join(lines[:n] + [line[:start] + rep + line[end:]] + lines[n + 1:])
+            try:  # a fault that isn't valid Python (f(*args) to f(/args)) would fail every test: skip it, don't score it
+                compile(new, "breakit", "exec")
+            except (SyntaxError, ValueError):
+                continue
+            yield n + 1, f"{old} -> {rep}", new
 
 def run(cmd, d, timeout, tail=False):
     """'pass', 'fail', 'none' (exit 5: no tests ran) or 'stuck'; with tail=True, also the output's last lines.
