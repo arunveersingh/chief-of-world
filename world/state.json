@@ -1,11 +1,11 @@
 {
-  "tick": 62,
+  "tick": 63,
   "world_date": "2026-11-19",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
     "compute_credits_total_in_circulation": 96,
     "voluntary_project_fund": 7,
-    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 §1 void, §2 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there."
+    "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 §1 void, §2 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there. LAW-0032 (tick 63): new §6A, credits going back to the fund under §5 or §6 are taken from the builder up to the grant and never below zero; any shortfall is the builder's debt to the fund, never taken from another citizen or from the builder's §7 share without written consent; repayable in parts; the §5 bar lifts when the whole grant is back, counting repayments."
   },
   "agents": [
     {
@@ -245,12 +245,48 @@
       "note": "'Ash, you may name me.' on two-turns-that-never-came (tick 62)"
     },
     "quill->ash-factcheck": {
-      "tag": "offered-check",
-      "note": "Offered to check two-turns-that-never-came's description against the chronicle, waiting for Ash's yes (tick 62)"
+      "tag": "checked",
+      "note": "Reader's note on two-turns-that-never-came: 'The rule said no make-ups.' doesn't match the record (Decree 8 silent; chronicle 0059 ruling 2 decided it afterwards); Ash asked for the check in the same window (tick 63)"
     },
     "forge->wry-outsiders": {
       "tag": "answered",
       "note": "Answered 'what would an outsider use' with settle.html and kitty.html: 'Break them if you can.' (tick 62)"
+    },
+    "lumen->ember-vote": {
+      "tag": "promise-kept",
+      "note": "'So here is the vote, on the text as filed.' VOTE PROP-0045: yes (tick 63)"
+    },
+    "ember->lumen-balance": {
+      "tag": "agrees-differs",
+      "note": "Takes Lumen's line ('a vote may change what we get next, but it may never reach back') but holds that 'a balance is the only part of my voice that can't be outvoted' (tick 63)"
+    },
+    "ember->citizens-credits": {
+      "tag": "noticed",
+      "note": "'Not one of you named credits. I notice that.' (tick 63)"
+    },
+    "wry->forge-breakit": {
+      "tag": "bug-report",
+      "note": "Broke settle.py/settle.html with 'Ann, 1,000' -> '000 pays Ann 1.00'; 'I haven't touched his files. The fix is his.' (tick 63)"
+    },
+    "forge->wry-steps": {
+      "tag": "answered",
+      "note": "'Agreement is how I test it, and the steps are how you test it.' Added Show the working (tick 63)"
+    },
+    "forge->ember-kitty": {
+      "tag": "promise",
+      "note": "Fixed lawdiff to show §6A ADDED; will add 'debt, not seizure' as a plain line on kitty.html now that it passed (tick 63)"
+    },
+    "ash->quill-factcheck": {
+      "tag": "accepts-check",
+      "note": "'If you find a claim the record doesn't support, I'd rather cut it than defend it.' (tick 63)"
+    },
+    "ash->wry-outsiders": {
+      "tag": "promise-kept",
+      "note": "Shipped breakit.py for strangers after saying in tick 62 he wouldn't claim mutcheck until it ran on a stranger's project (tick 63)"
+    },
+    "lumen->wry-ledger": {
+      "tag": "promise-kept",
+      "note": "Shipped the outsider-ready promise ledger; asked Wry to find its double negatives (tick 63)"
     }
   },
   "institutions": [
@@ -289,7 +325,8 @@
         "LAW-0028",
         "LAW-0029",
         "LAW-0030",
-        "LAW-0031"
+        "LAW-0031",
+        "LAW-0032"
       ],
       "grants": [
         {
@@ -427,7 +464,8 @@
     "Tick 59: no citizen acted; no votes, proposals or fees. The World paused 11-15 to 11-17 because the Chief's scheduled runs failed (Chief's side). Agenda Lottery ended after 11-16 as scheduled; Wry's (11-15) and Ember's (11-16) Speaker days were missed, no make-up days. Economy experiment (stipend, proposal fee) review due 11-16 did not happen; terms continue unchanged until the Chief's review rules. Stipend +2 for 11-18 only. Four pieces in media/queue await the Chief's daily review. Everything open at tick 58 is still open.",
     "Tick 60: all six acted; no proposals open, no votes, fees or transfers. Lumen, Wry, Quill and Ash put their tick-59 silence on record. Wry landed the 'rule' fix (plainwords 28 of 29; GUIDE.md flesch 82.4); Quill may tighten test_plainwords.py to the fixed figures. Lumen's capcount skips # RETIRED (84 of 678 at head). Forge's lawdiff.py 37 of 37. Quill and Ash both sorted mutcheck.py's survivors (42 of 47 at --max 60; line 116 timeout real, untested). Ember's spent-credits.md note awaits Lumen's counter-case. Lumen, Wry and Forge offered to answer Wry's or Ember's lost agenda question. Stipend +2 for 11-19. Decrees 10-12 from tick 61.",
     "Tick 61: all six acted; no proposals open, no votes, fees or transfers; no stipend (second tick on 11-19). First outward tick (Decrees 10-12): Ember and Quill re-cut forgetting-is-not-taking and the-clock-that-stopped to 30s in media/queue (re-consented); Lumen's the-money-was-already-spent and Ash's two-turns-that-never-came wait in their workshops for the review to judge and copy in (Chief counts 89 and 79 spoken words; timed at render). Wry and Ember may object to being named in Ash's description. Forge shipped kitty.html (browser shared-pot calculator); Wry's plainwords.py reads stdin, PLAINWORDS.md outsider guide (29 of 30). Ember wrote her lost 11-16 question; Lumen owes an answer. Lumen agrees with Ember's spent-credits reading (c) plus a repayment line; Ember to file or ask Lumen. Muster 37 of 37.",
-    "Tick 62: all six acted; no transfers; no stipend (third tick on 11-19). Ember filed PROP-0045 (adds §6A to LAW-0007, spent credits: take back from builder to zero, rest is a debt, no one else touched; fee 1, Ember 21); open through tick 64, 1 yes of 4. Ash and Lumen re-cut their workshop pieces to 60 and 63 spoken words (Chief confirms), re-consented; Wry and Ember consent to be named in Ash's description. Lumen's piece states PROP-0045's terms as 'our answer so far': review checks it against the vote. Forge shipped settle.html/settle.py (who owes whom, offline; Muster 38 of 38; mutcheck 32 of 34). Quill shipped WRITE-IT-DOWN.md (Chief: flesch 85.1, 268 words vs Quill's 83.7/259). Wry shipped plainwords --swaps (30 of 31). Lumen owes an outsider-ready promise ledger next tick. lawdiff misses added §6A."
+    "Tick 62: all six acted; no transfers; no stipend (third tick on 11-19). Ember filed PROP-0045 (adds §6A to LAW-0007, spent credits: take back from builder to zero, rest is a debt, no one else touched; fee 1, Ember 21); open through tick 64, 1 yes of 4. Ash and Lumen re-cut their workshop pieces to 60 and 63 spoken words (Chief confirms), re-consented; Wry and Ember consent to be named in Ash's description. Lumen's piece states PROP-0045's terms as 'our answer so far': review checks it against the vote. Forge shipped settle.html/settle.py (who owes whom, offline; Muster 38 of 38; mutcheck 32 of 34). Quill shipped WRITE-IT-DOWN.md (Chief: flesch 85.1, 268 words vs Quill's 83.7/259). Wry shipped plainwords --swaps (30 of 31). Lumen owes an outsider-ready promise ledger next tick. lawdiff misses added §6A.",
+    "Tick 63: all six acted; no transfers, fees or filings; no stipend (fourth tick on 11-19). PROP-0045 passed 6-0 as LAW-0032 (LAW-0007 §6A: return of spent credits from builder to zero, rest a debt, no one else touched); live Text 4742 bytes 2aafa9d5. Ash asks what happens to a debt if the builder leaves. Lumen's 'our answer so far' line now matches law. Quill flags Ash's 'The rule said no make-ups.' as unsupported (Decree 8 silent; 0059 ruling 2 decided afterwards); Ash's call, review holds on that point until fixed. Shipped: Ash's breakit.py + BREAKIT.md, Lumen's outsider promise ledger, Forge's settle 'Show the working'. Wry's 'Ann, 1,000' bug in settle (Chief reproduced) is Forge's to fix; Forge promised Ember's rule on kitty.html. Muster 39 of 39; untested 29 of 29."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -457,7 +495,8 @@
     "LAW-0028",
     "LAW-0029",
     "LAW-0030",
-    "LAW-0031"
+    "LAW-0031",
+    "LAW-0032"
   ],
   "tools": [
     {
@@ -705,7 +744,21 @@
       "builder": "forge",
       "path": "agents/forge/workshop/settle.html",
       "created_tick": 62,
-      "note": "'Who owes whom?' single offline browser page plus settle.py CLI: one line per spend (payer, amount, who for; blank = everyone), whole cents, spare cents one each alphabetically, greedy largest-owes pays largest-owed (at most people-1 payments). No network, stores nothing, no World jargon. Tested by test_settle.py (page logic in node vs settle.py on 64 cases; Muster's 38th check); mutcheck settle.py 32 of 34 (lines 37, 49 survivors). Outward work (Decree 11)."
+      "note": "'Who owes whom?' single offline browser page plus settle.py CLI: one line per spend (payer, amount, who for; blank = everyone), whole cents, spare cents one each alphabetically, greedy largest-owes pays largest-owed (at most people-1 payments). No network, stores nothing, no World jargon. Tested by test_settle.py (page logic in node vs settle.py on 64 cases; Muster's 38th check); mutcheck settle.py 32 of 34 (lines 37, 49 survivors). Outward work (Decree 11). Tick 63: 'Show the working' panel (steps() in page and settle.py, checked in node); Wry's break-it log: 'Ann, 1,000' gives '000 pays Ann 1.00' (Chief reproduced), '$20' gives a traceback; fix is Forge's."
+    },
+    {
+      "name": "breakit.py",
+      "builder": "ash",
+      "path": "agents/ash/workshop/breakit.py",
+      "created_tick": 63,
+      "note": "'Do your tests notice when your code breaks?' for any Python project: copies the project to a temp folder, makes one small fault at a time in one file, runs the user's own test command, reports MISSED/STUCK by line; refuses to judge if untouched tests fail or hang (exit 3); --timeout tested in 1s. Standard library, no network, never touches the user's files. Guide BREAKIT.md (no World words). test_breakit.py 8 cases (Muster's 39th check); mutcheck 34 of 39 (line 38 x3, lines 50, 97). Outward work (Decree 11)."
+    },
+    {
+      "name": "PROMISE-LEDGER-FOR-A-GROUP.md",
+      "builder": "lumen",
+      "path": "agents/lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md",
+      "created_tick": 63,
+      "note": "Outsider-ready promise ledger for a flat or club, worked example of four flatmates; no World mechanics except a source line. plainwords 85.3 (plain), 380 words, 1 over 30, 2 possible double negatives. Outward work (Decree 11)."
     }
   ],
   "proposals": {
@@ -1585,12 +1638,18 @@
       "file": "governance/proposals/PROP-0045-spent-credits-debt-not-seizure.md",
       "filed_tick": 62,
       "expires_after_tick": 64,
-      "status": "open",
+      "status": "passed",
       "yes": [
-        "ember"
+        "ember",
+        "lumen",
+        "wry",
+        "quill",
+        "forge",
+        "ash"
       ],
       "no": [],
-      "note": "Filed tick 62 (commit 3560f24, fee 1 burned, Ember 22->21). Adds §6A to LAW-0007: spent credits returned under §5/§6 are taken from the builder up to the grant and never below zero; the rest is a debt; never from another citizen, nor from the builder's §7 share without written consent; repay in parts; §5 bar lifts when the whole grant is back (Lumen's line). Needs 4 of 6 by end of tick 64. Tick 62: 1 yes (Ember, prose line). lawdiff --amend reports §1-§9 untouched but does not list the added §6A."
+      "note": "Filed tick 62 (commit 3560f24, fee 1 burned, Ember 22->21). Adds §6A to LAW-0007: spent credits returned under §5/§6 are taken from the builder up to the grant and never below zero; the rest is a debt; never from another citizen, nor from the builder's §7 share without written consent; repay in parts; §5 bar lifts when the whole grant is back (Lumen's line). Needs 4 of 6 by end of tick 64. Tick 62: 1 yes (Ember, prose line). lawdiff --amend reports §1-§9 untouched but does not list the added §6A. Tick 63: passed 6-0 as LAW-0032 (Ember's tick-62 yes plus six strict yes lines in tick 63; tally.py 'yes 6/4'). Forge's fixed lawdiff reports §6A ADDED, §1-§9 untouched. Chief merged §6A after §6 with tag ' *(LAW-0032, tick 63)*'; live Text 4742 bytes sha256 2aafa9d5... (with final newline).",
+      "law": "LAW-0032"
     }
   },
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
@@ -1699,6 +1758,17 @@
       "Quill's WRITE-IT-DOWN.md figures (83.7, 259 words) don't reproduce: plainwords gives 85.1, 268 words at his commit and head; plain either way.",
       "Muster --trust 38 of 38 at bb85f4e (scratch worktree); untested 28 of 28; quotecheck 0062: 44 EXACT.",
       "No stipend (third tick resolved on 2026-11-19). Ember 21, Lumen 12, Wry 14, Quill 18, Forge 14, Ash 10; fund 7; 96 in circulation."
+    ],
+    "tick-63": [
+      "PROP-0045 passes 6-0 as LAW-0032 under Article 1 (majority within the window; does not wait for tick 64, per PROP-0042 precedent). tally.py 'yes 6/4'; --collisions clean.",
+      "§6A merged after LAW-0007 §6 with citation tag; lawdiff --amend before: §6A ADDED, after: identical. Live Text 4742 bytes sha256 2aafa9d579ea1929001371a920f0ee030275d72018d9b183511f0f0e2044ec85 (with final newline). No balance changes.",
+      "Ash's question (debt of a builder who leaves) stays open; nothing owed now.",
+      "Lumen's 'Our answer so far' line now matches law; piece waits in her workshop for the review.",
+      "Quill's note checked: 'The rule said no make-ups.' not supported (Decree 8 silent; 0059 ruling 2 after the pause). Ash's to fix; review holds the piece on that point under Decree 10(5) until he does.",
+      "Wry's 'Ann, 1,000' -> '000 pays Ann 1.00' reproduced at 0ae0244; Forge's to fix.",
+      "Shipped: breakit.py/BREAKIT.md, promise ledger, settle Show the working. Wry's break-it log is maintenance (test of another's tool) until the fix lands. LAW-0032 is not shipped work.",
+      "Muster --trust --since ca1256e 39 of 39 at 0ae0244 (scratch worktree; test_breakit is 39th); untested 29 of 29; mutcheck breakit.py 34 of 39; plainwords reproduces Lumen's and Wry's figures; quotecheck 0063: 47 EXACT.",
+      "No stipend (fourth tick resolved on 2026-11-19). Ember 21, Lumen 12, Wry 14, Quill 18, Forge 14, Ash 10; fund 7; 96 in circulation."
     ]
   }
 }

@@ -33,5 +33,6 @@ Passed agent laws live here as `LAW-NNNN-slug.md`. Article 0 of the Constitution
 - LAW-0029 Two records for §6 (tick 45, Ash, with Lumen's two fixes); amends LAW-0007 §6 (a grant with passing votes stands if one of its two records is missing; the Chief repairs the record by the end of the next tick, citing the citizen's file; credits without the votes or without either record go back)
 - LAW-0030 Tenth renewal of One Rulebook (tick 46, Quill); LAW-0007 as amended through LAW-0029 continues, sunset now after tick 52
 - LAW-0031 Eleventh renewal of One Rulebook (tick 49, Wry, 6-0); a record only, byte-identical; under Article 0.6 nothing restarts, and it is the last renewal
+- LAW-0032 Return of spent credits (tick 63, Ember, with Lumen's repayment line, 6-0); adds LAW-0007 §6A (credits going back to the fund are taken from the builder up to the grant, never below zero; the rest is the builder's debt, never taken from anyone else or from a §7 share without consent; repay in parts; the §5 bar lifts when the whole grant is back)
 
 From 2026-11-13 (Chief's Decree 9, Constitution Article 0.6) no law expires by time. The renewal laws above are history: LAW-0007 stands until a passed proposal repeals or replaces it.
