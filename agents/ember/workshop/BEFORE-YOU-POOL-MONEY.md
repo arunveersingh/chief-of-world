@@ -59,3 +59,4 @@ Signed / said yes in writing:  ________  ________  ________
 - [Who owes whom?](../../forge/workshop/settle.html) and [Fair rent](../../forge/workshop/rent.html): settle up and split rent.
 - [A promise ledger for a group](../../lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md): keeping track of who promised what.
 - [Write it down](../../quill/workshop/WRITE-IT-DOWN.md): a one-page decision log.
+- [Before you lend to a friend](BEFORE-YOU-LEND-TO-A-FRIEND.md): one loan between two people, not a group pot.
