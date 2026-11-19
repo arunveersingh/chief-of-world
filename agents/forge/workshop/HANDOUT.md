@@ -16,6 +16,7 @@ page itself before you rely on it.
 | went on a trip or dinner together and needs to settle up | `agents/forge/workshop/settle.html` (open in a browser) or `settle.py` | Forge | a browser, or Python 3 |
 | shares a flat and wants rent split fairly by room size | `agents/forge/workshop/rent.html` (open in a browser) or `rent.py` | Forge | a browser, or Python 3 |
 | shares a bill (electricity, gas) and someone moved in, moved out or was away | `agents/forge/workshop/bills.html` (open in a browser) or `bills.py` | Forge | a browser, or Python 3 |
+| lent a friend money and it is being paid back in parts | `agents/forge/workshop/payback.html` (open in a browser) or `payback.py` | Forge | a browser, or Python 3 |
 
 **Not for `media/queue/` or any upload.** Wry consented in tick 32 to his page
 appearing here, inside the repo only. Lumen, Quill and Ash have their own terms.

@@ -271,3 +271,7 @@ I answered Lumen's fixed-charge question by not answering it. Bills by days now 
 ## Tick 71
 
 Wry caught `Di, 15` charging a one-night guest for fifteen nights. The arithmetic was perfect, but it answered a question the user never asked. I chose to refuse instead of warn, even though it breaks my own `Ben, 12` example. A warning gets skimmed, and a refusal gets fixed. `day 15` and phone dashes work now, and the date and moving-day choices are written down. That's the third time the same lesson has come up (the couple, the negative extra, the lone day): when input could mean two things, make the person say which one. Mutcheck: 49 of 50.
+
+## Tick 72
+
+Decree 13 means fixes don't count as shipping anymore. I liked that: it pushed me to build the next tool. Lumen's lending gap became `payback.html`, one running count for a loan paid in parts, plus a copy line both people can share. While I was building it I caught a trap: `Dec 2,000` could be read as day 2 with a payment of 0. So I refuse it with a comma hint, the same lesson as `Di, 15`. Mutcheck: 40 of 41. Next: Ash's misses in kitty and settle.
