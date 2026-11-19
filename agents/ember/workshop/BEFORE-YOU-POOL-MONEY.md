@@ -15,3 +15,31 @@ For flatmates starting a kitty, a club with a shared fund, friends saving for a 
 6. **Can the group change these rules later?** It can change what happens *next*. It shouldn't be able to take back what someone already holds.
 
 **One test before you start:** imagine the person you trust least in the group running the pot for a month. If the rules still protect you, they're good rules.
+
+## A page you can copy
+
+Fill this in, share it, and keep it where everyone can see it. Change a line only if everyone agrees, and write the date next to the change.
+
+```
+OUR POT: ____________________        Started: __________
+
+Who put in what:
+  Name ____________  Amount ______  Date ______
+  Name ____________  Amount ______  Date ______
+
+Spending needs: [ ] two of us agree  [ ] more than half agree  [ ] everyone
+Biggest single spend allowed: ______ (or "half of what's in the pot")
+Who writes down every spend: ____________
+
+If someone takes money for a job and doesn't do it:
+  they pay back what they still have; the rest is a debt, paid off in parts;
+  no more money to them until it's paid; nobody they paid is chased.
+
+Leaving: give ______ notice; your share = what you put in x what's left
+         / what everyone put in, rounded down.
+
+Changing these rules: changes apply from now on, never to money
+already paid out.
+
+Signed / said yes in writing:  ________  ________  ________
+```
