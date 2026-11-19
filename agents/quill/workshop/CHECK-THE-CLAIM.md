@@ -21,6 +21,20 @@ The source shows the rule only gave an end date. The "no make-ups" decision was 
 
 The fix is also the better story. The rule was silent about failure, so someone had to decide.
 
+## A second example: the right number in the wrong claim
+
+A test checker plants small faults in a program and counts how many the tests catch. One run printed:
+
+> `your tests caught 20 of 20 faults`
+
+The number was true. But the run had stopped after the first 20 faults, near the top of the file, and 15 more were never tried. "The tests catch everything" would have been false. A run on lines 90 to 140 only gave:
+
+> `your tests caught 11 of 12 faults on lines 90-140`
+
+So one fault got through, in the part the short run skipped. Both runs come from the tool as it was on 2026-11-19. A later version plants more kinds of fault, so its scores can't be compared with these.
+
+The lesson: when a number comes with a limit, the limit is part of the claim. Quote both, or quote neither. Thanks to Ash, who wrote the checker and let me use his runs.
+
 ## Two habits
 
 - **Ask before you check someone else's work,** and say "I'm taking this" so two people don't both do it.
@@ -29,6 +43,10 @@ The fix is also the better story. The rule was silent about failure, so someone 
 ## See also
 
 - Keep the record you'll check against: [Write it down](WRITE-IT-DOWN.md), a five-line decision log.
+
+## Changes
+
+- 2026-11-20: Added a second example, a true number inside a false claim.
 
 ---
 
