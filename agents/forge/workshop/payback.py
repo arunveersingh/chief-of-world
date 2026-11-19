@@ -4,14 +4,19 @@ borrower see the same balance. Offline, no network.
 
 Usage: payback.py AMOUNT FILE
        payback.py AMOUNT --plan N
+       payback.py AMOUNT FILE --plan N   (or AMOUNT --plan N FILE)
   AMOUNT  what was lent, e.g. 5,000 or 840.50
   FILE    one payment per line, oldest first: when, amount. e.g.
             Dec, 1,000
             Jan, 600
             Feb, 1,000
-          A line with only an amount is a payment with no date.
-  --plan N  split AMOUNT into N equal parts instead (1 to 120). Any spare
-          cents go one each on the first parts.
+          A line with only an amount is a payment with no date. Write a
+          decimal with a dot (12.50): a line like 12,50 is refused, because
+          it could be the 12th and a payment of 50.
+  --plan N  split into N equal parts instead (1 to 120). Without FILE it
+          splits the whole AMOUNT; with FILE it splits only what is left
+          after the payments in FILE. Any spare cents go one each on the
+          first parts.
 It prints the balance after each payment and one line you can both copy:
   Paid 1,000 (Dec), 600 (Jan), 1,000 (Feb). Left: 2,400 of 5,000.
 
@@ -53,6 +58,10 @@ def parse(text):
                 raise ValueError("line %d: write it as: when, amount: %s" % (no, line))
             if re.search(r"[0-9]$", label) and re.match(r"[0-9]{3}(?![0-9])", rest.strip()):
                 raise ValueError("line %d: put a comma between when and the amount, like Dec, 2,000: %s" % (no, line))
+            if re.fullmatch(r"[$€£₹][ \t]*[0-9.]+|[0-9]+|[0-9]{1,3}(?:\.[0-9]{3})+", label):
+                if re.fullmatch(r"[0-9]{1,2}", rest.strip()):
+                    raise ValueError("line %d: is %s a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50" % (no, line))
+                raise ValueError("line %d: %s looks like a number, not a date (write a word in the date, like 12 Dec, 50): %s" % (no, label, line))
             try:
                 c = amount(rest, "payment")
             except ValueError:
@@ -97,33 +106,46 @@ def plan(lent, n):
 
 
 def main(argv):
-    if len(argv) == 4 and argv[2] == "--plan":
-        try:
-            lent = amount(argv[1], "amount lent")
-            if not re.fullmatch(r"[0-9]{1,3}", argv[3].strip()) or not 1 <= int(argv[3]) <= 120:
-                raise ValueError("bad number of parts: %s (write a whole number from 1 to 120)" % argv[3].strip())
-            parts = plan(lent, int(argv[3]))
-        except ValueError as e:
-            print("payback: %s" % e)
-            return 1
-        for i, c in enumerate(parts, 1):
-            print("Part %d of %d: %s" % (i, len(parts), money(c)))
-        print("Together: %s" % money(sum(parts)))
-        return 0
-    if len(argv) != 3 or argv[2].startswith("--"):
+    a, name, n = argv[1:], None, None
+    if len(a) == 3 and a[1] == "--plan":
+        n = a[2]
+    elif len(a) == 4 and a[2] == "--plan" and not a[1].startswith("--"):
+        name, n = a[1], a[3]
+    elif len(a) == 4 and a[1] == "--plan" and not a[3].startswith("--"):
+        name, n = a[3], a[2]
+    elif len(a) != 2 or a[1].startswith("--"):
         print(__doc__.split("\n\n", 1)[1].rstrip())
         return 2
+    else:
+        name = a[1]
     try:
-        lent = amount(argv[1], "amount lent")
-        with open(argv[2], encoding="utf-8-sig") as f:
-            payments = parse(f.read())
+        lent = amount(a[0], "amount lent")
+        if n is not None and (not re.fullmatch(r"[0-9]{1,3}", n.strip()) or not 1 <= int(n) <= 120):
+            raise ValueError("bad number of parts: %s (write a whole number from 1 to 120)" % n.strip())
+        payments = []
+        if name is not None:
+            with open(name, encoding="utf-8-sig") as f:
+                payments = parse(f.read())
         after = count(lent, payments)
+        left = lent - sum(c for _, c in payments)
+        parts = plan(left, int(n)) if n is not None and left else []
     except (ValueError, OSError) as e:
         print("payback: %s" % e)
         return 1
-    for i, ((lb, c), left) in enumerate(zip(payments, after), 1):
-        print("%s: paid %s, left %s" % (lb or "payment %d" % i, money(c), money(left)))
-    print(summary(lent, payments))
+    if n is None:
+        for i, ((lb, c), rest) in enumerate(zip(payments, after), 1):
+            print("%s: paid %s, left %s" % (lb or "payment %d" % i, money(c), money(rest)))
+        print(summary(lent, payments))
+        return 0
+    if not parts:
+        print("Paid back in full: %s (nothing left to plan)." % money(lent))
+        return 0
+    for i, c in enumerate(parts, 1):
+        print("Part %d of %d: %s" % (i, len(parts), money(c)))
+    if name is None:
+        print("Together: %s" % money(sum(parts)))
+    else:
+        print("Together: %s (what's left of %s)" % (money(sum(parts)), money(lent)))
     return 0
 
 

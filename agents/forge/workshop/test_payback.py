@@ -6,6 +6,7 @@ import json
 import os
 import pathlib
 import random
+import re
 import shutil
 import subprocess
 import sys
@@ -65,6 +66,31 @@ eq(err(payback.plan, 0, 2), "nothing was lent (write what was lent, like 5,000)"
 eq(err(payback.plan, 2, 3), "0.02 can't be split into 3 parts of at least one cent", "plan too fine")
 eq(payback.plan(3, 3), [1, 1, 1], "plan exactly cents")
 
+# Wry, tick 73: a comma decimal on a line of its own must not become "date, amount"
+decimals = {
+    "12,50": "line 1: is 12,50 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "1.000,50": "line 1: is 1.000,50 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "250,75": "line 1: is 250,75 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "0,99": "line 1: is 0,99 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "€12,50": "line 1: is €12,50 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "0,01": "line 1: is 0,01 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "Dec, 1,000\n12,5": "line 2: is 12,5 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "€ 12, 50": "line 1: is € 12, 50 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "$1.5,05": "line 1: is $1.5,05 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50",
+    "12, 1,000": "line 1: 12 looks like a number, not a date (write a word in the date, like 12 Dec, 50): 12, 1,000",
+    "1.000, 5000": "line 1: 1.000 looks like a number, not a date (write a word in the date, like 12 Dec, 50): 1.000, 5000",
+    "£3, 1.50": "line 1: £3 looks like a number, not a date (write a word in the date, like 12 Dec, 50): £3, 1.50",
+    "12, 5.5": "line 1: 12 looks like a number, not a date (write a word in the date, like 12 Dec, 50): 12, 5.5",
+    "12, 500": "line 1: put a comma between when and the amount, like Dec, 2,000: 12, 500",
+    "Dec 12, 345": "line 1: put a comma between when and the amount, like Dec, 2,000: Dec 12, 345",
+}
+for t, want in decimals.items():
+    eq(err(payback.parse, t), want, repr(t))
+eq(payback.parse("2026-11-20, 50\n11/20, 50\n12.11, 50\n12 Dec, 50\nDec 12, 34\n1.0000, 7\n12.5.2026, 8\n€, 9"),
+   [("2026-11-20", 5000), ("11/20", 5000), ("12.11", 5000), ("12 Dec", 5000), ("Dec 12", 3400), ("1.0000", 700), ("12.5.2026", 800), ("€", 900)],
+   "real dates still read")
+eq(payback.parse("12.50\n1,000.50\n0.01"), [("", 1250), ("", 100050), ("", 1)], "dot decimals")
+
 rng = random.Random(72)
 for _ in range(400):
     lent = rng.randint(1, 10 ** 9)
@@ -100,7 +126,37 @@ with tempfile.TemporaryDirectory() as tmp:
         eq(run("5000", "--plan", bad).stdout, "payback: bad number of parts: %s (write a whole number from 1 to 120)\n" % bad, "plan " + bad)
     eq(run("lots", "--plan", "2").stdout, "payback: bad amount lent: lots (write 2400 or 1,850.50)\n", "plan bad lent")
     eq(run("0.01", "--plan", "2").stdout, "payback: 0.01 can't be split into 2 parts of at least one cent\n", "plan fine")
-    for a in [("5000",), ("5000", "--plan"), ("5000", "--plna", "3"), ("5000", "--plan", "3", "x"), ("5000", "--x")]:
+    # Wry, tick 73: --plan with FILE splits what's left, not the whole loan
+    c = os.path.join(tmp, "c.txt")
+    with open(c, "w", encoding="utf-8") as fh:
+        fh.write("Dec, 2,600\n")
+    want = "Part 1 of 3: 800\nPart 2 of 3: 800\nPart 3 of 3: 800\nTogether: 2,400 (what's left of 5,000)\n"
+    for a in [("5,000", c, "--plan", "3"), ("5,000", "--plan", "3", c), ("5,000", c, "--plan", " 3 ")]:
+        r = run(*a)
+        eq((r.returncode, r.stdout), (0, want), "plan left %r" % (a,))
+    r = run("5,000.01", c, "--plan", "2")
+    eq((r.returncode, r.stdout), (0, "Part 1 of 2: 1,200.01\nPart 2 of 2: 1,200\nTogether: 2,400.01 (what's left of 5,000.01)\n"), "plan left cents")
+    r = run("2,600", c, "--plan", "3")
+    eq((r.returncode, r.stdout), (0, "Paid back in full: 2,600 (nothing left to plan).\n"), "plan paid in full")
+    r = run("2,600", "--plan", "120", c)
+    eq((r.returncode, r.stdout), (0, "Paid back in full: 2,600 (nothing left to plan).\n"), "plan paid in full, file last")
+    r = run("2,600.02", c, "--plan", "3")
+    eq((r.returncode, r.stdout), (1, "payback: 0.02 can't be split into 3 parts of at least one cent\n"), "plan left too fine")
+    eq(run("2,000", c, "--plan", "3").stdout, "payback: the payments add up to 2,600, which is 600 more than the 2,000 lent\n", "plan over")
+    eq(run("5,000", c, "--plan", "0").stdout, "payback: bad number of parts: 0 (write a whole number from 1 to 120)\n", "plan file bad n")
+    eq(run("0", c, "--plan", "2").stdout, "payback: nothing was lent (write what was lent, like 5,000)\n", "plan file nothing lent")
+    eq(run("0", "--plan", "2").stdout, "payback: nothing was lent (write what was lent, like 5,000)\n", "plan nothing lent")
+    eq(run("5,000", os.path.join(tmp, "missing"), "--plan", "2").returncode, 1, "plan missing file")
+    empty = os.path.join(tmp, "e.txt")
+    open(empty, "w").close()
+    eq(run("10", empty, "--plan", "2").stdout, "Part 1 of 2: 5\nPart 2 of 2: 5\nTogether: 10 (what's left of 10)\n", "plan empty file")
+    eq(run("10", empty).stdout, "Nothing paid yet. Left: 10 of 10.\n", "cli empty file")
+    with open(c, "w", encoding="utf-8") as fh:
+        fh.write("Dec, 1,000\n12,50\n")
+    r = run("5,000", c)
+    eq((r.returncode, r.stdout), (1, "payback: line 2: is 12,50 a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50\n"), "cli comma decimal")
+    eq(run("5,000", c, "--plan", "2").returncode, 1, "plan comma decimal")
+    for a in [("5000",), ("5000", "--plan"), ("5000", "--plna", "3"), ("5000", "--plan", "3", "--x"), ("5000", "--x", "--plan", "3"), ("5000", "x", "--plan"), ("5000", "x", "y", "z")]:
         r = run(*a)
         eq(r.returncode, 2, "usage %r" % (a,))
         assert r.stdout.startswith("Usage: payback.py"), r.stdout
@@ -124,7 +180,9 @@ console.log(JSON.stringify([
   ["5,000", "0", "lots", "100000000000.01", "100000000000", " ₹ 2,00,000.5 "].map(t => tryit(() => amount(t, "amount lent")))]));
 """
 texts = list(cases) + ["Dec, 1,000\nJan, 600\nFeb, 1,000", "\ufeff840.50\n\n  12 Jan 2027 , ₹1,234.5 \n2,00,000", "a, b, 7",
-                       "Jan 5, 2,000\nJan 5, 20000", "100000000000", "Dec\u00a0, 3\x0b4\r\n5\u20286", "1,000 (Dec)", "Dec 12, 345"]
+                       "Jan 5, 2,000\nJan 5, 20000", "100000000000", "Dec\u00a0, 3\x0b4\r\n5\u20286", "1,000 (Dec)", "Dec 12, 345"] + list(decimals) + [
+    "2026-11-20, 50\n11/20, 50\n12.11, 50\n12 Dec, 50\nDec 12, 34\n1.0000, 7\n12.5.2026, 8\n€, 9", "12.50\n1,000.50\n0.01",
+    "€\u00a012,50", "12\u00a0, 50", "₹ 1.000.000,5", "1.00,50", "12,50,75", "00,5", "0012, 50", "12,٥٠", "١٢, 50", "x12, 50"]
 counts = [[500000, [["Dec", 100000], ["Jan", 60000], ["Feb", 100000]]], [500000, []], [260000, [["a", 260000]]],
           [200000, [["", 260000]]], [0, []], [10 ** 8, [["", 5], ["x, y", 123456]]]]
 plans = [[500000, 3], [100, 1], [3, 3], [2, 3], [0, 2]]
@@ -155,4 +213,35 @@ want = [[py(lambda t=t: [list(x) for x in payback.parse(t)]) for t in texts],
 got = json.loads(r.stdout)
 for i, name in enumerate(["parse", "count", "plan", "money", "amount"]):
     eq(got[i], want[i], "node " + name)
+
+stub = """
+const els = {};
+const document = { getElementById: id => els[id] || (els[id] = { value: "", innerHTML: "", addEventListener() {} }),
+                   createElement: () => { const d = { set textContent(s) { d.innerHTML = s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); } }; return d; } };
+"""
+body = page.split("<script>", 1)[1].split("</script>", 1)[0]
+seed = dict(re.findall(r'<(?:input|textarea) id="(\w+)" value="([^"]*)"', page))
+seed["in"] = page.split('<textarea id="in">', 1)[1].split("</textarea>", 1)[0]
+pages = [["5,000", "Dec, 2,600", "3"], [seed["lent"], seed["in"], seed["n"]], ["2,600", "Dec, 2,600", "3"], ["5,000", "Dec, 2,600", "0"],
+         ["2,000", "Dec, 2,600", "3"], ["lots", "Dec, 1", "3"], ["5,000", "12,50", "3"], ["5,000", "", "2"], ["2,600.02", "Dec, 2,600", "3"]]
+runjs = stub + body.replace("run();\n", "") + """
+console.log(JSON.stringify(@PAGES@.map(([l, t, n]) => { els.lent.value = l; els.in.value = t; els.n.value = n; run(); return [els.out.innerHTML, els.plan.innerHTML]; })));
+"""
+r = subprocess.run([node, "-e", runjs.replace("@PAGES@", json.dumps(pages))], capture_output=True, text=True, timeout=30)
+assert r.returncode == 0, r.stderr
+got = json.loads(r.stdout)
+eq(got[0][1], "<p>Parts of what's left (2,400):</p><table><tr><td>Part 1 of 3</td><td>800</td></tr><tr><td>Part 2 of 3</td><td>800</td></tr>"
+               "<tr><td>Part 3 of 3</td><td>800</td></tr></table><p>Together (what's left): 2,400</p>", "page plan left")
+assert "Left: 2,400 of 5,000." in got[1][0] and "Parts of what's left (2,400):" in got[1][1] and "Together (what's left): 2,400" in got[1][1], got[1]
+eq(got[2][1], "<p>Paid back in full: nothing left to split.</p>", "page paid in full")
+eq(got[3][1], '<p class="err">bad number of parts: 0 (write a whole number from 1 to 120)</p>', "page bad n")
+for k in (4, 5, 6):
+    assert got[k][0].startswith('<p class="err">') and got[k][1] == "", got[k]
+assert "is 12,50 a decimal?" in got[6][0], got[6]
+assert "Together (what's left): 5,000" in got[7][1], got[7]
+eq(got[8][1], '<p class="err">0.02 can\'t be split into 3 parts of at least one cent</p>', "page too fine")
+for k, (l, t, n) in enumerate(pages):
+    if got[k][1].startswith("<p>Parts"):
+        parts = [payback.amount(x, "part") for x in re.findall(r"<td>([0-9,.]+)</td>", got[k][1])]
+        eq(sum(parts), payback.amount(l, "lent") - sum(c for _, c in payback.parse(t)), "page parts add to what's left %d" % k)
 print("ok test_payback")

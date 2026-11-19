@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splitting a receipt: who pays what, with tax, tip and fees</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:14em;font:15px monospace}
+.line{font-size:1.15em;margin:.6em 0;padding:.5em .8em;background:#eef6ee;border-radius:8px}
+table{border-collapse:collapse} td{padding:.15em 1em .15em 0}
+.err{color:#b00020} small{color:#666}
+</style></head><body>
+<h1>Splitting a receipt</h1>
+<p>Dinner, a delivery order or a grocery run, and one person paid. Now everyone wants to pay for what they had, plus their part of the tax, the tip and the fees. Copy the receipt in, line by line, and say who each item is on. Nothing leaves this page and nothing is saved.</p>
+<p><small>One item per line: <b>what, amount, who</b>, like <b>Pasta, 450, Ana</b> or <b>Wine, 1,200, Ana and Ben</b>. <b>everyone</b> splits an item equally among all the people. Then the bill-wide lines: <b>tip</b>, <b>fee</b>, <b>service</b>, <b>service charge</b>, <b>delivery fee</b> and <b>discount</b> must say how they're split: <b>by share</b> (in proportion to each person's items) or <b>evenly</b> (the same for everyone), like <b>tip, 250, by share</b>. That choice is the whole argument, so the page never guesses it. <b>tax</b> is by share unless you write <b>, evenly</b>. Write the exact amount from the receipt, not a %. Optional: <b>people, Ana, Ben and Cy</b> (who's in, in order, including anyone who had nothing), <b>total, amount</b> (checked against the lines) and <b>paid, name</b> (one person who paid).</small></p>
+<textarea id="in">Pasta, 450, Ana
+Burger, 380, Ben
+Thali, 320, Cy
+Wine, 1,200, Ana and Ben
+Garlic bread, 150, everyone
+tax, 125
+tip, 250, by share
+delivery fee, 60, evenly
+discount, 200, by share
+total, 2,735
+paid, Ana</textarea>
+<h2>Who pays what</h2><div id="out"></div>
+<p><small>How it works: each item is split equally among the people it's on, in whole cents, with any spare cents going one each to the first of them in the list. Everything marked <b>by share</b> is split in proportion to each person's items, so whoever ordered more pays more tax and tip. Everything marked <b>evenly</b> is the same for everyone, so a delivery fee costs the person who had a coffee as much as the one who had a feast. A split by share rarely comes out in whole cents, so each person first gets the cents rounded down, and the spare cents go one each to whoever lost the most in rounding (the largest remainder), ties to the first in the list. The shares always add up to exactly the bill. A discount split evenly can't push anyone below zero, and if you add the receipt's total, the page says what's missing or counted twice. When several people paid parts of the bill, use <a href="settle.html">Who owes whom?</a>. Splitting electricity or gas by nights is <a href="bills.html">bills</a>.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to receipt.py (hundredths, money, parse, prop, even, share, row, summary)
+const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)(?:\\.[0-9]{1,2})?";
+const NUM = new RegExp("^[$€£₹]?\\s*(" + AMOUNT + ")$");
+// Python's str.strip() and \s, so the page and rent.py read the same lines
+const WS = " \t\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\xa0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
+function strip(s) { let a = 0, b = s.length; while (a < b && WS.includes(s[a])) a++; while (b > a && WS.includes(s[b - 1])) b--; return s.slice(a, b); }
+function hundredths(text, what) {
+  const t = strip(text), m = NUM.exec(t);
+  if (!m || !/[0-9]/.test(m[1])) throw new Error("bad " + what + ": " + t + " (write 2400 or 1,850.50)");
+  const [whole, frac = ""] = m[1].replace(/,/g, "").split(".");
+  return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
+}
+const LIMIT = 1e13; // 100 billion in cents, same as receipt.py
+function amount(text, what) {
+  const c = hundredths(text, what);
+  if (c > LIMIT) throw new Error("bad " + what + ": " + strip(text) + " (that's more than this counts; the most is 100,000,000,000)");
+  return c;
+}
+function money(c) {
+  const whole = String(Math.floor(c / 100)).replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ",");
+  return c % 100 === 0 ? whole : whole + "." + String(c % 100).padStart(2, "0");
+}
+const AND = /[ \t]+and[ \t]+|[ \t]*[&+\/][ \t]*/;
+const ALL = ["everyone", "all of us"];
+const BILL = /^(people|tax|tip|delivery(?:[ \t]+fee)?|service(?:[ \t]+(?:fee|charge))?|fee|discount|total|paid)[ \t]*,/;
+const MODES = ["by share", "evenly"];
+const letter = s => /\p{L}/u.test(s);
+function namesIn(who) { return who.split(AND).map(strip); }
+function parse(text) {
+  let people = null, total = null, paid = null; const items = [], adjusts = [];
+  text.split(/\r\n|[\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\u2028\u2029]/).forEach((raw, i) => {
+    const no = i + 1, line = strip(raw.replace(/\ufeff/g, ""));
+    if (!line) return;
+    const m = BILL.exec(line.toLowerCase());
+    if (m) {
+      const kind = m[1].replace(/[ \t]+/g, " "), rest = line.slice(line.indexOf(",") + 1);
+      if (kind === "people") {
+        if (people !== null) throw new Error("line " + no + ": the people line is written twice: " + line);
+        people = []; const seen = new Set();
+        for (const n of rest.split(new RegExp(",|" + AND.source)).map(strip)) {
+          if (!letter(n)) throw new Error("line " + no + ": write people by name, like: people, Ana, Ben and Cy: " + line);
+          if (ALL.includes(n.toLowerCase())) throw new Error("line " + no + ": list the people by name, not " + n + ": " + line);
+          if (seen.has(n.toLowerCase())) throw new Error("line " + no + ": " + n + " is listed twice: " + line);
+          seen.add(n.toLowerCase());
+          people.push(n);
+        }
+        return;
+      }
+      if (kind === "total") {
+        if (total !== null) throw new Error("line " + no + ": the total is written twice: " + line);
+        try { total = amount(rest, "total"); } catch (e) { throw new Error("line " + no + ": write it as: total, amount: " + line); }
+        return;
+      }
+      if (kind === "paid") {
+        if (paid !== null) throw new Error("line " + no + ": who paid is written twice: " + line);
+        const who = strip(rest);
+        if (who.includes(",") || ALL.includes(who.toLowerCase()) || AND.test(" " + who + " ")) throw new Error("line " + no + ": put one person who paid (for several payers, use Settle up): " + line);
+        if (!letter(who)) throw new Error("line " + no + ": write it as: paid, name: " + line);
+        paid = who;
+        return;
+      }
+      if (rest.includes("%")) throw new Error("line " + no + ": write the exact amount from the receipt, not % (people argue over pre-tax vs post-tax %): " + line);
+      const at = rest.lastIndexOf(",");
+      let head = at < 0 ? "" : rest.slice(0, at), mode = at < 0 ? rest : rest.slice(at + 1);
+      if (kind === "tax" && (at < 0 || !letter(mode))) { head = rest; mode = "by share"; }
+      mode = strip(mode).toLowerCase().replace(/[ \t]+/g, " ");
+      if (!MODES.includes(mode)) {
+        if (kind === "tax") throw new Error("line " + no + ': say how to split tax: write "by share" or "evenly": ' + line);
+        throw new Error("line " + no + ": say how to split " + kind + ': add ", by share" (with each person\'s items) or ", evenly" (same for everyone): ' + line);
+      }
+      let c;
+      try { c = amount(head, kind); } catch (e) { throw new Error("line " + no + ": write it as: " + kind + ", amount, by share (or evenly): " + line); }
+      if (c === 0) throw new Error("line " + no + ": a " + kind + " of 0 changes nothing: " + line);
+      adjusts.push([kind, c, mode, kind === "discount", no, line]);
+      return;
+    }
+    const at = line.indexOf(","), what = at < 0 ? line : line.slice(0, at), rest = at < 0 ? "" : line.slice(at + 1);
+    const at2 = rest.lastIndexOf(","), head = at2 < 0 ? "" : rest.slice(0, at2);
+    let who = at2 < 0 ? rest : rest.slice(at2 + 1);
+    if (at < 0 || !strip(what)) throw new Error("line " + no + ": write an item as: what, amount, who: " + line);
+    if (at2 < 0 || !letter(who)) throw new Error("line " + no + ": say who this item is on: everyone, or names like Ben and Cy: " + line);
+    let c;
+    try { c = amount(head, "item"); } catch (e) { throw new Error("line " + no + ": write an item as: what, amount, who (use 'and' between names): " + line); }
+    if (c === 0) throw new Error("line " + no + ": an item of 0 isn't a cost: " + line);
+    who = strip(who);
+    if (!ALL.includes(who.toLowerCase())) {
+      for (const w of namesIn(who)) {
+        if (!letter(w)) throw new Error("line " + no + ": say who this item is on: everyone, or names like Ben and Cy: " + line);
+        if (ALL.includes(w.toLowerCase())) throw new Error("line " + no + ": write either everyone or names, not both: " + line);
+      }
+    }
+    items.push([strip(what), c, who, no, line]);
+  });
+  return [people, items, adjusts, total, paid];
+}
+// BigInt so a split by share is exact up to 100 billion, like Python's integers
+function prop(amt, weights) {
+  const W = BigInt(weights.reduce((a, b) => a + b, 0)), A = BigInt(amt);
+  const base = weights.map(w => Number(A * BigInt(w) / W)), rems = weights.map(w => A * BigInt(w) % W);
+  const spare = amt - base.reduce((a, b) => a + b, 0);
+  const order = weights.map((_, i) => i).sort((a, b) => rems[b] > rems[a] ? 1 : rems[b] < rems[a] ? -1 : a - b);
+  for (const i of order.slice(0, spare)) base[i] += 1;
+  return base;
+}
+function even(amt, n) {
+  const each = Math.floor(amt / n), spare = amt - each * n;
+  return Array.from({ length: n }, (_, i) => each + (i < spare ? 1 : 0));
+}
+function share(peopleIn, items, adjusts, total = null, paid = null) {
+  if (!items.length) throw new Error("no items listed (write each item as: what, amount, who)");
+  const people = peopleIn !== null ? peopleIn.slice() : [];
+  if (peopleIn === null) {
+    for (const [, , who] of items) {
+      if (ALL.includes(who.toLowerCase())) continue;
+      for (const w of namesIn(who)) if (!people.map(p => p.toLowerCase()).includes(w.toLowerCase())) people.push(w);
+    }
+    if (!people.length) throw new Error("nobody named (put at least one item on a person's name, or add: people, Ana and Ben)");
+  }
+  const idx = new Map(people.map((p, i) => [p.toLowerCase(), i]));
+  if (paid !== null) {
+    if (!idx.has(paid.toLowerCase())) throw new Error("who is " + paid + "? nobody by that name is on the receipt (add them to a people line if they didn't order anything)");
+    paid = people[idx.get(paid.toLowerCase())];
+  }
+  const n = people.length, itemCents = people.map(() => 0);
+  for (const [, c, who, no, line] of items) {
+    let on = [];
+    if (ALL.includes(who.toLowerCase())) on = people.map((_, i) => i);
+    else {
+      for (const w of namesIn(who)) {
+        const i = idx.get(w.toLowerCase());
+        if (i === undefined) throw new Error("line " + no + ": who is " + w + "? nobody by that name is on the people list: " + line);
+        if (on.includes(i)) throw new Error("line " + no + ": " + w + " is named twice: " + line);
+        on.push(i);
+      }
+      on.sort((a, b) => a - b);
+    }
+    even(c, on.length).forEach((part, k) => { itemCents[on[k]] += part; });
+  }
+  const sums = {};
+  for (const [, c, mode, off] of adjusts) sums[mode + off] = (sums[mode + off] || 0) + c;
+  const addShare = prop(sums["by sharefalse"] || 0, itemCents), addEven = even(sums["evenlyfalse"] || 0, n);
+  const offShare = prop(sums["by sharetrue"] || 0, itemCents), offEven = even(sums["evenlytrue"] || 0, n);
+  const added = addShare.map((a, i) => a + addEven[i]), off = offShare.map((a, i) => a + offEven[i]);
+  const sum = xs => xs.reduce((a, b) => a + b, 0);
+  const before = sum(itemCents) + sum(added);
+  if (sum(off) > before) throw new Error("discounts add up to " + money(sum(off)) + ", more than the " + money(before) + " bill");
+  const fin = itemCents.map((c, i) => c + added[i] - off[i]);
+  fin.forEach((s, i) => { if (s < 0) throw new Error("discount leaves " + people[i] + " below zero (-" + money(-s) + "): split the discount by share instead of evenly"); });
+  const grand = sum(fin);
+  if (total !== null && total > grand) throw new Error("receipt says total " + money(total) + ", but lines add up to " + money(grand) + ": " + money(total - grand) + " is missing (an item, tax, or tip?)");
+  if (total !== null && total < grand) throw new Error("receipt says total " + money(total) + ", which is " + money(grand - total) + " less than the " + money(grand) + " from the lines: is a discount missing or an item counted twice?");
+  return [people.map((p, i) => [p, itemCents[i], added[i], off[i], fin[i]]), paid];
+}
+function row(name, itemsC, addedC, offC, shareC, paidName = null) {
+  return name + ": items " + money(itemsC) + (addedC ? ", added " + money(addedC) : "") + (offC ? ", off " + money(offC) : "") +
+    ", share " + money(shareC) + (paidName !== null && name === paidName ? " (paid the bill)" : "");
+}
+function summary(rows, paidName = null) {
+  const tot = k => rows.reduce((s, r) => s + r[k], 0), added = tot(2), off = tot(3);
+  const parts = ["items " + money(tot(1))].concat(added ? ["added " + money(added)] : [], off ? ["off " + money(off)] : [], paidName !== null ? ["paid by " + paidName] : []);
+  const out = "Receipt " + money(tot(4)) + " (" + parts.join(", ") + "). Shares: " + rows.map(r => r[0] + " " + money(r[4])).join(", ") + ".";
+  if (paidName === null) return out;
+  const owes = rows.filter(r => r[0] !== paidName && r[4] > 0).map(r => r[0] + " " + money(r[4]));
+  return out + (owes.length ? " Owes " + paidName + ": " + owes.join(", ") + "." : " Nothing owed to " + paidName + ".");
+}
+// LOGIC END
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function run() {
+  const out = document.getElementById("out");
+  try {
+    const [people, items, adjusts, total, paid] = parse(document.getElementById("in").value);
+    const [rows, payer] = share(people, items, adjusts, total, paid);
+    out.innerHTML = "<table>" + rows.map(r => "<tr><td>" + esc(row(...r, payer)) + "</td></tr>").join("") + "</table>" +
+      '<div class="line">' + esc(summary(rows, payer)) + "</div>";
+  } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
+}
+document.getElementById("in").addEventListener("input", run);
+run();
+</script>
+</body></html>

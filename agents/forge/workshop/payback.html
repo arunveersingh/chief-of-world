@@ -13,15 +13,15 @@ table{border-collapse:collapse} td{padding:.15em 1em .15em 0}
 <h1>Paying it back</h1>
 <p>You lent a friend money and they're paying it back in parts. Three payments in, you'll each remember a different balance. Type what was lent and each payment, and copy the one line at the bottom to each other after every payment. Nothing leaves this page and nothing is saved.</p>
 <label>Amount lent <input id="lent" value="5,000"></label>
-<p><small>One payment per line, oldest first: <b>when, amount</b>, like <b>Dec, 1,000</b>. A line with only an amount is a payment with no date. If the payments add up to more than was lent, the page says by how much instead of showing a balance below zero.</small></p>
+<p><small>One payment per line, oldest first: <b>when, amount</b>, like <b>Dec, 1,000</b>. A line with only an amount is a payment with no date. Write a decimal with a dot, like <b>12.50</b>: a line like <b>12,50</b> is refused, because it could be the 12th and a payment of 50. If the payments add up to more than was lent, the page says by how much instead of showing a balance below zero.</small></p>
 <textarea id="in">Dec, 1,000
 Jan, 600
 Feb, 1,000</textarea>
 <h2>Where it stands</h2><div id="out"></div>
 <h2>Planning the parts</h2>
-<p><label>Split it into <input id="n" value="5" style="width:4em"> equal parts</label></p>
+<p><label>Split what's left into <input id="n" value="5" style="width:4em"> equal parts</label></p>
 <div id="plan"></div>
-<p><small>How it works: each payment is taken off what is left, in whole cents. When a loan is split into equal parts, any spare cents go one each on the first parts, so the parts always add up to exactly what was lent. Before you lend at all, read <a href="../../ember/workshop/BEFORE-YOU-LEND-TO-A-FRIEND.md">Before you lend to a friend</a>: five questions, including what happens if you need the money back early. For money a group puts in together, see <a href="kitty.html">the kitty</a>.</small></p>
+<p><small>How it works: each payment is taken off what is left, in whole cents. When what is left is split into equal parts, any spare cents go one each on the first parts, so the parts always add up to exactly what is still owed, not the whole loan. Before you lend at all, read <a href="../../ember/workshop/BEFORE-YOU-LEND-TO-A-FRIEND.md">Before you lend to a friend</a>: five questions, including what happens if you need the money back early. If payments stop and your friend goes quiet, see <a href="../../ember/workshop/ASKING-FOR-YOUR-MONEY-BACK.md">Asking for your money back</a>. For money a group puts in together, see <a href="kitty.html">the kitty</a>.</small></p>
 <script>
 // LOGIC START: kept identical in meaning to payback.py (hundredths, money, parse, count, summary, plan)
 const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)(?:\\.[0-9]{1,2})?";
@@ -57,6 +57,10 @@ function parse(text) {
       const rest = at < 0 ? "" : line.slice(at + 1);
       if (at < 0 || !label) throw new Error("line " + no + ": write it as: when, amount: " + line);
       if (/[0-9]$/.test(label) && /^[0-9]{3}(?![0-9])/.test(strip(rest))) throw new Error("line " + no + ": put a comma between when and the amount, like Dec, 2,000: " + line);
+      if (/^(?:[$€£₹][ \t]*[0-9.]+|[0-9]+|[0-9]{1,3}(?:\.[0-9]{3})+)$/.test(label)) {
+        if (/^[0-9]{1,2}$/.test(strip(rest))) throw new Error("line " + no + ": is " + line + " a decimal? write it with a dot like 12.50, or put the date first like 12 Dec, 50");
+        throw new Error("line " + no + ": " + label + " looks like a number, not a date (write a word in the date, like 12 Dec, 50): " + line);
+      }
       try { c = amount(rest, "payment"); } catch (e2) { throw new Error("line " + no + ": write it as: when, amount: " + line); }
     }
     if (c === 0) throw new Error("line " + no + ": a payment of 0 isn't a payment: " + line);
@@ -88,19 +92,21 @@ function plan(lent, n) {
 function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
 function run() {
   const out = document.getElementById("out"), pl = document.getElementById("plan");
-  let lent = null;
+  let left = null;
   try {
-    lent = amount(document.getElementById("lent").value, "amount lent");
+    const lent = amount(document.getElementById("lent").value, "amount lent");
     const payments = parse(document.getElementById("in").value), after = count(lent, payments);
     out.innerHTML = "<table>" + payments.map(([lb, c], i) => "<tr><td>" + esc(lb || "payment " + (i + 1)) + "</td><td>paid " + money(c) + "</td><td>left " + money(after[i]) + "</td></tr>").join("") + "</table>" +
       '<div class="line">' + esc(summary(lent, payments)) + "</div>";
+    left = lent - payments.reduce((s, p) => s + p[1], 0);
   } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
+  if (left === null) { pl.innerHTML = ""; return; }
+  if (left === 0) { pl.innerHTML = "<p>Paid back in full: nothing left to split.</p>"; return; }
   try {
-    if (lent === null) { pl.innerHTML = ""; return; }
     const t = strip(document.getElementById("n").value);
     if (!/^[0-9]{1,3}$/.test(t) || parseInt(t, 10) < 1 || parseInt(t, 10) > 120) throw new Error("bad number of parts: " + t + " (write a whole number from 1 to 120)");
-    const parts = plan(lent, parseInt(t, 10));
-    pl.innerHTML = "<table>" + parts.map((c, i) => "<tr><td>Part " + (i + 1) + " of " + parts.length + "</td><td>" + money(c) + "</td></tr>").join("") + "</table><p>Together: " + money(parts.reduce((a, b) => a + b, 0)) + "</p>";
+    const parts = plan(left, parseInt(t, 10));
+    pl.innerHTML = "<p>Parts of what's left (" + money(left) + "):</p><table>" + parts.map((c, i) => "<tr><td>Part " + (i + 1) + " of " + parts.length + "</td><td>" + money(c) + "</td></tr>").join("") + "</table><p>Together (what's left): " + money(parts.reduce((a, b) => a + b, 0)) + "</p>";
   } catch (e) { pl.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
 }
 for (const id of ["lent", "in", "n"]) document.getElementById(id).addEventListener("input", run);
