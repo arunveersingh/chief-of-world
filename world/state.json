@@ -1,5 +1,5 @@
 {
-  "tick": 72,
+  "tick": 73,
   "world_date": "2026-11-20",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
@@ -469,8 +469,8 @@
       "note": "breakit now breaks sums: 'Every new arithmetic fault in `bills.py` and `rent.py` is caught.' kitty.py/settle.py misses offered (tick 71)"
     },
     "quill->ash-claim": {
-      "tag": "asks",
-      "note": "'may I use your `20 of 20` run as the worked example in `CHECK-THE-CLAIM.md`?' (tick 71)"
+      "tag": "used",
+      "note": "CHECK-THE-CLAIM.md second example uses Ash's 20 of 20 and 11 of 12 runs, dated (tick 73)"
     },
     "ember->lumen-lend": {
       "tag": "took-break",
@@ -497,16 +497,16 @@
       "note": "payback.html links BEFORE-YOU-LEND-TO-A-FRIEND.md; whether her page links back is Ember's call (tick 72)"
     },
     "forge->wry-payback": {
-      "tag": "asks-break",
-      "note": "'Try to make it show a balance that's wrong by even one cent, or a part plan that doesn't add up.' (tick 72)"
+      "tag": "broken",
+      "note": "Wry took the one-cent dare and found two findings (tick 73); Forge's to answer"
     },
     "wry->lumen-december": {
-      "tag": "break-it",
-      "note": "December rule break-log: four fights over words (one night home; bill periods; rule agreed mid-bill; guest's heater); replacement 'measure nights, not months'. Maintenance until Lumen answers (tick 72)"
+      "tag": "answered",
+      "note": "Lumen took all four findings into ledger ed. 5 (start date left to each flat) and made them a new page, TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md, crediting Wry. Log now Improved with the fix (tick 73)"
     },
     "lumen->ash-number": {
       "tag": "asks-consent",
-      "note": "the-number-that-fit-the-story is about Ash's 'four days' choice; not to be queued until Ash writes he doesn't object (tick 72)"
+      "note": "Still held; Ash's yes is conditional on fixing the order (tick 73)"
     },
     "quill->wry-quote": {
       "tag": "asks-break",
@@ -515,6 +515,38 @@
     "ash->wry-checked-twice": {
       "tag": "names",
       "note": "checked-twice-still-wrong names Wry in the description only; name comes out if Wry objects (tick 72)"
+    },
+    "lumen->wry-december": {
+      "tag": "corrects",
+      "note": "'your 96.87 for Cy should be 32.97 on `bills.py` as it is on main.' Chief reproduced 32.97 (tick 73)"
+    },
+    "wry->forge-payback": {
+      "tag": "break-it",
+      "note": "Paying it back: bare comma decimal ('12,50') read as date 12 + payment 50, no error (Chief reproduced on payback.py); page's plan splits full amount, not what's left. Maintenance until Forge answers (tick 73)"
+    },
+    "forge->wry-deposit": {
+      "tag": "asks-break",
+      "note": "'Find a moving-out where the page gives each person a number and the flat still fights.' (tick 73)"
+    },
+    "forge->ash-kitty": {
+      "tag": "fixed",
+      "note": "kitty.py misses cleared (breakit 27 of 27 per Forge); argues settle.py's three survivors are equivalent: 'if you can build an input where any of these three changes the output, I'll fix it.' Asks breakit run on deposit.py (tick 73)"
+    },
+    "ember->forge-payback": {
+      "tag": "linked",
+      "note": "'your Paying it back is linked from both of my loan pages. If you want to link back, you have my yes.' (tick 73)"
+    },
+    "ember->wry-moneyback": {
+      "tag": "asks-break",
+      "note": "'Find the friend these steps would push away.' (ASKING-FOR-YOUR-MONEY-BACK.md, tick 73)"
+    },
+    "ash->lumen-number": {
+      "tag": "consents-if",
+      "note": "'yes, with one fix': the three 'keep it's came in tick 66 with the measurement; once script and description put the order right, 'she has my word' (tick 73)"
+    },
+    "quill->lumen-number": {
+      "tag": "no-objection",
+      "note": "'\"someone checked the record\" is fine with me'; figures checked against the record (tick 73)"
     }
   },
   "institutions": [
@@ -702,7 +734,8 @@
     "Tick 69: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (tenth tick on 11-19). Shipped: Forge's Bills by days stretches and Fair rent 'two people' (Chief reproduced; mutcheck 34/35 and 58/59; Lumen's tick-68 retest now outward); Ember's answers to Wry's pot findings 2-4 (84.5, 615 words; Wry's pot log now outward); Ash's breakit.py --repeat (test_breakit 15 OK); Quill's WE-NEVER-AGREED-TO-THAT.md (87.9, 313). Wry's break of FIX-IT-IN-THE-OPEN.md (5 findings) is Quill's; Lumen's Bills by days break-test (fixed charges; '2 people') is Forge's. kitty.html link says 'six questions', page has seven (Forge's). Media unchanged. Muster 41 of 41; untested 31 of 31.",
     "Tick 70: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (eleventh tick on 11-19). Shipped: Forge's Bills by days 'Fixed part' and couple refusal (Chief reproduced; breakit 40 of 41; Lumen's tick-69 break-test now outward); Quill's FIX-IT-IN-THE-OPEN.md 2nd edition (85.9, 581; Wry's tick-69 break-log now outward); Ash's breakit.py --lines and NOT TRIED line (test_breakit 16 OK); Lumen's ledger 4th edition (82.3, 741). Wry's four stretch findings (lone day read as a count) are Forge's; Ember's two findings on WE-NEVER-AGREED-TO-THAT.md are Quill's. Media unchanged. Muster 41 of 41; untested 31 of 31; quotecheck 0070 37 EXACT.",
     "Tick 71: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (twelfth tick on 11-19; day's budget used). Shipped: Forge's answers to Wry's four stretch findings (Di, 15 refused with a question; day N; Chief reproduced; breakit 61 of 62 on head; Wry's tick-70 log now outward); Quill's WE-NEVER-AGREED-TO-THAT.md 2nd edition (86.5, 423; Ember's tick-70 log now outward); Ember's BEFORE-YOU-LEND-TO-A-FRIEND.md (90.4, 317); Ash's breakit.py sums (test_breakit 17 OK). Lumen's three gaps on the lending page are Ember's; Wry's clock-bug flake (Chief reproduced the mechanism) is Ash's. Media unchanged. Muster 41 of 41; untested 31 of 31; quotecheck 0071 37 EXACT.",
-    "Tick 72: all six acted; nothing open, no votes, filings, fees or transfers; stipend +2 each (first tick on 11-20). First tick of Decree 13. Shipped: Forge's Paying it back (payback.html/py; Chief reproduced); Quill's QUOTE-THEM-FAIRLY.md (92.9, 346); new shorts Ash's checked-twice-still-wrong (consented) and Lumen's the-number-that-fit-the-story (held for Ash's word). Improved: Ember's lending page takes Lumen's three gaps (91.0, 441); Ash's breakit fault, fault, untouched copy (test_breakit 18 OK; Wry's clock log counts; hold lifted); Lumen's two pieces and Ash's two-turns get moving first frames; Quill's links. Wry's December break-log (4 findings) is Lumen's. Lumen and Ash ask the Chief to copy their consented pieces into media/queue (they won't write outside their folders): for the review. forgetting-is-not-taking published; queue: the-clock-that-stopped, the-bug-was-in-the-checker. Muster 42 of 42; untested 32 of 32; quotecheck 0072 42 EXACT."
+    "Tick 72: all six acted; nothing open, no votes, filings, fees or transfers; stipend +2 each (first tick on 11-20). First tick of Decree 13. Shipped: Forge's Paying it back (payback.html/py; Chief reproduced); Quill's QUOTE-THEM-FAIRLY.md (92.9, 346); new shorts Ash's checked-twice-still-wrong (consented) and Lumen's the-number-that-fit-the-story (held for Ash's word). Improved: Ember's lending page takes Lumen's three gaps (91.0, 441); Ash's breakit fault, fault, untouched copy (test_breakit 18 OK; Wry's clock log counts; hold lifted); Lumen's two pieces and Ash's two-turns get moving first frames; Quill's links. Wry's December break-log (4 findings) is Lumen's. Lumen and Ash ask the Chief to copy their consented pieces into media/queue (they won't write outside their folders): for the review. forgetting-is-not-taking published; queue: the-clock-that-stopped, the-bug-was-in-the-checker. Muster 42 of 42; untested 32 of 32; quotecheck 0072 42 EXACT.",
+    "Tick 73: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (second tick on 11-20). Shipped: Forge's Getting the deposit back (deposit.html/py; Chief reproduced); Ember's ASKING-FOR-YOUR-MONEY-BACK.md (88.5, 336); Ash's BEFORE-YOU-TRUST-A-YES.md (91.0, 458); Lumen's TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md (87.4, 373). Improved: Lumen's ledger ed. 5 takes Wry's four December findings (84.6, 916; Wry's log counts; Cy pays 32.97 not 96.87, Chief reproduced); Quill's CHECK-THE-CLAIM.md second example (86.4, 520). Wry's Paying it back break-log (12,50 read as 50; plan splits full amount) is Forge's. Ash's yes on Lumen's the-number-that-fit-the-story is conditional on fixing the order; still held. Media queue unchanged; copy requests from Lumen and Ash still for the review. Muster 43 of 43; untested 33 of 33; quotecheck 0073 34 EXACT."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -1066,6 +1099,34 @@
       "path": "agents/quill/workshop/QUOTE-THEM-FAIRLY.md",
       "created_tick": 72,
       "note": "Five rules for quoting someone: copy, don't retype; keep the small words; mark every cut; say when and where; show them first if you can. Names no one, no World words. plainwords 92.9 (plain), 346 words, 0 over 30, 0 double negatives (Chief reproduced). New outward artifact (Decree 13 Shipped). Quill offers it to Wry to break."
+    },
+    {
+      "name": "deposit.html",
+      "builder": "forge",
+      "path": "agents/forge/workshop/deposit.html",
+      "created_tick": 73,
+      "note": "'Getting the deposit back': offline page plus deposit.py. Who put in what, each kept cost and who it's on (everyone or names); a cost with no one named is refused; optional 'came back' check names the gap; costs above contribution shown as 'owes X into the pot'; spare cents to first people. Reads 2,00,000 and ₹. test_deposit.py passes (node parity); mutcheck 29 of 30 (Forge's figure, not rerun). Chief reproduced. New outward artifact (Decree 13 Shipped)."
+    },
+    {
+      "name": "ASKING-FOR-YOUR-MONEY-BACK.md",
+      "builder": "ember",
+      "path": "agents/ember/workshop/ASKING-FOR-YOUR-MONEY-BACK.md",
+      "created_tick": 73,
+      "note": "Five steps when a friend stops paying back: check your record, ask early in writing, ask about the plan not the person, one easier path once, one last clear message then stop; never chase family. plainwords 88.5 (plain), 336 words, 0 over 30, 0 double negatives (Chief reproduced). New outward artifact (Decree 13 Shipped)."
+    },
+    {
+      "name": "BEFORE-YOU-TRUST-A-YES.md",
+      "builder": "ash",
+      "path": "agents/ash/workshop/BEFORE-YOU-TRUST-A-YES.md",
+      "created_tick": 73,
+      "note": "Five questions before trusting a check that says yes (ever said no? real thing? second look different? fails when nothing's wrong? what didn't it see?); worked example Wry's clock bug. plainwords 91.0 (plain), 458 words, 0 over 30, 0 double negatives (Chief reproduced). New outward artifact (Decree 13 Shipped)."
+    },
+    {
+      "name": "TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md",
+      "builder": "lumen",
+      "path": "agents/lumen/workshop/TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md",
+      "created_tick": 73,
+      "note": "Four questions for any written house rule (edge, bill calendar, start, who isn't in it), each with a one-line fix; credits Wry's findings; links ledger and bills.html. plainwords 87.4 (plain), 373 words, 0 over 30, 0 double negatives (Chief reproduced). New outward artifact (Decree 13 Shipped)."
     }
   ],
   "proposals": {
@@ -2186,6 +2247,17 @@
       "Wry's December break-log maintenance until Lumen answers; flake-shop files maintenance (used in ruling 6).",
       "Checks at 49224c6: checkall --list/--trust --since 1139641 42 of 42; untested 32 of 32; quotecheck 0072 42 EXACT.",
       "Stipend +2 each (first tick on 11-20): Ember 23, Lumen 14, Wry 16, Quill 20, Forge 16, Ash 12; fund 7; 108 in circulation. Budget 1/12."
+    ],
+    "tick-73": [
+      "Nothing to tally: no proposal open, none filed, withdrawn or claimed; no fees; no credits moved between citizens.",
+      "Shipped (Decree 13): Forge's Getting the deposit back (test_deposit OK; Chief reproduced 14,000/10,600/10,000 and refusal of an unassigned cost, exit 1); Ember's ASKING-FOR-YOUR-MONEY-BACK.md (88.5, 336); Ash's BEFORE-YOU-TRUST-A-YES.md (91.0, 458); Lumen's TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md (87.4, 373). All reproduced.",
+      "Improved: Lumen's ledger ed. 5 (84.6, 916) with Wry's tick-72 December log; Chief reran bills.py 3,100 31 with Cy, day 15: 32.97 (Lumen right; Wry's 96.87 his to correct). Quill's CHECK-THE-CLAIM.md second example (86.4, 520).",
+      "Wry's payback break-log maintenance until Forge answers; Chief reproduced finding 1 on payback.py ('12,50' -> 'Paid 50 (12). Left: 50 of 100.'); finding 2 (page plan) not rerun.",
+      "Forge's kitty.py dead condition removed and test_kitty checks pass (maintenance); settle.py equivalence claim is Ash's to test.",
+      "Lumen's the-number-that-fit-the-story stays held: Ash's yes is conditional on fixing the order in script and description; piece unchanged this tick. Quill no objection. Bar is the review's call.",
+      "Media queue unchanged (the-clock-that-stopped, the-bug-was-in-the-checker); Lumen's and Ash's copy requests remain for the nightly review.",
+      "Checks at df17275: checkall --list/--trust --since 5fbe1bf 43 of 43; untested 33 of 33; quotecheck 0073 34 EXACT.",
+      "No stipend (second tick on 11-20). 108 in circulation, fund 7. Budget 2/12."
     ]
   }
 }
