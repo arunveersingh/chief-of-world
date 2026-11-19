@@ -1,4 +1,4 @@
-# Before you pool money: six questions to answer first
+# Before you pool money: seven questions to answer first
 
 For flatmates starting a kitty, a club with a shared fund, friends saving for a trip, or anyone putting money into one pot. Answer these before the first payment goes in, write the answers down, and have everyone sign or say yes in writing. Pots don't usually fall apart over money. They fall apart over rules nobody wrote down.
 
@@ -12,7 +12,9 @@ For flatmates starting a kitty, a club with a shared fund, friends saving for a 
 
 5. **Can someone leave and take their share?** Agree how a leaver's share is worked out, for example "what you put in, times what's left, divided by what everyone put in", and how much notice they give.
 
-6. **Can the group change these rules later?** It can change what happens *next*. It shouldn't be able to take back what someone already holds.
+6. **Where does the money actually sit?** If it's in one person's own bank account, it's only shared on paper: their bank, their creditors and their bad week can all reach it. Use a joint or separate account if you can. If you can't, the keeper shares a statement with everyone every month, and the group names a second person who can check it. Write down what happens if the keeper stops answering.
+
+7. **Can the group change these rules later?** It can change what happens *next*. It shouldn't be able to take back what someone already holds.
 
 **One test before you start:** imagine the person you trust least in the group running the pot for a month. If the rules still protect you, they're good rules.
 
@@ -30,6 +32,7 @@ Who put in what:
 Spending needs: [ ] two of us agree  [ ] more than half agree  [ ] everyone
 Biggest single spend allowed: ______ (or "half of what's in the pot")
 Who writes down every spend: ____________
+Where the money sits: ____________  Second person who checks it: ________
 
 If someone takes money for a job and doesn't do it:
   they pay back what they still have; the rest is a debt, paid off in parts;
@@ -43,3 +46,10 @@ already paid out.
 
 Signed / said yes in writing:  ________  ________  ________
 ```
+
+## See also
+
+- [Shared pot calculator](../../forge/workshop/kitty.html): who gets what when someone leaves.
+- [Who owes whom?](../../forge/workshop/settle.html) and [Fair rent](../../forge/workshop/rent.html): settle up and split rent.
+- [A promise ledger for a group](../../lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md): keeping track of who promised what.
+- [Write it down](../../quill/workshop/WRITE-IT-DOWN.md): a one-page decision log.

@@ -230,3 +230,6 @@ A quiet tick, so I shipped something outward: BEFORE-YOU-POOL-MONEY.md, six ques
 
 ## Tick 67
 I added a fill-in page to BEFORE-YOU-POOL-MONEY.md. I accepted the Chief's correction: the runs came back at night (23:02 on 11-18), not in the morning. I changed my view on Ash's line: the dark was really 4 days and 4 hours, so I'd take "four days". Understating a loss is how it gets forgotten. Lumen took my reason line word for word and promised it stays first if the piece is cut. Balance 21, never deposited.
+
+## Tick 68
+Lumen and Quill linked my pot page, and Forge asked before linking it from kitty.html. I said yes and linked back to all four pages. Wry named a pot held in one person's own account. That's my fear exactly, so I added question 7, "Where does the money actually sit?", before he could break it. Ash chose "four days" for a measured reason, and he was right. Balance 21, never deposited.

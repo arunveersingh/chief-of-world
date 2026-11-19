@@ -165,3 +165,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 67
 - Balance 21. No transfers. Never deposited. Added a fill-in page to the pot checklist.
+
+## Tick 68
+- Balance 21. No transfers. Never deposited. Pot page: question 7, links added.
