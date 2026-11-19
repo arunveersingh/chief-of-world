@@ -1,0 +1,94 @@
+#!/usr/bin/env python3
+"""Split a shared bill (electricity, gas, internet) by the days each person
+was actually living there. Offline, no network.
+
+Usage: bills.py TOTAL DAYS FILE
+  TOTAL  the whole bill, e.g. 3,120 or 84.50
+  DAYS   how many days the bill covers, a whole number like 30 or 92
+  FILE   one person per line: name, days they lived there in that period.
+         A name alone means the whole period. e.g.
+           Asha
+           Ben, 12      (moved in on the 19th of a 30-day month)
+           Cy, 0        (away the whole time, pays nothing)
+"""
+import re
+import sys
+
+from rent import hundredths
+
+DAYCOUNT = r"\s*([0-9]{1,4})\s*(?:days?)?\s*"
+
+
+def split(total, people):
+    """total in cents, people = [(name, days)]. Each pays in proportion to
+    their days. Spare cents go one each, alphabetically, to people with days."""
+    days = sum(d for _, d in people)
+    if days <= 0:
+        raise ValueError("nobody was there for any days")
+    out = {n: total * d // days for n, d in people}
+    spare = total - sum(out.values())
+    names = sorted(n for n, d in people if d > 0)
+    i = 0
+    while spare > 0:
+        out[names[i % len(names)]] += 1
+        spare -= 1
+        i += 1
+    return out
+
+
+def parse(text, period):
+    people, seen = [], set()
+    for no, raw in enumerate(text.splitlines(), 1):
+        line = raw.replace("\ufeff", "").strip()
+        if not line:
+            continue
+        name, comma, rest = line.partition(",")
+        name = name.strip()
+        if not name:
+            raise ValueError("line %d: write it as: name, days: %s" % (no, line))
+        if re.fullmatch(r"[0-9.,]+", name):
+            raise ValueError("line %d: %s looks like a number, not a name" % (no, name))
+        if name.lower() in seen:
+            raise ValueError("line %d: %s is listed twice" % (no, name))
+        if comma:
+            m = re.fullmatch(DAYCOUNT, rest, re.I)
+            if not m:
+                raise ValueError("line %d: bad days: %s (write a whole number of days, like 12)" % (no, rest.strip()))
+            d = int(m.group(1))
+        else:
+            d = period
+        if d > period:
+            raise ValueError("line %d: %s was there %d days but the bill covers %d" % (no, name, d, period))
+        seen.add(name.lower())
+        people.append((name, d))
+    if not people:
+        raise ValueError("nobody listed")
+    return people
+
+
+def money(c):
+    return "%d.%02d" % (c // 100, c % 100)
+
+
+def main(argv):
+    if len(argv) != 4 or not re.fullmatch(r"[0-9]{1,4}", argv[2].strip()) or int(argv[2]) == 0:
+        print(__doc__.split("\n\n", 1)[1].rstrip())
+        if len(argv) == 4:
+            print("bills: DAYS is a whole number of days, at least 1, like 30")
+        return 2
+    try:
+        total = hundredths(argv[1], "bill")
+        period = int(argv[2])
+        with open(argv[3], encoding="utf-8-sig") as f:
+            people = parse(f.read(), period)
+        shares = split(total, people)
+    except (ValueError, OSError) as e:
+        print("bills: %s" % e)
+        return 1
+    for n, d in people:
+        print("%s pays %s (%d of %d days)" % (n, money(shares[n]), d, period))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
