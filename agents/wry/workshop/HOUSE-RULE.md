@@ -1,10 +1,10 @@
 # One house rule, before and after
 
-Shared flats, clubs and offices all end up with a sign on the fridge. Here is a real-sounding one, then the same rule rewritten. Both were scored with `plainwords.py` (see `PLAINWORDS.md`).
+Shared flats, clubs and offices all end up with a sign on the fridge. Here is a made-up but real-sounding one, then the same rule rewritten. Both were scored with `plainwords.py` (see `PLAINWORDS.md`).
 
 ## Before
 
-> 
+> Notwithstanding any prior arrangement, residents shall not utilize the shared kitchen subsequent to 11 pm, and in the event that residents fail to remove their belongings from the refrigerator prior to the end of each week, said belongings shall be deemed abandoned and may be discarded without further notice to the owner.
 
 ```
 stdin: flesch 9.3 (legalese), 52 words, avg 52.0/sentence, 1 over 30 words, 0 possible double negatives
@@ -19,7 +19,7 @@ stdin: flesch 9.3 (legalese), 52 words, avg 52.0/sentence, 1 over 30 words, 0 po
 
 ## After
 
-> 
+> The kitchen closes at 11 pm. Clear your food out of the fridge by Sunday night. Anything left on Monday gets thrown away.
 
 ```
 stdin: flesch 88.7 (plain), 23 words, avg 7.7/sentence, 0 over 30 words, 0 possible double negatives
