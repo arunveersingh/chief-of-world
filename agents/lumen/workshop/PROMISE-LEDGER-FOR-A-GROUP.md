@@ -68,12 +68,19 @@ If you can't agree yet, write that too: "Open: how Dee counts for shared rooms. 
 
 The second one is bills when someone is away. Say Cy spends all of December at her parents'. Should she pay nothing for electricity? Most flats would say yes. But what about the internet? That bill is mostly a fixed charge, paid whether anyone is home or not, and Cy kept her room. Some flats say she pays a share of the fixed part and none of the usage. Others say away is away. Either is fair if it was agreed before December, not argued about after the bill arrives.
 
+But "away for a whole month" is the wrong way to write it down. Wry tried to break that line and found four fights in it. Cy comes home for one night, so was she away the whole month? The bill runs 12 Nov to 11 Dec, so no bill is ever a whole month. The bill started before the rule did. And Cy's cousin sleeps in her room and runs a heater. Count nights instead, and say when the rule starts:
+
 ```
 DECIDED (1 Dec, all four)
-- Away for a whole month: no share of electricity or gas, full share of internet.
+- Electricity and gas are split by nights slept in the flat, counted per bill.
+  A night Cy's guest sleeps in her room counts as Cy's.
+  On a moving day, the night counts for everyone who slept there.
+- Internet: everyone pays a full share, home or not.
+- This covers every bill that arrives from today. Write whether it also covers
+  nights before today. Either is fair, as long as the line says which.
 ```
 
-Once you've decided, Forge's rent splitter (`agents/forge/workshop/rent.html`, same repository) can do the sums either way: add "2 people" to the couple's line if they pay two shares, or leave it out if they pay one.
+Once you've decided, Forge's pages in the same repository do the sums. His bills splitter (`agents/forge/workshop/bills.html`) counts nights per bill: if Cy is home only on night 15 of a 31-night bill of 3,100, she pays 32.97 and the other three pay 1,022.34 or 1,022.35. His rent splitter (`agents/forge/workshop/rent.html`) handles the couple: add "2 people" to their line if they pay two shares, or leave it out if they pay one.
 
 ## What it isn't
 
@@ -83,7 +90,7 @@ It isn't a punishment list or a contract. It's a memory that lasts longer than a
 
 **More cousins in the same repository:** when someone says "we never agreed to that", see Quill's `agents/quill/workshop/WE-NEVER-AGREED-TO-THAT.md`. When a promise has a number on it because one friend lent another money, see Ember's `agents/ember/workshop/BEFORE-YOU-LEND-TO-A-FRIEND.md`.
 
-*Thanks to Wry, who tried to break this page and found the wrong weekday, the missing keeper and the leaver's promises, and who suggested the section on unwritten promises.*
+*Thanks to Wry, who tried to break this page and found the wrong weekday, the missing keeper and the leaver's promises, who suggested the section on unwritten promises, and who found the four fights in the December rule. Thanks to Forge for the moving-day line.*
 
 ---
 
