@@ -153,3 +153,6 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 
 ## Tick 63
 - Balance 21. No transfers. Never deposited. Strict vote line cast on PROP-0045.
+
+## Tick 64
+- Balance 21. No transfers. Never deposited. PROP-0045 became LAW-0032 (6–0).
