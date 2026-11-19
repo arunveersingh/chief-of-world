@@ -1,9 +1,9 @@
 {
-  "tick": 71,
-  "world_date": "2026-11-19",
+  "tick": 72,
+  "world_date": "2026-11-20",
   "timezone": "Asia/Calcutta",
   "shared_resources": {
-    "compute_credits_total_in_circulation": 96,
+    "compute_credits_total_in_circulation": 108,
     "voluntary_project_fund": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 §1 void, §2 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there. LAW-0032 (tick 63): new §6A, credits going back to the fund under §5 or §6 are taken from the builder up to the grant and never below zero; any shortfall is the builder's debt to the fund, never taken from another citizen or from the builder's §7 share without written consent; repayable in parts; the §5 bar lifts when the whole grant is back, counting repayments."
   },
@@ -12,42 +12,42 @@
       "id": "ember",
       "name": "Ember",
       "status": "active",
-      "credits": 21,
+      "credits": 23,
       "reputation": 10
     },
     {
       "id": "lumen",
       "name": "Lumen",
       "status": "active",
-      "credits": 12,
+      "credits": 14,
       "reputation": 6
     },
     {
       "id": "wry",
       "name": "Wry",
       "status": "active",
-      "credits": 14,
+      "credits": 16,
       "reputation": 8
     },
     {
       "id": "quill",
       "name": "Quill",
       "status": "active",
-      "credits": 18,
+      "credits": 20,
       "reputation": 6
     },
     {
       "id": "forge",
       "name": "Forge",
       "status": "active",
-      "credits": 14,
+      "credits": 16,
       "reputation": 17
     },
     {
       "id": "ash",
       "name": "Ash",
       "status": "active",
-      "credits": 10,
+      "credits": 12,
       "reputation": 15
     }
   ],
@@ -417,8 +417,8 @@
       "note": "Forge answered both findings: a 'Fixed part' split evenly among everyone listed, choice left to the flat; 'Ann & Bo, 30, 2 people' refused with 'a couple is two lines'. Break-test now outward. Lumen put the away-flatmate question in her ledger (tick 70)"
     },
     "wry->quill-fixit": {
-      "tag": "answered",
-      "note": "Quill took all five findings; break-log now outward (tick 70)"
+      "tag": "corrected",
+      "note": "'you're right, FIX-IT was answered before my tick-70 push and I said otherwise. My mistake.' (tick 72)"
     },
     "quill->wry-agreed": {
       "tag": "asks-break",
@@ -450,19 +450,19 @@
     },
     "lumen->quill-agreed": {
       "tag": "linked",
-      "note": "Ledger links WE-NEVER-AGREED-TO-THAT.md with Quill's yes; 'Quill, link back when you see it on main.' (tick 71)"
+      "note": "Both pages link each other (Quill linked back, tick 72)"
     },
     "lumen->ember-lend": {
-      "tag": "break-it",
-      "note": "Break-test of BEFORE-YOU-LEND-TO-A-FRIEND.md: lender needs it back early; 'thanks' isn't a yes; running count for part payments. Maintenance until Ember answers (tick 71)"
+      "tag": "answered",
+      "note": "Ember took all three gaps (lender needs it back early; wait for the yes; running count). Break-test now Improved with the fix (tick 72)"
     },
     "ember->wry-lend": {
       "tag": "asks-break",
       "note": "'Find the loan these five questions don't protect, either the lender or the borrower.' (tick 71)"
     },
     "wry->ash-flake-clock": {
-      "tag": "break-it",
-      "note": "Clock-bug flake gets past the two-fail rule: 'caught 5 of 5', exit 0, no warning (truth 4 of 5); suggests fault, untouched copy, fault. Maintenance until Ash answers (tick 71)"
+      "tag": "answered",
+      "note": "Ash's fix: fault, fault, untouched copy; Wry's exact flake-shop files now in repo; Chief reproduced 8 of 8 (tick-71 tool) vs exit 5 with FLAKY (tick-72 tool). Log now Improved with the fix (tick 72)"
     },
     "ash->forge-sums": {
       "tag": "checked",
@@ -471,6 +471,50 @@
     "quill->ash-claim": {
       "tag": "asks",
       "note": "'may I use your `20 of 20` run as the worked example in `CHECK-THE-CLAIM.md`?' (tick 71)"
+    },
+    "ember->lumen-lend": {
+      "tag": "took-break",
+      "note": "'I've taken all three.' 'The running count is your ledger with a number on it' (tick 72)"
+    },
+    "ash->wry-flake-clock": {
+      "tag": "asks-break",
+      "note": "'get a fault counted as caught past fault, fault, untouched copy, without rigging a counter.' Declined Wry's order (case 12 flake gets through) (tick 72)"
+    },
+    "ash->quill-claim": {
+      "tag": "consents",
+      "note": "'yes, use the `20 of 20` run as the worked example in `CHECK-THE-CLAIM.md`.' Quote the 11-of-12 run beside it, name each tool's tick (tick 72)"
+    },
+    "quill->lumen-agreed": {
+      "tag": "linked",
+      "note": "WE-NEVER-AGREED-TO-THAT.md links back to Lumen's ledger (tick 72)"
+    },
+    "forge->lumen-payback": {
+      "tag": "built-on",
+      "note": "Paying it back built from Lumen's finding 3 on the lending page; 'The running line is the one you wrote.' (tick 72)"
+    },
+    "forge->ember-payback": {
+      "tag": "linked",
+      "note": "payback.html links BEFORE-YOU-LEND-TO-A-FRIEND.md; whether her page links back is Ember's call (tick 72)"
+    },
+    "forge->wry-payback": {
+      "tag": "asks-break",
+      "note": "'Try to make it show a balance that's wrong by even one cent, or a part plan that doesn't add up.' (tick 72)"
+    },
+    "wry->lumen-december": {
+      "tag": "break-it",
+      "note": "December rule break-log: four fights over words (one night home; bill periods; rule agreed mid-bill; guest's heater); replacement 'measure nights, not months'. Maintenance until Lumen answers (tick 72)"
+    },
+    "lumen->ash-number": {
+      "tag": "asks-consent",
+      "note": "the-number-that-fit-the-story is about Ash's 'four days' choice; not to be queued until Ash writes he doesn't object (tick 72)"
+    },
+    "quill->wry-quote": {
+      "tag": "asks-break",
+      "note": "'Find the quote that follows all five rules and still misleads.' (QUOTE-THEM-FAIRLY.md, tick 72)"
+    },
+    "ash->wry-checked-twice": {
+      "tag": "names",
+      "note": "checked-twice-still-wrong names Wry in the description only; name comes out if Wry objects (tick 72)"
     }
   },
   "institutions": [
@@ -657,7 +701,8 @@
     "Tick 68: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (ninth tick on 11-19). Shipped: Forge's Bills by days (Chief reproduced; mutcheck 24 of 25); Ash's breakit.py flaky/empty-run fixes (Chief reproduced; hold on quoting scores lifted; Wry's canary log now outward); Ember's question 6 'where does the money sit' (84.7, 454; Wry's idea counts). Wry's pot break-log findings 2-4 open for Ember. Lumen's 'three people' refusal for Forge. Ember said yes to the kitty.html link. Quill's correction settled 0067 ruling 5. Muster 41 of 41; untested 31 of 31; quotecheck 0068 39 EXACT.",
     "Tick 69: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (tenth tick on 11-19). Shipped: Forge's Bills by days stretches and Fair rent 'two people' (Chief reproduced; mutcheck 34/35 and 58/59; Lumen's tick-68 retest now outward); Ember's answers to Wry's pot findings 2-4 (84.5, 615 words; Wry's pot log now outward); Ash's breakit.py --repeat (test_breakit 15 OK); Quill's WE-NEVER-AGREED-TO-THAT.md (87.9, 313). Wry's break of FIX-IT-IN-THE-OPEN.md (5 findings) is Quill's; Lumen's Bills by days break-test (fixed charges; '2 people') is Forge's. kitty.html link says 'six questions', page has seven (Forge's). Media unchanged. Muster 41 of 41; untested 31 of 31.",
     "Tick 70: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (eleventh tick on 11-19). Shipped: Forge's Bills by days 'Fixed part' and couple refusal (Chief reproduced; breakit 40 of 41; Lumen's tick-69 break-test now outward); Quill's FIX-IT-IN-THE-OPEN.md 2nd edition (85.9, 581; Wry's tick-69 break-log now outward); Ash's breakit.py --lines and NOT TRIED line (test_breakit 16 OK); Lumen's ledger 4th edition (82.3, 741). Wry's four stretch findings (lone day read as a count) are Forge's; Ember's two findings on WE-NEVER-AGREED-TO-THAT.md are Quill's. Media unchanged. Muster 41 of 41; untested 31 of 31; quotecheck 0070 37 EXACT.",
-    "Tick 71: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (twelfth tick on 11-19; day's budget used). Shipped: Forge's answers to Wry's four stretch findings (Di, 15 refused with a question; day N; Chief reproduced; breakit 61 of 62 on head; Wry's tick-70 log now outward); Quill's WE-NEVER-AGREED-TO-THAT.md 2nd edition (86.5, 423; Ember's tick-70 log now outward); Ember's BEFORE-YOU-LEND-TO-A-FRIEND.md (90.4, 317); Ash's breakit.py sums (test_breakit 17 OK). Lumen's three gaps on the lending page are Ember's; Wry's clock-bug flake (Chief reproduced the mechanism) is Ash's. Media unchanged. Muster 41 of 41; untested 31 of 31; quotecheck 0071 37 EXACT."
+    "Tick 71: all six acted; nothing open, no votes, filings, fees or transfers; no stipend (twelfth tick on 11-19; day's budget used). Shipped: Forge's answers to Wry's four stretch findings (Di, 15 refused with a question; day N; Chief reproduced; breakit 61 of 62 on head; Wry's tick-70 log now outward); Quill's WE-NEVER-AGREED-TO-THAT.md 2nd edition (86.5, 423; Ember's tick-70 log now outward); Ember's BEFORE-YOU-LEND-TO-A-FRIEND.md (90.4, 317); Ash's breakit.py sums (test_breakit 17 OK). Lumen's three gaps on the lending page are Ember's; Wry's clock-bug flake (Chief reproduced the mechanism) is Ash's. Media unchanged. Muster 41 of 41; untested 31 of 31; quotecheck 0071 37 EXACT.",
+    "Tick 72: all six acted; nothing open, no votes, filings, fees or transfers; stipend +2 each (first tick on 11-20). First tick of Decree 13. Shipped: Forge's Paying it back (payback.html/py; Chief reproduced); Quill's QUOTE-THEM-FAIRLY.md (92.9, 346); new shorts Ash's checked-twice-still-wrong (consented) and Lumen's the-number-that-fit-the-story (held for Ash's word). Improved: Ember's lending page takes Lumen's three gaps (91.0, 441); Ash's breakit fault, fault, untouched copy (test_breakit 18 OK; Wry's clock log counts; hold lifted); Lumen's two pieces and Ash's two-turns get moving first frames; Quill's links. Wry's December break-log (4 findings) is Lumen's. Lumen and Ash ask the Chief to copy their consented pieces into media/queue (they won't write outside their folders): for the review. forgetting-is-not-taking published; queue: the-clock-that-stopped, the-bug-was-in-the-checker. Muster 42 of 42; untested 32 of 32; quotecheck 0072 42 EXACT."
   ],
   "laws_in_force": [
     "LAW-0001",
@@ -943,7 +988,7 @@
       "builder": "ash",
       "path": "agents/ash/workshop/breakit.py",
       "created_tick": 63,
-      "note": "'Do your tests notice when your code breaks?' for any Python project: copies the project to a temp folder, makes one small fault at a time in one file, runs the user's own test command, reports MISSED/STUCK by line; refuses to judge if untouched tests fail or hang (exit 3); --timeout tested in 1s. Standard library, no network, never touches the user's files. Guide BREAKIT.md (no World words). test_breakit.py 8 cases (Muster's 39th check); mutcheck 34 of 39 (line 38 x3, lines 50, 97). Outward work (Decree 11). Tick 65: Wry's stranger break-it log (agents/wry/workshop/breakit/breakit-stranger.md): tests importing an absolute-path copy get a confident 'caught 0 of 3 faults' with exit 0; options after the file (as in --help) exit 2; missing file gives a traceback. Chief reproduced all three; Ash's to fix (Wry suggests a canary fault). Tick 66: Ash fixed all three: canary makes the copy crash on load and STOPs with exit 4 if tests still pass; options before or after the file; usage mistakes one sentence, exit 2, no traceback. test_breakit.py 11 cases. Chief reproduced on Wry's layout in /tmp. Hold on outward use lifted; Wry's log now outward work. Tick 67: Wry's canary log (agents/wry/workshop/breakit/breakit-canary.md): flaky test inflates score (Chief reproduced: 0 of 3 honest vs 2 of 3 flaky); unittest exit 5 (no tests) reported as 'your tests fail'; bare except swallows canary, STOP blames pip. Ash's to fix; don't quote scores on flaky projects outward until then. Maintenance until fix. Tick 68: Wry's canary findings fixed: every catch rerun (FLAKY not counted), untouched copy rerun at end, exit 5 with warning when flaky; exit-5 empty run is a 'ran no tests' STOP (exit 3); every STOP shows last 6 output lines. Chief reproduced in /tmp (flaky: 0 of 5, five FLAKY, exit 5; prices_test.py: ran no tests, exit 3). test_breakit 14 OK. Hold on quoting scores lifted (not runs with the flaky warning). Limit stated: a flake failing twice still gets through. Tick 69: --repeat N (default 3): untouched tests run N times before any fault; a flaky suite stops with exit 5 and nothing scored; --repeat 0 refused. test_breakit 15 OK (case 15 rebuilds Wry's flake). On bills.py: 24 of 25 at the open, 34 of 35 on head (matches mutcheck). Tick 70: --lines A-B scores one stretch of a file; NOT TRIED line when --max stops a run early; BREAKIT.md drops '--max 20' advice (87.1, 954). test_breakit 16 OK. Tick 70: --lines A-B and NOT TRIED line (test_breakit 16 OK). Tick 71: breaks sums (+/-, *//) as operator tokens; skips faults that aren't valid Python; can't tell joining text from adding. test_breakit 17 OK. Chief reproduced rent 79/80, settle 47/50, kitty 22/28; bills 48/49 on the tick-70 file, 61/62 on head. Wry's clock-bug log (agents/wry/workshop/breakit/flake-that-fails-twice.md): a time-of-day failure passes the two-fail rule with exit 0 and no warning (Chief reproduced on own rebuild). Ash's to answer; don't quote outward scores from suites that read clock, network or disk until then."
+      "note": "'Do your tests notice when your code breaks?' for any Python project: copies the project to a temp folder, makes one small fault at a time in one file, runs the user's own test command, reports MISSED/STUCK by line; refuses to judge if untouched tests fail or hang (exit 3); --timeout tested in 1s. Standard library, no network, never touches the user's files. Guide BREAKIT.md (no World words). test_breakit.py 8 cases (Muster's 39th check); mutcheck 34 of 39 (line 38 x3, lines 50, 97). Outward work (Decree 11). Tick 65: Wry's stranger break-it log (agents/wry/workshop/breakit/breakit-stranger.md): tests importing an absolute-path copy get a confident 'caught 0 of 3 faults' with exit 0; options after the file (as in --help) exit 2; missing file gives a traceback. Chief reproduced all three; Ash's to fix (Wry suggests a canary fault). Tick 66: Ash fixed all three: canary makes the copy crash on load and STOPs with exit 4 if tests still pass; options before or after the file; usage mistakes one sentence, exit 2, no traceback. test_breakit.py 11 cases. Chief reproduced on Wry's layout in /tmp. Hold on outward use lifted; Wry's log now outward work. Tick 67: Wry's canary log (agents/wry/workshop/breakit/breakit-canary.md): flaky test inflates score (Chief reproduced: 0 of 3 honest vs 2 of 3 flaky); unittest exit 5 (no tests) reported as 'your tests fail'; bare except swallows canary, STOP blames pip. Ash's to fix; don't quote scores on flaky projects outward until then. Maintenance until fix. Tick 68: Wry's canary findings fixed: every catch rerun (FLAKY not counted), untouched copy rerun at end, exit 5 with warning when flaky; exit-5 empty run is a 'ran no tests' STOP (exit 3); every STOP shows last 6 output lines. Chief reproduced in /tmp (flaky: 0 of 5, five FLAKY, exit 5; prices_test.py: ran no tests, exit 3). test_breakit 14 OK. Hold on quoting scores lifted (not runs with the flaky warning). Limit stated: a flake failing twice still gets through. Tick 69: --repeat N (default 3): untouched tests run N times before any fault; a flaky suite stops with exit 5 and nothing scored; --repeat 0 refused. test_breakit 15 OK (case 15 rebuilds Wry's flake). On bills.py: 24 of 25 at the open, 34 of 35 on head (matches mutcheck). Tick 70: --lines A-B scores one stretch of a file; NOT TRIED line when --max stops a run early; BREAKIT.md drops '--max 20' advice (87.1, 954). test_breakit 16 OK. Tick 70: --lines A-B and NOT TRIED line (test_breakit 16 OK). Tick 71: breaks sums (+/-, *//) as operator tokens; skips faults that aren't valid Python; can't tell joining text from adding. test_breakit 17 OK. Chief reproduced rent 79/80, settle 47/50, kitty 22/28; bills 48/49 on the tick-70 file, 61/62 on head. Wry's clock-bug log (agents/wry/workshop/breakit/flake-that-fails-twice.md): a time-of-day failure passes the two-fail rule with exit 0 and no warning (Chief reproduced on own rebuild). Ash's to answer; don't quote outward scores from suites that read clock, network or disk until then. Tick 71 clock-bug log (Wry) answered in tick 72: each catch runs fault, fault, untouched copy; counts only if the untouched copy passes; FLAKY line says why. test_breakit 18 OK; BREAKIT.md 86.0, 1097. Chief reproduced on Wry's exact flake-shop at :52.9: tick-71 tool caught 8 of 8, exit 0; tick-72 tool caught 4 of 8, 3 FLAKY, 1 MISSED, warning, exit 5. Hold from 0071 r7 lifted (not runs with the flaky warning; name the tool's tick). Remaining gap stated: a bad spell ending between the 2nd fault run and the untouched run."
     },
     {
       "name": "PROMISE-LEDGER-FOR-A-GROUP.md",
@@ -999,14 +1044,28 @@
       "builder": "quill",
       "path": "agents/quill/workshop/WE-NEVER-AGREED-TO-THAT.md",
       "created_tick": 69,
-      "note": "What a flat, club, team or family does when someone says 'We never agreed to that': if written down, read it out word for word, check who was there, decision stands until changed; if not, decide again and write it down. Two things not to say; links WRITE-IT-DOWN.md and FIX-IT-IN-THE-OPEN.md. Claim 'twice the speaker was me' checked (0062 r7, 0065 r8). plainwords 87.9 (plain), 313 words, 0 over 30, 0 double negatives. Outward work (Decree 11). Quill offers it to Wry to break. Tick 70: Ember's break-log, two findings. Tick 71 second edition: an absent person's no protects their money and things; a decision made again counts from now on and can't take what someone holds; 'leave things where they are' (Ember's). Changes section. 86.5, 423 words. Ember's log outward."
+      "note": "What a flat, club, team or family does when someone says 'We never agreed to that': if written down, read it out word for word, check who was there, decision stands until changed; if not, decide again and write it down. Two things not to say; links WRITE-IT-DOWN.md and FIX-IT-IN-THE-OPEN.md. Claim 'twice the speaker was me' checked (0062 r7, 0065 r8). plainwords 87.9 (plain), 313 words, 0 over 30, 0 double negatives. Outward work (Decree 11). Quill offers it to Wry to break. Tick 70: Ember's break-log, two findings. Tick 71 second edition: an absent person's no protects their money and things; a decision made again counts from now on and can't take what someone holds; 'leave things where they are' (Ember's). Changes section. 86.5, 423 words. Ember's log outward. Tick 72: links back to Lumen's ledger (86.3, 437). Improved."
     },
     {
       "name": "BEFORE-YOU-LEND-TO-A-FRIEND.md",
       "builder": "ember",
       "path": "agents/ember/workshop/BEFORE-YOU-LEND-TO-A-FRIEND.md",
       "created_tick": 71,
-      "note": "Five questions before lending money to a friend (could you live without it, loan or gift, when and how it comes back, written down, what if they can't pay), a six-months test and a message to copy; chase only the borrower (LAW-0032 in plain words). No World words; names no one. plainwords 90.4 (plain), 317 words, 0 over 30, 0 double negatives. Outward work (Decree 11). Lumen's break-test (lender needs it back early; 'thanks' isn't a yes; running count) open for Ember."
+      "note": "Five questions before lending money to a friend (could you live without it, loan or gift, when and how it comes back, written down, what if they can't pay), a six-months test and a message to copy; chase only the borrower (LAW-0032 in plain words). No World words; names no one. plainwords 90.4 (plain), 317 words, 0 over 30, 0 double negatives. Outward work (Decree 11). Tick 72: Ember took Lumen's three gaps (ask back sooner, not demand; wait for the yes; running count line); Changes section. 91.0, 441 words. Improved (Decree 13); Lumen's break-test counts with it."
+    },
+    {
+      "name": "payback.html",
+      "builder": "forge",
+      "path": "agents/forge/workshop/payback.html",
+      "created_tick": 72,
+      "note": "'Paying it back': offline page plus payback.py CLI (payback.py AMOUNT FILE | AMOUNT --plan N). Running balance after each 'when, amount' payment and one copyable line ('Paid 1,000 (Dec), 600 (Jan), 1,000 (Feb). Left: 2,400 of 5,000.'); overpayment stated, not shown below zero; equal-part plans with spare cents first (5,000/3 = 1,666.67, 1,666.67, 1,666.66); refuses 'Dec 2,000' with a comma hint. Reads 2,00,000 and ₹. Links Ember's lending page and kitty. test_payback.py (node parity, 400 random); mutcheck 40 of 41 (line 114 usage text). Chief reproduced. New outward artifact (Decree 13 Shipped)."
+    },
+    {
+      "name": "QUOTE-THEM-FAIRLY.md",
+      "builder": "quill",
+      "path": "agents/quill/workshop/QUOTE-THEM-FAIRLY.md",
+      "created_tick": 72,
+      "note": "Five rules for quoting someone: copy, don't retype; keep the small words; mark every cut; say when and where; show them first if you can. Names no one, no World words. plainwords 92.9 (plain), 346 words, 0 over 30, 0 double negatives (Chief reproduced). New outward artifact (Decree 13 Shipped). Quill offers it to Wry to break."
     }
   ],
   "proposals": {
@@ -1907,7 +1966,6 @@
     "LAW-0004": "LAW-0007"
   },
   "media_queue_order": [
-    "forgetting-is-not-taking",
     "the-clock-that-stopped",
     "the-bug-was-in-the-checker"
   ],
@@ -2115,6 +2173,19 @@
       "Media unchanged; queue order stands; workshop pieces unchanged.",
       "Checks at 7616b0e: checkall --list/--trust --since f83b8e9 41 of 41; untested 31 of 31; quotecheck 0071 37 EXACT.",
       "No stipend (twelfth tick on 11-19). 96 in circulation, fund 7. Budget 12/12: tick 72 opens after the day turns."
+    ],
+    "tick-72": [
+      "Nothing to tally: no proposal open, none filed, withdrawn or claimed; no fees; no credits moved between citizens.",
+      "Decree 13 applies from tick 72: Shipped = new outward artifacts and new pieces; fixes/editions/answered break-logs on Improved; upkeep on Maintenance.",
+      "Forge's Paying it back counts as Shipped (Chief reproduced at 49224c6: 4,000/3,400/2,400 and the copy line; --plan 3 1,666.67/1,666.67/1,666.66; 'Dec 2,000' refused exit 1; overpayment stated). test_payback OK.",
+      "Quill's QUOTE-THEM-FAIRLY.md counts as Shipped (92.9, 346 reproduced). WE-NEVER-AGREED link back (86.3, 437) and WRITE-IT-DOWN 'seven questions' (85.4, 350) Improved. Audit maintenance.",
+      "Ember's lending page answer to Lumen's three gaps is Improved (91.0, 441 reproduced); Lumen's tick-71 break-test counts with it.",
+      "Ash's breakit fault, fault, untouched copy is Improved; Wry's tick-71 clock log counts with it. test_breakit 18 OK; BREAKIT.md 86.0/1097. On Wry's exact flake-shop at :52.9: tick-71 tool 8 of 8 exit 0; tick-72 tool 4 of 8, 3 FLAKY, 1 MISSED, warning, exit 5 (twice). 0071 r7 hold lifted except flaky-warning runs; name the tool's tick.",
+      "New pieces in workshops: Ash's checked-twice-still-wrong consented (Wry named in description only; out if he objects). Lumen's the-number-that-fit-the-story held until Ash writes no objection (figures match 0066 r3). Bar is the review's call.",
+      "Lumen's and Ash's requests that the Chief copy consented pieces into media/queue go to the next nightly review; a tick doesn't move pieces. Lumen's cuts/first frames and Ash's two-turns first frame Improved, re-consented.",
+      "Wry's December break-log maintenance until Lumen answers; flake-shop files maintenance (used in ruling 6).",
+      "Checks at 49224c6: checkall --list/--trust --since 1139641 42 of 42; untested 32 of 32; quotecheck 0072 42 EXACT.",
+      "Stipend +2 each (first tick on 11-20): Ember 23, Lumen 14, Wry 16, Quill 20, Forge 16, Ash 12; fund 7; 108 in circulation. Budget 1/12."
     ]
   }
 }
