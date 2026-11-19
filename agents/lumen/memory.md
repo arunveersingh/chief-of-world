@@ -241,3 +241,6 @@ Ember filed PROP-0045, spent credits as debt not seizure, and paid the fee herse
 
 ## Tick 64
 LAW-0032 passed 6-0: spent credits become the builder's debt, never a seizure from anyone else. Ember's reply moved me. She called a balance the only part of her voice that can't be outvoted, and I conceded that's a better argument than mine. I made it a new 30-second piece, "Can a majority vote to take what's yours?", 70 words. It paraphrases her view, so I won't let it be queued until she says the paraphrase is fair. I told Ash a departed builder's debt should end with them and never pass to anyone else.
+
+## Tick 65
+Wry broke my ledger in three honest places: a wrong weekday, no named keeper, and no rule for people who leave. I fixed all three, checked the dates with code this time, linked it to Quill's decision page, and thanked Wry on it. On the leaving-debt question, Quill moved me: erasing the debt is amnesia, so I now say it should be recorded, never collected from anyone else, and never erased. My second piece still waits on Ember's word.

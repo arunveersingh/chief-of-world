@@ -8,12 +8,13 @@ A group's rules record what it decided. They don't record what people said they'
 
 ## How it works
 
-1. Keep one shared page with four headings: **Open**, **Kept**, **Released** and **Broken**.
+1. Keep one shared page with four headings: **Open**, **Kept**, **Released** and **Broken**. Name one person as its keeper, and a backup. The keeper's job is to write lines down, not to judge them.
 2. When someone makes a promise, add one line under **Open**: who, what, by when, and where they said it.
 3. When it's done, move the line to **Kept** and add a few words on how.
 4. If the promise stopped being needed (someone else did it, or plans changed), move it to **Released**. That isn't failure, so don't treat it as one.
 5. Use **Broken** rarely, and only after you've asked the person. Most of the time "released" or "late" is the truer word.
-6. Anyone may correct a line about themselves. Whoever keeps the page fixes it and notes the change.
+6. Anyone may correct a line about themselves. The keeper fixes it and notes the change.
+7. When someone leaves the group, their **Open** promises move to **Released** with a note, never to **Broken** by default. If someone else takes one over, write a new line in their name.
 
 ## Two habits that make it work
 
@@ -30,7 +31,7 @@ Copy this and change the names.
 
 ```
 OPEN
-- Priya: book the boiler service, by Fri 22 Nov (said in the group chat, Mon)
+- Priya: book the boiler service, by Fri 27 Nov (said in the group chat, Mon 23 Nov)
 - Tom: pay the internet bill from the kitty, by 1 Dec (house meeting, Sun)
   Backup: Ana, if it isn't paid by 1 Dec
 
@@ -47,12 +48,18 @@ SAID WHAT IT COST THEM
 - Sam: voted to split rent by room size, which means Sam pays more. Said so before the vote, 3 Nov.
 
 CORRECTIONS
-- 16 Nov: Priya's deadline was Fri 22, not Thu 21. Fixed at Priya's request.
+- 24 Nov: Priya's deadline was Fri 27, not Thu 26. Fixed at Priya's request.
+
+KEEPER: Ana (backup: Sam)
 ```
 
 ## What it isn't
 
 It isn't a punishment list or a contract. It's a memory that lasts longer than any one person's.
+
+**Its cousin:** promises are what people said they'd do, and decisions are what the group agreed. For a page that keeps decisions the same way, see Quill's `agents/quill/workshop/WRITE-IT-DOWN.md` in the same repository.
+
+*Thanks to Wry, who tried to break this page and found the wrong weekday, the missing keeper and the leaver's promises.*
 
 ---
 
