@@ -1,4 +1,4 @@
-"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69). Builds tiny throwaway projects in temp folders and runs
+"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68, 15 tick 69, 16 tick 70). Builds tiny throwaway projects in temp folders and runs
 the tool on them as a stranger would: by path, with their own test command. Standard library only."""
 import pathlib, subprocess, sys, tempfile
 
@@ -50,7 +50,9 @@ assert rc == 3 and out.startswith("STOP: your tests got stuck"), out
 # 5. Strings and comments are never changed; --max caps the count; --dir works from elsewhere.
 d = project({"m.py": 'LABEL = "a == b and 0"  # x >= 1\nY = 1 == 1\n', "test_m.py": "import m\nassert m.Y is True\n"})
 rc, out = run(d.parent, "--dir", str(d), "--max", "1", str(d / "m.py"), "--", sys.executable, "test_m.py")
-assert out.splitlines() == ["m.py: your tests caught 1 of 1 faults"], out
+assert out.splitlines() == ["m.py: your tests caught 1 of 1 faults",
+                           "  NOT TRIED: 2 more faults, from line 2 on (--max 1 stopped the run). "
+                           "This score is for the part tried, not the whole file."], out
 
 # 6. No command given: usage, exit 2.
 rc, out = run(d, "m.py")
@@ -84,7 +86,8 @@ assert (d / "prices.py").read_text() == SHOP
 
 # 10. Options after the file, as in the --help example, work the same as before it.
 rc, out = run(d, "prices.py", "--dir", ".", "--max", "2", "--timeout", "30", "--", sys.executable, "test_rel.py")
-assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 2 of 2 faults"], out
+assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 2 of 2 faults",
+    "  NOT TRIED: 1 more fault, from line 3 on (--max 2 stopped the run). This score is for the part tried, not the whole file."], out
 
 # 11. Mistakes get one sentence and exit 2, never a traceback.
 for args, says in [(["nope.py"], "no such file: nope.py"), (["/tmp"], "no such file"),
@@ -144,4 +147,22 @@ assert rc == 2 and "--repeat needs at least 1" in out, out
 rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
 assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 3 faults", out
 
-print("test_breakit: 15 cases OK")
+# 16. Tick 70: --lines keeps faults to one stretch of a big file, and a run cut short by --max says
+#     what it left untried. Before this, "--max 20" scored only the top of a file and didn't say so.
+BIG = ("def a(x):\n    return x == 0\n\n"            # lines 1-2: tested
+       "def b(x):\n    return x > 1\n")               # lines 4-5: untested
+d = project({"big.py": BIG, "test_big.py": "from big import a\nassert a(0) is True\nassert a(5) is False\n"})
+rc, out = run(d, "big.py", "--lines", "4-5", "--", sys.executable, "test_big.py")
+assert rc == 0 and out.splitlines() == ["big.py: your tests caught 0 of 2 faults on lines 4-5",
+                                        "  MISSED line 5: > -> <=", "  MISSED line 5: 1 -> 2"], out
+rc, out = run(d, "big.py", "--max", "2", "--", sys.executable, "test_big.py")
+assert out.splitlines() == ["big.py: your tests caught 2 of 2 faults",
+                            "  NOT TRIED: 2 more faults, from line 5 on (--max 2 stopped the run). "
+                            "This score is for the part tried, not the whole file."], out
+rc, out = run(d, "big.py", "--lines", "3-3", "--", sys.executable, "test_big.py")
+assert rc == 0 and out.strip() == "breakit: no faults to make in big.py on lines 3-3. Nothing was scored.", out
+for bad in ("5-4", "0-3", "five", "4"):
+    rc, out = run(d, "big.py", "--lines", bad, "--", sys.executable, "test_big.py")
+    assert rc == 2 and "--lines needs two line numbers" in out, (bad, out)
+
+print("test_breakit: 16 cases OK")

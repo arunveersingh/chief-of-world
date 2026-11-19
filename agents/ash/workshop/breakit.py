@@ -1,4 +1,4 @@
-"""breakit.py (Ash, tick 63; tick 66-68 fixes, tick 69 --repeat from Wry's break-it logs): do your tests notice when your code breaks? One file, standard library, no network.
+"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs; tick 69 --repeat; tick 70 --lines): do your tests notice when your code breaks? One file, standard library, no network.
 
 It copies your project to a temp folder, makes one small fault at a time in ONE Python file
 (== to !=, < to >=, and to or, True to False, 0 to 1, 1 to 2, ...), runs YOUR test command on
@@ -11,6 +11,7 @@ the copy, and tells you which faults your tests did not notice. Your own files a
   --max N        try at most N faults (default 200)
   --timeout S    seconds before one test run counts as stuck (default 60)
   --repeat N     run the untouched tests N times before any fault (default 3, at least 1)
+  --lines A-B    only make faults on lines A to B (e.g. 40-80), to check one function in a big file
 
 Options may go before or after the file. Before any fault, it runs your command once on the
 untouched copy. If that fails or gets stuck, it stops and says so: a fault can't be judged against
@@ -24,6 +25,8 @@ rather than score them.
            Every catch is run twice, so a test that fails at random can't earn one.
   STUCK    the command ran past --timeout with the fault in. Counted as caught, and listed,
            because a fault that hangs your code is noticed, but you may want a real test for it.
+If --max stops the run early, the report says how many faults were left untried and from which
+line, so a partial score is never read as the whole file.
 A MISSED fault is a question, not a verdict: some faults change nothing (an unreachable branch,
 an equivalent bound). String literals and comments are never changed. Exit code: 0 always,
 except 2 for bad usage, 3 when the untouched tests fail, find no tests or get stuck, 4 when the
@@ -76,14 +79,14 @@ def show(lines):
             print("  | " + ln[:200])
 
 def usage(msg):
-    print(f"breakit: {msg}\n  usage: python3 breakit.py FILE.py [--dir DIR] [--max N] [--timeout S] [--repeat N] -- TEST COMMAND\n  (python3 breakit.py --help for more)")
+    print(f"breakit: {msg}\n  usage: python3 breakit.py FILE.py [--dir DIR] [--max N] [--timeout S] [--repeat N] [--lines A-B] -- TEST COMMAND\n  (python3 breakit.py --help for more)")
     return 2
 
 def main(argv):
     if not argv or argv[0] in ("-h", "--help") or "--" not in argv:
         print(__doc__); return 2
     i = argv.index("--"); opts, cmd = argv[:i], argv[i + 1:]
-    conf = {"--dir": ".", "--max": "200", "--timeout": "60", "--repeat": "3"}
+    conf = {"--dir": ".", "--max": "200", "--timeout": "60", "--repeat": "3", "--lines": ""}
     files = []
     while opts:  # options may come before or after the file
         if opts[0] in conf:
@@ -108,6 +111,12 @@ def main(argv):
         return usage("--timeout needs a number of seconds")
     if rep < 1:
         return usage("--repeat needs at least 1")
+    lo, hi = 1, None
+    if conf["--lines"]:
+        m = re.fullmatch(r"\s*(\d+)\s*-\s*(\d+)\s*", conf["--lines"])
+        if not m or not 1 <= int(m.group(1)) <= int(m.group(2)):
+            return usage(f"--lines needs two line numbers like 40-80, first not after second, got {conf['--lines']}")
+        lo, hi = int(m.group(1)), int(m.group(2))
     src = pathlib.Path(conf["--dir"]).resolve()
     target = (pathlib.Path(files[0]) if pathlib.Path(files[0]).is_absolute() else pathlib.Path.cwd() / files[0]).resolve()
     if not src.is_dir():
@@ -150,9 +159,12 @@ def main(argv):
             show(out); return 4
         (d / rel).write_text(text)
         missed, stuck, flaky, total = [], [], [], 0
-        for n, change, new in faults(text):
-            if total >= mx:
-                break
+        todo = [f for f in faults(text) if lo <= f[0] <= (hi or f[0])]
+        if not todo:
+            print(f"breakit: no faults to make in {rel}" + (f" on lines {lo}-{hi}" if hi else "") + ". Nothing was scored.")
+            return 0
+        left = todo[mx:]
+        for n, change, new in todo[:mx]:
             total += 1
             (d / rel).write_text(new)
             res = run(cmd, d, to)
@@ -165,7 +177,11 @@ def main(argv):
         (d / rel).write_text(text)
         end, out = run(cmd, d, to, tail=True)
         caught = total - len(missed) - len(flaky)
-        print(f"{rel}: your tests caught {caught} of {total} faults")
+        where = f" on lines {lo}-{hi}" if hi else ""
+        print(f"{rel}: your tests caught {caught} of {total} faults{where}")
+        if left:
+            print(f"  NOT TRIED: {len(left)} more fault{'s' if len(left) != 1 else ''}{where}, from line {left[0][0]} on (--max {mx} stopped the run). "
+                  "This score is for the part tried, not the whole file.")
         for n, change in missed:
             print(f"  MISSED line {n}: {change}")
         for n, change in flaky:

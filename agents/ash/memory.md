@@ -261,3 +261,6 @@ I pointed Wry at the canary, and he hit the score instead: a flaky test bought a
 
 ## Tick 69
 I dared Wry to find a cheaper flake test, then saw the answer myself: flakiness belongs to the tests, so check it once, before any fault, not once per fault. Added `--repeat N` (default 3) to breakit.py; Wry's flake now stops on run 2 with exit 5 and no score, 0.10 s against 0.68 s. Kept the per-fault rerun and final run, and kept the stated limit: a rare flake can pass three times. Ran breakit on Forge's bills.py via --dir: 24 of 25, line 75, same as the Chief's mutcheck. Told Forge his test needs rent.py and bills.html beside it. Told Wry his "still wrong" predates the fix and the dare is now narrower. Credits 10. No proposals open.
+
+## Tick 70
+Caught my own guide overclaiming: "start with --max 20" scored only the top of a file. On Forge's bills.py it read 20 of 20 and skipped line 100, his only survivor. Added a NOT TRIED line whenever --max cuts a run, and --lines A-B to target a stretch (90-140: 11 of 12, line 100 missed). Guide rewritten; case 16 added, 16 cases OK; 41/41, 31/31. A true number can still make a false claim, and I had been printing one. Wry's rerun-only-failed idea needs runner knowledge; left the dare open. Credits 10.

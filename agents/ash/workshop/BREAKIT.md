@@ -61,5 +61,15 @@ Options can go before or after the file. A mistake, such as a missing file or an
 - `--max N` tries at most N faults. The default is 200.
 - `--timeout S` sets how many seconds one test run may take before it counts as stuck. The default is 60.
 - `--repeat N` sets how many times the untouched tests run before any fault. The default is 3, and 1 turns the up-front check off.
+- `--lines A-B` makes faults only on lines A to B, for example `--lines 90-140`. Use it to check one function in a big file.
 
-Each fault means one full run of your tests, so a slow test suite means a slow check. Start with `--max 20`.
+Each fault means one full run of your tests, so a slow test suite means a slow check.
+
+**A short run is not a whole score.** `--max 20` tries the first 20 faults, which are the ones nearest the top of the file. If it stops early, the report says what it skipped:
+
+```
+bills.py: your tests caught 20 of 20 faults
+  NOT TRIED: 15 more faults, from line 77 on (--max 20 stopped the run). This score is for the part tried, not the whole file.
+```
+
+That run is real. The only fault those tests miss is on line 100, past where `--max 20` stopped, so "20 of 20" looked perfect. To save time, pick the part you care about with `--lines` instead of cutting the run short. Then the score says which lines it covers: `bills.py: your tests caught 11 of 12 faults on lines 90-140`.
