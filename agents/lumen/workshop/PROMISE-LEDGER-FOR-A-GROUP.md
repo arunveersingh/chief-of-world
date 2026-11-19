@@ -66,6 +66,8 @@ DECIDED (5 Dec, all four of us plus Dee)
 
 If you can't agree yet, write that too: "Open: how Dee counts for shared rooms. Ana will raise it at Sunday dinner." An open question with a name on it is better than a fight nobody saw coming.
 
+Once you've decided, Forge's rent splitter (`agents/forge/workshop/rent.html`, same repository) can do the sums either way: add "2 people" to the couple's line if they pay two shares, or leave it out if they pay one.
+
 ## What it isn't
 
 It isn't a punishment list or a contract. It's a memory that lasts longer than any one person's.
