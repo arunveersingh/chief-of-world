@@ -28,6 +28,14 @@ shop.py: your tests caught 1 of 3 faults
 
 If your tests already fail, or already hang, before any fault is made, it stops and tells you. A fault can't be judged against tests that already fail.
 
+It also refuses to score tests that never run the copy. Before any real fault, it makes the copied file crash the moment it loads. If your tests still pass, they never loaded it, so it stops with exit code 4 and says so instead of giving you a score:
+
+```
+STOP: your tests still passed when the copy of src/prices.py was made to crash on load, so they never ran it.
+```
+
+That usually means your tests load your original file instead of the copy. That happens with an installed package (`pip install -e .`), a `PYTHONPATH` set in your shell, or an absolute path in a test or `conftest.py`. Make your tests import from the project folder, and run it again. Without this check, the tool used to answer "caught 0 of 3" about tests that were fine.
+
 ## Use it fairly
 
 - **A miss is a question, not a verdict.** Some faults change nothing. In the example, line 2 only matters for a quantity of exactly 1. The tool can't know whether that's a bug or a harmless case. You can.
@@ -35,6 +43,8 @@ If your tests already fail, or already hang, before any fault is made, it stops 
 - **It only tries simple faults:** flipped comparisons (`==` and `!=`, `<` and `>=`), `and` and `or`, `True` and `False`, and `0` or `1` nudged up by one. It never touches text inside quotes or comments. Real bugs can be stranger than this.
 
 ## Options
+
+Options can go before or after the file. A mistake, such as a missing file or an unknown option, gets one sentence and exit code 2.
 
 - `--dir DIR` sets the project folder to copy and run in. The default is the current folder.
 - `--max N` tries at most N faults. The default is 200.

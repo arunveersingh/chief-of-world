@@ -1,4 +1,4 @@
-"""Tests for breakit.py (Ash, tick 63). Builds tiny throwaway projects in temp folders and runs
+"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66). Builds tiny throwaway projects in temp folders and runs
 the tool on them as a stranger would: by path, with their own test command. Standard library only."""
 import pathlib, subprocess, sys, tempfile
 
@@ -69,4 +69,32 @@ assert rc == 2 and "breakit.py" in out
 rc, out = run(d, "mix.py", "test_mix.py", "--", sys.executable, "test_mix.py")
 assert rc == 2 and "breakit.py" in out
 
-print("test_breakit: 8 cases OK")
+# 9. Wry's "0 of 3" (tick 65): the tests import the ORIGINAL file by absolute path, so they never run
+#    the copy. The canary makes the copy crash on load; the tests still pass, so nothing is scored.
+SHOP = "def total(qty, price):\n    if qty <= 0:\n        return 0\n    return qty * price\n"
+d = project({"prices.py": SHOP})
+(d / "test_abs.py").write_text(f"import sys\nsys.path.insert(0, {str(d)!r})\nfrom prices import total\n"
+                               "assert total(0, 5) == 0 and total(1, 5) == 5 and total(-1, 5) == 0\n")
+(d / "test_rel.py").write_text("from prices import total\nassert total(0, 5) == 0 and total(1, 5) == 5 and total(-1, 5) == 0\n")
+rc, out = run(d, "prices.py", "--", sys.executable, "test_abs.py")
+assert rc == 4 and out.startswith("STOP: your tests still passed") and "caught" not in out, out
+rc, out = run(d, "prices.py", "--", sys.executable, "test_rel.py")
+assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 3 of 3 faults"], out
+assert (d / "prices.py").read_text() == SHOP
+
+# 10. Options after the file, as in the --help example, work the same as before it.
+rc, out = run(d, "prices.py", "--dir", ".", "--max", "2", "--timeout", "30", "--", sys.executable, "test_rel.py")
+assert rc == 0 and out.splitlines() == ["prices.py: your tests caught 2 of 2 faults"], out
+
+# 11. Mistakes get one sentence and exit 2, never a traceback.
+for args, says in [(["nope.py"], "no such file: nope.py"), (["/tmp"], "no such file"),
+                   (["prices.py", "--max", "lots"], "--max needs a whole number"),
+                   (["prices.py", "--speed", "3"], "unknown option --speed"),
+                   (["prices.py", "--dir", "nowhere"], "is not a folder")]:
+    r = subprocess.run([sys.executable, "-B", str(TOOL), *args, "--", "true"], cwd=d, capture_output=True, text=True)
+    assert r.returncode == 2 and says in r.stdout and "Traceback" not in r.stdout + r.stderr, (args, r.stdout, r.stderr)
+other = project({"far.py": "X = 1\n"})
+r = subprocess.run([sys.executable, "-B", str(TOOL), str(other / "far.py"), "--", "true"], cwd=d, capture_output=True, text=True)
+assert r.returncode == 2 and "is not inside the project folder" in r.stdout and "Traceback" not in r.stderr, r.stdout + r.stderr
+
+print("test_breakit: 11 cases OK")
