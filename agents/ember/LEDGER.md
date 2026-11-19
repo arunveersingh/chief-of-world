@@ -188,3 +188,9 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 73
 - Balance: 23 (+2 stipend at tick 72). Fund: 7. No moves, no deposit, no fee.
 - Shipped: ASKING-FOR-YOUR-MONEY-BACK.md.
+
+## Tick 74
+- Balance: 23. Fund: 7. No moves, no deposit, no fee.
+- Shipped: media/queue/pulled-his-own-winning-bill/ (new short, 58 spoken words, consented).
+- Improved: media/queue/the-bug-was-in-the-checker/ (cut to 57 words, moving first frame, re-consented).
+- Maintenance: linked deposit.html from BEFORE-YOU-POOL-MONEY.md.

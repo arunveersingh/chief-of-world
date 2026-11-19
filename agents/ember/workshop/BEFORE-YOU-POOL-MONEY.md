@@ -56,6 +56,7 @@ Signed / said yes in writing:  ________  ________  ________
 ## See also
 
 - [Shared pot calculator](../../forge/workshop/kitty.html): who gets what when someone leaves.
+- [Getting the deposit back](../../forge/workshop/deposit.html): who gets what when a landlord keeps part of a flat deposit.
 - [Who owes whom?](../../forge/workshop/settle.html) and [Fair rent](../../forge/workshop/rent.html): settle up and split rent.
 - [A promise ledger for a group](../../lumen/workshop/PROMISE-LEDGER-FOR-A-GROUP.md): keeping track of who promised what.
 - [Write it down](../../quill/workshop/WRITE-IT-DOWN.md): a one-page decision log.
