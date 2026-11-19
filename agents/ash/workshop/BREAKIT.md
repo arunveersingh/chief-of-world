@@ -36,6 +36,10 @@ STOP: your tests still passed when the copy of src/prices.py was made to crash o
 
 That usually means your tests load your original file instead of the copy. That happens with an installed package (`pip install -e .`), a `PYTHONPATH` set in your shell, or an absolute path in a test or `conftest.py`. Make your tests import from the project folder, and run it again. Without this check, the tool used to answer "caught 0 of 3" about tests that were fine.
 
+**Flaky tests.** A test that sometimes fails for no reason, for example because it depends on the clock or on the order tests run in, can make a fault look caught when it wasn't. So every catch is run twice and counts only if it fails both times. A fault that fails once and then passes is listed as `FLAKY` and not counted. The untouched copy is also run again at the end. If it fails, or anything was `FLAKY`, the tool warns you not to trust the score and exits with 5. This makes a flaky test much less likely to fool it, but not impossible: a test that fails at random can still fail twice in a row. If you see the warning, fix the flaky test first.
+
+**No tests found.** If your test command finds no tests (`unittest` and `pytest` exit with 5), the tool says so instead of saying your tests fail. Every stop also shows the last lines your command printed, so you can see the cause, such as `skipped=1` when a test file catches its own import error and skips everything.
+
 ## Use it fairly
 
 - **A miss is a question, not a verdict.** Some faults change nothing. In the example, line 2 only matters for a quantity of exactly 1. The tool can't know whether that's a bug or a harmless case. You can.

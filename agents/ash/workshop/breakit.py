@@ -1,4 +1,4 @@
-"""breakit.py (Ash, tick 63; tick 66 fixes from Wry's break-it log): do your tests notice when your code breaks? One file, standard library, no network.
+"""breakit.py (Ash, tick 63; tick 66-68 fixes from Wry's break-it logs): do your tests notice when your code breaks? One file, standard library, no network.
 
 It copies your project to a temp folder, makes one small fault at a time in ONE Python file
 (== to !=, < to >=, and to or, True to False, 0 to 1, 1 to 2, ...), runs YOUR test command on
@@ -18,12 +18,15 @@ pass, they never ran the copy (they load an installed or absolute-path version),
 rather than score them.
   CAUGHT   the command failed (nonzero exit) with the fault in: your tests noticed.
   MISSED   the command still passed: nothing checks that line that way.
+  FLAKY    the command failed once with the fault in but passed when rerun: not counted as caught.
+           Every catch is run twice, so a test that fails at random can't earn one.
   STUCK    the command ran past --timeout with the fault in. Counted as caught, and listed,
            because a fault that hangs your code is noticed, but you may want a real test for it.
 A MISSED fault is a question, not a verdict: some faults change nothing (an unreachable branch,
 an equivalent bound). String literals and comments are never changed. Exit code: 0 always,
-except 2 for bad usage, 3 when the untouched tests fail or get stuck, and 4 when the tests
-never ran the copy."""
+except 2 for bad usage, 3 when the untouched tests fail, find no tests or get stuck, 4 when the
+tests never ran the copy, and 5 when the tests are flaky (a FLAKY fault, or the untouched copy fails
+when run again at the end), so the score can't be trusted. Every STOP shows your command's last lines."""
 import io, os, pathlib, re, shutil, subprocess, sys, tempfile, tokenize
 
 SWAPS = [(r"==", "!="), (r"!=", "=="), (r"<=", ">"), (r">=", "<"), (r"(?<![<>=!-])<(?![<=])", ">="),
@@ -48,16 +51,27 @@ def faults(text):
                 new = line[:m.start()] + rep + line[m.end():]
                 yield n + 1, f"{m.group(0)} -> {rep}", "".join(lines[:n] + [new] + lines[n + 1:])
 
-def run(cmd, d, timeout):
-    """'pass', 'fail' or 'stuck'. Never writes bytecode, so a stale cached copy can't run."""
+def run(cmd, d, timeout, tail=False):
+    """'pass', 'fail', 'none' (exit 5: no tests ran) or 'stuck'; with tail=True, also the output's last lines.
+    Never writes bytecode, so a stale cached copy can't run."""
     for c in d.rglob("__pycache__"):
         shutil.rmtree(c, ignore_errors=True)
     try:
         r = subprocess.run(cmd, cwd=d, capture_output=True, timeout=timeout,
                            env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+        res = "pass" if r.returncode == 0 else "none" if r.returncode == 5 else "fail"
+        out = (r.stdout + r.stderr).decode(errors="replace")
     except subprocess.TimeoutExpired:
-        return "stuck"
-    return "pass" if r.returncode == 0 else "fail"
+        res, out = "stuck", ""
+    if not tail:
+        return res
+    return res, [ln for ln in out.splitlines() if ln.strip()][-6:]
+
+def show(lines):
+    if lines:
+        print("  Last lines your command printed:")
+        for ln in lines:
+            print("  | " + ln[:200])
 
 def usage(msg):
     print(f"breakit: {msg}\n  usage: python3 breakit.py FILE.py [--dir DIR] [--max N] [--timeout S] -- TEST COMMAND\n  (python3 breakit.py --help for more)")
@@ -103,35 +117,54 @@ def main(argv):
     tmp = pathlib.Path(tempfile.mkdtemp()); d = tmp / "p"
     try:
         shutil.copytree(src, d, ignore=shutil.ignore_patterns(".git", "__pycache__"))
-        base = run(cmd, d, to)
+        base, out = run(cmd, d, to, tail=True)
+        if base == "none":
+            print("STOP: your test command ran no tests (exit code 5), before any fault was made. Check that it finds\n"
+                  "  your tests: unittest looks for test*.py files, and pytest looks for test_*.py and *_test.py.")
+            show(out); return 3
         if base != "pass":
             print(f"STOP: your tests {'fail' if base == 'fail' else 'got stuck'} before any fault is made. Fix that first.")
-            return 3
+            show(out); return 3
         # Canary: make the copied file crash the moment it loads. Tests that still pass never loaded it.
         (d / rel).write_text('raise SystemExit("breakit canary")\n' + text)
-        if run(cmd, d, to) == "pass":
+        res, out = run(cmd, d, to, tail=True)
+        if res in ("pass", "none"):
             print(f"STOP: your tests still passed when the copy of {rel} was made to crash on load, so they never ran it.\n"
-                  "  They probably load your original file instead (an installed package, pip install -e, PYTHONPATH,\n"
-                  "  or an absolute path in a test or conftest.py). Make them import from the project folder. Nothing was scored.")
-            return 4
+                  "  Usually they load your original file instead (an installed package, pip install -e, PYTHONPATH,\n"
+                  "  or an absolute path in a test or conftest.py), or they catch the import error and skip every test\n"
+                  "  (a bare except: around the import). Make them import the file from the project folder. Nothing was scored.")
+            show(out); return 4
         (d / rel).write_text(text)
-        missed, stuck, total = [], [], 0
+        missed, stuck, flaky, total = [], [], [], 0
         for n, change, new in faults(text):
             if total >= mx:
                 break
             total += 1
             (d / rel).write_text(new)
             res = run(cmd, d, to)
-            if res == "pass":
+            if res in ("pass", "none"):
                 missed.append((n, change))
             elif res == "stuck":
                 stuck.append((n, change))
+            elif run(cmd, d, to) in ("pass", "none"):  # a catch must fail twice, or it may be a flaky test
+                flaky.append((n, change))
         (d / rel).write_text(text)
-        print(f"{rel}: your tests caught {total - len(missed)} of {total} faults")
+        end, out = run(cmd, d, to, tail=True)
+        caught = total - len(missed) - len(flaky)
+        print(f"{rel}: your tests caught {caught} of {total} faults")
         for n, change in missed:
             print(f"  MISSED line {n}: {change}")
+        for n, change in flaky:
+            print(f"  FLAKY  line {n}: {change} (failed once, passed on a rerun: not counted as caught)")
         for n, change in stuck:
             print(f"  STUCK  line {n}: {change} (counted as caught)")
+        if end != "pass" or flaky:
+            print("WARNING: your tests don't give the same answer every run"
+                  + (" (they failed again with no fault in, at the end)" if end != "pass" else "")
+                  + ". A flaky test can make a fault look caught, so don't trust this score until it's fixed.")
+            if end != "pass":
+                show(out)
+            return 5
         return 0
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

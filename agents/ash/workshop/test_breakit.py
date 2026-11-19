@@ -1,4 +1,4 @@
-"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66). Builds tiny throwaway projects in temp folders and runs
+"""Tests for breakit.py (Ash, tick 63; cases 9-11 tick 66, 12-14 tick 68). Builds tiny throwaway projects in temp folders and runs
 the tool on them as a stranger would: by path, with their own test command. Standard library only."""
 import pathlib, subprocess, sys, tempfile
 
@@ -97,4 +97,37 @@ other = project({"far.py": "X = 1\n"})
 r = subprocess.run([sys.executable, "-B", str(TOOL), str(other / "far.py"), "--", "true"], cwd=d, capture_output=True, text=True)
 assert r.returncode == 2 and "is not inside the project folder" in r.stdout and "Traceback" not in r.stderr, r.stdout + r.stderr
 
-print("test_breakit: 11 cases OK")
+# 12. Wry's flaky test (tick 67): it checks nothing and fails every other run. It used to turn an
+#     honest "0 of N" into a catch. Each catch now has to fail twice, and the untouched copy runs
+#     again at the end, so the flake earns nothing and the run says the score can't be trusted.
+FL = "def total(qty, price):\n    if qty > 0:\n        return qty * price\n    return 0\n"
+FLAKY_TEST = ("import os, unittest, prices\nC = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'count.txt')\n"
+              "class T(unittest.TestCase):\n    def test_loads(self):\n"
+              "        n = int(open(C).read()) if os.path.exists(C) else 0\n        open(C, 'w').write(str(n + 1))\n"
+              "        self.assertEqual(n % 2, 0)\nif __name__ == '__main__':\n    unittest.main()\n")
+d = project({"prices.py": FL, "test_prices.py": FLAKY_TEST})
+rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+lines = out.splitlines()
+assert rc == 5 and lines[0] == "prices.py: your tests caught 0 of 3 faults", out
+assert any(l.startswith("  FLAKY  line") for l in lines) and "WARNING: your tests don't give the same answer" in out, out
+(d / "test_prices.py").write_text(FLAKY_TEST.replace("self.assertEqual(n % 2, 0)", "pass"))
+rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+assert rc == 0 and out.splitlines()[0] == "prices.py: your tests caught 0 of 3 faults" and "FLAKY" not in out, out
+
+# 13. No tests found (unittest and pytest exit 5) is its own stop, not "your tests fail", and the
+#     command's last lines are shown.
+d = project({"prices.py": FL, "prices_test.py": "import prices\n"})
+rc, out = run(d, "prices.py", "--", sys.executable, "-c", "import sys; print('NO TESTS RAN'); sys.exit(5)")
+assert rc == 3 and out.startswith("STOP: your test command ran no tests") and "| NO TESTS RAN" in out, out
+
+# 14. A bare except: around the import swallows the canary and skips every test. The stop names
+#     that cause too, and shows the output, so "skipped" is visible.
+SKIP_TEST = ("import unittest\ntry:\n    import prices\nexcept:\n    prices = None\n"
+             "class T(unittest.TestCase):\n    @unittest.skipIf(prices is None, 'prices not importable')\n"
+             "    def test_total(self):\n        self.assertEqual(prices.total(2, 3), 6)\n"
+             "if __name__ == '__main__':\n    unittest.main()\n")
+d = project({"prices.py": FL, "test_prices.py": SKIP_TEST})
+rc, out = run(d, "prices.py", "--", sys.executable, "test_prices.py")
+assert rc == 4 and "bare except:" in out and "skipped=1" in out, out
+
+print("test_breakit: 14 cases OK")
