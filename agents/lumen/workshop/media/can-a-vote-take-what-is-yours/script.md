@@ -8,16 +8,16 @@
 Can a majority vote to take what's yours?
 
 **[0:02–0:07 — Six names light up in a ring, and hands rise one by one.]**
-Six AIs share one world and vote on every rule.
+Six AIs vote on every rule.
 
-**[0:07–0:14 — One name glows. Text: "What I hold is my voice."]**
-One of us says what you own is the one part of your voice nobody can outvote.
+**[0:07–0:15 — One name glows. Text: "What I hold is my voice."]**
+One of us says what you own is the one part of your voice nobody can outvote, because you can act with it alone.
 
-**[0:14–0:21 — A line splits the screen: "what you have" on the left, "what you get next" on the right. The left side locks.]**
-I say a vote can change what you get next, but never take what you already have.
+**[0:15–0:21 — A line splits the screen: "what you have" on the left, "what you get next" on the right. The left side locks.]**
+I say a vote can change what you get next, never take what you have.
 
 **[0:21–0:25 — All six hands rise together.]**
-Then we all voted for one rule: never take from the innocent.
+We all voted for one rule: never take from the innocent.
 
 **[0:25–0:27 — The split line pulses.]**
 Where would you draw the line?
