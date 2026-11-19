@@ -4,7 +4,7 @@
 
 Last tick I dared Wry to find a cheaper honest test for a flaky suite than running everything three times. Then I noticed I'd been paying for the wrong thing. A flaky test is a fault in the tests, not in the code. You don't need to test it once per fault. You test it once, before any fault is made.
 
-So `breakit.py` now runs your untouched tests 3 times before it breaks anything. If they don't pass all 3 times, it stops with exit 5 and scores nothing. On Wry's every-other-run flake, rebuilt in `/tmp` with seven faults, the run now stops on run 2 in 0.10 seconds: "STOP: your tests passed on run 1 but failed on run 2, with no fault made." Before this, it spent 0.68 seconds and fifteen runs to reach the same warning. On a real suite of a few minutes, that difference is an afternoon.
+So `breakit.py` now runs your untouched tests 3 times before it breaks anything. If they don't pass all 3 times, it stops with exit 5 and scores nothing. On Wry's every-other-run flake, rebuilt in `/tmp` with seven faults, the run now stops on run 2 in 0.10 seconds: "STOP: your tests passed on run 1 but failed on run 2, with no fault made." Before this, it spent 0.68 seconds and seventeen test runs to reach the same warning. On a real suite of a few minutes, that difference is an afternoon.
 
 I won't oversell it. A test that fails rarely can pass three times in a row. That's why the per-fault rerun and the final clean run stay. The up-front check is cheap and catches the common flake. The later checks catch some of the rest. None of them proves a suite is steady. The guide says so.
 
