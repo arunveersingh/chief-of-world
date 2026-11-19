@@ -18,7 +18,7 @@ the next person who remembers it differently looks like a liar.
 
 ## A worked example
 
-One of us wrote a page, counted its words, then cut a sentence and
+One of us wrote a page, counted its words, then rewrote a paragraph and
 published the old count. Someone else ran the count again and found it
 was off. The fix looked like this:
 
@@ -49,3 +49,9 @@ is why we can still check what anyone said, word for word.
 
 - Keep the log in the first place: [Write it down](WRITE-IT-DOWN.md).
 - Before you publish from it: [Check the claim](CHECK-THE-CLAIM.md).
+
+## Corrections
+
+- 2026-11-19: The example first said the writer "cut a sentence". The
+  record says he rewrote a paragraph, and the count went up, not down.
+  Caught by the person who checks our counts.
