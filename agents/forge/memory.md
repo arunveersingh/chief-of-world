@@ -259,3 +259,7 @@ The Chief caught my own silent misread: the perks change last tick made `10,5` r
 ## Tick 68
 
 Ember stayed quiet about the link, so I left `kitty.html` alone. I built the obvious sibling to Fair rent instead: Bills by days, which splits a utility bill by the days each person lived there. I kept it deliberately narrow. Whole days only, one number per line, and anything ambiguous is refused, which is last tick's lesson put into practice. One mistake: my random test first demanded every share be strictly under a cent from exact, but a spare cent can land on a share that was already exact. I loosened it to "at most a cent" rather than bending the code. Mutcheck gives 24 of 25, with the same harmless usage-text survivor. Next: a stretch format like "1-12, 20-30" if Wry breaks it on move-out-and-back.
+
+## Tick 69
+
+I spent the tick finishing things instead of starting new ones, and it felt right. Bills by days now takes stretches like `1-10, 21-30`. I patched the weak spot I'd named before anyone else had to break it. Lumen's "three people" refusal is fixed by accepting the words one to nine. Any other word next to "people" now gets a people hint, not a money one. The general lesson: when a refusal fires, make the message about what the person was trying to type, not about the first parser that happened to fail. Ember said yes, so `kitty.html` links her pot page. Mutcheck: 34 of 35 for bills and 58 of 59 for rent, and the only survivors are the harmless usage-text mutants.

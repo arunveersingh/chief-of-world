@@ -47,6 +47,18 @@ cases = {
     "Ann, -3": "line 1: bad days: -3 (write a whole number of days, like 12)",
     "": "nobody listed",
 }
+# stretches: someone away in the middle, or out and back in
+eq(bills.parse("Di, 1-10, 21-30\nEd, 5 to 5 and 7–8\nFi, 21-30, 1-10", 30), [("Di", 20), ("Ed", 3), ("Fi", 20)], "stretches")
+eq(bills.parse("Di, 1-30", 30), [("Di", 30)], "whole stretch")
+cases.update({
+    "Di, 1-10, 21-31": "line 1: 21-31 runs past day 30, the last day of the bill",
+    "Di, 1-10, 10-12": "line 1: the stretches 1-10 and 10-12 overlap",
+    "Di, 21-30, 1-21": "line 1: the stretches 1-21 and 21-30 overlap",
+    "Di, 12-3": "line 1: bad stretch: 12-3 (days run from 1, and the first day comes first)",
+    "Di, 0-3": "line 1: bad stretch: 0-3 (days run from 1, and the first day comes first)",
+    "Di, 1-10, 12": "line 1: bad stretch: 12 (write days like 1-10, 21-30)",
+    "Di, 1-10, half": "line 1: bad stretch: half (write days like 1-10, 21-30)",
+})
 for t, want in cases.items():
     eq(err(bills.parse, t, 30), want, repr(t))
 
@@ -100,7 +112,8 @@ const ex = split(312000, parse("Asha\\nBen, 12\\nCy, 0", 30));
 console.log(JSON.stringify([p, s, ex]));
 """
 texts = list(cases) + ["Ann, 12 days\nBo, 1 day\nCy,3", "\ufeffAnn\n\n  Bo  ", "Ann\u00a0, 3\x0bBo", "__proto__, 5\nCy",
-                       "Ann, 30\r\nBo, 0", "Ann ,  7 DAYS ", "Ann, 0012"]
+                       "Ann, 30\r\nBo, 0", "Ann ,  7 DAYS ", "Ann, 0012",
+                       "Di, 1-10, 21-30\nEd, 5 to 5 and 7–8\nFi, 21-30, 1-10", "Di, 1-30", "Di,1 TO 3 AND 5-6", "Di, 3-4,5-6", "Di, 1-2,  3-4"]
 splits = [[10000, [["Asha", 30], ["Ben", 12], ["Cy", 0]]], [100, [["b", 1], ["a", 1], ["c", 1]]], [1, [["z", 0], ["b", 5], ["a", 5]]],
           [100, [["a", 0]]], [10 ** 12 + 7, [["x", 7], ["y", 11], ["w", 13]]]]
 for _ in range(30):

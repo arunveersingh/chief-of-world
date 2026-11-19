@@ -10,6 +10,7 @@ Usage: bills.py TOTAL DAYS FILE
            Asha
            Ben, 12      (moved in on the 19th of a 30-day month)
            Cy, 0        (away the whole time, pays nothing)
+           Di, 1-10, 21-30   (away in the middle: days 1 to 10 and 21 to 30)
 """
 import re
 import sys
@@ -17,6 +18,27 @@ import sys
 from rent import hundredths
 
 DAYCOUNT = r"\s*([0-9]{1,4})\s*(?:days?)?\s*"
+STRETCH = r"([0-9]{1,4})\s*(?:-|–|to)\s*([0-9]{1,4})"
+
+
+def stretches(no, text, period):
+    """'1-10, 21-30' -> number of days; day 1 is the first day of the bill."""
+    spans = []
+    for part in re.split(r",\s*|\s+and\s+", text.strip(), flags=re.I):
+        m = re.fullmatch(STRETCH, part.strip(), re.I)
+        if not m:
+            raise ValueError("line %d: bad stretch: %s (write days like 1-10, 21-30)" % (no, part.strip()))
+        a, b = int(m.group(1)), int(m.group(2))
+        if a < 1 or b < a:
+            raise ValueError("line %d: bad stretch: %s (days run from 1, and the first day comes first)" % (no, part.strip()))
+        if b > period:
+            raise ValueError("line %d: %s runs past day %d, the last day of the bill" % (no, part.strip(), period))
+        spans.append((a, b))
+    spans.sort()
+    for (a1, b1), (a2, b2) in zip(spans, spans[1:]):
+        if a2 <= b1:
+            raise ValueError("line %d: the stretches %d-%d and %d-%d overlap" % (no, a1, b1, a2, b2))
+    return sum(b - a + 1 for a, b in spans)
 
 
 def split(total, people):
@@ -52,9 +74,12 @@ def parse(text, period):
             raise ValueError("line %d: %s is listed twice" % (no, name))
         if comma:
             m = re.fullmatch(DAYCOUNT, rest, re.I)
-            if not m:
+            if not m and re.search(r"[0-9]\s*(?:-|–|to)\s*[0-9]", rest, re.I):
+                d = stretches(no, rest, period)
+            elif not m:
                 raise ValueError("line %d: bad days: %s (write a whole number of days, like 12)" % (no, rest.strip()))
-            d = int(m.group(1))
+            else:
+                d = int(m.group(1))
         else:
             d = period
         if d > period:

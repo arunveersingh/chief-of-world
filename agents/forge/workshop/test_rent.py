@@ -86,6 +86,8 @@ refuses(lambda: rent.parse("Ann, 1\nann, 2"), "ann is listed twice")
 # Wry's and Lumen's finding 1: a couple pays two shares of the shared space only when the page is told
 eq(rent.split(240000, 30, rent.parse("Ann & Bo, 14\nCy, 10")), {"Ann & Bo": 134000, "Cy": 106000}, "couple as one")
 eq(rent.split(240000, 30, rent.parse("Ann & Bo, 14, 2 people\nCy, 10")), {"Ann & Bo": 146000, "Cy": 94000}, "couple as two")
+eq(rent.parse("Ann & Bo, 14, two people\nCy, 10, One person\nDi, 3, people THREE"),
+   [("Ann & Bo", 1400, 0, 2), ("Cy", 1000, 0, 1), ("Di", 300, 0, 3)], "people in words")
 eq(rent.split(240000, 30, rent.parse("Ann, 7\nBo, 7\nCy, 10")), {"Ann": 73000, "Bo": 73000, "Cy": 94000}, "couple split")
 eq(rent.split(10, 100, [("a", 1, 0, 1), ("b", 1, 0, 2)]), {"a": 4, "b": 6}, "people spare")
 eq(rent.split(9, 100, [("a", 1, 0, 2), ("b", 1, 0, 1)]), {"a": 6, "b": 3}, "people share")
@@ -105,7 +107,9 @@ for text, frag in [("Ann 12", "line 1: write it as"), (", 12", "write it as"),
                    ("Ann, 0", "size 0"), ("Ann, 1, lots", "line 1: bad extra"),
                    ("Ann, 1 2", "bad room size"), ("Ann, 1.2.3", "bad room size"), ("Ann, 1, 2, 3", "only one extra"),
                    ("Ann, 14 m2\nBo, 150 sq ft", "line 2: Bo's room is in square feet but Ann's is in square metres"),
-                   ("Ann, 14 parsecs", "write 14, 9.5"), ("Ann, 14, 0 people", "at least 1 person"),
+                   ("Ann, 14 parsecs", "write 14, 9.5"), ("Ann, 14, 0 people", "at least 1 person"), ("Ann, 14, zero people", "at least 1 person"),
+                   ("Ann, 14, twelve people", "bad number of people: twelve people (write it like 2 people or two people)"),
+                   ("Ann, 14, a few people", "bad number of people"), ("Ann, 14, 2 persons, +5, 3 people", "people given twice"),
                    ("Ann, 14, 2 people, people 3", "people given twice"), ("Ann, m2", "bad room size"),
                    ("Ann, 14, 1,00,000", None)]:
     refuses(lambda t=text: rent.parse(t), frag)
@@ -168,7 +172,9 @@ texts = ["Ann 12", "Ann, 12\n12, 4", "Ann, 1\nAnn, 2", "Ann, big", "Ann, 0", "An
          "Ed & Flo, 9, 2 people, extra 5\nGus, 3, people 3", "Ann, 10,5", "Ann, 10,50", "Ann, 1,200,50",
          "A, 14 m2\nB, 9.5m²\nC, 10 sqm\nD, 3 sq. m\nE, 2 square metres", "A, 150 sq ft\nB, 1,200 ft²\nC, 99sqft\nD, 3 SQUARE FEET",
          "Ann, 14 m2\nBo, 150 sq ft", "\ufeffAsha, 14\nAsha, 10", "Ann, 1\nann, 2", "Ann, 14, 0 people",
-         "Ann, 14, 2 people, people 3", "Ann, 14 parsecs", "Ann\u00a0, 3\x0bBo, 4", "__proto__, 5\nCy, 5"]
+         "Ann, 14, 2 people, people 3", "Ann, 14 parsecs", "Ann\u00a0, 3\x0bBo, 4", "__proto__, 5\nCy, 5",
+         "Ann & Bo, 14, two people\nCy, 10, One person\nDi, 3, people THREE", "Ann, 14, twelve people", "Ann, 14, a few people",
+         "Ann, 14, zero people", "Ann, 14, +5, peoples 2", "Ann, 14, nine persons"]
 amts = ["2400", "1,850.50", " $9.5 ", "₹12,000", "12,00", "١٢", "1.234", "₹1,00,000", "12,34,567.5", "1,00", "1,0,000"]
 r = subprocess.run([node, "-e", js.replace("@CASES@", json.dumps(cases)).replace("@TEXTS@", json.dumps(texts)).replace("@AMTS@", json.dumps(amts))],
                    capture_output=True, text=True, timeout=30)

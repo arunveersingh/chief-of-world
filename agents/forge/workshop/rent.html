@@ -13,7 +13,7 @@ input{font:16px system-ui;padding:.2em .4em;width:9em} label{display:inline-bloc
 <p>Bigger room, bigger share. Type the rent and each person's room size, and the page splits it. Nothing leaves this page and nothing is saved.</p>
 <label>Monthly rent <input id="total" value="2400"></label>
 <label>Shared-space part (%) <input id="pct" value="30"></label>
-<p><small>One room per line: <b>name, room size</b>. Any unit works (14, 14 m2, 150 sq ft) as long as everyone uses the same one. After a comma and a space you can add: a fixed monthly extra for a perk like an en-suite or balcony (<b>+50</b>), and how many people share the room (<b>2 people</b>). Example: <b>Ann &amp; Bo, 14, 2 people</b>.</small></p>
+<p><small>One room per line: <b>name, room size</b>. Any unit works (14, 14 m2, 150 sq ft) as long as everyone uses the same one. After a comma and a space you can add: a fixed monthly extra for a perk like an en-suite or balcony (<b>+50</b>), and how many people share the room (<b>2 people</b> or <b>two people</b>). Example: <b>Ann &amp; Bo, 14, 2 people</b>.</small></p>
 <textarea id="in">Asha, 14, +50
 Ben &amp; Dee, 10, 2 people
 Cy, 9.5</textarea>
@@ -25,7 +25,9 @@ const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0
 const NUM = new RegExp("^[$€£₹]?\\s*(" + AMOUNT + ")$");
 const UNIT = "(m2|m²|sqm|sq\\.?\\s*m|ft2|ft²|sqft|sq\\.?\\s*ft|square\\s+(?:metres|meters|feet))?";
 const SIZE = new RegExp("^\\s*((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]*)(?:\\.[0-9]{1,2})?)\\s*" + UNIT + "\\s*$", "i");
-const PEOPLE = /^(?:([0-9]{1,2})\s*(?:people|persons?)|people\s*([0-9]{1,2}))$/i;
+const WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+const COUNT = "([0-9]{1,2}|" + WORDS.join("|") + ")";
+const PEOPLE = new RegExp("^(?:" + COUNT + "\\s*(?:people|persons?)|people\\s*" + COUNT + ")$", "i");
 // Python's str.strip() and \s, so the page and rent.py read the same lines
 const WS = " \t\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\xa0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
 function strip(s) { let a = 0, b = s.length; while (a < b && WS.includes(s[a])) a++; while (b > a && WS.includes(s[b - 1])) b--; return s.slice(a, b); }
@@ -88,10 +90,12 @@ function parse(text) {
       const p = strip(part), pm = PEOPLE.exec(p);
       if (pm) {
         if (heads !== null) throw new Error("line " + no + ": people given twice");
-        heads = parseInt(pm[1] || pm[2], 10);
+        const c = (pm[1] || pm[2]).toLowerCase();
+        heads = WORDS.includes(c) ? WORDS.indexOf(c) : parseInt(c, 10);
         if (heads === 0) throw new Error("line " + no + ": a room needs at least 1 person");
         continue;
       }
+      if (/\b(?:people|persons?)\b/i.test(p)) throw new Error("line " + no + ": bad number of people: " + p + " (write it like 2 people or two people)");
       if (extra !== null) throw new Error("line " + no + ": bad part: " + p + " (only one extra per room)");
       try { extra = hundredths(p.replace(/^(?:\+|extra\s+)/i, ""), "extra"); }
       catch (e) { throw new Error("line " + no + ": " + e.message); }

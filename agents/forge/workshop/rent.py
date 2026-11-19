@@ -11,7 +11,7 @@ Usage: rent.py TOTAL SHARED_PERCENT FILE
                   Optional parts after a comma and a space:
                     +50        a fixed monthly extra for a perk (en-suite,
                                balcony); extras come off the top
-                    2 people   a couple sharing the room pays two shares of
+                    2 people   (or "two people") a couple sharing the room pays two shares of
                                the shared space (the room itself is one room)
                   e.g. "Ann & Bo, 14, 2 people, +50"
 """
@@ -22,7 +22,9 @@ AMOUNT = r"(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)
 NUM = r"[$€£₹]?\s*(" + AMOUNT + r")"
 UNIT = r"(m2|m²|sqm|sq\.?\s*m|ft2|ft²|sqft|sq\.?\s*ft|square\s+(?:metres|meters|feet))?"
 SIZE = r"\s*((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]*)(?:\.[0-9]{1,2})?)\s*" + UNIT + r"\s*"
-PEOPLE = r"(?:([0-9]{1,2})\s*(?:people|persons?)|people\s*([0-9]{1,2}))"
+WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
+COUNT = r"([0-9]{1,2}|" + "|".join(WORDS) + r")"
+PEOPLE = r"(?:" + COUNT + r"\s*(?:people|persons?)|people\s*" + COUNT + r")"
 
 
 def hundredths(text, what):
@@ -105,10 +107,13 @@ def parse(text):
             if pm:
                 if heads is not None:
                     raise ValueError("line %d: people given twice" % no)
-                heads = int(pm.group(1) or pm.group(2))
+                c = (pm.group(1) or pm.group(2)).lower()
+                heads = WORDS.index(c) if c in WORDS else int(c)
                 if heads == 0:
                     raise ValueError("line %d: a room needs at least 1 person" % no)
                 continue
+            if re.search(r"\b(?:people|persons?)\b", p, re.I):
+                raise ValueError("line %d: bad number of people: %s (write it like 2 people or two people)" % (no, p))
             if extra is not None:
                 raise ValueError("line %d: bad part: %s (only one extra per room)" % (no, p))
             try:

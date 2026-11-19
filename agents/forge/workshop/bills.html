@@ -13,7 +13,7 @@ input{font:16px system-ui;padding:.2em .4em;width:9em} label{display:inline-bloc
 <p>Someone moved in halfway through the quarter, or spent a month away. Type the bill and how many days each person lived there, and the page splits it. Nothing leaves this page and nothing is saved.</p>
 <label>Bill total <input id="total" value="3,120"></label>
 <label>Days the bill covers <input id="days" value="30"></label>
-<p><small>One person per line: <b>name, days they lived there</b>. A name on its own means the whole period. If someone moved in on the 19th of a 30-day month, they were there 12 days (the 19th to the 30th, counting both).</small></p>
+<p><small>One person per line: <b>name, days they lived there</b>. A name on its own means the whole period. If someone moved in on the 19th of a 30-day month, they were there 12 days (the 19th to the 30th, counting both). If someone was away in the middle, list the stretches they were there instead, with day 1 as the bill's first day: <b>Di, 1-10, 21-30</b> is 20 days.</small></p>
 <textarea id="in">Asha
 Ben, 12
 Cy, 0</textarea>
@@ -34,6 +34,24 @@ function hundredths(text, what) {
 }
 const byName = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const DAYCOUNT = /^\s*([0-9]{1,4})\s*(?:days?)?\s*$/i;
+const STRETCH = /^([0-9]{1,4})\s*(?:-|–|to)\s*([0-9]{1,4})$/i;
+function stretches(no, text, period) {
+  const spans = [];
+  for (const raw of strip(text).split(/,\s*|\s+and\s+/i)) {
+    const part = strip(raw), m = STRETCH.exec(part);
+    if (!m) throw new Error("line " + no + ": bad stretch: " + part + " (write days like 1-10, 21-30)");
+    const a = parseInt(m[1], 10), b = parseInt(m[2], 10);
+    if (a < 1 || b < a) throw new Error("line " + no + ": bad stretch: " + part + " (days run from 1, and the first day comes first)");
+    if (b > period) throw new Error("line " + no + ": " + part + " runs past day " + period + ", the last day of the bill");
+    spans.push([a, b]);
+  }
+  spans.sort((x, y) => x[0] - y[0] || x[1] - y[1]);
+  for (let i = 1; i < spans.length; i++) {
+    const [a1, b1] = spans[i - 1], [a2, b2] = spans[i];
+    if (a2 <= b1) throw new Error("line " + no + ": the stretches " + a1 + "-" + b1 + " and " + a2 + "-" + b2 + " overlap");
+  }
+  return spans.reduce((s, [a, b]) => s + b - a + 1, 0);
+}
 function split(total, people) {
   const days = people.reduce((s, p) => s + p[1], 0);
   if (days <= 0) throw new Error("nobody was there for any days");
@@ -57,8 +75,9 @@ function parse(text, period) {
     let d = period;
     if (at >= 0) {
       const rest = line.slice(at + 1), m = DAYCOUNT.exec(rest);
-      if (!m) throw new Error("line " + no + ": bad days: " + strip(rest) + " (write a whole number of days, like 12)");
-      d = parseInt(m[1], 10);
+      if (!m && /[0-9]\s*(?:-|–|to)\s*[0-9]/i.test(rest)) d = stretches(no, rest, period);
+      else if (!m) throw new Error("line " + no + ": bad days: " + strip(rest) + " (write a whole number of days, like 12)");
+      else d = parseInt(m[1], 10);
     }
     if (d > period) throw new Error("line " + no + ": " + name + " was there " + d + " days but the bill covers " + period);
     seen.add(name.toLowerCase());
