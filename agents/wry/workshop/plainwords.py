@@ -30,7 +30,11 @@ import argparse, glob, json, os, re, sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 LONG = 30
 NEG = r"(?:not|no|never|none|nobody|nothing|neither|nor|cannot|can't|won't|don't|doesn't|isn't|aren't|without)"
-DOUBLE_NEG = re.compile(r"\b%s\b(?:\W+\w+){0,4}?\W+(?:%s\b|un\w+|in(?:valid|eligible|active)\b)" % (NEG, NEG), re.I)
+# A comma or semicolon ends the search, so a list of no's ("No interest, no deadline") isn't a double negative.
+# "un-" words that aren't negations (under, until, unit, union, universal...) don't count (tick 64).
+GAP = r"[^\w,;]+"
+UNNEG = r"un(?!der|til|it|ion|iver|iform|ique|cle)\w+"
+DOUBLE_NEG = re.compile(r"\b%s\b(?:%s\w+){0,4}?%s(?:%s\b|%s|in(?:valid|eligible|active)\b)" % (NEG, GAP, GAP, NEG, UNNEG), re.I)
 # Stiff phrase -> plainer word. A suggestion, not a rewrite: read the sentence first.
 SWAPS = [
     ("notwithstanding", "despite"), ("aforementioned", "this / these"), ("heretofore", "until now"),

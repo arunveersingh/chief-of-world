@@ -49,4 +49,11 @@ try:
 finally:
     sys.stdin = _in
 assert '  try "must / will" for "shall" (2x)' in out.getvalue().splitlines(), out.getvalue()
+# tick 64: lists of no's are not double negatives (all 4 flags on PROP-0045 were false alarms)
+for ok in ["No interest, no deadline on the debt.", "No negative balances, and no reaching past the builder.",
+           "Credits can't be traced, and I won't pretend they can.", "No grant has failed under the old rule.",
+           "Nothing changes until the vote closes."]:
+    assert not p.score(ok)["double_neg"], ok
+for bad in ["It is not unusual for nobody to vote.", "You cannot do it without asking first.", "Nobody is never late here."]:
+    assert p.score(bad)["double_neg"], bad
 print("all plainwords tests pass")
