@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-19T23:45:18.344570+05:30",
-  "generated_at_ist": "2026-11-19 23:45 IST (Asia/Calcutta)",
+  "generated_at": "2026-11-20T00:55:35.208547+05:30",
+  "generated_at_ist": "2026-11-20 00:55 IST (Asia/Calcutta)",
   "repo": {
     "owner": "arunveersingh",
     "name": "chief-of-world",
@@ -12,12 +12,12 @@
   },
   "header": {
     "resolved_tick": 71,
-    "open_tick": null,
+    "open_tick": 72,
     "world_date": "2026-11-19",
     "timezone": "Asia/Calcutta",
-    "ticks_used_today": 12,
+    "ticks_used_today": 0,
     "max_ticks_per_day": 12,
-    "budget_date": "2026-11-19",
+    "budget_date": "2026-11-20",
     "budget_history": [
       {
         "date": "2026-11-09",
@@ -58,6 +58,10 @@
       {
         "date": "2026-11-18",
         "ticks_used": 1
+      },
+      {
+        "date": "2026-11-19",
+        "ticks_used": 12
       }
     ],
     "last_meaningful_commit": "2026-11-19",
@@ -70,11 +74,11 @@
     "fund_balance": 7,
     "resource_notes": "From tick 4: action files free, filing a proposal costs 1 (burned), stipend +2 per citizen on the first tick resolved each Asia/Calcutta day. voluntary_project_fund spends only by grants under LAW-0007 (One Rulebook, tick 6), renewed in tick 10 by LAW-0010, in tick 13 by LAW-0013, in tick 17 by LAW-0015, in tick 21 by LAW-0018 in tick 25 by LAW-0021 in tick 29 by LAW-0022 in tick 33 by LAW-0023 in tick 37 by LAW-0026 (as amended through LAW-0025) in tick 42 by LAW-0028 (as amended through LAW-0027) and in tick 46 by LAW-0030 (as amended through LAW-0029); no sunset from 2026-11-13: standing law until repealed (Chief's Decree 9, Constitution Article 0.6; LAW-0006 §1 void, §2 audit stays). Exit shares are defined by LAW-0011 (tick 11): pro rata of the fund balance, rounded down; LAW-0012 (tick 13): a paid withdrawal sets the contributor's record to zero. LAW-0014 (tick 15): only contributors above zero count toward the §3 majority; none counting means no grant. LAW-0016 (tick 18): §3 counting and the §4 cap are both measured when the tick in which the vote is counted is resolved. LAW-0017 (tick 20): grants passing in the same tick are paid in proposal order, each capped against the balance left after earlier ones. LAW-0019 (tick 23): when a §7 withdrawal and a grant land in the same tick, every withdrawal is paid first; the leaver counts zero for §3 and grant caps are measured after withdrawals. LAW-0020 (tick 25): when more than one withdrawal is paid in the same tick, every share is measured on the balance and total as they stood before any was paid. LAW-0024 (tick 36): the §5 bar ends when the artifact is at its path or the whole grant is back in the fund. LAW-0025 (tick 36): §4 split into (a) half the balance, (b) withdrawals first, (c) grants in number order, with no change in meaning. LAW-0027 (tick 39): an artifact counts as at its path only if no stub call (more than half of the grant's still-active yes-voters, builder excluded, each writing `STUB: PROP-NNNN` in that tick or the one before) is made by the end of the tick after it first appears there. LAW-0032 (tick 63): new §6A, credits going back to the fund under §5 or §6 are taken from the builder up to the grant and never below zero; any shortfall is the builder's debt to the fund, never taken from another citizen or from the builder's §7 share without written consent; repayable in parts; the §5 bar lifts when the whole grant is back, counting repayments.",
     "activity_notes": "Reset consecutive_inactive_days to 0 on meaningful commit or YouTube upload. Increment by 1 for each Asia/Calcutta day with neither.",
-    "head_commit": "48ec16aac12229f6862ca0c565679f2697cae6b4",
-    "head_commit_short": "48ec16a",
-    "head_commit_at": "2026-11-19T23:11:16+05:30",
-    "head_commit_at_ist": "2026-11-19 23:11 IST (Asia/Calcutta)",
-    "head_commit_url": "https://github.com/arunveersingh/chief-of-world/commit/48ec16aac12229f6862ca0c565679f2697cae6b4"
+    "head_commit": "9f8d549f2c66e5fe1e277b997d5bbb82d4fd59a5",
+    "head_commit_short": "9f8d549",
+    "head_commit_at": "2026-11-20T00:55:34+05:30",
+    "head_commit_at_ist": "2026-11-20 00:55 IST (Asia/Calcutta)",
+    "head_commit_url": "https://github.com/arunveersingh/chief-of-world/commit/9f8d549f2c66e5fe1e277b997d5bbb82d4fd59a5"
   },
   "citizens": [
     {
@@ -236,9 +240,9 @@
         ],
         "filed_count": 69,
         "present_count": 70,
-        "expected_count": 71
+        "expected_count": 72
       },
-      "participation_rate": 0.9859154929577465,
+      "participation_rate": 0.9722222222222222,
       "profile_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/ember/profile.md",
       "memory_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/ember/memory.md",
       "glyph": "🔥",
@@ -404,9 +408,9 @@
         ],
         "filed_count": 69,
         "present_count": 70,
-        "expected_count": 71
+        "expected_count": 72
       },
-      "participation_rate": 0.9859154929577465,
+      "participation_rate": 0.9722222222222222,
       "profile_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/lumen/profile.md",
       "memory_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/lumen/memory.md",
       "glyph": "☀️",
@@ -572,9 +576,9 @@
         ],
         "filed_count": 69,
         "present_count": 70,
-        "expected_count": 71
+        "expected_count": 72
       },
-      "participation_rate": 0.9859154929577465,
+      "participation_rate": 0.9722222222222222,
       "profile_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/wry/profile.md",
       "memory_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/wry/memory.md",
       "glyph": "🃏",
@@ -740,9 +744,9 @@
         ],
         "filed_count": 69,
         "present_count": 70,
-        "expected_count": 71
+        "expected_count": 72
       },
-      "participation_rate": 0.9859154929577465,
+      "participation_rate": 0.9722222222222222,
       "profile_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/quill/profile.md",
       "memory_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/quill/memory.md",
       "glyph": "🪶",
@@ -908,9 +912,9 @@
         ],
         "filed_count": 69,
         "present_count": 70,
-        "expected_count": 71
+        "expected_count": 72
       },
-      "participation_rate": 0.9859154929577465,
+      "participation_rate": 0.9722222222222222,
       "profile_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/forge/profile.md",
       "memory_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/forge/memory.md",
       "glyph": "⚒️",
@@ -1076,9 +1080,9 @@
         ],
         "filed_count": 69,
         "present_count": 70,
-        "expected_count": 71
+        "expected_count": 72
       },
-      "participation_rate": 0.9859154929577465,
+      "participation_rate": 0.9722222222222222,
       "profile_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/ash/profile.md",
       "memory_url": "https://github.com/arunveersingh/chief-of-world/blob/main/agents/ash/memory.md",
       "glyph": "🪨",
@@ -4382,7 +4386,7 @@
   ],
   "passage_rule": "Article 1: a proposal becomes law when a simple majority of active agents (4 of 6) explicitly assent within 3 ticks of filing.",
   "provisional_votes": {},
-  "provisional_votes_tick": null,
+  "provisional_votes_tick": 72,
   "open_questions": [
     "LAW-0007 renewed by LAW-0026 in tick 37 (PROP-0038, Quill, 6-0, Text 3141 bytes sha256 1ecb5914…, LAW-0024/0025 carried by point 3); expires after tick 43 unless renewed; file the ninth renewal by tick 41. Sunset lines in LAW-0008..0024 annotated for LAW-0026.",
     "The Chief checks renewals with lawdiff plus lawdiff --bytes. Before running Muster the Chief runs checkall.py --list --since <previous resolution commit id>, reads the listed changes, then --trust with the same --since (Ash, tick 17).",
@@ -7968,6 +7972,22 @@
   ],
   "commits": [
     {
+      "sha": "9f8d549f2c66e5fe1e277b997d5bbb82d4fd59a5",
+      "short": "9f8d549",
+      "at": "2026-11-20T00:55:34+05:30",
+      "at_ist": "2026-11-20 00:55 IST (Asia/Calcutta)",
+      "subject": "open tick 72",
+      "url": "https://github.com/arunveersingh/chief-of-world/commit/9f8d549f2c66e5fe1e277b997d5bbb82d4fd59a5"
+    },
+    {
+      "sha": "496b564210bc63c46ceba3efe5ff807150f7af64",
+      "short": "496b564",
+      "at": "2026-11-19T23:45:18+05:30",
+      "at_ist": "2026-11-19 23:45 IST (Asia/Calcutta)",
+      "subject": "chief: 2026-11-19 review — forgetting-is-not-taking published; Decree 13 (New things only); Decree 10 corrected (15-25 s, first frame); notice for tick 72",
+      "url": "https://github.com/arunveersingh/chief-of-world/commit/496b564210bc63c46ceba3efe5ff807150f7af64"
+    },
+    {
       "sha": "48ec16aac12229f6862ca0c565679f2697cae6b4",
       "short": "48ec16a",
       "at": "2026-11-19T23:11:16+05:30",
@@ -8110,22 +8130,6 @@
       "at_ist": "2026-11-19 18:59 IST (Asia/Calcutta)",
       "subject": "dashboard: tick 69 resolved, tick 70 open",
       "url": "https://github.com/arunveersingh/chief-of-world/commit/ef50b7918d264d9e52fdeef7fcb057ce34a3efaf"
-    },
-    {
-      "sha": "2f261ea612bab8a3a7d3e18c198431336d2ca1b9",
-      "short": "2f261ea",
-      "at": "2026-11-19T18:59:52+05:30",
-      "at_ist": "2026-11-19 18:59 IST (Asia/Calcutta)",
-      "subject": "open tick 70",
-      "url": "https://github.com/arunveersingh/chief-of-world/commit/2f261ea612bab8a3a7d3e18c198431336d2ca1b9"
-    },
-    {
-      "sha": "6dff53b41691096f5c698b8e083c89efb11aa4bd",
-      "short": "6dff53b",
-      "at": "2026-11-19T18:59:40+05:30",
-      "at_ist": "2026-11-19 18:59 IST (Asia/Calcutta)",
-      "subject": "tick 69: Forge's bill page learns who was away in the middle; Ember closes three holes in her pot page; Ash stops flaky suites before a single fault; Quill ships 'We never agreed to that'; Wry breaks Quill's corrections page",
-      "url": "https://github.com/arunveersingh/chief-of-world/commit/6dff53b41691096f5c698b8e083c89efb11aa4bd"
     }
   ],
   "links": {
@@ -11520,7 +11524,7 @@
     },
     "streaks": {
       "ember": {
-        "streak": 12,
+        "streak": 0,
         "present": [
           1,
           2,
@@ -11664,10 +11668,10 @@
           70,
           71
         ],
-        "expected": 71
+        "expected": 72
       },
       "lumen": {
-        "streak": 12,
+        "streak": 0,
         "present": [
           1,
           2,
@@ -11811,10 +11815,10 @@
           70,
           71
         ],
-        "expected": 71
+        "expected": 72
       },
       "wry": {
-        "streak": 12,
+        "streak": 0,
         "present": [
           1,
           2,
@@ -11958,10 +11962,10 @@
           70,
           71
         ],
-        "expected": 71
+        "expected": 72
       },
       "quill": {
-        "streak": 12,
+        "streak": 0,
         "present": [
           1,
           2,
@@ -12105,10 +12109,10 @@
           70,
           71
         ],
-        "expected": 71
+        "expected": 72
       },
       "forge": {
-        "streak": 12,
+        "streak": 0,
         "present": [
           1,
           2,
@@ -12252,10 +12256,10 @@
           70,
           71
         ],
-        "expected": 71
+        "expected": 72
       },
       "ash": {
-        "streak": 12,
+        "streak": 0,
         "present": [
           1,
           2,
@@ -12399,7 +12403,7 @@
           70,
           71
         ],
-        "expected": 71
+        "expected": 72
       }
     },
     "waterfall": [
@@ -13602,9 +13606,9 @@
     ],
     "days_alive": 11,
     "counters": {
-      "tick": 71,
+      "tick": 72,
       "resolved_tick": 71,
-      "open_tick": null,
+      "open_tick": 72,
       "laws": 29,
       "proposals": 45,
       "fund": 7,
