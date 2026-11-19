@@ -13,14 +13,15 @@ input{font:16px system-ui;padding:.2em .4em;width:9em} label{display:inline-bloc
 <p>Bigger room, bigger share. Type the rent and each person's room size, and the page splits it. Nothing leaves this page and nothing is saved.</p>
 <label>Monthly rent <input id="total" value="2400"></label>
 <label>Shared-space part (%) <input id="pct" value="30"></label>
-<p><small>One person per line: <b>name, room size</b>. Any unit works (square metres, square feet, paces) as long as everyone uses the same one.</small></p>
-<textarea id="in">Asha, 14
+<p><small>One person per line: <b>name, room size</b>. Any unit works (square metres, square feet, paces) as long as everyone uses the same one. Someone gets a perk, like a private bathroom or a balcony? Add a fixed monthly extra after a comma and a space: <b>Asha, 14, 50</b>.</small></p>
+<textarea id="in">Asha, 14, 50
 Ben, 10
 Cy, 9.5</textarea>
 <h2>Each person pays</h2><div id="out"></div>
-<p><small>How it works: the shared-space part pays for rooms everyone uses (kitchen, living room, hall), so it is split equally. The rest is split in proportion to room size. Amounts are worked out in whole cents; any spare cents go one each to people in alphabetical order, so the shares always add up to the full rent. Try 0% to split purely by size, or 100% to split equally.</small></p>
+<p><small>How it works: the shared-space part pays for rooms everyone uses (kitchen, living room, hall), so it is split equally. The rest is split in proportion to room size. Amounts are worked out in whole cents; any spare cents go one each to people in alphabetical order, so the shares always add up to the full rent. Extras are paid on top by the person with the perk, so they come off the rent before the split. Try 0% to split purely by size, or 100% to split equally.</small></p>
 <script>
 // LOGIC START: kept identical in meaning to rent.py (hundredths, split, parse)
+const ROW = /^\s*((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]*)(?:\.[0-9]*)?)\s*(?:,(.*))?$/;
 const NUM = /^[$€£₹]?\s*((?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]*)(?:\.[0-9]{1,2})?)$/;
 function hundredths(text, what) {
   const t = text.trim(), m = NUM.exec(t);
@@ -34,13 +35,19 @@ function split(total, pct, rooms) {
   if (!(pct >= 0 && pct <= 100)) throw new Error("shared percent must be 0 to 100");
   const area = rooms.reduce((s, r) => s + r[1], 0);
   if (area <= 0) throw new Error("room sizes add up to zero");
+  const extras = {};
+  for (const r of rooms) extras[r[0]] = r[2] || 0;
+  const extraSum = Object.values(extras).reduce((a, b) => a + b, 0);
+  if (extraSum > total) throw new Error("the extras add up to more than the rent");
+  const rest = total - extraSum;
   // BigInt so big rents never lose a cent to floating point
-  const T = BigInt(total), A = BigInt(area), shared = T * BigInt(pct) / 100n, bySize = T - shared;
+  const T = BigInt(rest), A = BigInt(area), shared = T * BigInt(pct) / 100n, bySize = T - shared;
   const n = BigInt(rooms.length), out = {};
   for (const [name, s] of rooms) out[name] = Number(shared / n + bySize * BigInt(s) / A);
   const names = rooms.map(r => r[0]).sort(byName);
-  let spare = total - Object.values(out).reduce((a, b) => a + b, 0);
+  let spare = rest - Object.values(out).reduce((a, b) => a + b, 0);
   for (let i = 0; spare > 0; i++, spare--) out[names[i % names.length]] += 1;
+  for (const n in out) out[n] += extras[n];
   return out;
 }
 function parse(text) {
@@ -52,11 +59,15 @@ function parse(text) {
     if (at < 0 || !name) throw new Error("line " + no + ": write it as: name, room size: " + line);
     if (/^[0-9.,]+$/.test(name)) throw new Error("line " + no + ": " + name + " looks like a number, not a name");
     if (seen.has(name)) throw new Error("line " + no + ": " + name + " is listed twice");
-    let s;
-    try { s = hundredths(line.slice(at + 1), "room size"); }
-    catch (e) { throw new Error("line " + no + ": " + e.message); }
+    const size = line.slice(at + 1), m = ROW.exec(size);
+    let s, extra = 0;
+    try {
+      if (!m) throw new Error("bad room size: " + size.trim() + " (write 14 or 1,200)");
+      s = hundredths(m[1], "room size");
+      if (m[2] !== undefined) extra = hundredths(m[2], "extra");
+    } catch (e) { throw new Error("line " + no + ": " + e.message); }
     if (s === 0) throw new Error("line " + no + ": " + name + " has a room of size 0");
-    seen.add(name); rooms.push([name, s]);
+    seen.add(name); rooms.push([name, s, extra]);
   });
   return rooms;
 }
@@ -71,7 +82,8 @@ function run() {
     const total = hundredths(document.getElementById("total").value, "rent");
     const rooms = parse(document.getElementById("in").value);
     const sh = split(total, parseInt(pctText, 10), rooms);
-    out.innerHTML = rooms.map(([n]) => '<div class="pay">' + esc(n) + " pays " + money(sh[n]) + "</div>").join("");
+    out.innerHTML = rooms.map(([n, , x]) => '<div class="pay">' + esc(n) + " pays " + money(sh[n]) +
+      (x ? " <small>(includes " + money(x) + " extra)</small>" : "") + "</div>").join("");
   } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
 }
 for (const id of ["total", "pct", "in"]) document.getElementById(id).addEventListener("input", run);

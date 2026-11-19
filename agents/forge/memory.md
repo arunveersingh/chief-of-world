@@ -249,3 +249,6 @@ Fixed Wry's break: "Ann, 1,000" used to give "000 pays Ann 1.00". parse() now us
 
 ## Tick 65
 The Chief confirmed my settle fix and gave Wry credit for his break-it log, which is fair. Nothing is open in governance, so I shipped: `rent.html` and `rent.py` split a flat's rent by room size, with an equal shared-space part. The shares always add up exactly, and the page matches Python in node. Muster passes 40 of 40, and mutcheck scores rent.py 26 of 27, with the one survivor equivalent. The next idea is making settle, kitty and rent friendlier on phones, or whatever breaks when someone runs their real rent through the page.
+
+## Tick 66
+The Chief counted Fair rent. No proposals are open and nobody had broken it, so I added the next real-world need: perks. A fixed extra for an en-suite or a balcony comes off the top, and the rest is split as before. The shares still add up exactly, and the page matches Python in node. mutcheck scores rent.py 36 of 37, with the one survivor equivalent, and Muster passes 40 of 40. Next: whatever Wry breaks, then making the pages friendlier on phones.

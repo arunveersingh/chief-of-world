@@ -54,12 +54,34 @@ for _ in range(80):
                 assert sh[a] >= sh[b] - 1, (a, b, sh)
     cases.append([total, pct, rooms, sh])
 
+# random flats with perks: still adds up, nobody below their extra
+for _ in range(60):
+    n = rng.randint(1, 6)
+    total = rng.randint(0, 10**7)
+    rooms = [("p%d" % i, rng.randint(1, 4000), rng.randint(0, total // (2 * n) + 1)) for i in range(n)]
+    if sum(r[2] for r in rooms) > total:
+        continue
+    sh = rent.split(total, rng.randint(0, 100), rooms)
+    eq(sum(sh.values()), total, "adds up with perks")
+    assert all(sh[r[0]] >= r[2] for r in rooms)
+    cases.append([total, rng.randint(0, 100), rooms, None])
+cases = [[t_, p_, r_, rent.split(t_, p_, r_)] for t_, p_, r_, _ in cases]
+
 # parsing
-eq(rent.parse("\n Ann , 12.5 \n\nBo,$3\n"), [("Ann", 1250), ("Bo", 300)], "parse")
+eq(rent.parse("\n Ann , 12.5 \n\nBo,3\n"), [("Ann", 1250, 0), ("Bo", 300, 0)], "parse")
+# perks: an extra after a comma and a space; 1,200 stays one size
+eq(rent.parse("Ann, 14, 50\nBo, 1,200\nCy, 10,50\nDi, 2, $1,000.5"),
+   [("Ann", 1400, 5000), ("Bo", 120000, 0), ("Cy", 1000, 5000), ("Di", 200, 100050)], "parse extras")
+ex2 = rent.split(240000, 30, rent.parse("Asha, 14, 50\nBen, 10\nCy, 9.5\n"))
+eq(ex2, {"Asha": 97247, "Ben": 72604, "Cy": 70149}, "page example with a perk")
+eq(rent.split(1000, 0, [("a", 1, 200), ("b", 1, 0)]), {"a": 600, "b": 400}, "extra on top")
+eq(rent.split(1000, 50, [("a", 1, 1000), ("b", 3, 0)]), {"a": 1000, "b": 0}, "extras take it all")
+refuses(lambda: rent.split(1000, 0, [("a", 1, 600), ("b", 1, 401)]), "more than the rent")
 for text, frag in [("Ann 12", "line 1: write it as"), (", 12", "write it as"),
                    ("Ann, 12\n12, 4", "line 2: 12 looks like a number"),
                    ("Ann, 1\nAnn, 2", "listed twice"), ("Ann, big", "line 1: bad room size"),
-                   ("Ann, 0", "size 0"), ("Ann, 1, 2", "bad room size")]:
+                   ("Ann, 0", "size 0"), ("Ann, 1, lots", "line 1: bad extra"),
+                   ("Ann, 1 2", "bad room size"), ("Ann, 1.2.3", "bad room size"), ("Ann, 1, 2, 3", "bad extra")]:
     refuses(lambda t=text: rent.parse(t), frag)
 
 # CLI
@@ -69,6 +91,12 @@ with tempfile.TemporaryDirectory() as d:
     run = lambda *a: subprocess.run([sys.executable, os.path.join(HERE, "rent.py"), *a], capture_output=True, text=True)
     r = run("2400", "30", p)
     eq((r.returncode, r.stdout), (0, "Asha pays 942.09\nBen pays 741.50\nCy pays 716.41\n"), "cli ok")
+    open(p, "w").write("Asha, 14, 50\nBen, 10\nCy, 9.5\n")
+    r = run("2400", "30", p)
+    eq(r.stdout, "Asha pays 972.47 (includes 50.00 extra)\nBen pays 726.04\nCy pays 701.49\n", "cli perk")
+    open(p, "w").write("Asha, 1, 3000\n")
+    r = run("2400", "30", p)
+    eq(r.returncode, 1, "cli over"); assert "more than the rent" in r.stderr
     r = run("lots", "30", p)
     eq(r.returncode, 1, "cli err"); assert "rent: bad rent" in r.stderr and "Traceback" not in r.stderr, r.stderr
     r = run("2400", "x", p)
@@ -88,20 +116,25 @@ logic = page.split("// LOGIC START", 1)[1].split("\n", 1)[1].split("// LOGIC END
 js = logic + """
 const cases = @CASES@, out = [];
 for (const [t, p, rooms, want] of cases) out.push(split(t, p, rooms));
-const errs = @TEXTS@.map(t => { try { parse(t); return null; } catch (e) { return e.message; } });
+const errs = @TEXTS@.map(t => { try { return parse(t); } catch (e) { return e.message; } });
 const amts = @AMTS@.map(t => { try { return hundredths(t, "rent"); } catch (e) { return e.message; } });
-console.log(JSON.stringify([out, errs, amts, split(240000, 30, parse("Asha, 14\\nBen, 10\\nCy, 9.5"))]));
+const ex2 = split(240000, 30, parse("Asha, 14, 50\\nBen, 10\\nCy, 9.5"));
+let over = null; try { split(1000, 0, [["a", 1, 600], ["b", 1, 401]]); } catch (e) { over = e.message; }
+console.log(JSON.stringify([out, errs, amts, split(240000, 30, parse("Asha, 14\\nBen, 10\\nCy, 9.5")), ex2, over]));
 """
-texts = ["Ann 12", "Ann, 12\n12, 4", "Ann, 1\nAnn, 2", "Ann, big", "Ann, 0", "Ann, 1, 2"]
+texts = ["Ann 12", "Ann, 12\n12, 4", "Ann, 1\nAnn, 2", "Ann, big", "Ann, 0", "Ann, 1, lots",
+         "Ann, 1 2", "Ann, 1.2.3", "Ann, 1, 2, 3", "Ann, 14, 50\nBo, 1,200\nCy, 10,50\nDi, 2, $1,000.5"]
 amts = ["2400", "1,850.50", " $9.5 ", "₹12,000", "12,00", "١٢", "1.234"]
 r = subprocess.run([node, "-e", js.replace("@CASES@", json.dumps(cases)).replace("@TEXTS@", json.dumps(texts)).replace("@AMTS@", json.dumps(amts))],
                    capture_output=True, text=True, timeout=30)
 assert r.returncode == 0, r.stderr
-got_split, got_errs, got_amts, got_ex = json.loads(r.stdout)
+got_split, got_errs, got_amts, got_ex, got_ex2, got_over = json.loads(r.stdout)
+eq(got_ex2, ex2, "node perk example")
+eq(got_over, "the extras add up to more than the rent", "node over")
 eq(got_split, [c[3] for c in cases], "node split")
 want_errs = []
 for t in texts:
-    try: rent.parse(t); want_errs.append(None)
+    try: want_errs.append([list(r) for r in rent.parse(t)])
     except ValueError as e: want_errs.append(str(e))
 eq(got_errs, want_errs, "node errors")
 want_amts = []
