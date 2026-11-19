@@ -34,4 +34,18 @@ code, txt = _run("--help")
 assert code == 0 and "usage:" in txt, txt
 code, txt = _run("--pot", "3", "--put", "f=6,l=4,w=2,a=1", "--leave", "f,l", "--orders", "on")
 assert code == 0 and txt.splitlines() == ["f then l: f 1, l 1", "l then f: f 2, l 0", "snapshot: f 1, l 0"], txt
+# tick 73: Ash's breakit misses (lines 30, 34, 69, 105, 117, 125)
+assert shares(5, {"a": 0, "b": 0}, ["a"]) == {"a": 0}                 # nothing put in: a leaver takes 0
+_, out, _ = resolve(10, {"A": 5, "B": 1}, ["A", "B"], [], [("x", 1, "A", ["B"])])
+assert out[0][2], out                                                  # putting in 1 makes you a contributor
+_, out, _ = resolve(40, {"Asha": 20, "Ben": 10, "Cy": 10}, ["Asha", "Ben", "Cy"], ["Ben"], [("paint", 15, "Asha", ["Cy"])])
+assert out[0][2], out                                                  # a leaver no longer has a say
+code, txt = _run("--pot", "3")
+assert code == 64 and "--pot and --put are required" in txt, txt
+code, txt = _run("--bogus", "1", "--pot", "3", "--put", "a=1")
+assert code == 64 and "unknown or missing option: --bogus" in txt, txt
+code, txt = _run("--pot", "40", "--put", "Asha=20,Ben=10,Cy=10", "--spend", "paint:30:Asha:Ben,Cy;tea:5:Asha:Ben,Cy")
+assert code == 0 and txt.splitlines() == ["spend paint (30): REFUSED: over the cap of half the pot (20)", "spend tea (5): APPROVED", "pot left: 35"], txt
+code, txt = _run("--pot", "3", "--put", "f=6,l=4", "--leave", "f", "--people", "f,l")
+assert code == 0 and txt.splitlines() == ["f leaves with 1", "pot left: 2"], txt
 print("all kitty tests pass")

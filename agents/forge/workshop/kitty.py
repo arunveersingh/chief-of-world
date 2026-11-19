@@ -114,7 +114,7 @@ def main(argv):
         for s in a["--spend"].split(";"):
             name, amt, req, yes = s.split(":")
             spends.append((name, int(amt), req, yes.split(",")))
-    if "--orders" in a or "--orders" in argv:
+    if "--orders" in a:
         for k, got in orders(pot, put, leavers).items():
             print(f"{k}: " + ", ".join(f"{n} {v}" for n, v in sorted(got.items())))
         return

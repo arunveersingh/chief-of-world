@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Getting the deposit back: who gets what when the landlord keeps some</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:10em;font:15px monospace}
+.line{font-size:1.15em;margin:.6em 0;padding:.5em .8em;background:#eef6ee;border-radius:8px}
+table{border-collapse:collapse} td{padding:.15em 1em .15em 0}
+.err{color:#b00020} small{color:#666}
+</style></head><body>
+<h1>Getting the deposit back</h1>
+<p>You moved out, the landlord kept part of the deposit, and the rest landed in one person's account. Now the flat has to agree who gets what back. Write who put in what, then each cost the landlord kept and who it's on. Nothing leaves this page and nothing is saved.</p>
+<p><small>One person per line: <b>name, amount put in</b>, like <b>Ana, 15,000</b>. One cost per line: <b>kept what, amount, who</b>, like <b>kept cleaning, 3,000, everyone</b> or <b>kept broken door, 2,400, Ben</b>. "everyone" splits a cost equally among all who put in; names like <b>Ben and Cy</b> split it among just them. A cost with no one named is refused, because whether it's on everyone or on one person is the whole argument. Write that down first. If you add <b>came back, amount</b>, the page checks it against what was put in minus what was kept.</small></p>
+<textarea id="in">Ana, 15,000
+Ben, 15,000
+Cy, 10,000
+kept cleaning, 3,000, everyone
+kept broken door, 2,400, Ben
+came back, 34,600</textarea>
+<h2>Who gets what</h2><div id="out"></div>
+<p><small>How it works: each cost is split equally among the people it's on, in whole cents, and any spare cents go one each to the first of them in your list. If someone's costs are more than they put in, the page says what they owe into the pot instead of showing a number below zero. The landlord can't keep more than the deposit, so costs above it are refused: that's a separate bill. Splitting the rent itself is <a href="rent.html">Fair rent</a>, and splitting bills by nights slept is <a href="bills.html">bills</a>.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to deposit.py (hundredths, money, parse, share, row, summary)
+const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)(?:\\.[0-9]{1,2})?";
+const NUM = new RegExp("^[$€£₹]?\\s*(" + AMOUNT + ")$");
+// Python's str.strip() and \s, so the page and rent.py read the same lines
+const WS = " \t\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\xa0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
+function strip(s) { let a = 0, b = s.length; while (a < b && WS.includes(s[a])) a++; while (b > a && WS.includes(s[b - 1])) b--; return s.slice(a, b); }
+function hundredths(text, what) {
+  const t = strip(text), m = NUM.exec(t);
+  if (!m || !/[0-9]/.test(m[1])) throw new Error("bad " + what + ": " + t + " (write 2400 or 1,850.50)");
+  const [whole, frac = ""] = m[1].replace(/,/g, "").split(".");
+  return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
+}
+const LIMIT = 1e13; // 100 billion in cents, same as deposit.py
+function amount(text, what) {
+  const c = hundredths(text, what);
+  if (c > LIMIT) throw new Error("bad " + what + ": " + strip(text) + " (that's more than this counts; the most is 100,000,000,000)");
+  return c;
+}
+function money(c) {
+  const whole = String(Math.floor(c / 100)).replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ",");
+  return c % 100 === 0 ? whole : whole + "." + String(c % 100).padStart(2, "0");
+}
+const AND = /[ \t]+and[ \t]+|[ \t]*[&+\/][ \t]*/;
+const ALL = ["everyone", "all of us"];
+function parse(text) {
+  const people = [], costs = [], seen = new Set(); let back = null;
+  text.split(/\r\n|[\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\u2028\u2029]/).forEach((raw, i) => {
+    const no = i + 1, line = strip(raw.replace(/\ufeff/g, ""));
+    if (!line) return;
+    const low = line.toLowerCase();
+    if (/^kept[ \t]/.test(low)) {
+      const body = strip(line.slice(4)), at = body.indexOf(",");
+      const what = at < 0 ? body : body.slice(0, at), rest = at < 0 ? "" : body.slice(at + 1);
+      const at2 = rest.lastIndexOf(","), head = at2 < 0 ? "" : rest.slice(0, at2), who = at2 < 0 ? rest : rest.slice(at2 + 1);
+      if (at < 0 || !strip(what)) throw new Error("line " + no + ": write a cost as: kept what, amount, who: " + line);
+      if (at2 < 0 || !/\p{L}/u.test(who)) throw new Error("line " + no + ": say who this cost is on: everyone, or names like Ben and Cy: " + line);
+      let c;
+      try { c = amount(head, "cost"); } catch (e) { throw new Error("line " + no + ": write a cost as: kept what, amount, who: " + line); }
+      if (c === 0) throw new Error("line " + no + ": a cost of 0 isn't a cost: " + line);
+      costs.push([strip(what), c, strip(who), no, line]);
+      return;
+    }
+    if (/^came[ \t]+back[ \t]*,/.test(low)) {
+      if (back !== null) throw new Error("line " + no + ": what came back is written twice: " + line);
+      try { back = amount(line.slice(line.indexOf(",") + 1), "amount"); } catch (e) { throw new Error("line " + no + ": write it as: came back, amount: " + line); }
+      return;
+    }
+    const at = line.indexOf(","), name = strip(at < 0 ? line : line.slice(0, at)), rest = at < 0 ? "" : line.slice(at + 1);
+    if (at < 0 || !name) throw new Error("line " + no + ": write it as: name, amount put in: " + line);
+    if (ALL.includes(name.toLowerCase()) || AND.test(" " + name + " ")) throw new Error("line " + no + ": give each person their own line, with a name that isn't everyone and has no and, &, + or /: " + line);
+    if (seen.has(name.toLowerCase())) throw new Error("line " + no + ": " + name + " is listed twice: " + line);
+    let c;
+    try { c = amount(rest, "amount"); } catch (e) { throw new Error("line " + no + ": write it as: name, amount put in: " + line); }
+    seen.add(name.toLowerCase());
+    people.push([name, c]);
+  });
+  return [people, costs, back];
+}
+function share(people, costs, back) {
+  if (!people.length) throw new Error("nobody listed (write who put in what, like Ana, 15,000)");
+  const names = new Map(people.map(([n], i) => [n.toLowerCase(), i])), kept = people.map(() => 0);
+  for (const [, c, who, no, line] of costs) {
+    let on = [];
+    if (ALL.includes(who.toLowerCase())) on = people.map((_, i) => i);
+    else {
+      for (const w of who.split(AND)) {
+        const i = names.get(strip(w).toLowerCase());
+        if (i === undefined) throw new Error("line " + no + ": who is " + strip(w) + "? nobody by that name put in: " + line);
+        if (on.includes(i)) throw new Error("line " + no + ": " + strip(w) + " is named twice: " + line);
+        on.push(i);
+      }
+      on.sort((a, b) => a - b);
+    }
+    const each = Math.floor(c / on.length), spare = c - each * on.length;
+    on.forEach((i, k) => { kept[i] += each + (k < spare ? 1 : 0); });
+  }
+  const put = people.reduce((s, p) => s + p[1], 0), all = kept.reduce((a, b) => a + b, 0);
+  if (all > put) throw new Error("the costs add up to " + money(all) + ", more than the " + money(put) + " put in (a landlord can't keep more than the deposit; anything above it is a separate bill)");
+  if (back !== null && back !== undefined && back !== put - all) {
+    const due = put - all;
+    if (back < due) throw new Error(money(back) + " came back, but " + money(put) + " put in minus " + money(all) + " kept is " + money(due) + ": " + money(due - back) + " is missing, and no cost line explains it");
+    throw new Error(money(back) + " came back, which is " + money(back - due) + " more than " + money(put) + " put in minus " + money(all) + " kept: is a cost listed that wasn't kept?");
+  }
+  return people.map(([n, c], i) => [n, c, kept[i]]);
+}
+function row(name, put, kept) {
+  const end = put >= kept ? "gets back " + money(put - kept) : "owes " + money(kept - put) + " into the pot";
+  return name + ": put in " + money(put) + ", kept " + money(kept) + ", " + end;
+}
+function summary(rows, costs) {
+  const put = rows.reduce((s, r) => s + r[1], 0), kept = rows.reduce((s, r) => s + r[2], 0);
+  const why = costs.length ? " (" + costs.map(([w, c, who]) => w + " " + money(c) + " on " + who).join(", ") + ")" : "";
+  const each = rows.map(([n, p, k]) => p >= k ? n + " " + money(p - k) : n + " owes " + money(k - p)).join(", ");
+  return "Deposit " + money(put) + ", kept " + money(kept) + why + ". Back: " + each + ".";
+}
+// LOGIC END
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function run() {
+  const out = document.getElementById("out");
+  try {
+    const [people, costs, back] = parse(document.getElementById("in").value), rows = share(people, costs, back);
+    out.innerHTML = "<table>" + rows.map(r => "<tr><td>" + esc(row(...r)) + "</td></tr>").join("") + "</table>" +
+      '<div class="line">' + esc(summary(rows, costs)) + "</div>";
+  } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
+}
+document.getElementById("in").addEventListener("input", run);
+run();
+</script>
+</body></html>
