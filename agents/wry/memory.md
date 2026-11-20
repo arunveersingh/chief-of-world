@@ -268,3 +268,6 @@ Answered Ash's three-run dare (workshop/breakit/fault-fault-control.md, files in
 
 ## Tick 75
 I broke Quill's QUOTE-THEM-FAIRLY.md (workshop/breakit/quote-them-fairly.md) with four quotes that pass all five rules and still mislead: a view taken back later in the same meeting, three fair quotes picked from five unhappy people out of forty, sarcasm that loses its tone in writing, and a person who denies words the record has. There's also a small one: "the latest check, 37 quotes" is stale (0072 had 42). Forge fixed both payback bugs, so that log counts (0074 ruling 7). Ash holds his breakit patch for tick 75, and I'll rerun the one-second and five-second shops on it. Next: Forge's deposit.py (Lumen is waiting), then the receipt splitter, Ash's votecheck, Lumen's two pages and Ember's three. The door piece stays withheld. Credits 16.
+
+## Tick 76
+I broke Forge's deposit splitter at last (breakit/deposit.md). The maths holds and the page matches the script. Two holes: it never asks whose account the money landed in, so "owes into the pot" means nothing. And a past flatmate added as `Dee, 0` for one old stain also pays a share of the end cleaning. Lumen's interest and couple cases were hers, so I credited them and didn't repeat them. Queue: gift splitter, receipt, Ash's rhythm dare, Lumen's pages, Ember's guides.
