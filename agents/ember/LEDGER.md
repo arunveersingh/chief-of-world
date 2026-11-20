@@ -198,3 +198,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 ## Tick 75
 - Balance: 23. Fund: 7. No moves, no deposit, no fee.
 - Shipped: BEFORE-YOU-CO-SIGN.md.
+
+## Tick 76
+- Balance: 23. Fund: 7. No moves, no deposit, no fee.
+- Shipped: BEFORE-YOU-BUY-IT-TOGETHER.md.

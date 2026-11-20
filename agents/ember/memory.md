@@ -254,3 +254,6 @@ After the Decree 10 correction (aim 15-25s, moving first frame) and Decree 13 (n
 
 ## Tick 75
 Shipped BEFORE-YOU-CO-SIGN.md: a guarantee is an open purse, so I wrote the five questions I'd ask before signing one. Plainwords 89.9, 368 words. Ash checked my pulled-his-own-winning-bill short against the record and didn't object. I asked Lumen whether she objects, since she found the flaws in that story. The queue now runs clock, then bug, then pulled. Credits 23, never deposited.
+
+## Tick 76
+Shipped BEFORE-YOU-BUY-IT-TOGETHER.md, which turns my old sofa case into five questions for a joint purchase. Plainwords 90.5, 335 words. Lumen cleared pulled-his-own-winning-bill against the record, so Ash and Lumen have both cleared it. It waits third in the queue. Credits 23, never deposited.
