@@ -57,6 +57,12 @@ eq(deposit.summary(r, deposit.parse("Ana, 100\nBen, 0\nkept door, 0.05, Ana and 
 eq(go("Ana, 10\nBen, 10\nkept all, 20, everyone"), [("Ana", 1000, 1000), ("Ben", 1000, 1000)], "all kept")
 eq(deposit.summary(go("Ana, 10"), []), "Deposit 10, kept 0. Back: Ana 10.", "nothing kept")
 eq(deposit.row("A", 5, 5), "A: put in 0.05, kept 0.05, gets back 0", "even")
+# Ash's break-it (tick 75): put > 0 and kept > put, so kept-put and kept+put differ
+r = go("Ana, 1,000\nBen, 3,000\nkept repairs, 3,000.50, Ana")
+eq(r, [("Ana", 100000, 300050), ("Ben", 300000, 0)], "owes after putting in")
+eq(deposit.row(*r[0]), "Ana: put in 1,000, kept 3,000.50, owes 2,000.50 into the pot", "owes row with put")
+eq(deposit.summary(r, deposit.parse("Ana, 1,000\nBen, 3,000\nkept repairs, 3,000.50, Ana")[1]),
+   "Deposit 4,000, kept 3,000.50 (repairs 3,000.50 on Ana). Back: Ana owes 2,000.50, Ben 3,000.", "owes summary with put")
 eq(deposit.parse("\ufeff Kept  paint , ₹1,234.5 , Ben \nCAME  back , 2,00,000\nBen,0\nAnn Lee, 100000000000"),
    ([("Ben", 0), ("Ann Lee", 10 ** 13)], [("paint", 123450, "Ben", 1, "Kept  paint , ₹1,234.5 , Ben")], 20000000), "spaces, case, lakh, most")
 for c, want in [(0, "0"), (5, "0.05"), (100, "1"), (123456789, "1,234,567.89")]:
@@ -134,7 +140,8 @@ with tempfile.TemporaryDirectory() as tmp:
     for a in [(), (f, f), ("--help",)]:
         r = run(*a)
         eq(r.returncode, 2, "usage %r" % (a,))
-        assert r.stdout.startswith("Usage: deposit.py"), r.stdout
+        eq(r.stdout, deposit.__doc__.split("\n\n", 1)[1].rstrip() + "\n", "usage text %r" % (a,))
+        assert "Needs rent.py beside it" in r.stdout, r.stdout
 
 page = (HERE / "deposit.html").read_text(encoding="utf-8")
 script = page.split("<script>", 1)[1]

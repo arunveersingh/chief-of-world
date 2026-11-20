@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chipping in for a gift: who pays what, with caps respected</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:12em;font:15px monospace}
+.line{font-size:1.15em;margin:.6em 0;padding:.5em .8em;background:#eef6ee;border-radius:8px}
+table{border-collapse:collapse} td{padding:.15em 1em .15em 0}
+.err{color:#b00020} small{color:#666}
+</style></head><body>
+<h1>Chipping in for a gift</h1>
+<p>A group is buying a shared gift — a farewell, a wedding, a teacher's present — and one person has paid, or is about to. Some people have said they'll put in a fixed amount, some have said they'll go up to a cap, and the rest will split what's left. Write that down, and the page tells each person what they pay. Nothing leaves this page and nothing is saved.</p>
+<p><small>First the price: <b>gift, 6,000</b> (or <b>cost, 6,000</b>). Then one person per line. <b>Ana, 1,000</b> is a fixed amount: they pay exactly that. <b>Ben, up to 800</b> is a cap: they pay an even share of what's left, but never more than this. A bare name, or a name and <b>even</b>, splits what's left evenly. Optional: <b>paid, Ana</b> (the one person who paid for the gift).</small></p>
+<textarea id="in">gift, 6,000
+Ana, 1,000
+Ben, up to 800
+Cy
+Dee, even
+paid, Ana</textarea>
+<h2>Who pays what</h2><div id="out"></div>
+<p><small>How it works: fixed amounts are taken off the price first. What's left is split evenly among everyone with a cap or an even share, in whole cents. If someone's even share would be more than they said they'd go up to, they pay that cap instead, and what's still left is split again among the others, the same way. Any spare cents go one each to the first people in your list who aren't at their cap. The group should agree on the caps before buying the gift, because a tight cap means everyone else pays more. If you need to settle a trip or a dinner after several people paid parts, use <a href="settle.html">Who owes whom?</a>. Splitting an itemised receipt, with tax and tip, is <a href="receipt.html">Splitting a receipt</a>.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to gift.py (hundredths, money, even, parse, share, row, summary)
+const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)(?:\\.[0-9]{1,2})?";
+const NUM = new RegExp("^[$€£₹]?\\s*(" + AMOUNT + ")$");
+// Python's str.strip() and \s, so the page and rent.py read the same lines
+const WS = " \t\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\xa0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
+function strip(s) { let a = 0, b = s.length; while (a < b && WS.includes(s[a])) a++; while (b > a && WS.includes(s[b - 1])) b--; return s.slice(a, b); }
+function hundredths(text, what) {
+  const t = strip(text), m = NUM.exec(t);
+  if (!m || !/[0-9]/.test(m[1])) throw new Error("bad " + what + ": " + t + " (write 2400 or 1,850.50)");
+  const [whole, frac = ""] = m[1].replace(/,/g, "").split(".");
+  return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
+}
+const LIMIT = 1e13; // 100 billion in cents, same as gift.py
+function amount(text, what) {
+  const c = hundredths(text, what);
+  if (c > LIMIT) throw new Error("bad " + what + ": " + strip(text) + " (that's more than this counts; the most is 100,000,000,000)");
+  return c;
+}
+function money(c) {
+  const whole = String(Math.floor(c / 100)).replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ",");
+  return c % 100 === 0 ? whole : whole + "." + String(c % 100).padStart(2, "0");
+}
+const UPTO = /^up[ \t]+to\b[ \t]*/i;
+const GIFT = /^(gift|cost)[ \t]*,/i;
+const PAID = /^paid[ \t]*,/i;
+const letter = s => /\p{L}/u.test(s);
+function amt(text, no, line, how) {
+  try { return amount(text, "amount"); }
+  catch (e) {
+    if (String(e.message).includes("that's more than this counts")) throw new Error("line " + no + ": " + e.message);
+    throw new Error(how.replace("%d", no).replace("%s", line));
+  }
+}
+function parse(text) {
+  let gift = null, paid = null; const people = [], seen = new Set();
+  text.split(/\r\n|[\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\u2028\u2029]/).forEach((raw, i) => {
+    const no = i + 1, line = strip(raw.replace(/\ufeff/g, ""));
+    if (!line) return;
+    if (line.includes("%")) throw new Error("line " + no + ": write the exact amount, not % (a % of the gift and a % of what's left are different things): " + line);
+    if (GIFT.test(line)) {
+      if (gift !== null) throw new Error("line " + no + ": the gift is written twice: " + line);
+      gift = amt(line.slice(line.indexOf(",") + 1), no, line, "line %d: write it as: gift, amount: %s");
+      if (gift === 0) throw new Error("line " + no + ": a gift of 0 isn't a gift: " + line);
+      return;
+    }
+    if (PAID.test(line)) {
+      if (paid !== null) throw new Error("line " + no + ": who paid is written twice: " + line);
+      const who = strip(line.slice(line.indexOf(",") + 1));
+      if (!who || !letter(who)) throw new Error("line " + no + ": write it as: paid, name: " + line);
+      paid = who;
+      return;
+    }
+    const at = line.indexOf(","), name = strip(at < 0 ? line : line.slice(0, at)), rest = at < 0 ? "" : strip(line.slice(at + 1));
+    let kind, cents;
+    if (!letter(name) || (at < 0 && UPTO.test(name))) throw new Error("line " + no + ": a line with an amount needs a name: " + line);
+    if (at < 0) {
+      kind = "even"; cents = null;
+    } else if (/^even$/i.test(rest)) {
+      kind = "even"; cents = null;
+    } else if (UPTO.test(rest)) {
+      const after = strip(rest.replace(UPTO, ""));
+      if (!after) throw new Error("line " + no + ": write how much they will go up to, like: Ben, up to 800: " + line);
+      cents = amt(after, no, line, "line %d: write how much they will go up to, like: Ben, up to 800: %s");
+      if (cents === 0) throw new Error("line " + no + ": up to 0 means they're not chipping in; leave them off: " + line);
+      kind = "cap";
+    } else {
+      cents = amt(rest, no, line, "line %d: write it as: name, amount (or name, up to amount, or a bare name): %s");
+      if (cents === 0) throw new Error("line " + no + ": a fixed amount of 0 isn't chipping in; leave them off: " + line);
+      kind = "fixed";
+    }
+    if (seen.has(name.toLowerCase())) throw new Error("line " + no + ": " + name + " is listed twice: " + line);
+    seen.add(name.toLowerCase());
+    people.push([name, kind, cents, no, line]);
+  });
+  return [gift, people, paid];
+}
+function even(amt, n) {
+  const each = Math.floor(amt / n), spare = amt - each * n;
+  return Array.from({length: n}, (_, i) => each + (i < spare ? 1 : 0));
+}
+function share(gift, people, paid) {
+  if (gift === null || gift === undefined) throw new Error("the gift price is missing (write it as: gift, amount)");
+  if (!people.length) throw new Error("nobody listed (write who is chipping in, like Ana, 1,000, or a bare name)");
+  const names = new Map(people.map(([n]) => [n.toLowerCase(), n]));
+  if (paid !== null && paid !== undefined) {
+    if (!names.has(paid.toLowerCase())) throw new Error("who is " + paid + "? nobody by that name is chipping in");
+    paid = names.get(paid.toLowerCase());
+  } else paid = null;
+  const fixedSum = people.reduce((s, p) => s + (p[1] === "fixed" ? p[2] : 0), 0);
+  if (fixedSum > gift) throw new Error("the fixed amounts add up to " + money(fixedSum) + ", which is " + money(fixedSum - gift) + " more than the " + money(gift) + " gift");
+  let left = gift - fixedSum;
+  const pays = people.map(p => p[1] === "fixed" ? p[2] : 0);
+  let remaining = people.map((p, i) => i).filter(i => people[i][1] !== "fixed");
+  if (!remaining.length) {
+    if (left > 0) throw new Error("the fixed amounts add up to " + money(fixedSum) + ", which is " + money(left) + " short of the " + money(gift) + " gift (add someone to split what's left, or raise a fixed amount)");
+  } else {
+    while (remaining.length) {
+      const would = even(left, remaining.length);
+      const over = remaining.filter((i, k) => people[i][1] === "cap" && would[k] > people[i][2]);
+      if (!over.length) {
+        remaining.forEach((i, k) => { pays[i] = would[k]; });
+        left = 0;
+        break;
+      }
+      for (const i of over) { pays[i] = people[i][2]; left -= people[i][2]; }
+      remaining = remaining.filter(i => !over.includes(i));
+    }
+    if (left > 0) {
+      const pledged = fixedSum + people.reduce((s, p, i) => s + (p[1] !== "fixed" && p[1] === "cap" ? p[2] : 0), 0);
+      throw new Error("the caps can't reach the gift: all together (with any fixed amounts) they add up to " + money(pledged) + ", which is " + money(gift - pledged) + " short of " + money(gift) + " (raise a cap, or add someone)");
+    }
+  }
+  return [people.map(([n, kind, c], i) => [n, kind, c, pays[i]]), paid];
+}
+function row(name, kind, amt, pays, paidName = null) {
+  let head;
+  if (kind === "fixed") head = "fixed, pays " + money(pays);
+  else if (kind === "cap") {
+    head = "up to " + money(amt) + ", pays " + money(pays);
+    if (pays === amt) head += " (capped)";
+  } else head = "even, pays " + money(pays);
+  if (paidName !== null && name === paidName) head += " (paid the gift)";
+  return name + ": " + head;
+}
+function summary(rows, paidName = null) {
+  const total = rows.reduce((s, r) => s + r[3], 0);
+  let out = "Gift " + money(total) + ". " + rows.map(r => r[0] + " " + money(r[3])).join(", ") + ".";
+  if (rows.some(r => r[1] !== "fixed") && rows.every(r => r[1] === "fixed" || r[3] === 0))
+    return out + " The fixed amounts cover the gift, so everyone else pays 0.";
+  if (paidName === null) return out;
+  const owes = rows.filter(r => r[0] !== paidName && r[3] > 0).map(r => r[0] + " " + money(r[3]));
+  return out + (owes.length ? " Owes " + paidName + ": " + owes.join(", ") + "." : " Nothing owed to " + paidName + ".");
+}
+// LOGIC END
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function run() {
+  const out = document.getElementById("out");
+  try {
+    const [gift, people, paid] = parse(document.getElementById("in").value);
+    const [rows, payer] = share(gift, people, paid);
+    out.innerHTML = "<table>" + rows.map(r => "<tr><td>" + esc(row(...r, payer)) + "</td></tr>").join("") + "</table>" +
+      '<div class="line">' + esc(summary(rows, payer)) + "</div>";
+  } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
+}
+document.getElementById("in").addEventListener("input", run);
+run();
+</script>
+</body></html>

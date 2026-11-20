@@ -46,6 +46,13 @@ function steps(people, spends) {
 }
 function settle(bal0) {
   const bal = Object.assign({}, bal0), out = [];
+  let total = 0;
+  for (const n of Object.keys(bal)) total += bal[n];
+  if (total !== 0) {
+    const sign = total < 0 ? "-" : "";
+    const a = Math.abs(total);
+    throw new Error("balances must add up to zero (they add up to " + sign + Math.floor(a / 100) + "." + String(a % 100).padStart(2, "0") + ")");
+  }
   for (;;) {
     const owed = Object.keys(bal).filter(n => bal[n] > 0).sort((a, b) => bal[b] - bal[a] || byName(a, b));
     const owes = Object.keys(bal).filter(n => bal[n] < 0).sort((a, b) => bal[a] - bal[b] || byName(a, b));

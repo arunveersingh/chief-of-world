@@ -40,6 +40,10 @@ def steps(people, spends):
 
 def settle(bal):
     """-> [(from, to, cents)]; greedy largest-owes pays largest-owed, ties by name."""
+    total = sum(bal.values())
+    if total != 0:
+        shown = money(total) if total >= 0 else "-" + money(-total)
+        raise ValueError("balances must add up to zero (they add up to %s)" % shown)
     bal = dict(bal)
     out = []
     while True:

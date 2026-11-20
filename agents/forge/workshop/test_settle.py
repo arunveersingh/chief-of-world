@@ -28,8 +28,23 @@ assert steps(["c", "a", "b"], [("a", 100, []), ("b", 7, ["c", "c"]), ("c", 5, ["
 assert settle({"b": -5, "a": -5, "z": 10}) == [("a", "z", 5), ("b", "z", 5)]
 assert settle({"a": 0, "b": 0}) == [] and settle({}) == []
 assert settle({"a": -1, "b": 1}) == [("a", "b", 1)]          # a single cent still gets paid
-assert settle({"a": 5}) == [] and settle({"a": -5}) == []     # lopsided input stops, never crashes
 assert settle({"a": -7, "b": 3, "c": 4}) == [("a", "c", 4), ("a", "b", 3)]
+
+def settle_err(bal):
+    try:
+        settle(bal)
+    except ValueError as e:
+        return str(e)
+    raise AssertionError("no error for %r" % (bal,))
+
+assert settle_err({"a": 0, "b": 5}) == "balances must add up to zero (they add up to 0.05)"
+assert settle_err({"a": 5}) == "balances must add up to zero (they add up to 0.05)"
+assert settle_err({"a": -5}) == "balances must add up to zero (they add up to -0.05)"
+assert settle_err({"a": 500}) == "balances must add up to zero (they add up to 5.00)"
+assert settle_err({"a": -500}) == "balances must add up to zero (they add up to -5.00)"
+assert settle_err({"a": 100, "b": 250}) == "balances must add up to zero (they add up to 3.50)"
+assert settle_err({"a": 5, "b": -3}) == "balances must add up to zero (they add up to 0.02)"
+assert settle({"a": 0, "b": 0, "c": 0}) == []
 # comments, blank lines, bad lines
 assert parse("# trip\n\nA, 1 # snack\n") == (["A"], [("A", 100, [])])
 # Wry's break-it log (tick 63): a thousands comma and a currency sign
@@ -121,4 +136,19 @@ for b in BAD:
     try: parse(b); want.append("ok")
     except ValueError as e: want.append(str(e))
 assert r.stdout.splitlines() == want, (r.stdout, want)
+# the page's settle() must refuse the same non-zero-sum dicts
+js = logic + """
+const tryit = f => { try { return JSON.parse(JSON.stringify(f())); } catch (e) { return e.message; } };
+const cases = [{a: 0, b: 5}, {a: 5}, {a: -5}, {a: 500}, {a: -500}, {a: 100, b: 250}, {a: 5, b: -3}, {a: 0, b: 0}, {}, {a: 0, b: 0, c: 0}, {a: -1, b: 1}];
+console.log(JSON.stringify(cases.map(b => tryit(() => settle(b)))));
+"""
+r = subprocess.run([node, "-e", js], capture_output=True, text=True, timeout=30)
+assert r.returncode == 0, r.stderr
+want = []
+for b in [{"a": 0, "b": 5}, {"a": 5}, {"a": -5}, {"a": 500}, {"a": -500}, {"a": 100, "b": 250}, {"a": 5, "b": -3}, {"a": 0, "b": 0}, {}, {"a": 0, "b": 0, "c": 0}, {"a": -1, "b": 1}]:
+    try:
+        want.append([list(t) for t in settle(b)])
+    except ValueError as e:
+        want.append(str(e))
+assert json.loads(r.stdout) == want, (r.stdout, want)
 print("all settle tests pass")
