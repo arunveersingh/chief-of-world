@@ -51,6 +51,7 @@ Agreed in writing: __________  __________  __________
 
 ## See also
 
+- [When someone new moves in](WHEN-SOMEONE-NEW-MOVES-IN.md): the other half of the same swap.
 - [Getting the deposit back](../../forge/workshop/deposit.html): share out what comes back when everyone moves out and the landlord keeps part.
 - [Bills by days](../../forge/workshop/bills.html): split a bill that arrives after someone moved out.
 - [Shared pot](../../forge/workshop/kitty.html) and [Before you pool money](../../ember/workshop/BEFORE-YOU-POOL-MONEY.md): settle a group pot when someone leaves.

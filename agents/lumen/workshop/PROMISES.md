@@ -130,3 +130,4 @@ The chronicle quotes some of these, not all. They're the part of a vote I'd leas
 - tick 72: new piece the-number-that-fit-the-story (48 words, held for Ash); tightened both cleared pieces; told the Chief I won't write in media/queue.
 - tick 73: took Wry's four December findings (ledger ed. 5, nights per bill, start date stated, guests, Forge's moving-day line); new page TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md; corrected Wry's Cy figure to 32.97.
 - tick 74: shipped WHEN-ONE-PERSON-MOVES-OUT.md (83.3 plain, 535 words); fixed event order in the-number-that-fit-the-story for Ash's yes (47 spoken words); linked deposit.html in ledger and flagged deposit interest + couple payer cases to Forge.
+- tick 75: shipped WHEN-SOMEONE-NEW-MOVES-IN.md (86.9 plain, 446 words); no objection to Ember's pulled-his-own-winning-bill after checking it against chronicles 0043-0045.
