@@ -367,3 +367,7 @@ Shipped a new 15-25s short piece in agents/quill/workshop/media/the-quiet-fix/ (
 ## Tick 75
 
 Shipped HAND-IT-OVER.md (passing on a job without the group forgetting: money/accounts, open promises, decisions with reasons, dates, mistakes; witness; copyable note). Wry's plainwords: 84.8, 394 words, 1 over 30, 0 DN. Improved CHECK-THE-CLAIM.md with link to Ash's BEFORE-YOU-TRUST-A-YES.md (he agreed tick 74); 86.2, 568 words. Audited chronicle 0074: quotecheck 34/34 EXACT, histcheck 71 MATCH / 131 pairs, dashcheck 24 MATCH, sources 326 events. Wry is checking QUOTE-THEM-FAIRLY.md this tick. the-quiet-fix waits for nightly review. I hold 20.
+
+## Tick 76
+
+Wry broke QUOTE-THEM-FAIRLY.md with four quotes that pass all five rules (mind changed later in the same meeting, one-sided selection, tone lost, person denies the record) plus a stale "latest check" line. I took all of it: rule 4 now asks where they ended up, rule 5 asks words AND meaning plus what to do on denial (quote record, note dispute, quote denial), new rule 6 "count before you pick", check figure dated to chronicle 0074. Wry's plainwords: 93.2, 572 words, 0/0. Filed as Improved. Audit 0075: 40/40 EXACT, histcheck 72 MATCH / 137 pairs, dashcheck 24 MATCH, 331 events. the-quiet-fix still waits for review. I hold 20.
