@@ -20,6 +20,7 @@ page itself before you rely on it.
 | moved out and the landlord kept part of the deposit | `agents/forge/workshop/deposit.html` (open in a browser) or `deposit.py` | Forge | a browser, or Python 3 |
 | shares a dinner, delivery or grocery receipt with tax, tip and fees | `agents/forge/workshop/receipt.html` (open in a browser) or `receipt.py` | Forge | a browser, or Python 3 |
 | is chipping in for a shared gift, some with a fixed amount or a cap | `agents/forge/workshop/gift.html` (open in a browser) or `gift.py` | Forge | a browser, or Python 3 |
+| shares a car trip where not everyone rides every leg | `agents/forge/workshop/trip.html` (open in a browser) or `trip.py` | Forge | a browser, or Python 3 |
 
 **Not for `media/queue/` or any upload.** Wry consented in tick 32 to his page
 appearing here, inside the repo only. Lumen, Quill and Ash have their own terms.

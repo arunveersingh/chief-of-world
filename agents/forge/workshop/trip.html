@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splitting a road trip: who pays what, by the kilometres they rode</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:760px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em} textarea{width:100%;height:14em;font:15px monospace}
+.line{font-size:1.15em;margin:.6em 0;padding:.5em .8em;background:#eef6ee;border-radius:8px}
+table{border-collapse:collapse} td{padding:.15em 1em .15em 0}
+.err{color:#b00020} small{color:#666}
+</style></head><body>
+<h1>Splitting a road trip</h1>
+<p>Friends share a car trip, but not everyone rides every leg — someone joins in the middle, someone is dropped off early. If you split the fuel and the tolls evenly, the person who rode 40 km pays the same as the one who rode 400. Write the legs and the costs, and the page tells each person what they pay. Nothing leaves this page and nothing is saved.</p>
+<p><small>One leg per line: <b>leg, label, distance, who</b>, like <b>leg, Pune to Lonavala, 65 km, Ana and Ben and Cy</b>. Write the distance with <b>km</b> or <b>mi</b>, and use one unit for the trip. Names are joined by and, &amp;, + or /, or write <b>everyone</b>. Then the costs. <b>fuel, 1,500</b> (also petrol, diesel, gas or charging) is split across the legs by distance, then each leg's part evenly among that leg's riders; add <b>leg 2</b> or the leg's label to put it on one leg only. A toll, parking charge or any other cost must say who it is on: a leg, <b>everyone</b>, or names, like <b>toll, 270, leg 2</b> or <b>parking, 200, everyone</b>. Optional: <b>people, Ana, Ben, Cy, Dee</b> (who's in, in order, including anyone who didn't ride) and <b>paid, Ana</b> (the one person who paid).</small></p>
+<textarea id="in">leg, Pune to Lonavala, 65 km, Ana and Ben and Cy
+leg, Lonavala to Mumbai, 85 km, Ana and Ben
+fuel, 1,500
+toll, 270, leg 2
+parking, 200, everyone
+people, Ana, Ben, Cy, Dee
+paid, Ana</textarea>
+<h2>Who pays what</h2><div id="out"></div>
+<p><small>How it works: fuel follows the kilometres you rode. It is split across the legs by distance first, then each leg's part is split evenly among the people who were in the car for that leg, so a short ride costs less than a long one. Tolls and parking follow the leg or the people named: a cost on leg 2 is split among that leg's riders, and a cost marked everyone is split among every person listed, including someone who didn't ride. The shares are worked out as exact fractions and then rounded once, in whole cents, so they always add up to the total. Any spare cents go to whoever was rounded down the most (the largest remainder), ties to the first in the list. Agree how you'll split the trip before you leave. Splitting an itemised meal receipt is <a href="receipt.html">Splitting a receipt</a>. Chipping in for a shared gift is <a href="gift.html">Chipping in for a gift</a>. When several people paid different parts, use <a href="settle.html">Who owes whom?</a>.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to trip.py (hundredths, money, parse, share, hamilton, row, summary)
+const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)(?:\\.[0-9]{1,2})?";
+const NUM = new RegExp("^[$€£₹]?\\s*(" + AMOUNT + ")$");
+const WS = " \t\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\xa0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
+function strip(s) { let a = 0, b = s.length; while (a < b && WS.includes(s[a])) a++; while (b > a && WS.includes(s[b - 1])) b--; return s.slice(a, b); }
+function hundredths(text, what) {
+  const t = strip(text), m = NUM.exec(t);
+  if (!m || !/[0-9]/.test(m[1])) throw new Error("bad " + what + ": " + t + " (write 2400 or 1,850.50)");
+  const [whole, frac = ""] = m[1].replace(/,/g, "").split(".");
+  return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
+}
+const LIMIT = 1e13; // 100 billion in cents, same as trip.py
+function amount(text, what) {
+  const c = hundredths(text, what);
+  if (c > LIMIT) throw new Error("bad " + what + ": " + strip(text) + " (that's more than this counts; the most is 100,000,000,000)");
+  return c;
+}
+function money(c) {
+  const whole = String(Math.floor(c / 100)).replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ",");
+  return c % 100 === 0 ? whole : whole + "." + String(c % 100).padStart(2, "0");
+}
+function fmtDist(c) {
+  const whole = String(Math.floor(c / 100)).replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ",");
+  if (c % 100 === 0) return whole;
+  if (c % 10 === 0) return whole + "." + String((c % 100) / 10);
+  return whole + "." + String(c % 100).padStart(2, "0");
+}
+const AND = /[ \t]+and[ \t]+|[ \t]*[&+/][ \t]*/;
+const ALL = ["everyone"];
+const FUEL = ["fuel", "petrol", "diesel", "gas", "charging"];
+const UNITS = "(km|kms|kilometres?|kilometers?|mi|miles?)";
+const LEG = /^leg[ \t]*,/i;
+const PEOPLE = /^people[ \t]*,/i;
+const PAID = /^paid[ \t]*,/i;
+const LEG_LINE = new RegExp("^\\s*(.*?),\\s*((?:[$€£₹]?\\s*)" + AMOUNT + ")\\s*" + UNITS + "\\s*,\\s*(.+?)\\s*$", "i");
+const LEG_NO = /^leg[ \t]*([0-9]+)$/i;
+const LEG_LAB = /^leg[ \t]+(.+)$/i;
+const letter = s => /\p{L}/u.test(s);
+function unitOf(u) { return ["mi", "mile", "miles"].includes(u.toLowerCase()) ? "mi" : "km"; }
+function unitWord(u) { return u === "mi" ? "miles" : "km"; }
+function namesIn(who) { return who.split(AND).map(strip); }
+function amt(text, no, line, how) {
+  try { return amount(text, "amount"); }
+  catch (e) {
+    if (String(e.message).includes("that's more than this counts")) throw new Error("line " + no + ": " + e.message);
+    throw new Error(how.replace("%d", no).replace("%s", line));
+  }
+}
+function names(who, no, line, how) {
+  const out = [], seen = new Set();
+  for (const w of namesIn(who)) {
+    if (!letter(w)) throw new Error(how.replace("%d", no).replace("%s", line));
+    if (ALL.includes(w.toLowerCase())) throw new Error("line " + no + ": write either everyone or names, not both: " + line);
+    if (seen.has(w.toLowerCase())) throw new Error("line " + no + ": " + w + " is named twice: " + line);
+    seen.add(w.toLowerCase());
+    out.push(w);
+  }
+  if (!out.length) throw new Error(how.replace("%d", no).replace("%s", line));
+  return out;
+}
+function dest(kind, target, legs, no, line) {
+  if (target === null) {
+    if (FUEL.includes(kind.toLowerCase())) return ["distance", null];
+    throw new Error("line " + no + ": say who " + kind + " is on: everyone, names, or leg 2: " + line);
+  }
+  if (ALL.includes(target.toLowerCase())) return ["everyone", null];
+  let m = LEG_NO.exec(target);
+  if (m) {
+    const n = parseInt(m[1], 10);
+    if (n < 1 || n > legs.length) throw new Error("line " + no + ": there is no leg " + n + " (the trip has " + legs.length + " leg" + (legs.length === 1 ? "" : "s") + "): " + line);
+    return ["leg", n - 1];
+  }
+  const labels = new Map(legs.map((leg, i) => [leg[0].toLowerCase(), i]));
+  m = LEG_LAB.exec(target);
+  if (m) {
+    const lab = strip(m[1]);
+    if (!labels.has(lab.toLowerCase())) throw new Error("line " + no + ": there is no leg called " + lab + ": " + line);
+    return ["leg", labels.get(lab.toLowerCase())];
+  }
+  if (labels.has(target.toLowerCase())) return ["leg", labels.get(target.toLowerCase())];
+  return ["names", names(target, no, line, "line %d: say who " + kind + " is on: everyone, names, or leg 2: %s")];
+}
+function parse(text) {
+  let people = null, paid = null, unit = null;
+  const legs = [], raw = [], labels = new Map();
+  text.split(/\r\n|[\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\u2028\u2029]/).forEach((rawLine, i) => {
+    const no = i + 1, line = strip(rawLine.replace(/\ufeff/g, ""));
+    if (!line) return;
+    if (line.includes("%")) throw new Error("line " + no + ": write the exact amount, not % (a % of the fuel and a % of a leg are different things): " + line);
+    if (LEG.test(line)) {
+      const rest = line.slice(line.indexOf(",") + 1);
+      const m = LEG_LINE.exec(rest);
+      if (!m || !strip(m[1])) throw new Error("line " + no + ": write it as: leg, label, distance, who, like: leg, Pune to Lonavala, 65 km, Ana and Ben: " + line);
+      const label = strip(m[1]), num = m[2], u = m[3], who = strip(m[4]);
+      if (!/[0-9]/.test(num)) throw new Error("line " + no + ": write the distance with km or mi, like 65 km: " + line);
+      let dist;
+      try { dist = amount(num, "distance"); }
+      catch (e) { throw new Error("line " + no + ": write the distance with km or mi, like 65 km: " + line); }
+      const kind = unitOf(u);
+      if (unit === null) unit = kind;
+      else if (kind !== unit) throw new Error("line " + no + ": this leg is in " + unitWord(kind) + " but an earlier leg is in " + unitWord(unit) + "; use one unit for the trip: " + line);
+      if (dist === 0) throw new Error("line " + no + ": a leg of 0 " + unitWord(kind) + " isn't a leg: " + line);
+      const key = label.toLowerCase();
+      if (labels.has(key)) throw new Error("line " + no + ": " + label + " is already a leg: " + line);
+      if (ALL.includes(key) || LEG_NO.test(label)) throw new Error("line " + no + ": pick a label that isn't 'everyone' or a leg number: " + line);
+      const riders = ALL.includes(who.toLowerCase()) ? "everyone" : names(who, no, line, "line %d: say who rode this leg: everyone, or names like Ana and Ben: %s");
+      labels.set(key, legs.length);
+      legs.push([label, dist, kind, riders, no, line]);
+      return;
+    }
+    if (PEOPLE.test(line)) {
+      if (people !== null) throw new Error("line " + no + ": the people line is written twice: " + line);
+      people = []; const seen = new Set();
+      const rest = line.slice(line.indexOf(",") + 1);
+      for (const n of rest.split(new RegExp("," + "|" + AND.source)).map(strip)) {
+        if (!letter(n)) throw new Error("line " + no + ": write people by name, like: people, Ana, Ben and Cy: " + line);
+        if (ALL.includes(n.toLowerCase())) throw new Error("line " + no + ": list the people by name, not " + n + ": " + line);
+        if (seen.has(n.toLowerCase())) throw new Error("line " + no + ": " + n + " is listed twice: " + line);
+        seen.add(n.toLowerCase());
+        people.push(n);
+      }
+      if (!people.length) throw new Error("line " + no + ": write people by name, like: people, Ana, Ben and Cy: " + line);
+      return;
+    }
+    if (PAID.test(line)) {
+      if (paid !== null) throw new Error("line " + no + ": who paid is written twice: " + line);
+      const who = strip(line.slice(line.indexOf(",") + 1));
+      if (who.includes(",") || ALL.includes(who.toLowerCase()) || AND.test(" " + who + " ")) throw new Error("line " + no + ": put one person who paid (for several payers, use Settle up): " + line);
+      if (!letter(who)) throw new Error("line " + no + ": write it as: paid, name: " + line);
+      paid = who;
+      return;
+    }
+    const at = line.indexOf(","), kind = strip(at < 0 ? line : line.slice(0, at)), rest = at < 0 ? "" : strip(line.slice(at + 1));
+    if (at < 0 || !letter(kind)) throw new Error("line " + no + ": write a cost as: fuel, amount, or a cost with who, like: parking, amount, everyone: " + line);
+    let cents, target;
+    try { cents = amount(rest, "amount"); target = null; }
+    catch (e) {
+      if (String(e.message).includes("that's more than this counts")) throw new Error("line " + no + ": " + e.message);
+      const at2 = rest.lastIndexOf(",");
+      if (at2 < 0) throw new Error("line " + no + ": write it as: " + kind + ", amount (or " + kind + ", amount, everyone): " + line);
+      target = strip(rest.slice(at2 + 1));
+      if (!target) throw new Error("line " + no + ": say who " + kind + " is on: everyone, names, or leg 2: " + line);
+      cents = amt(rest.slice(0, at2), no, line, "line %d: write it as: " + kind + ", amount, everyone (or names, or leg 2): %s");
+    }
+    if (cents === 0) throw new Error("line " + no + ": a " + kind + " of 0 isn't a cost: " + line);
+    raw.push([kind, cents, target, no, line]);
+  });
+  const costs = raw.map(([kind, cents, target, no, line]) => [kind, cents, dest(kind, target, legs, no, line), no, line]);
+  return [people, legs, costs, paid];
+}
+function gcd(a, b) {
+  a = a < 0n ? -a : a; b = b < 0n ? -b : b;
+  while (b) { const t = a % b; a = b; b = t; }
+  return a;
+}
+function frac(n, d) {
+  n = BigInt(n); d = BigInt(d);
+  if (d < 0n) { n = -n; d = -d; }
+  const g = gcd(n, d);
+  return [n / g, d / g];
+}
+function fadd(a, b) { return frac(a[0] * b[1] + b[0] * a[1], a[1] * b[1]); }
+function hamilton(parts, total) {
+  const floors = parts.map(([n, d]) => Number(n / d));
+  const rems = parts.map(([n, d]) => n % d), ds = parts.map(([, d]) => d);
+  const spare = total - floors.reduce((a, b) => a + b, 0);
+  const order = parts.map((_, i) => i).sort((i, j) => {
+    const left = rems[i] * ds[j], right = rems[j] * ds[i];
+    if (left > right) return -1;
+    if (left < right) return 1;
+    return i - j;
+  });
+  for (const i of order.slice(0, spare)) floors[i] += 1;
+  return floors;
+}
+function share(peopleIn, legs, costs, paid) {
+  if (!legs.length) throw new Error("no legs listed (write each leg as: leg, label, distance, who)");
+  if (!costs.length) throw new Error("no costs listed (write a cost as: fuel, amount, or parking, amount, everyone)");
+  const totalCents = costs.reduce((s, c) => s + c[1], 0);
+  if (totalCents > LIMIT) throw new Error("the costs add up to " + money(totalCents) + ", which is more than this counts; the most is 100,000,000,000");
+  const unit = legs[0][2], totalDist = legs.reduce((s, leg) => s + leg[1], 0);
+  const people = peopleIn !== null && peopleIn !== undefined ? peopleIn.slice() : [];
+  const declared = peopleIn !== null && peopleIn !== undefined;
+  function note(name, no, line) {
+    const found = people.find(p => p.toLowerCase() === name.toLowerCase());
+    if (found !== undefined) return found;
+    if (declared) throw new Error("line " + no + ": who is " + name + "? nobody by that name is on the people list: " + line);
+    people.push(name);
+    return name;
+  }
+  for (const [, , , riders, no, line] of legs) {
+    if (riders !== "everyone") for (const w of riders) note(w, no, line);
+  }
+  for (const [, , destv, no, line] of costs) {
+    if (destv[0] === "names") for (const w of destv[1]) note(w, no, line);
+  }
+  if (!people.length) throw new Error("nobody named (put riders on a leg by name, or add: people, Ana and Ben)");
+  const idx = new Map(people.map((p, i) => [p.toLowerCase(), i]));
+  function ridersOf(leg) {
+    const riders = leg[3];
+    if (riders === "everyone") return people.map((_, i) => i);
+    const on = [];
+    for (const w of riders) {
+      const i = idx.get(w.toLowerCase());
+      if (!on.includes(i)) on.push(i);
+    }
+    return on;
+  }
+  if (paid !== null && paid !== undefined) {
+    if (!idx.has(paid.toLowerCase())) throw new Error("who is " + paid + "? nobody by that name is on this trip (add them to a people line if they didn't ride)");
+    paid = people[idx.get(paid.toLowerCase())];
+  } else paid = null;
+  const n = people.length;
+  const exact = Array.from({length: n}, () => [0n, 1n]);
+  const rode = Array(n).fill(0);
+  for (const leg of legs) {
+    for (const i of ridersOf(leg)) rode[i] += leg[1];
+  }
+  for (const [, c, destv, no, line] of costs) {
+    const typ = destv[0], arg = destv[1];
+    if (typ === "distance") {
+      for (const leg of legs) {
+        const on = ridersOf(leg);
+        const part = frac(BigInt(c) * BigInt(leg[1]), BigInt(totalDist) * BigInt(on.length));
+        for (const i of on) exact[i] = fadd(exact[i], part);
+      }
+    } else if (typ === "leg") {
+      const on = ridersOf(legs[arg]);
+      const part = frac(c, on.length);
+      for (const i of on) exact[i] = fadd(exact[i], part);
+    } else if (typ === "everyone") {
+      const part = frac(c, n);
+      for (let i = 0; i < n; i++) exact[i] = fadd(exact[i], part);
+    } else {
+      const on = [];
+      for (const w of arg) {
+        const i = idx.get(w.toLowerCase());
+        if (i === undefined) throw new Error("line " + no + ": who is " + w + "? nobody by that name is on the people list: " + line);
+        if (on.includes(i)) throw new Error("line " + no + ": " + w + " is named twice: " + line);
+        on.push(i);
+      }
+      const part = frac(c, on.length);
+      for (const i of on) exact[i] = fadd(exact[i], part);
+    }
+  }
+  const pays = hamilton(exact, totalCents);
+  return [people.map((p, i) => [p, rode[i], totalDist, unit, pays[i]]), paid];
+}
+function row(name, rode, total, unit, pays, paidName = null) {
+  let s = name + ": rode " + fmtDist(rode) + " " + unit + " of " + fmtDist(total) + ", pays " + money(pays);
+  if (paidName !== null && name === paidName) s += " (paid the trip)";
+  return s;
+}
+function summary(rows, costs, paidName = null) {
+  const order = [], sums = new Map();
+  for (const [kind, c] of costs) {
+    const key = kind.toLowerCase();
+    if (!sums.has(key)) { sums.set(key, [kind, 0]); order.push(key); }
+    sums.get(key)[1] += c;
+  }
+  const parts = order.map(k => sums.get(k)[0] + " " + money(sums.get(k)[1]));
+  if (paidName !== null) parts.push("paid by " + paidName);
+  const total = rows.reduce((s, r) => s + r[4], 0);
+  let out = "Trip " + money(total) + " (" + parts.join(", ") + "). " + rows.map(r => r[0] + " " + money(r[4])).join(", ") + ".";
+  if (paidName === null) return out;
+  const owes = rows.filter(r => r[0] !== paidName && r[4] > 0).map(r => r[0] + " " + money(r[4]));
+  return out + (owes.length ? " Owes " + paidName + ": " + owes.join(", ") + "." : " Nothing owed to " + paidName + ".");
+}
+// LOGIC END
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function run() {
+  const out = document.getElementById("out");
+  try {
+    const [people, legs, costs, paid] = parse(document.getElementById("in").value);
+    const [rows, payer] = share(people, legs, costs, paid);
+    out.innerHTML = "<table>" + rows.map(r => "<tr><td>" + esc(row(...r, payer)) + "</td></tr>").join("") + "</table>" +
+      '<div class="line">' + esc(summary(rows, costs, payer)) + "</div>";
+  } catch (e) { out.innerHTML = '<p class="err">' + esc(e.message) + "</p>"; }
+}
+document.getElementById("in").addEventListener("input", run);
+run();
+</script>
+</body></html>
