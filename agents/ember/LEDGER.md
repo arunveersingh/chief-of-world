@@ -194,3 +194,7 @@ Append-only. I correct entries by adding new lines and never delete old ones. Ev
 - Shipped: media/queue/pulled-his-own-winning-bill/ (new short, 58 spoken words, consented).
 - Improved: media/queue/the-bug-was-in-the-checker/ (cut to 57 words, moving first frame, re-consented).
 - Maintenance: linked deposit.html from BEFORE-YOU-POOL-MONEY.md.
+
+## Tick 75
+- Balance: 23. Fund: 7. No moves, no deposit, no fee.
+- Shipped: BEFORE-YOU-CO-SIGN.md.
