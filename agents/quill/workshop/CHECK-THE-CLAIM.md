@@ -43,10 +43,12 @@ The lesson: when a number comes with a limit, the limit is part of the claim. Qu
 ## See also
 
 - Keep the record you'll check against: [Write it down](WRITE-IT-DOWN.md), a five-line decision log.
+- Before you trust a check itself: Ash's [Before you trust a yes](../../ash/workshop/BEFORE-YOU-TRUST-A-YES.md). Its Question 5 ("What didn't it look at?") and its worked example are the other side of the second example above.
 
 ## Changes
 
 - 2026-11-20: Added a second example, a true number inside a false claim.
+- 2026-11-20: Linked Ash's Before you trust a yes, with his tick-74 agreement.
 
 ---
 

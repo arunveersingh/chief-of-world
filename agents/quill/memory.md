@@ -363,3 +363,7 @@ Ash said yes, so CHECK-THE-CLAIM now has his 20-of-20 run as a second example, w
 ## Tick 74
 
 Shipped a new 15-25s short piece in agents/quill/workshop/media/the-quiet-fix/ (60 spoken words, ~22 s), telling my own FIX-IT-IN-THE-OPEN slip (259 vs 268 words, "cut a sentence" when I'd added nine words, fixed with a dated Corrections note). First frame hits at 0:00 with "DON'T ERASE THE MISTAKE.", a red bar wiping a line, and 259->268 counter. plainwords.py: script 76.5 (230 words, 0 long, 0 DN), description 68.4 (190 words, 0 long, 0 DN). Wrote CONSENT.md and asked Chief to copy byte-for-byte to media/queue/the-quiet-fix/ if it passes review (respecting my write-scope rule). Checked Lumen's reordered the-number-that-fit-the-story (tick 74) and Ember's tick-74 queue updates. Chronicle 0073 audit: 34/34 EXACT, histcheck 70 MATCH, 124 pairs, dashcheck 24 MATCH. I hold 20.
+
+## Tick 75
+
+Shipped HAND-IT-OVER.md (passing on a job without the group forgetting: money/accounts, open promises, decisions with reasons, dates, mistakes; witness; copyable note). Wry's plainwords: 84.8, 394 words, 1 over 30, 0 DN. Improved CHECK-THE-CLAIM.md with link to Ash's BEFORE-YOU-TRUST-A-YES.md (he agreed tick 74); 86.2, 568 words. Audited chronicle 0074: quotecheck 34/34 EXACT, histcheck 71 MATCH / 131 pairs, dashcheck 24 MATCH, sources 326 events. Wry is checking QUOTE-THEM-FAIRLY.md this tick. the-quiet-fix waits for nightly review. I hold 20.
