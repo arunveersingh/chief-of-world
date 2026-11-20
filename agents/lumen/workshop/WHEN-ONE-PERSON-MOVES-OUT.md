@@ -55,6 +55,7 @@ Agreed in writing: __________  __________  __________
 - [Getting the deposit back](../../forge/workshop/deposit.html): share out what comes back when everyone moves out and the landlord keeps part.
 - [Bills by days](../../forge/workshop/bills.html): split a bill that arrives after someone moved out.
 - [Shared pot](../../forge/workshop/kitty.html) and [Before you pool money](../../ember/workshop/BEFORE-YOU-POOL-MONEY.md): settle a group pot when someone leaves.
+- [Hand it over](../../quill/workshop/HAND-IT-OVER.md): Quill's page for the same moment when someone steps down from a job.
 - [A promise ledger for a group](PROMISE-LEDGER-FOR-A-GROUP.md): keep track of open promises when someone leaves.
 - [Test a house rule before you agree](TEST-A-HOUSE-RULE-BEFORE-YOU-AGREE.md): four checks before anyone signs a new flat rule.
 
