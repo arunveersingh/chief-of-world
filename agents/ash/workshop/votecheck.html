@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who can pass this? Test a voting rule before you agree to it</title>
+<style>
+body{font:17px/1.5 system-ui,sans-serif;max-width:780px;margin:2em auto;padding:0 1em;color:#1d1d1f}
+h1{font-size:1.6em;margin-bottom:.2em}
+textarea{width:100%;height:11.5em;font:15px monospace;box-sizing:border-box;padding:.5em}
+.presets{display:flex;flex-wrap:wrap;gap:.5em;margin:.6em 0}
+button{font:14px system-ui,sans-serif;padding:.35em .75em;border:1px solid #bbb;border-radius:6px;background:#f7f7f7;cursor:pointer}
+button:hover{background:#ececec}
+.summary{margin:.7em 0;padding:.7em .9em;background:#eef6ee;border-radius:8px}
+.summary p{margin:.3em 0}
+.flags{margin:.7em 0;padding:.7em .9em;background:#fff6e5;border-radius:8px;border-left:4px solid #c97a00}
+.flags ul{margin:.3em 0 .1em 1.2em;padding:0}
+table{border-collapse:collapse;width:100%;margin-top:.6em}
+th,td{text-align:left;padding:.3em .6em .3em 0;border-bottom:1px solid #e5e5e5}
+th{font-size:.9em;color:#555}
+.tag{display:inline-block;font-size:.82em;padding:.1em .45em;border-radius:4px;background:#f0d9d9;color:#7a1010;margin-left:.3em}
+.err{color:#b00020} small{color:#555}
+</style></head><body>
+<h1>Who can pass this?</h1>
+<p>Before a club, board, or flat agrees to a voting rule, test who can pass a vote, who can block it, and whose vote never decides anything. Everything runs on this page; nothing leaves it and nothing is saved.</p>
+<p><small>Write <b>members, N</b> for equal votes, or one line per person as <b>name, weight</b> (like <b>Ana, 40</b>). Add <b>pass, ...</b> (like <b>more than half</b>, <b>2/3</b>, <b>60%</b>, <b>all</b>, or a fixed number like <b>4</b>). For shares, add <b>of, yes and no</b>, <b>of, present</b>, or <b>of, all</b>. Optional: <b>quorum, half</b> (or <b>none</b>, <b>more than half</b>, <b>2/3</b>, <b>4</b>) and <b>abstentions in quorum, no</b> (default: yes). Lines starting with # are notes.</small></p>
+<div class="presets">
+  <button type="button" data-p="trap">Try: 1 of 6 passes if others abstain</button>
+  <button type="button" data-p="dummy">Try: 15% share with zero power</button>
+  <button type="button" data-p="walkout">Try: walkout beats voting no</button>
+  <button type="button" data-p="tie">Try: 50% lets a tie pass</button>
+</div>
+<textarea id="in">members, 6
+quorum, half
+pass, more than half
+of, yes and no</textarea>
+<h2>What this rule does</h2>
+<div id="out"></div>
+<p><small>How this works: if weights differ, the page checks every yes-or-no split of the group (up to 14 members) so every count is exact, not an estimate. A member's "power" is their share of all splits where flipping their vote from no to yes flips the result. With equal weights, it handles up to 10,000 members.</small></p>
+<script>
+// LOGIC START: kept identical in meaning to votecheck.py
+const MAX_MEMBERS_EQUAL = 10000;
+const MAX_MEMBERS_WEIGHTED = 14;
+const MAX_TOTAL = 1e10;
+
+const AMOUNT = "(?:[0-9]{1,3}(?:,[0-9]{3})+|[0-9]{1,2}(?:,[0-9]{2})*,[0-9]{3}|[0-9]*)(?:\\.[0-9]{1,2})?";
+const NUM_RE = new RegExp("^" + AMOUNT + "$");
+const WS = " \t\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\xa0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
+const BAD_NAMES = new Set(["everyone", "all", "none", "yes", "no", "abstain"]);
+const NONE_RULE = ["none"];
+
+function strip(s) {
+  let a = 0, b = s.length;
+  while (a < b && WS.includes(s[a])) a++;
+  while (b > a && WS.includes(s[b - 1])) b--;
+  return s.slice(a, b);
+}
+
+function normSpace(s) {
+  return strip(s).toLowerCase().split(/\s+/).filter(Boolean).join(" ");
+}
+
+function hundredths(text, what) {
+  const t = strip(text);
+  if (!NUM_RE.test(t) || !/[0-9]/.test(t)) {
+    throw new Error("bad " + what + ": " + t + " (write 4 or 33.50)");
+  }
+  const [whole, frac = ""] = t.replace(/,/g, "").split(".");
+  return parseInt(whole || "0", 10) * 100 + parseInt((frac + "00").slice(0, 2), 10);
+}
+
+function fmtWeight(c) {
+  const whole = String(Math.floor(c / 100)).replace(/\B(?=([0-9]{3})+(?![0-9]))/g, ",");
+  return c % 100 === 0 ? whole : whole + "." + String(c % 100).padStart(2, "0");
+}
+
+function parseOf(text) {
+  const s = normSpace(text);
+  if (s === "yes and no" || s === "votes cast") return "yes_no";
+  if (s === "present") return "present";
+  if (s === "all" || s === "everyone") return "all";
+  throw new Error("bad 'of': " + strip(text) + " (write: yes and no, present, or all)");
+}
+
+function parseYesNo(text) {
+  const s = normSpace(text);
+  if (s === "yes" || s === "count") return true;
+  if (s === "no" || s === "ignore") return false;
+  throw new Error("bad abstentions setting: " + strip(text) + " (write yes or no)");
+}
+
+function parseSpec(text, total, isQuorum) {
+  const s = normSpace(text);
+  if (!s) throw new Error("empty " + (isQuorum ? "quorum" : "pass") + " rule");
+  if (isQuorum && (s === "none" || s === "0" || s === "no")) return NONE_RULE;
+  if (s === "majority") return ["ratio", 1, 2, true];
+  if (s === "more than" || s === "at least") {
+    throw new Error("bad " + (isQuorum ? "quorum" : "pass") + ": " + strip(text));
+  }
+  let strict = false, rest = s;
+  if (s.startsWith("more than ")) {
+    strict = true;
+    rest = strip(s.slice(10));
+  } else if (s.startsWith("at least ")) {
+    rest = strip(s.slice(9));
+  }
+  if (rest === "half") return ["ratio", 1, 2, strict];
+  if (rest === "all" || rest === "everyone") {
+    if (strict) throw new Error("nothing can be more than all");
+    return ["ratio", 1, 1, false];
+  }
+  if (rest.endsWith("%")) {
+    const p = hundredths(rest.slice(0, -1), "percent");
+    if (p === 0) {
+      if (isQuorum && !strict) return NONE_RULE;
+      throw new Error("percent must be above 0");
+    }
+    if (p > 10000 || (strict && p === 10000)) throw new Error("percent cannot exceed 100%");
+    return ["ratio", p, 10000, strict];
+  }
+  if (rest.includes("/")) {
+    const at = rest.indexOf("/");
+    const aS = strip(rest.slice(0, at)), bS = strip(rest.slice(at + 1));
+    if (!/^[0-9]+$/.test(aS) || !/^[0-9]+$/.test(bS)) throw new Error("bad fraction: " + strip(text));
+    const a = parseInt(aS, 10), b = parseInt(bS, 10);
+    if (b < 1 || b > 10000) throw new Error("fraction denominator must be 1 to 10000");
+    if (a <= 0 || a > b || (strict && a === b)) throw new Error("fraction must be above 0 and at most 1");
+    return ["ratio", a, b, strict];
+  }
+  const k = hundredths(rest, "target");
+  if (k === 0) {
+    if (isQuorum && !strict) return NONE_RULE;
+    throw new Error("target must be above 0");
+  }
+  if (k > total || (strict && k === total)) {
+    throw new Error("target " + fmtWeight(k) + " is more than the whole group (" + fmtWeight(total) + ")");
+  }
+  return ["fixed", k, strict];
+}
+
+function meets(rule, val, denom) {
+  const kind = rule[0];
+  if (kind === "none") return true;
+  if (kind === "fixed") return rule[2] ? val > rule[1] : val >= rule[1];
+  const [, num, den, strict] = rule;
+  return strict ? val * den > denom * num : val * den >= denom * num;
+}
+
+function parse(text) {
+  let members = [];
+  const seen = new Set();
+  let membersCount = null, quorumRaw = null, passRaw = null, ofMode = null, abstInQuorum = null;
+
+  text.split(/\r\n|[\n\r\x0b\x0c\x1c\x1d\x1e\x1f\x85\u2028\u2029]/).forEach((raw, idx) => {
+    const no = idx + 1;
+    const line = strip(raw.replace(/\ufeff/g, ""));
+    if (!line || line.startsWith("#")) return;
+    const at = line.indexOf(",");
+    const key = at < 0 ? "" : line.slice(0, at);
+    const val = at < 0 ? "" : line.slice(at + 1);
+    const k = normSpace(key);
+    if (at < 0 || !k || !strip(val)) {
+      throw new Error("line " + no + ": write each line as label, value (like Ana, 1 or pass, more than half): " + line);
+    }
+    if (k === "members") {
+      if (membersCount !== null) throw new Error("line " + no + ": members is written twice: " + line);
+      if (members.length) throw new Error("line " + no + ": write either 'members, N' or one line per person, not both");
+      const v = strip(val).replace(/,/g, "");
+      if (!/^[0-9]+$/.test(v)) throw new Error("line " + no + ": members must be a whole number: " + line);
+      const n = parseInt(v, 10);
+      if (n < 1 || n > MAX_MEMBERS_EQUAL) throw new Error("line " + no + ": members must be 1 to " + MAX_MEMBERS_EQUAL + ": " + line);
+      membersCount = n;
+    } else if (k === "quorum") {
+      if (quorumRaw !== null) throw new Error("line " + no + ": quorum is written twice: " + line);
+      quorumRaw = [no, strip(val)];
+    } else if (k === "pass") {
+      if (passRaw !== null) throw new Error("line " + no + ": pass is written twice: " + line);
+      passRaw = [no, strip(val)];
+    } else if (k === "of") {
+      if (ofMode !== null) throw new Error("line " + no + ": 'of' is written twice: " + line);
+      try { ofMode = parseOf(val); } catch (e) { throw new Error("line " + no + ": " + e.message); }
+    } else if (k === "abstentions in quorum" || k === "abstentions") {
+      if (abstInQuorum !== null) throw new Error("line " + no + ": abstentions setting is written twice: " + line);
+      try { abstInQuorum = parseYesNo(val); } catch (e) { throw new Error("line " + no + ": " + e.message); }
+    } else {
+      const name = strip(key);
+      if (BAD_NAMES.has(k) || /^[0-9.,]+$/.test(name)) {
+        throw new Error("line " + no + ": use a person's name, not " + name + ": " + line);
+      }
+      if (membersCount !== null) throw new Error("line " + no + ": write either 'members, N' or one line per person, not both");
+      if (seen.has(k)) throw new Error("line " + no + ": " + name + " is listed twice: " + line);
+      let w;
+      try { w = hundredths(val, "weight"); } catch (e) { throw new Error("line " + no + ": " + e.message); }
+      if (w <= 0) throw new Error("line " + no + ": weight must be more than 0: " + line);
+      seen.add(k);
+      members.push([name, w]);
+    }
+  });
+
+  if (membersCount !== null) {
+    members = Array.from({ length: membersCount }, (_, i) => ["Member " + (i + 1), 100]);
+  }
+  if (!members.length) throw new Error("no members listed (write 'members, 6' or lines like 'Ana, 1')");
+  const total = members.reduce((s, m) => s + m[1], 0);
+  if (total > MAX_TOTAL) throw new Error("total weight exceeds " + fmtWeight(MAX_TOTAL));
+  if (passRaw === null) throw new Error("missing 'pass' rule (write e.g. 'pass, more than half')");
+
+  let quorumRule, passRule;
+  try {
+    quorumRule = quorumRaw ? parseSpec(quorumRaw[1], total, true) : NONE_RULE;
+  } catch (e) {
+    throw new Error("line " + quorumRaw[0] + ": " + e.message);
+  }
+  try {
+    passRule = parseSpec(passRaw[1], total, false);
+  } catch (e) {
+    throw new Error("line " + passRaw[0] + ": " + e.message);
+  }
+
+  if (passRule[0] === "fixed") {
+    if (ofMode !== null) {
+      throw new Error("a fixed target like 'pass, " + passRaw[1] + "' doesn't use 'of'; remove 'of' or write a share like 'more than half'");
+    }
+    ofMode = "fixed";
+  } else if (ofMode === null) {
+    throw new Error("say what 'pass, " + passRaw[1] + "' is a share of: write 'of, yes and no', 'of, present', or 'of, all'");
+  }
+
+  const equal = new Set(members.map(m => m[1])).size === 1;
+  if (!equal && members.length > MAX_MEMBERS_WEIGHTED) {
+    throw new Error("exact power check supports up to " + MAX_MEMBERS_WEIGHTED + " members when weights differ (got " + members.length + ")");
+  }
+
+  return {
+    members,
+    total,
+    equal,
+    quorum: quorumRule,
+    pass: passRule,
+    of: ofMode,
+    abstInQuorum: abstInQuorum === null ? true : abstInQuorum,
+  };
+}
+
+function passes(cfg, y, noW, abstW) {
+  if (y <= 0) return false;
+  const total = cfg.total;
+  const qSeen = y + noW + (cfg.abstInQuorum ? abstW : 0);
+  if (!meets(cfg.quorum, qSeen, total)) return false;
+  const denom = cfg.of === "yes_no" ? y + noW : (cfg.of === "present" ? y + noW + abstW : total);
+  return meets(cfg.pass, y, denom);
+}
+
+function cmpTuple(a, b) {
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== b[i]) return a[i] - b[i];
+  }
+  return 0;
+}
+
+function minQuorumCount(quorum, n, w) {
+  const kind = quorum[0];
+  if (kind === "none") return 0;
+  if (kind === "fixed") {
+    const [, num, strict] = quorum;
+    return strict ? Math.floor(num / w) + 1 : Math.floor((num + w - 1) / w);
+  }
+  const [, num, den, strict] = quorum;
+  const need = n * num;
+  return strict ? Math.floor(need / den) + 1 : Math.floor((need + den - 1) / den);
+}
+
+function analyzeEqual(cfg) {
+  const members = cfg.members, n = members.length, w = members[0][1];
+  let minOpp = n, minBlkNo = n, minBlkAway = n, quiet = null;
+  for (let k = 1; k <= n; k++) {
+    if (passes(cfg, k * w, (n - k) * w, 0)) { minOpp = k; break; }
+  }
+  for (let k = 1; k <= n; k++) {
+    if (!passes(cfg, (n - k) * w, k * w, 0)) { minBlkNo = k; break; }
+  }
+  for (let k = 1; k <= n; k++) {
+    if (!passes(cfg, (n - k) * w, 0, 0)) { minBlkAway = k; break; }
+  }
+  const minQ = minQuorumCount(cfg.quorum, n, w);
+  for (let k = 1; k <= n; k++) {
+    const aHit = cfg.abstInQuorum ? Math.max(0, minQ - k) : 0;
+    if (passes(cfg, k * w, 0, aHit * w)) {
+      quiet = [k, k * w, aHit, members.slice(0, k).map(m => m[0])];
+      break;
+    }
+  }
+  let tiePasses = false;
+  for (let k = 1; k <= Math.floor(n / 2); k++) {
+    const minA = cfg.abstInQuorum ? Math.max(0, minQ - 2 * k) : 0;
+    if (2 * k + minA <= n && passes(cfg, k * w, k * w, minA * w)) { tiePasses = true; break; }
+  }
+  const perMember = members.map(([name]) => ({
+    name, weight: w, swings: null, powerPct: 100.0 / n,
+    aloneOpp: minOpp === 1, vetoNo: minBlkNo === 1, vetoAway: minBlkAway === 1, dummy: false,
+  }));
+  return {
+    n, total: cfg.total, equal: true,
+    minQuiet: quiet,
+    minOpposed: [minOpp, minOpp * w, members.slice(0, minOpp).map(m => m[0])],
+    minBlockNo: [minBlkNo, minBlkNo * w, members.slice(0, minBlkNo).map(m => m[0])],
+    minBlockAway: [minBlkAway, minBlkAway * w, members.slice(0, minBlkAway).map(m => m[0])],
+    tiePasses, members: perMember, totalSplits: null,
+  };
+}
+
+function analyzeExact(cfg) {
+  const members = cfg.members, n = members.length, total = cfg.total;
+  const weights = members.map(m => m[1]);
+  const size = 1 << n;
+  const desc = Array.from({ length: n }, (_, i) => i).sort((a, b) => (weights[b] - weights[a]) || (a - b));
+  const wSum = new Array(size).fill(0);
+  const pop = new Array(size).fill(0);
+  const win = new Array(size).fill(false);
+
+  for (let m = 1; m < size; m++) {
+    const lsb = m & -m;
+    const idx = 31 - Math.clz32(lsb);
+    const prev = m ^ lsb;
+    wSum[m] = wSum[prev] + weights[idx];
+    pop[m] = pop[prev] + 1;
+  }
+  for (let m = 0; m < size; m++) {
+    win[m] = passes(cfg, wSum[m], total - wSum[m], 0);
+  }
+  const namesOf = m => {
+    const res = [];
+    for (let i = 0; i < n; i++) if (m & (1 << i)) res.push(members[i][0]);
+    return res;
+  };
+
+  let bestOpp = null, bestBlkNo = null, bestBlkAway = null;
+  const swings = new Array(n).fill(0);
+  const full = size - 1;
+
+  for (let m = 1; m < size; m++) {
+    const c = pop[m], ym = wSum[m], key = [c, ym];
+    if (win[m] && (!bestOpp || cmpTuple(key, bestOpp[0]) < 0)) bestOpp = [key, m];
+    if (!win[full ^ m] && (!bestBlkNo || cmpTuple(key, bestBlkNo[0]) < 0)) bestBlkNo = [key, m];
+    if (!passes(cfg, total - ym, 0, 0) && (!bestBlkAway || cmpTuple(key, bestBlkAway[0]) < 0)) bestBlkAway = [key, m];
+    if (win[m]) {
+      for (let i = 0; i < n; i++) {
+        if ((m & (1 << i)) && !win[m ^ (1 << i)]) swings[i]++;
+      }
+    }
+  }
+
+  let bestQuiet = null;
+  if (cfg.of === "present" && cfg.abstInQuorum) {
+    for (let p = 1; p < size; p++) {
+      const wp = wSum[p];
+      if (!meets(cfg.quorum, wp, total)) continue;
+      let yAcc = 0, sCnt = 0, sMask = 0;
+      for (const i of desc) {
+        if (p & (1 << i)) {
+          yAcc += weights[i];
+          sCnt++;
+          sMask |= (1 << i);
+          if (passes(cfg, yAcc, 0, wp - yAcc)) {
+            const aCnt = pop[p] - sCnt;
+            const key = [sCnt, aCnt, yAcc];
+            if (!bestQuiet || cmpTuple(key, bestQuiet[0]) < 0) bestQuiet = [key, sMask, aCnt];
+            break;
+          }
+        }
+      }
+    }
+  } else {
+    const allowAbst = cfg.abstInQuorum;
+    for (let m = 1; m < size; m++) {
+      const ym = wSum[m], maxA = allowAbst ? total - ym : 0;
+      if (!passes(cfg, ym, 0, maxA)) continue;
+      let aCnt = 0;
+      if (!passes(cfg, ym, 0, 0)) {
+        let aAcc = 0;
+        for (const i of desc) {
+          if (!(m & (1 << i))) {
+            aAcc += weights[i];
+            aCnt++;
+            if (passes(cfg, ym, 0, aAcc)) break;
+          }
+        }
+      }
+      const key = [pop[m], aCnt, ym];
+      if (!bestQuiet || cmpTuple(key, bestQuiet[0]) < 0) bestQuiet = [key, m, aCnt];
+    }
+  }
+
+  const byW = new Map();
+  for (let m = 1; m < size; m++) {
+    const wv = wSum[m];
+    if (!byW.has(wv)) byW.set(wv, []);
+    byW.get(wv).push(m);
+  }
+  let tiePasses = false;
+  for (const [wv, masks] of byW.entries()) {
+    if (masks.length < 2) continue;
+    if (
+      passes(cfg, wv, wv, 0) ||
+      (cfg.abstInQuorum && cfg.quorum[0] !== "none" && cfg.of !== "present" && passes(cfg, wv, wv, total - 2 * wv))
+    ) {
+      for (let a = 0; a < masks.length && !tiePasses; a++) {
+        for (let b = a + 1; b < masks.length; b++) {
+          if ((masks[a] & masks[b]) === 0) { tiePasses = true; break; }
+        }
+      }
+    } else if (
+      cfg.abstInQuorum &&
+      cfg.quorum[0] !== "none" &&
+      cfg.of === "present" &&
+      !meets(cfg.quorum, 2 * wv, total) &&
+      meets(cfg.pass, wv, 2 * wv + 1)
+    ) {
+      const seenU = new Set();
+      for (let a = 0; a < masks.length && !tiePasses; a++) {
+        const ma = masks[a];
+        for (let b = a + 1; b < masks.length; b++) {
+          if ((ma & masks[b]) !== 0) continue;
+          const u = ma | masks[b];
+          if (seenU.has(u)) continue;
+          seenU.add(u);
+          const avail = full ^ u;
+          for (let sub = avail; sub; sub = (sub - 1) & avail) {
+            if (passes(cfg, wv, wv, wSum[sub])) { tiePasses = true; break; }
+          }
+          if (tiePasses) break;
+        }
+      }
+    }
+    if (tiePasses) break;
+  }
+
+  const totalSwings = swings.reduce((a, b) => a + b, 0);
+  const perMember = members.map(([name, w], i) => ({
+    name, weight: w, swings: swings[i],
+    powerPct: swings[i] * 100.0 / totalSwings,
+    aloneOpp: win[1 << i],
+    vetoNo: !win[full ^ (1 << i)],
+    vetoAway: !passes(cfg, total - w, 0, 0),
+    dummy: swings[i] === 0,
+  }));
+
+  const qMask = bestQuiet[1], qAbst = bestQuiet[2];
+  const oMask = bestOpp[1], bnMask = bestBlkNo[1], baMask = bestBlkAway[1];
+  return {
+    n, total, equal: cfg.equal,
+    minQuiet: [pop[qMask], wSum[qMask], qAbst, namesOf(qMask)],
+    minOpposed: [pop[oMask], wSum[oMask], namesOf(oMask)],
+    minBlockNo: [pop[bnMask], wSum[bnMask], namesOf(bnMask)],
+    minBlockAway: [pop[baMask], wSum[baMask], namesOf(baMask)],
+    tiePasses, members: perMember, totalSplits: 1 << (n - 1),
+  };
+}
+
+function analyze(cfg) {
+  return cfg.members.length > MAX_MEMBERS_WEIGHTED ? analyzeEqual(cfg) : analyzeExact(cfg);
+}
+
+function isUnanimous(rule, total) {
+  return (rule[0] === "ratio" && rule[1] === rule[2]) || (rule[0] === "fixed" && rule[1] === total);
+}
+
+function flags(cfg, res) {
+  const out = [], n = res.n;
+  const [qCnt, , qAbst] = res.minQuiet;
+  const [oCnt] = res.minOpposed;
+  const [bnCnt] = res.minBlockNo;
+  const [baCnt] = res.minBlockAway;
+
+  const rulers = res.members.filter(m => m.aloneOpp).map(m => m.name);
+  if (rulers.length && n > 1) {
+    out.push(rulers.join(", ") + " can pass any motion alone, even if everyone else votes no.");
+  } else if (qCnt === 1 && n >= 3) {
+    out.push(qAbst
+      ? "1 of " + n + " can pass a motion alone if " + qAbst + " abstain and " + (n - 1 - qAbst) + " stay away."
+      : "1 of " + n + " can pass a motion alone if the rest stay away.");
+  } else if (qCnt < oCnt && qCnt * 3 <= n) {
+    out.push("As few as " + qCnt + " of " + n + " can pass a motion if others abstain or stay away (full vote takes " + oCnt + ").");
+  }
+
+  if (baCnt < bnCnt) {
+    out.push("Staying away blocks more easily than voting no: " + baCnt + " staying away stops a pass, while voting no takes " + bnCnt + ".");
+  }
+
+  const vetoers = res.members.filter(m => m.vetoNo || m.vetoAway).map(m => m.name);
+  const unanimousPass = isUnanimous(cfg.pass, cfg.total) && (cfg.of === "all" || cfg.of === "fixed");
+  const unanimousQuorum = isUnanimous(cfg.quorum, cfg.total);
+  if (vetoers.length && n > 1 && !unanimousPass && !unanimousQuorum) {
+    if (vetoers.length === n) out.push("Every member has a lone veto: 1 person can block everyone else.");
+    else out.push("Lone veto: " + vetoers.join(", ") + " can block any motion alone.");
+  }
+
+  const dummies = res.members.filter(m => m.dummy).map(m => m.name);
+  if (dummies.length) {
+    out.push("Powerless vote: " + dummies.join(", ") + " never swings a single yes-or-no vote (0 deciding splits).");
+  }
+
+  if (res.tiePasses) {
+    out.push("A tied yes/no vote passes under this rule; use 'more than half' if ties should fail.");
+  }
+
+  if (cfg.quorum[0] !== "none" && cfg.of === "yes_no" && cfg.abstInQuorum) {
+    out.push("Abstentions count toward quorum here, not in the pass share. To ignore abstentions in quorum, add: abstentions in quorum, no.");
+  }
+  return out;
+}
+
+function formatReport(cfg, res) {
+  const n = res.n, total = res.total, eq = res.equal, lines = [];
+  function showGroup(cnt, w, names) {
+    let base = cnt + " of " + n;
+    if (!eq) base += " (weight " + fmtWeight(w) + " of " + fmtWeight(total) + ")";
+    if (!eq && cnt <= 6) base += ": " + names.join(", ");
+    return base;
+  }
+
+  const [qCnt, qW, qAbst, qNames] = res.minQuiet;
+  let qExtra = "";
+  if (qAbst) qExtra = " (with " + qAbst + " abstaining and " + (n - qCnt - qAbst) + " away)";
+  else if (qCnt < n) qExtra = " (with " + (n - qCnt) + " away)";
+  lines.push("Smallest group to pass (if others abstain or stay away): " + showGroup(qCnt, qW, qNames) + qExtra);
+
+  const [oCnt, oW, oNames] = res.minOpposed;
+  lines.push("Smallest group to pass (everyone votes yes or no): " + showGroup(oCnt, oW, oNames));
+
+  const [bnCnt, bnW, bnNames] = res.minBlockNo;
+  lines.push("Smallest group to block (by voting no): " + showGroup(bnCnt, bnW, bnNames));
+
+  const [baCnt, baW, baNames] = res.minBlockAway;
+  if (baCnt === n) {
+    lines.push("Smallest group to block (by staying away): everyone (all " + n + "; walking out doesn't stop the rest)");
+  } else {
+    lines.push("Smallest group to block (by staying away): " + showGroup(baCnt, baW, baNames));
+  }
+
+  const fs = flags(cfg, res);
+  if (fs.length) {
+    lines.push("What to watch:");
+    for (const f of fs) lines.push("  - " + f);
+  }
+
+  if (!eq) {
+    lines.push("Power when everyone votes yes or no:");
+    for (const m of res.members) {
+      const wPct = m.weight * 100.0 / total;
+      const tags = [];
+      if (m.aloneOpp) tags.push("decides alone");
+      else {
+        if (m.vetoNo) tags.push("veto (no)");
+        if (m.vetoAway && !m.vetoNo) tags.push("veto (away)");
+      }
+      if (m.dummy) tags.push("DUMMY (0 swings)");
+      const tagS = tags.length ? " [" + tags.join(", ") + "]" : "";
+      lines.push(
+        "  " + m.name + ": weight " + fmtWeight(m.weight) + " (" + wPct.toFixed(1) + "%), swings " +
+        m.swings + " of " + res.totalSplits + " splits (" + m.powerPct.toFixed(1) + "% of power)" + tagS
+      );
+    }
+  }
+  return lines.join("\n");
+}
+// LOGIC END
+
+const PRESETS = {
+  trap: "members, 6\nquorum, half\npass, more than half\nof, yes and no",
+  dummy: "Ana, 40\nBen, 40\nCy, 15\nquorum, none\npass, 60%\nof, all",
+  walkout: "members, 6\nquorum, 5\npass, more than half\nof, yes and no",
+  tie: "members, 6\nquorum, half\npass, 50%\nof, present",
+};
+function esc(s) { const d = document.createElement("div"); d.textContent = s; return d.innerHTML; }
+function run() {
+  const out = document.getElementById("out");
+  try {
+    const cfg = parse(document.getElementById("in").value), res = analyze(cfg);
+    const n = res.n, eq = res.equal, total = res.total;
+    const showG = (cnt, w, names) => cnt + " of " + n + (eq ? "" : " (" + fmtWeight(w) + " of " + fmtWeight(total) + ")") + (!eq && cnt <= 6 ? ": " + names.join(", ") : "");
+    const [qCnt, qW, qAbst, qNames] = res.minQuiet;
+    const [oCnt, oW, oNames] = res.minOpposed;
+    const [bnCnt, bnW, bnNames] = res.minBlockNo;
+    const [baCnt, baW, baNames] = res.minBlockAway;
+    const qNote = qAbst ? " (with " + qAbst + " abstaining and " + (n - qCnt - qAbst) + " away)" : (qCnt < n ? " (with " + (n - qCnt) + " away)" : "");
+    const baNote = baCnt === n ? "everyone (all " + n + "; walking out doesn't stop the rest)" : showG(baCnt, baW, baNames);
+    let html = '<div class="summary">' +
+      "<p><b>Pass if others abstain or stay away:</b> " + esc(showG(qCnt, qW, qNames) + qNote) + "</p>" +
+      "<p><b>Pass when everyone votes yes or no:</b> " + esc(showG(oCnt, oW, oNames)) + "</p>" +
+      "<p><b>Block by voting no:</b> " + esc(showG(bnCnt, bnW, bnNames)) + "</p>" +
+      "<p><b>Block by staying away:</b> " + esc(baNote) + "</p></div>";
+    const fs = flags(cfg, res);
+    if (fs.length) {
+      html += '<div class="flags"><b>What to watch</b><ul>' + fs.map(f => "<li>" + esc(f) + "</li>").join("") + "</ul></div>";
+    }
+    if (!eq) {
+      html += "<table><tr><th>Member</th><th>Weight</th><th>Deciding splits</th><th>Actual power</th></tr>";
+      for (const m of res.members) {
+        const wPct = (m.weight * 100.0 / total).toFixed(1) + "%";
+        const tags = [];
+        if (m.aloneOpp) tags.push('<span class="tag">decides alone</span>');
+        else {
+          if (m.vetoNo) tags.push('<span class="tag">veto (no)</span>');
+          if (m.vetoAway && !m.vetoNo) tags.push('<span class="tag">veto (away)</span>');
+        }
+        if (m.dummy) tags.push('<span class="tag">0 swings</span>');
+        html += "<tr><td>" + esc(m.name) + tags.join("") + "</td><td>" + esc(fmtWeight(m.weight) + " (" + wPct + ")") +
+          "</td><td>" + esc(m.swings + " of " + res.totalSplits) + "</td><td>" + esc(m.powerPct.toFixed(1) + "%") + "</td></tr>";
+      }
+      html += "</table>";
+    }
+    out.innerHTML = html;
+  } catch (e) {
+    out.innerHTML = '<p class="err">' + esc(e.message) + "</p>";
+  }
+}
+document.querySelectorAll(".presets button").forEach(b => {
+  b.addEventListener("click", () => { document.getElementById("in").value = PRESETS[b.dataset.p]; run(); });
+});
+document.getElementById("in").addEventListener("input", run);
+run();
+</script>
+</body></html>
